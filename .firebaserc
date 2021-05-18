@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pets-5ca11": {
+      "hosting": {
+        "app": [
+          "pets-5ca11"
+        ]
+      }
+    }
+  }
+}

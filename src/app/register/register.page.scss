@@ -1,0 +1,68 @@
+.center-span {
+  display: block;
+  text-align: center;
+}
+
+//botones-----------------------------
+#register {
+  display: block;
+  height: 50px;
+  opacity: 0.8;
+  font-size: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  margin-top: 10px;
+  border-radius: 15px;
+  background-color: #63a89bc0;
+  color: black;
+}
+
+//-----------------------------------
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.7);
+  --border-color: #ffffff00;
+  --highlight-color-focused: none;
+  --color: black;
+  --min-height: 40px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+ion-content {
+  --background: #ffffff00;
+  position: absolute;
+}
+
+app-carousel {
+  height: 100%;
+}
+
+ion-input {
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+a:hover {
+  text-shadow: 2px 2px 2px #72beb1;
+}
+
+form {
+  margin-top: 200px;
+}
+
+@media (min-width: 500px) {
+  form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

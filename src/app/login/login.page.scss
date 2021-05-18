@@ -1,0 +1,90 @@
+.center-span {
+  display: block;
+  text-align: center;
+}
+
+//botones-----------------------------
+#login,
+#loginGoogle {
+  font-family: "Roboto", sans-serif;
+  display: block;
+  height: 50px;
+  opacity: 0.8;
+  font-size: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  border-radius: 15px;
+}
+
+#login {
+  margin-top: 50px;
+  background-color: #63a89bc0;
+  color: black;
+}
+
+#loginGoogle {
+  background-color: #000000b0;
+  color: wheat;
+}
+//-----------------------------------
+#googleLogo {
+  display: inline-block;
+  width: 30px;
+  margin-left: 1px;
+  margin-top: 8px;
+}
+
+ion-content {
+  --background: #ffffff00;
+  position: absolute;
+}
+
+ion-item {
+  --background: rgba(255, 255, 255, 0.7);
+  --border-color: #ffffff00;
+  --highlight-color-focused: none;
+  --color: black;
+  --min-height: 40px;
+  border-radius: 15px;
+  margin: 10px;
+}
+
+ion-input {
+  font-size: 18px;
+}
+
+app-carousel {
+  height: 100%;
+}
+
+h4 {
+  display: inline-block;
+  position: relative;
+  top: -8px;
+  margin-left: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+a:hover {
+  text-shadow: 2px 2px 2px #72beb1;
+}
+
+form {
+  margin-top: 250px;
+}
+
+@media (min-width: 500px) {
+  form {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

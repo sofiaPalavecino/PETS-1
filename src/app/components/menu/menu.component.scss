@@ -1,0 +1,54 @@
+ion-menu{
+    margin-top: 56px;
+    --ion-background-color: #ffffff;
+    --ion-item-background: #ffffff;
+    --ion-border-color: #ffffff;
+}
+
+ion-menu-button{
+    color:black;
+    font-size: 30px;
+}
+
+ion-toolbar{
+    --background: white;
+}
+
+ion-label{
+    --color: black !important;
+    font-size: 20px !important;
+    font-weight: bolder;
+}
+
+ion-icon{
+    color: black;
+    font-size: 20px;
+}
+
+ion-avatar{
+    width: 60px;
+    height: 60px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+h6{
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#menu-icon{
+    font-size: 40px;
+}
+
+#mail-button{
+    --background: #ffffff;
+    --background-activated: #ffffff;
+    --box-shadow: none !important;
+    --border-radius: 100px;
+    width: 50px;
+    height: 50px;
+}

@@ -1,0 +1,24 @@
+#bk-imgs {
+    height: 100%;
+    width: 100%;
+}
+
+#logo {
+    display: block;
+    text-align: center;
+    top: 50px;
+    left: 0;
+    right: 0;
+    font-size: 80px;
+    position: absolute;
+    z-index: 1000;
+}
+
+.bk-img {
+    position: absolute;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: 1s;
+}
