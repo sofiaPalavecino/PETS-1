@@ -35,13 +35,13 @@ export class LoginPage {
   }
 
   private redirectUser(isVerified: boolean): void {
+    
+    //-----------------------------------------------------------
+    document.getElementById("carousel").style.display = "none";
+    document.getElementById("menu").style.display = "block";
+    //-----------------------------------------------------------
+    
     if (isVerified) {
-
-      //-----------------------------------------------------------
-      document.getElementById("carousel").style.display = "none";
-      document.getElementById("menu").style.display = "block";
-      //-----------------------------------------------------------
-
       this.router.navigate(['home']);
     } else {
       this.router.navigate(['verify-email']);
