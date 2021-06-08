@@ -36,10 +36,11 @@ export class LoginPage {
 
   private redirectUser(isVerified: boolean): void {
     
-    //-----------------------------------------------------------
-    document.getElementById("carousel").style.display = "none";
-    document.getElementById("menu").style.display = "block";
-    //-----------------------------------------------------------
+    //--------------------------------------------------------------
+    document.getElementById("carousel").style.display     = "none";
+    //document.getElementById("logo-carousel").style.zIndex = "0";
+    document.getElementById("menu").style.display         = "block";
+    //--------------------------------------------------------------
     
     if (isVerified) {
       this.router.navigate(['home']);
