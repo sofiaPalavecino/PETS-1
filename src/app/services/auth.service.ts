@@ -7,9 +7,11 @@ import firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
   public user$: Observable<User>;
 
@@ -35,7 +37,7 @@ export class AuthService {
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      this.updateUserData(user);
+      
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -46,6 +48,7 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
+      //await this.updateUserData(user);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -55,7 +58,9 @@ export class AuthService {
   async login(email: string, password: string): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.updateUserData(user);
+      if(user.emailVerified){
+        this.updateUserData(user);
+      }
       return user;
     } catch (error) {
       console.log('Error->', error);
