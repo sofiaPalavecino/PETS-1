@@ -1,8 +1,37 @@
-
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
 <ion-content id="contentPerfilUsusario">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>perfil-usuario</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Usuario</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  <ion-row class="columna-foto-datos">
+    <ion-col>
+      <div class="div-contiene-foto-nombre">
+        <div class="div-circle-profile">
+          <img class="img_profile" src="../../assets/images/sin_perfil.png" >
+        </div>
+        <div class="div-contiene-nombre-provincia">
+          <div class="div-nombre-usuario">
+            <h2 class="h2-nombre-usuario">Nombre Apellido</h2>
+          </div>
+          <div class="div-provincia-usuario">
+            <h3 class="h2-provincia-usuario">CABA, Buenos Aires</h3>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>  
+    <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 </ion-content>
+</body>
