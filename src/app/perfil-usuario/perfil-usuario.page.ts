@@ -9,6 +9,8 @@ import { PopoverPerfilComponent } from '../components/popover-perfil/popover-per
 })
 export class PerfilUsuarioPage implements OnInit {
 
+  categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
+  
   constructor(public popoverController: PopoverController) {}
 
   ngOnInit() {

@@ -17,7 +17,7 @@
 }
 .h2-nombre-usuario{
     font-family: Roboto;
-    font-size: 20px;
+    font-size: 25px;
 }
 .div-provincia-usuario{
     margin-top: -12px;
@@ -25,4 +25,17 @@
 .h2-provincia-usuario{
     font-size: 13px;
     font-family: 'Roboto';
+}
+.div-paseos{
+    overflow: scroll;
+    height: 400px;
+    width: 100%;
+}
+.titulo-paseo{
+    font-family: Roboto;
+    font-size: 20px;
+}
+.card-paseo{
+    height: 240px;
+    -webkit-box-shadow: 2px 5px 5px #999;
 }
