@@ -1,6 +1,9 @@
 #bk-imgs {
     height: 100%;
     width: 100%;
+    z-index: -10;
+    position: absolute;
+    top: 0;
 }
 
 #logo-carousel {
@@ -11,7 +14,6 @@
     right: 0;
     font-size: 80px;
     position: absolute;
-    z-index: 1000;
 }
 
 .bk-img {
