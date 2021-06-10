@@ -37,7 +37,7 @@ export class AuthService {
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      
+      await this.updateUserData(user);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -48,7 +48,7 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      //await this.updateUserData(user);
+      await this.updateUserData(user)
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -57,10 +57,7 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<User> {
     try {
-      const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-      if(user.emailVerified){
-        this.updateUserData(user);
-      }
+      const { user } = await this.afAuth.signInWithEmailAndPassword(email, password); 
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -100,3 +97,12 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 }
+
+
+// // you can rewrite this
+// const name = app.name;
+// const version = app.version;
+// const type = app.type;
+
+// // as this
+// const { name, version, type } = app;
