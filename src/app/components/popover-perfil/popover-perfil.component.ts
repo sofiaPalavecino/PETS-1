@@ -1,25 +1,11 @@
 import { Component } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from '../../component/popover/popover.component';
 
 @Component({
-  selector: 'popover-example',
-  templateUrl: 'popover-example.html',
-  styleUrls: ['./popover-example.css']
+  selector: 'popover-perfil',
+  templateUrl: 'popover-perfil.component.html',
+  styleUrls: ['./popover-perfil.component.scss']
 })
 export class PopoverPerfilComponent {
-  constructor(public popoverController: PopoverController) {}
+  constructor() {}
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
 }
