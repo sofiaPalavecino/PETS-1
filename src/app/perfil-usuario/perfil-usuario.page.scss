@@ -1,0 +1,41 @@
+.columna-foto-datos{
+    border-bottom: inset;
+}
+.div-circle-profile{
+    height: 100px;
+    width: 100px;
+}
+.img_profile{
+    border-radius: 100px;
+}
+.div-contiene-foto-nombre{
+    display: flex;
+}
+.div-contiene-nombre-provincia{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.h2-nombre-usuario{
+    font-family: Roboto;
+    font-size: 25px;
+}
+.div-provincia-usuario{
+    margin-top: -12px;
+}
+.h2-provincia-usuario{
+    font-size: 13px;
+    font-family: 'Roboto';
+}
+.div-paseos{
+    overflow: scroll;
+    height: 400px;
+    width: 100%;
+}
+.titulo-paseo{
+    font-family: Roboto;
+    font-size: 20px;
+}
+.card-paseo{
+    height: 240px;
+    -webkit-box-shadow: 2px 5px 5px #999;
+}

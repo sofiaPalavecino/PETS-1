@@ -8,12 +8,15 @@ import { PerfilUsuarioPageRoutingModule } from './perfil-usuario-routing.module'
 
 import { PerfilUsuarioPage } from './perfil-usuario.page';
 
+import { DirectivesModule } from '../directives/directives.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilUsuarioPageRoutingModule
+    PerfilUsuarioPageRoutingModule,
+    DirectivesModule
   ],
   declarations: [PerfilUsuarioPage]
 })
