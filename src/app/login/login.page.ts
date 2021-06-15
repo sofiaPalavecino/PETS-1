@@ -38,10 +38,6 @@ export class LoginPage {
     
     //--------------------------------------------------------------
     document.getElementById("carousel").style.display     = "none";
-<<<<<<< HEAD
-    document.getElementById("logo-carousel").style.zIndex = "0";
-=======
->>>>>>> 16a7c452ed7b2e77811d90b1966a3766df3a5cf6
     document.getElementById("menu").style.display         = "block";
     //--------------------------------------------------------------
     
