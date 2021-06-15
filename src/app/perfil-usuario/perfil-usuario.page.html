@@ -2,7 +2,7 @@
   <meta charset="UTF-8">
 </head>
 <body>
-<ion-content id="contentPerfilUsusario">
+<ion-content id="contentPerfilUsusario" [fullScreen]="true" [scrollEvents]="true" [appHideHeader]="toolbar" [appFadeHeader]="toolbar">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -11,7 +11,7 @@
         <ion-title>Usuario</ion-title>
       </ion-toolbar>
     </ion-header>
-  <ion-row class="columna-foto-datos">
+  <ion-row class="columna-foto-datos" #toolbar>
     <ion-col>
       <div class="div-contiene-foto-nombre">
         <div class="div-circle-profile">
@@ -31,7 +31,7 @@
   <ion-row>
     <ion-col size="12">
       <div>
-        <ion-segment scrollable (scroll)="onscroll()" ngClass="navbarfixed?'fixed':'nofixed'">
+        <ion-segment scrollable >
           <ion-segment-button *ngFor="let categoria of categorias" value={{categoria}}>
             <ion-label>{{categoria}}</ion-label>
           </ion-segment-button>
@@ -39,37 +39,58 @@
       </div>
     </ion-col>
   </ion-row> 
-  <ion-row>
-    <ion-col>
-      <ion-row>
-        <h2 class="titulo-paseo" >Paseos</h2>
-      </ion-row>
-      <ion-row>
-        <div class="div-paseos">
-          <ion-card class="card-paseo">
-            <ion-card-header>
-              <ion-card-subtitle>Plan de paseo</ion-card-subtitle>
-              <ion-card-title>Plan 1</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Keep close to Nature's heart... and break clear away, once in awhile,
-              and climb a mountain or spend a week in the woods. Wash your spirit clean.
-            </ion-card-content>
-          </ion-card>
-          <ion-card class="card-paseo">
-            <ion-card-header>
-              <ion-card-subtitle>Plan de paseo</ion-card-subtitle>
-              <ion-card-title>Plan 1</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              Keep close to Nature's heart... and break clear away, once in awhile,
-              and climb a mountain or spend a week in the woods. Wash your spirit clean.
-            </ion-card-content>
-          </ion-card>
-        </div>
-      </ion-row>
-    </ion-col>
-  </ion-row> 
+  <div class="fondo-color-casi-blanco">
+    <ion-row>
+      <ion-col>
+        <ion-row>
+          <h2 class="titulo-apartado-paseo" >Paseos</h2>
+        </ion-row>
+        <ion-row>
+          <div class="div-paseos">
+            <ion-card class="card-paseo">
+              <ion-row>
+                <div>
+                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                </div>
+                <ion-col>
+                  <ion-card-header>
+                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                  </ion-card-header>
+                  <div class="descripcion paseo">
+                    <ion-card-content class="informacion-paseo-dia">
+                      Lunes a Viernes
+                    </ion-card-content>
+                    <ion-card-content class="informacion-paseo-hora">
+                      10:00 
+                    </ion-card-content>
+                    <ion-row>
+                      <ion-card-content class="informacion-paseo-disponibilidad">
+                        Cupos disponibles:
+                      </ion-card-content>
+                      <ion-card-content class="informacion-paseo-disponibilidad">
+                        1
+                      </ion-card-content>
+                    </ion-row>
+                    <button class="boton-editar">Editar</button>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+            <ion-card class="card-paseo">
+              <ion-card-header>
+                <ion-card-subtitle>Plan de paseo</ion-card-subtitle>
+                <ion-card-title>Plan 1</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                Keep close to Nature's heart... and break clear away, once in awhile,
+                and climb a mountain or spend a week in the woods. Wash your spirit clean.
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div> 
     <ion-fab vertical="bottom" horizontal="end">
       <ion-fab-button (click)="presentPopover()">
         <ion-icon name="add"></ion-icon>

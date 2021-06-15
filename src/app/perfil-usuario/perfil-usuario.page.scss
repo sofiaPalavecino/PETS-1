@@ -26,16 +26,47 @@
     font-size: 13px;
     font-family: 'Roboto';
 }
+.fondo-color-casi-blanco{
+    background-color: rgba(255, 251, 250, 1);
+}
 .div-paseos{
     overflow: scroll;
     height: 400px;
     width: 100%;
 }
-.titulo-paseo{
+.titulo-apartado-paseo{
     font-family: Roboto;
     font-size: 20px;
 }
 .card-paseo{
-    height: 240px;
+    height: 28  0px;
     box-shadow: 2px 5px 5px #999;
+}
+.foto-mapa{
+    width: 150px;
+    height: 105px;
+    margin-top: 7%;
+    margin-left: 4%;
+    margin-bottom: 3%;
+    border-radius: 8%;
+}
+.titulo-paseo{
+    font-family: Roboto;
+    font-size: 16px;
+    margin-top: -7%;
+}
+.informacion-paseo-dia{
+    font-size: 10px;
+    margin-top: -20px;
+}
+.informacion-paseo-hora{
+    font-size: 10px;
+    margin-top: -23px;
+}
+.informacion-paseo-disponibilidad{
+    font-size: 10px;
+    margin-top: -25px;
+}
+.boton-editar{
+
 }

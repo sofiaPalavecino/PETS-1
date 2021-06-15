@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, HostListener } from '@angular/core';
+import {DomController} from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
 
@@ -7,14 +8,14 @@ import { PopoverPerfilComponent } from '../components/popover-perfil/popover-per
   templateUrl: './perfil-usuario.page.html',
   styleUrls: ['./perfil-usuario.page.scss'],
 })
-export class PerfilUsuarioPage implements OnInit {
+
+
+export class PerfilUsuarioPage{
 
   categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
   
   constructor(public popoverController: PopoverController) {}
 
-  ngOnInit() {
-  }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
