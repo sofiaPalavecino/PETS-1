@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../shared/user.interface';
+import { User, userProfile } from '../shared/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import firebase from 'firebase/app';
@@ -37,18 +37,18 @@ export class AuthService {
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      await this.updateUserData(user);
+      await this.updateUserData(user,null,null);
       return user;
     } catch (error) {
       console.log('Error->', error);
     }
   }
 
-  async register(email: string, password: string): Promise<User> {
+  async register(email: string, password: string, nombre: string, apellido: string): Promise<User> {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      await this.updateUserData(user)
+      await this.updateUserData(user,nombre,apellido);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -84,14 +84,16 @@ export class AuthService {
     }
   }
 
-  private updateUserData(user: User) {
+  private updateUserData(user: User, nombre: string, apellido: string) {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-    const data: User = {
+    const data: userProfile = {
       uid: user.uid,
       email: user.email,
       emailVerified: user.emailVerified,
       displayName: user.displayName,
+      nombre: nombre,
+      apellido: apellido
     };
 
     return userRef.set(data, { merge: true });
