@@ -1,19 +1,16 @@
-  <head>
-  <meta charset="UTF-8">
-</head>
-<body>
-<ion-content id="contentPerfilUsusario" [fullScreen]="true" [scrollEvents]="true" [appHideHeader]="toolbar" [appFadeHeader]="toolbar">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
-        <ion-title>Usuario</ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-content id="contentPerfilUsusario"  [scrollEvents]="true" [appHideHeader]="toolbar" [appFadeHeader]="toolbar">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!---->
   <ion-row class="columna-foto-datos" #toolbar>
     <ion-col>
-      <div class="div-contiene-foto-nombre">
+      <div class="div-contiene-foto-nombre" >
         <div class="div-circle-profile">
           <img class="img_profile" src="../../assets/images/sin_perfil.png" >
         </div>
@@ -40,8 +37,10 @@
     </ion-col>
   </ion-row> 
   <div class="fondo-color-casi-blanco">
+
     <ion-row>
       <ion-col>
+      <!------------------------------------paseos------------------------------------------>
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
@@ -53,48 +52,108 @@
                   <img class="foto-mapa" src='../../assets/images/mapa.png'>
                 </div>
                 <ion-col>
-                  <ion-card-header>
+                  <ion-card-header class="header-titulo-paseo">
                     <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
                   </ion-card-header>
-                  <div class="descripcion paseo">
-                    <ion-card-content class="informacion-paseo-dia">
+                  <ion-card-content>
+                    <span class="informacion-paseo">
                       Lunes a Viernes
-                    </ion-card-content>
-                    <ion-card-content class="informacion-paseo-hora">
+                    </span>
+                    <span class="informacion-paseo">
                       10:00 
-                    </ion-card-content>
+                    </span>
                     <ion-row>
-                      <ion-card-content class="informacion-paseo-disponibilidad">
+                      <span class="informacion-paseo">
                         Cupos disponibles:
-                      </ion-card-content>
-                      <ion-card-content class="informacion-paseo-disponibilidad">
+                      </span>
+                      <span class="informacion-paseo">
                         1
-                      </ion-card-content>
+                      </span>
                     </ion-row>
                     <button class="boton-editar">Editar</button>
-                  </div>
+                  </ion-card-content>
                 </ion-col>
               </ion-row>
             </ion-card>
             <ion-card class="card-paseo">
-              <ion-card-header>
-                <ion-card-subtitle>Plan de paseo</ion-card-subtitle>
-                <ion-card-title>Plan 1</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                Keep close to Nature's heart... and break clear away, once in awhile,
-                and climb a mountain or spend a week in the woods. Wash your spirit clean.
-              </ion-card-content>
+              <ion-row>
+                <div>
+                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                </div>
+                <ion-col>
+                  <ion-card-header class="header-titulo-paseo">
+                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="informacion-paseo">
+                      Lunes a Viernes
+                    </span>
+                    <span class="informacion-paseo">
+                      10:00 
+                    </span>
+                    <ion-row>
+                      <span class="informacion-paseo">
+                        Cupos disponibles:
+                      </span>
+                      <span class="informacion-paseo">
+                        1
+                      </span>
+                    </ion-row>
+                    <button class="boton-editar">Editar</button>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
             </ion-card>
           </div>
-        </ion-row>
+        </ion-row>  
       </ion-col>
     </ion-row>
+   <!------------------------------cuidados----------------------------------------------------->    
+    <ion-row>
+      <h2 class="titulo-apartado-paseo" >Cuidados</h2>
+    </ion-row>
+    <ion-row>
+      <h3 class="subitulo-cuidados">Precio por día de cuidado:</h3>
+      <h3 class="precio-dia-cuidado">{{precio-dia-cuidado}}</h3>
+    </ion-row>
+    <ion-row>
+      <div class="div-paseos">
+        <ion-card class="card-paseo">
+          <ion-row>
+            <ion-col>
+              <ion-card-header class="header-titulo-paseo">
+                <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <span class="informacion-paseo">precio $mucha plata</span>
+              </ion-card-content>
+            </ion-col>
+            <div>
+              <button class="boton-editar-cuidados">Editar</button>
+            </div>
+          </ion-row>
+        </ion-card>
+        <ion-card class="card-paseo">
+          <ion-row>
+            <ion-col>
+              <ion-card-header class="header-titulo-paseo">
+                <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <span class="informacion-paseo">precio $mucha plata</span>
+              </ion-card-content>
+            </ion-col>
+            <div>
+              <button class="boton-editar-cuidados">Editar</button>
+            </div>
+          </ion-row>
+        </ion-card>
+      </div>
+    </ion-row>  
   </div> 
-    <ion-fab vertical="bottom" horizontal="end">
-      <ion-fab-button (click)="presentPopover()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
 </ion-content>
-</body>
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="presentPopover()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

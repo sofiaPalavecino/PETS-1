@@ -52,21 +52,20 @@
 }
 .titulo-paseo{
     font-family: Roboto;
-    font-size: 16px;
-    margin-top: -7%;
+    font-size: 14px;
 }
-.informacion-paseo-dia{
+.informacion-paseo{
     font-size: 10px;
-    margin-top: -20px;
+    font-family: Roboto;
 }
-.informacion-paseo-hora{
-    font-size: 10px;
-    margin-top: -23px;
+.header-titulo-paseo{
+    padding: 8px !important;
 }
-.informacion-paseo-disponibilidad{
-    font-size: 10px;
-    margin-top: -25px;
-}
-.boton-editar{
-
+.boton-editar-cuidados{
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
 }
