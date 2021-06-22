@@ -58,6 +58,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password); 
+      this.afs.collection("users").doc(user.uid).update({emailVerified: true});
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -85,8 +86,9 @@ export class AuthService {
   }
 
   private updateUserData(user: User, nombre: string, apellido: string) {
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
 
+    
     const data: userProfile = {
       uid: user.uid,
       email: user.email,
@@ -95,7 +97,7 @@ export class AuthService {
       nombre: nombre,
       apellido: apellido
     };
-
+    
     return userRef.set(data, { merge: true });
   }
 }
@@ -108,3 +110,5 @@ export class AuthService {
 
 // // as this
 // const { name, version, type } = app;
+
+// return this.angularFirestore.collection(coleccion).snapshotChanges();
