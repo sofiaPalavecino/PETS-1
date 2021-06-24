@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Renderer2, HostListener } from '@angular/core
 import {DomController} from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -13,9 +16,16 @@ import { PopoverPerfilComponent } from '../components/popover-perfil/popover-per
 export class PerfilUsuarioPage{
 
   categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
-  
-  constructor(public popoverController: PopoverController) {}
 
+  async getUsers(){
+    return firebase.firestore().collection('users').get();
+  }
+  
+  constructor(public popoverController: PopoverController) {
+    console.log(this.getUsers());
+  }
+
+  
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
@@ -29,4 +39,6 @@ export class PerfilUsuarioPage{
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+  
 }
