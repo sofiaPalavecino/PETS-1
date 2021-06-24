@@ -16,10 +16,10 @@
         </div>
         <div class="div-contiene-nombre-provincia">
           <div class="div-nombre-usuario">
-            <h2 class="h2-nombre-usuario">Nombre Apellido</h2>
+            <h2 class="h2-nombre-usuario" *ngIf="user">{{ user.nombre }}{{user.apellido}}</h2>
           </div>
           <div class="div-provincia-usuario">
-            <h3 class="h2-provincia-usuario">CABA, Buenos Aires</h3>
+            <h3 class="h2-provincia-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.DNI }}CABA, Buenos Aires</h3>
           </div>
         </div>
       </div>

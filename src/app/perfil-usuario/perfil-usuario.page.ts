@@ -4,6 +4,10 @@ import { PopoverController } from '@ionic/angular';
 import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
+
 
 
 @Component({
@@ -14,15 +18,31 @@ import 'firebase/firestore';
 
 
 export class PerfilUsuarioPage{
-
+  user:any;
+  userA:any;
   categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
 
   async getUsers(){
-    return firebase.firestore().collection('users').get();
+    const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
+    const doc = await cityRef.get().toPromise();
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      console.log('Document data:', doc.data());
+    }
+    //return this.afs.collection("users").doc("hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2").get();
+    this.user= doc.data(); 
+  }
+
+  async getUsers2(){
+    const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
+    this.userA= cityRef.valueChanges();
+     
   }
   
-  constructor(public popoverController: PopoverController) {
-    console.log(this.getUsers());
+  constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService) {
+    this.getUsers()
+    this.getUsers2()
   }
 
   
