@@ -5,7 +5,10 @@ export interface User{
   emailVerified: boolean;
 }
 
-export interface userProfile extends User{
+export interface userProfile{
   nombre: string;
   apellido: string;
+  uid: string;
+  email: string;
+  emailVerified: boolean;
 }
