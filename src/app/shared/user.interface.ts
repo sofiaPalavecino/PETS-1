@@ -1,3 +1,6 @@
+import { mascota } from "./mascota.interface";
+
+
 export interface User{
   uid: string;
   email: string;

@@ -20,9 +20,22 @@ import { AuthService } from '../services/auth.service';
 export class PerfilUsuarioPage{
   user:any;
   userA:any;
+  
   categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
 
+
   async getUsers(){
+    const docRef = this.afs.doc(`users/hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2/mascota/`)
+    const doc2= await docRef.get().toPromise();
+    if (!doc2.exists) {
+      console.log('No such document!');
+    } else {
+      console.log('Document data:', doc2.data());
+    }
+    
+    //const mascotaRef: AngularFirestoreDocument<mascota> = this.afs.doc(`users/${user.uid}`).collection("mascota");
+
+
     const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
     const doc = await cityRef.get().toPromise();
     if (!doc.exists) {
@@ -34,15 +47,9 @@ export class PerfilUsuarioPage{
     this.user= doc.data(); 
   }
 
-  async getUsers2(){
-    const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
-    this.userA= cityRef.valueChanges();
-     
-  }
   
   constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService) {
     this.getUsers()
-    this.getUsers2()
   }
 
   
