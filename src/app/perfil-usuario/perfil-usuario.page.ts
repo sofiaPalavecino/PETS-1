@@ -35,8 +35,11 @@ export class PerfilUsuarioPage{
     
     //const mascotaRef: AngularFirestoreDocument<mascota> = this.afs.doc(`users/${user.uid}`).collection("mascota");
 
-
+    //subcolección
     const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
+    const cityRefPaseadores =this.afs.collection('paseador');
+    
+    const cityRefCuidadores =this.afs.collection('cuidador');
     const doc = await cityRef.get().toPromise();
     if (!doc.exists) {
       console.log('No such document!');

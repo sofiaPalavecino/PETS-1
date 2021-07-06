@@ -38,7 +38,11 @@ const routes: Routes = [
   {
     path: 'perfil-organizacion',
     loadChildren: () => import('./perfil-organizacion/perfil-organizacion.module').then( m => m.PerfilOrganizacionPageModule)
+  },  {
+    path: 'configuraciones',
+    loadChildren: () => import('./configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
   },
+
 
 
 ];

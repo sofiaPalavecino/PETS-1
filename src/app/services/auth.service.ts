@@ -37,18 +37,18 @@ export class AuthService {
   async loginGoogle(): Promise<User> {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-      await this.updateUserData(user,null,null);
+      await this.updateUserData(user,null,null,null,null);
       return user;
     } catch (error) {
       console.log('Error->', error);
     }
   }
 
-  async register(email: string, password: string, nombre: string, apellido: string): Promise<User> {
+  async register(email: string, password: string, nombre: string, apellido: string, nacimiento: string, dni:number): Promise<User> {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      await this.updateUserData(user,nombre,apellido);
+      await this.updateUserData(user,nombre,apellido,nacimiento,dni);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -85,34 +85,86 @@ export class AuthService {
     }
   }
 
-  private async updateUserData(user: User, nombre: string, apellido: string) {
+  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number) {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
     
-    
-    
-    var data: userProfile;
-    
+    let dataAux:any=[];
+    dataAux.push(user.uid);
+    dataAux.push(user.email);
+    dataAux.push(user.emailVerified);
+
     if(nombre == null){
-      data = {
-        uid: user.uid,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        nombre: user.displayName,
-        apellido: null
-      };
+      dataAux.push(user.displayName)
+      dataAux.push(null)
     } else {
-      data = {
-        uid: user.uid,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        nombre: nombre,
-        apellido: apellido
-      };
+      dataAux.push(nombre)
+      dataAux.push(apellido)
     }
+
+    if(nacimiento == null){
+      dataAux.push("--/--/----")
+    } else {
+      dataAux.push(nacimiento)
+    }
+    
+    if(dni == null){
+      dataAux.push(11111111)
+    }
+    else{
+      dataAux.push(dni)
+    }
+
+    var data: userProfile = {
+      uid: dataAux[0],
+      email: dataAux[1],
+      emailVerified: dataAux[2],
+      nombre: dataAux[3],
+      apellido: dataAux[4],
+      nacimiento: dataAux[5],
+      DNI: dataAux[6]
+    };
     
     
     return userRef.set(data, { merge: true });
   }
+
+  async actualizarDatos(nombre:String,apellido:String,email:String,nacimiento:String,dni:number,uid:String){
+    
+    const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
+    
+    let dataRecibida:any=[];
+    dataRecibida.push(uid);
+    dataRecibida.push(nombre);
+    dataRecibida.push(email);
+    dataRecibida.push(dni);
+    dataRecibida.push(nacimiento);
+    
+    
+    dataRecibida.push(this.user$.subscribe((data)=>{
+      data.emailVerified;
+    }))
+
+    if(apellido!=""){
+      dataRecibida.push(apellido);
+    }
+    else{
+      apellido=null;
+      dataRecibida.push(apellido);    
+    }
+
+    var data: userProfile = {
+      uid: dataRecibida[0],
+      email: dataRecibida[2],
+      emailVerified: dataRecibida[5],
+      nombre: dataRecibida[1],
+      apellido: dataRecibida[6],
+      nacimiento: dataRecibida[4],
+      DNI: dataRecibida[3]
+    };
+
+    return userRef.set(data, { merge: true });
+  }
+
 }
 
 

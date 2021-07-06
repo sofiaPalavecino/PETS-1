@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>configuraciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div>
+    <h3>Configuracion perfil</h3>
+    
+    <form>
+      <ion-col>
+        
+        <ion-row>
+          
+          <ion-col>
+            <a>Nombre:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.nombre}}" #nombre required></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          
+          <ion-col>
+            <a>Apellido:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.apellido}}" #apellido></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          
+          <ion-col>
+            <a>Correo:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.email}}" #correo required></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          
+          <ion-col>
+            <a>Fecha nacimiento:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.nacimiento}}" #nacimiento required></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          
+          <ion-col>
+            <a>DNI:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.DNI}}" #dni required></ion-input>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          
+      <!--<ion-col>
+            <a>Ubicacion:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.}}" #nombre required></ion-input>
+            </ion-item>
+          </ion-col> -->
+
+        </ion-row>
+      
+        <button type="submit" class="botonAceptar" (click)="cambiarDatos(nombre,apellido,correo,nacimiento,dni)">Aceptar</button>
+      </ion-col>
+    </form>
+  </div>
+
+</ion-content>
