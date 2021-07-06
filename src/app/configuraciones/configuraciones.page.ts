@@ -20,13 +20,8 @@ export class ConfiguracionesPage implements OnInit {
       let uidUser:string;
       this.aServ.user$.subscribe((data)=>{
         uidUser=data.uid;
-      })  
-      console.log(nombre.value);
-      console.log(apellido.value);
-      console.log(email.value);
-      console.log(nacimiento.value);
-      console.log(dni.value);
-      console.log(uidUser);
+      })  //no se puede hacer value de undefine ¿?
+      console.log(nombre);
       this.aServ.actualizarDatos(nombre.value,apellido.value,email.value,nacimiento.value,dni.value,uidUser);
     }
     catch (error) {
