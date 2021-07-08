@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 })
 
 export class AuthService {
-  public user$: Observable<User>;
+  public user$: Observable<userProfile>;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
@@ -128,40 +128,26 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:String,apellido:String,email:String,nacimiento:String,dni:number,uid:String){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:Number,uid:string){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
-    let dataRecibida:any=[];
-    dataRecibida.push(uid);
-    dataRecibida.push(nombre);
-    dataRecibida.push(email);
-    dataRecibida.push(dni);
-    dataRecibida.push(nacimiento);
-    
-    
-    dataRecibida.push(this.user$.subscribe((data)=>{
-      data.emailVerified;
-    }))
+    let mailVerificar:any=true//( await (await this.user$.toPromise()).emailVerified);
 
-    if(apellido!=""){
-      dataRecibida.push(apellido);
-    }
-    else{
+    if(apellido==""){
       apellido=null;
-      dataRecibida.push(apellido);    
     }
 
     var data: userProfile = {
-      uid: dataRecibida[0],
-      email: dataRecibida[2],
-      emailVerified: dataRecibida[5],
-      nombre: dataRecibida[1],
-      apellido: dataRecibida[6],
-      nacimiento: dataRecibida[4],
-      DNI: dataRecibida[3]
+      uid: uid,
+      email: email,
+      emailVerified: mailVerificar ,
+      nombre: nombre,
+      apellido: apellido,
+      nacimiento: nacimiento,
+      DNI: dni
     };
-
+    console.log(data);
     return userRef.set(data, { merge: true });
   }
 

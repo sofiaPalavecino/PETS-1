@@ -17,7 +17,7 @@
         </ion-avatar>
       </ion-item>
       <ion-item>
-        <ion-label class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }}{{user1.apellido}}</ion-label>
+        <ion-label class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</ion-label>
       </ion-item>
       <ion-item>
         <a routerLink="/perfil-usuario" style="display: block; text-align: center;">

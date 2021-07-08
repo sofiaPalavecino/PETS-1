@@ -16,7 +16,7 @@
         </div>
         <div class="div-contiene-nombre-provincia">
           <div class="div-nombre-usuario">
-            <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }}{{user1.apellido}}</h2>
+            <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
           </div>
           <div class="div-provincia-usuario">
             <h3 class="h2-provincia-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.barrio }}</h3>

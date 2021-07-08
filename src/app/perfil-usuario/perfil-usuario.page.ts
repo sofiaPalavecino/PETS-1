@@ -24,6 +24,7 @@ export class PerfilUsuarioPage{
   categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
 
 
+
   async getUsers(){
     const docRef = this.afs.doc(`users/hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2/mascota/`)
     const doc2= await docRef.get().toPromise();
@@ -37,9 +38,7 @@ export class PerfilUsuarioPage{
 
     //subcolección
     const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
-    const cityRefPaseadores =this.afs.collection('paseador');
-    
-    const cityRefCuidadores =this.afs.collection('cuidador');
+
     const doc = await cityRef.get().toPromise();
     if (!doc.exists) {
       console.log('No such document!');
@@ -50,6 +49,7 @@ export class PerfilUsuarioPage{
     this.user= doc.data(); 
   }
 
+  
   
   constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService) {
     this.getUsers()
@@ -69,6 +69,7 @@ export class PerfilUsuarioPage{
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
 
   
 }

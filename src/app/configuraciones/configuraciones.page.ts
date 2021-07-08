@@ -8,25 +8,29 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./configuraciones.page.scss'],
 })
 export class ConfiguracionesPage implements OnInit {
+  
+  nombre:string;
+  apellido:string;
+  DNI:Number;
+  correo:string;
+  fechaNacimiento:string;
+  uid:string;
 
   constructor(private afs: AngularFirestore, private aServ:AuthService) {
-    
+    this.aServ.user$.subscribe((data)=>{
+      this.nombre=data.nombre;
+      this.apellido=data.apellido;
+      this.DNI=data.DNI;
+      this.correo=data.email;
+      this.fechaNacimiento=data.nacimiento;
+      this.uid=data.uid;
+    })  
   }
 
   ngOnInit() {}
 
-  async cambiarDatos(nombre,apellido,email,nacimiento,dni){
-    try{
-      let uidUser:string;
-      this.aServ.user$.subscribe((data)=>{
-        uidUser=data.uid;
-      })  //no se puede hacer value de undefine ¿?
-      console.log(nombre);
-      this.aServ.actualizarDatos(nombre.value,apellido.value,email.value,nacimiento.value,dni.value,uidUser);
-    }
-    catch (error) {
-      console.log('Error', error);
-    }
+  async cambiarDatos(){
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid);
   }
 
 }
