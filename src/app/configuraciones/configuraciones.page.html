@@ -70,11 +70,20 @@
         <ion-row>
           
       <!--<ion-col>
-            <a>Ubicacion:</a>
+            <a>DNI:</a>
             <ion-item lines="full" style="margin-left: 5px;">
-              <ion-input type="text" *ngIf="aServ.user$ | async; let user1" value="{{user1.}}" #nombre required></ion-input>
+              <ion-input type="text" [(ngModel)]="ubicacion" required></ion-input>
             </ion-item>
           </ion-col> -->
+
+        </ion-row>
+
+        <ion-row>
+          
+          <ion-col>
+            <a>Foto de Perfil:</a>
+            <button (click)="getPic()">Subir foto</button>
+          </ion-col>
 
         </ion-row>
       
