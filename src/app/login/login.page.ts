@@ -37,8 +37,8 @@ export class LoginPage {
   private redirectUser(isVerified: boolean): void {
     
     //--------------------------------------------------------------
-    document.getElementById("carousel").style.display     = "none";
-    document.getElementById("menu").style.display         = "block";
+    // document.getElementById("carousel").style.display     = "none";
+    // document.getElementById("menu").style.display         = "block";
     //--------------------------------------------------------------
     
     if (isVerified) {

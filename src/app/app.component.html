@@ -1,6 +1,6 @@
 <ion-app>
-  <app-carousel id="carousel"></app-carousel>
-  <app-menu id="menu"></app-menu>
+  <app-carousel *ngIf="" id="carousel"></app-carousel>
+  <app-menu *ngIf="aServ.user$ | async" id="menu"></app-menu>
   <div>
     <ion-router-outlet id="main"></ion-router-outlet>
   </div>

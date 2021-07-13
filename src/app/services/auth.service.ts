@@ -24,7 +24,8 @@ export class AuthService {
         return of(null);
       })
     );
-    
+
+    // afs.firestore.collection("users").where
   }
 
   async resetPassword(email: string): Promise<void> {
@@ -37,9 +38,13 @@ export class AuthService {
 
   async loginGoogle(): Promise<User> {
     try {
+      
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       
-      await this.updateUserData(user,null,null,null,null);
+      if (!(await this.afs.doc(`users/${user.uid}`).get().toPromise()).exists){
+        await this.updateUserData(user,null,null,null,null);
+      }
+      
       return user;
     } catch (error) {
       console.log('Error->', error);
