@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { ImagePicker } from '@ionic-native/image-picker/ngx';
+// import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-configuraciones',
@@ -16,8 +16,9 @@ export class ConfiguracionesPage implements OnInit {
   correo:string;
   fechaNacimiento:string;
   uid:string;
-
-  constructor(private afs: AngularFirestore, private aServ:AuthService,private imagePicker: ImagePicker) {
+  
+  // private imagePicker: ImagePicker
+  constructor(private afs: AngularFirestore, private aServ:AuthService,) {
     this.aServ.user$.subscribe((data)=>{
       this.nombre=data.nombre;
       this.apellido=data.apellido;
