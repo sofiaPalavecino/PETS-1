@@ -16,18 +16,20 @@ export class CarouselComponent implements OnInit {
     let rotarFondoAuto = setInterval(cambiarFondo,0);
 
     function cambiarFondo() {
-      document.getElementById("bk-img-" + bk_img_i).style.opacity = "0";
-      
-      if(bk_img_i == bk_imgs_count){
-      bk_img_i = 1; 
-      }else{
-        bk_img_i++;
+      if(document.getElementsByTagName("app-carousel")[0] != undefined){
+        document.getElementById("bk-img-" + bk_img_i).style.opacity = "0";
+        
+        if(bk_img_i == bk_imgs_count){
+        bk_img_i = 1; 
+        }else{
+          bk_img_i++;
+        }
+        document.getElementById("bk-img-" + bk_img_i).style.opacity = "1";
+
+        clearInterval(rotarFondoAuto);
+        
+        rotarFondoAuto = setInterval(cambiarFondo,5000);
       }
-      document.getElementById("bk-img-" + bk_img_i).style.opacity = "1";
-
-      clearInterval(rotarFondoAuto);
-      rotarFondoAuto = setInterval(cambiarFondo,5000);
-
     }
   }
 
