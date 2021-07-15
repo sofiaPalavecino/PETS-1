@@ -25,7 +25,7 @@
           <h6>Perfil</h6>
         </a>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="orga.organizaciones">
         <a routerLink="/perfil-organizacion" style="display: block; text-align: center;">
           <ion-icon name="heart-outline"></ion-icon>
           <h6>Perfil de Organizacion</h6>

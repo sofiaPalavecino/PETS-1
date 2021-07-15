@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { OrganizacionService } from "../../services/organizacion.service";
 
 @Component({
   selector: 'app-menu',
@@ -10,7 +11,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private menuCtrl: MenuController, private aServ:AuthService, private afs: AngularFirestore) { }
+  constructor(private menuCtrl: MenuController, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { }
 
   ngOnInit() {}
   

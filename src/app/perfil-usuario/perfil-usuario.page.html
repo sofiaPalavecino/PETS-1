@@ -11,9 +11,9 @@
   <ion-row class="columna-foto-datos" #toolbar>
     <ion-col>
       <div class="div-contiene-foto-nombre" >
-        <div class="div-circle-profile">
-          <img class="img_profile" *ngIf="aServ.user$ | async; let user1" src="{{user1.foto}}" >
-        </div>
+        <ion-avatar>
+          <img *ngIf="aServ.user$ | async; let user1" src="{{user1.foto}}" >
+        </ion-avatar>
         <div class="div-contiene-nombre-provincia">
           <div class="div-nombre-usuario">
             <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
