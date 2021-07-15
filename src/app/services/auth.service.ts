@@ -128,7 +128,8 @@ export class AuthService {
       nombre: dataAux[3],
       apellido: dataAux[4],
       nacimiento: dataAux[5],
-      DNI: dataAux[6]
+      DNI: dataAux[6],
+      administrando:null //arreglar
     };
     
     
@@ -140,6 +141,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
     let mailVerificar:any=true//( await (await this.user$.toPromise()).emailVerified);
+    let administrando:any=""//( await (await this.user$.toPromise()).administrando);
 
     if(apellido==""){
       apellido=null;
@@ -152,7 +154,8 @@ export class AuthService {
       nombre: nombre,
       apellido: apellido,
       nacimiento: nacimiento,
-      DNI: dni
+      DNI: dni,
+      administrando:  administrando
     };
     console.log(data);
     return userRef.set(data, { merge: true });

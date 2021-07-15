@@ -15,8 +15,8 @@ import { AuthService } from "../services/auth.service";
 export class OrganizacionService {
 
   // public organizacion: Observable<Organizacion>;
-  public organizacion: any;
-  public organizaciones: any[] = [];
+  public organizacion:Organizacion;
+  public organizaciones: Organizacion[] = [];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
     authSvc.user$.subscribe((user) => {
@@ -26,7 +26,18 @@ export class OrganizacionService {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
               console.log(doc.id, " => ", doc.data());
-              this.organizaciones.push(doc.data());
+              let orgAux:Organizacion = {
+                administradores:doc.data()["administradores"],
+                mail:doc.data()["email"],
+                nombre:doc.data()["nombre"],
+                foto:doc.data()["foto"],
+                localizacion:doc.data()["localizacion"]
+              }
+
+              this.organizaciones.push(orgAux);
+              if(user.administrando = doc.id){
+                this.organizacion = orgAux;
+              }
           });
       })
       .catch((error) => {

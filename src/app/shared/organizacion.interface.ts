@@ -1,5 +1,7 @@
 export interface Organizacion{
-    admins:any[];
-    email:string;
+    administradores:string[];
+    mail:string;
     nombre:string;
+    foto:string;
+    localizacion:string;
   }
