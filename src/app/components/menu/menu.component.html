@@ -17,28 +17,28 @@
         </ion-avatar>
       </ion-item>
       <ion-item>
-        <ion-label class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</ion-label>
+        <ion-label *ngIf="aServ.user$ | async; let user1" (click)="closeMenu()" class="h2-nombre-usuario">{{ user1.nombre }} {{user1.apellido}}</ion-label>
       </ion-item>
       <ion-item>
-        <a routerLink="/perfil-usuario" style="display: block; text-align: center;">
+        <a menuClose routerLink="/perfil-usuario" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="person-outline"></ion-icon>
           <h6>Perfil</h6>
         </a>
       </ion-item>
       <ion-item *ngIf="orga.organizaciones">
-        <a routerLink="/perfil-organizacion" style="display: block; text-align: center;">
+        <a routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="heart-outline"></ion-icon>
           <h6>Perfil de Organizacion</h6>
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/register" style="display: block; text-align: center;">
+        <a routerLink="/register" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="bookmark-outline"></ion-icon>
           <h6>Mis Organizaciones</h6>
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/configuraciones" style="display: block; text-align: center;">
+        <a routerLink="/configuraciones" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="settings-outline"></ion-icon>
           <h6>Configuracion</h6>
         </a>

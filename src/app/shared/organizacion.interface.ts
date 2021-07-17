@@ -4,4 +4,5 @@ export interface Organizacion{
     nombre:string;
     foto:string;
     localizacion:string;
+    oid:string;
   }

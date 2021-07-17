@@ -1,18 +1,41 @@
 
 <ion-content>
-    <ion-col>
-        <div class="div-contiene-foto-nombre" >
-          <ion-avatar>
-            <img src="{{this.org.organizacion.foto}}" >
-          </ion-avatar>
-          <!-- <div class="div-contiene-nombre-provincia">
-            <div class="div-nombre-usuario">
-              <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
-            </div>
-            <div class="div-provincia-usuario">
-              <h3 class="h2-provincia-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.barrio }}</h3>
-            </div>
-          </div> -->
-        </div>
-    </ion-col>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item>
+      <ion-label>Cambiar Organizacion</ion-label>
+      <ion-select 
+      [interfaceOptions]="customActionSheetOptions" 
+      interface="action-sheet" 
+      placeholder="{{this.org.organizacion.nombre}}"
+      [(ngModel)]="idOrganizacion"
+      (ionChange)="cambiarOrganizacion()"
+      >
+        <ion-select-option *ngFor="let orgAux of this.org.organizaciones" value="{{orgAux.oid}}">{{orgAux.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  
+  </ion-list>
+  <ion-col>
+      <div class="div-contiene-foto-nombre" >
+        <ion-avatar>
+          <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}" >
+        </ion-avatar>
+        <!-- <div class="div-contiene-nombre-provincia">
+          <div class="div-nombre-usuario">
+            <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
+          </div>
+          <div class="div-provincia-usuario">
+            <h3 class="h2-provincia-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.barrio }}</h3>
+          </div>
+        </div> -->
+      </div>
+  </ion-col>
 </ion-content>

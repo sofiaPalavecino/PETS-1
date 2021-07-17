@@ -31,7 +31,8 @@ export class OrganizacionService {
                 mail:doc.data()["email"],
                 nombre:doc.data()["nombre"],
                 foto:doc.data()["foto"],
-                localizacion:doc.data()["localizacion"]
+                localizacion:doc.data()["localizacion"],
+                oid:doc.data()["oid"],
               }
 
               this.organizaciones.push(orgAux);
@@ -45,5 +46,13 @@ export class OrganizacionService {
       });
       console.log(this.organizaciones)
     }) 
+  }
+
+  actualizarOrganizacion(oid:string){
+    this.organizaciones.forEach(orgAux => {
+      if(orgAux.oid == oid){
+        this.organizacion = orgAux;
+      }
+    });
   }
 }

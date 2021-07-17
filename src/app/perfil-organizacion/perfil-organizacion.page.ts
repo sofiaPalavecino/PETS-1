@@ -10,7 +10,18 @@ export class PerfilOrganizacionPage implements OnInit {
 
   constructor(private org:OrganizacionService) { }
 
+  idOrganizacion:string;
+
   ngOnInit() {
+  }
+
+  customActionSheetOptions: any = {
+    header: 'Organizaciones',
+    subHeader: 'Elige que organizacion administrar'
+  };
+
+  cambiarOrganizacion(){
+    this.org.actualizarOrganizacion(this.idOrganizacion);
   }
 
 }

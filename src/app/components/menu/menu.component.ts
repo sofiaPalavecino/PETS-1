@@ -17,13 +17,17 @@ export class MenuComponent implements OnInit {
   
   changeIconMenu(){
     let menuIcon = document.getElementById("menu-icon"); 
+    this.menuCtrl.isOpen().then((result) => {
+      if(result){
+        menuIcon.setAttribute('name', 'menu-outline'); 
+      } else{
+        menuIcon.setAttribute('name', 'close-outline'); 
+      }
+    });
+  }
 
-    //if(this.menuCtrl.getOpen())
-
-    if(menuIcon.getAttribute('name') == "menu-outline"){
-      menuIcon.setAttribute('name', 'close-outline'); 
-    } else{
-      menuIcon.setAttribute('name', 'menu-outline'); 
-    }
+  closeMenu(){
+    this.menuCtrl.close();
+    this.changeIconMenu();
   }
 }
