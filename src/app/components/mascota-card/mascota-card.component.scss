@@ -1,8 +1,12 @@
 .card-mascota{
     position:absolute;
-    height: 40  0px !important;
+    height: 400px !important;
     box-shadow: 2px 5px 5px #999;
     
+}
+
+.card-mascota > img{
+    height: 300px;
 }
 .div-mascotas{
     height: 500px;

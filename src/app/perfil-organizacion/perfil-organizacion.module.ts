@@ -8,6 +8,8 @@ import { PerfilOrganizacionPageRoutingModule } from './perfil-organizacion-routi
 
 import { PerfilOrganizacionPage } from './perfil-organizacion.page';
 
+import { MascotaCardComponent } from "../components/mascota-card/mascota-card.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { PerfilOrganizacionPage } from './perfil-organizacion.page';
     IonicModule,
     PerfilOrganizacionPageRoutingModule
   ],
-  declarations: [PerfilOrganizacionPage]
+  declarations: [PerfilOrganizacionPage,MascotaCardComponent]
 })
 export class PerfilOrganizacionPageModule {}

@@ -6,6 +6,7 @@ import { OrganizacionService } from "../services/organizacion.service";
   templateUrl: './perfil-organizacion.page.html',
   styleUrls: ['./perfil-organizacion.page.scss'],
 })
+
 export class PerfilOrganizacionPage implements OnInit {
 
   constructor(private org:OrganizacionService) { }

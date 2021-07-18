@@ -18,24 +18,25 @@
       [(ngModel)]="idOrganizacion"
       (ionChange)="cambiarOrganizacion()"
       >
-        <ion-select-option *ngFor="let orgAux of this.org.organizaciones" value="{{orgAux.oid}}">{{orgAux.nombre}}</ion-select-option>
+        <ion-select-option *ngFor="let orgAux of this.org.organizaciones"  value="{{orgAux.oid}}">{{orgAux.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
   
   </ion-list>
   <ion-col>
       <div class="div-contiene-foto-nombre" >
-        <ion-avatar>
+        <ion-avatar  id="org-avatar">
           <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}" >
         </ion-avatar>
-        <!-- <div class="div-contiene-nombre-provincia">
-          <div class="div-nombre-usuario">
-            <h2 class="h2-nombre-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
+        <div class="div-contiene-nombre-provincia">
+          <div class="div-nombre-organizacion">
+            <h1 style="font-weight: bold;">{{ this.org.organizacion.nombre }}</h1>
           </div>
-          <div class="div-provincia-usuario">
-            <h3 class="h2-provincia-usuario" *ngIf="aServ.user$ | async; let user1">{{ user1.barrio }}</h3>
+          <div class="div-localizacion-org">
+            <h6>Se encuentra en: {{ this.org.organizacion.localizacion }}</h6>
           </div>
-        </div> -->
+        </div> 
       </div>
   </ion-col>
+  <!-- <app-mascota-card></app-mascota-card> -->
 </ion-content>
