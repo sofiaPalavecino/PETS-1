@@ -24,8 +24,6 @@ export class AuthService {
         return of(null);
       })
     );
-
-    // afs.firestore.collection("users").where
   }
 
   async resetPassword(email: string): Promise<void> {

@@ -25,7 +25,6 @@ export class OrganizacionService {
       .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
               let orgAux:Organizacion = {
                 administradores:doc.data()["administradores"],
                 mail:doc.data()["email"],
@@ -36,7 +35,7 @@ export class OrganizacionService {
               }
 
               this.organizaciones.push(orgAux);
-              if(user.administrando = doc.id){
+              if(user.administrando == doc.id){
                 this.organizacion = orgAux;
               }
           });
@@ -52,6 +51,10 @@ export class OrganizacionService {
     this.organizaciones.forEach(orgAux => {
       if(orgAux.oid == oid){
         this.organizacion = orgAux;
+        // this.authSvc.user$.subscribe((user) => {
+        //   this.afs.collection("users").doc(user.uid).update({administrando: oid});
+        //   console.log(user)
+        // })
       }
     });
   }

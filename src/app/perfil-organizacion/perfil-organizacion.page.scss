@@ -1,11 +1,15 @@
 .div-contiene-foto-nombre{
     display: flex;
     width: fit-content;
-    margin: auto;
+    margin-left: 10px;
 }
 
 .div-nombre-organizacion,.div-localizacion-org{
     margin-top: 0px;
+    margin-left: 10px;
+}
+
+.div-contiene-nombre-provincia{
     margin-left: 10px;
 }
 
