@@ -22,7 +22,7 @@ export class PerfilUsuarioPage{
   user:any;
   userA:any;
   
-  categorias=["paseos", "cuidados", "calificaciones","mabel","se te ve","arruinada"];
+  categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
 
 
 
