@@ -8,21 +8,23 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from "../services/auth.service";
+import { User } from '../shared/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizacionService {
 
-  // public organizacion: Observable<Organizacion>;
   public organizacion:Organizacion;
-  public organizaciones: Organizacion[] = [];
+  public organizaciones: Organizacion[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
     authSvc.user$.subscribe((user) => {
       afs.firestore.collection("organización").where("administradores", "array-contains", user.uid)
       .get()
       .then((querySnapshot) => {
+          this.organizacion = null;
+          this.organizaciones = [];
           querySnapshot.forEach((doc) => {
               // doc.data() is never undefined for query doc snapshots
               let orgAux:Organizacion = {
@@ -43,18 +45,15 @@ export class OrganizacionService {
       .catch((error) => {
           console.log("Error getting documents: ", error);
       });
-      console.log(this.organizaciones)
     }) 
   }
 
-  actualizarOrganizacion(oid:string){
+  async actualizarOrganizacion(oid:string){
     this.organizaciones.forEach(orgAux => {
+      
       if(orgAux.oid == oid){
         this.organizacion = orgAux;
-        // this.authSvc.user$.subscribe((user) => {
-        //   this.afs.collection("users").doc(user.uid).update({administrando: oid});
-        //   console.log(user)
-        // })
+        this.afs.collection("users").doc(this.authSvc.uid).update({administrando: oid});  
       }
     });
   }
