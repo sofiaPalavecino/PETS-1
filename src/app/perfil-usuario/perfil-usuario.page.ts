@@ -7,6 +7,7 @@ import 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 
 
@@ -51,7 +52,7 @@ export class PerfilUsuarioPage{
 
   
   
-  constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService) {
+  constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
     this.getUsers()
   }
 
