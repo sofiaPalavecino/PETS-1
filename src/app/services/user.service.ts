@@ -7,7 +7,7 @@ import {mascota} from "../shared/mascota.interface"
 import firebase from 'firebase/app';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
+import { Observable, of, using } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { AuthService } from "../services/auth.service";
@@ -22,20 +22,41 @@ export class UserService {
   public paseador:Paseador;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    /*authSvc.user$.subscribe((user) => {
-      afs.firestore.collection("paseador").where("idUsuario", "array-contains", user.uid).get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-             doc.data() is never undefined for query doc snapshots
-            let paseadorAux:Paseador = {
-              administradores:doc.data()["calificacion promedio"],
-              mail:doc.data()["email"],
+    
+  authSvc.user$.subscribe((user) => {
+    afs.firestore.collection("paseador").where("idUsuario","array-contains",user.uid).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        let paseadorAux:Paseador={
+          calificacion_promedio:doc.data()["calificacion promedio"],
+          idUsuario:doc.data()["idUsuario"],
+        }
+        this.paseador=paseadorAux;
+      });
+    }).catch((error)=>{
+      console.log("Error getting documents: ", error);
+    })
+  });
 
-            this.organizaciones.push(orgAux);
-            if(user.administrando == doc.id){
-              this.organizacion = orgAux;
-            }
-        });
-      })
-    }*/
-  }
+  authSvc.user$.subscribe((user) => {
+    afs.firestore.collection("cuidador").where("idUsuario","array-contains",user.uid).get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        let cuidadorAux:Cuidador={
+          calificacion_promedio:doc.data()["calificacion promedio"],
+          cupo:doc.data()["cupo"],
+          disponibilidad:doc.data()["disponibilidad"],
+          idUsuario:doc.data()["idUsuario"],
+          precio_dia:doc.data()["precio dia"],
+        }
+        this.cuidador=cuidadorAux;
+      });
+    }).catch((error)=>{
+      console.log("Error getting documents: ", error);
+    })
+  });
+
+  authSvc.user$.subscribe((user) =>{
+    afs.collection('users').doc(user.uid).collection('mascota').get().forEach
+
+  })
+}
 }
