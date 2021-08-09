@@ -20,40 +20,20 @@ import { UserService } from '../services/user.service';
 
 export class PerfilUsuarioPage{
   user:any;
-  userA:any;
   
-  categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
-
-
-
-  async getUsers(){
-    const docRef = this.afs.doc(`users/hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2/mascota/`)
-    const doc2= await docRef.get().toPromise();
-    if (!doc2.exists) {
-      console.log('No such document!');
-    } else {
-      console.log('Document data:', doc2.data());
-    }
-    
-    //const mascotaRef: AngularFirestoreDocument<mascota> = this.afs.doc(`users/${user.uid}`).collection("mascota");
-
-    //subcolección
-    const cityRef = this.afs.collection('users').doc('hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2');
-
-    const doc = await cityRef.get().toPromise();
-    if (!doc.exists) {
-      console.log('No such document!');
-    } else {
-      console.log('Document data:', doc.data());
-    }
-    //return this.afs.collection("users").doc("hD8HS8Qzaqc1Ipr74KIxEbxvJ6s2").get();
-    this.user= doc.data(); 
-  }
-
-  
-  
+  //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
+  categorias:Array<string>=[];
   constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
-    this.getUsers()
+    this.user=aServ.user$;
+    console.log(userServ.cuidador);
+    console.log(userServ.paseador);
+    if(userServ.cuidador!=false){
+      
+      this.categorias.push("Cuidador");
+    }
+    if(userServ.paseador!=false){
+      this.categorias.push("Paseador","Calificaciones");
+    }
   }
 
   
