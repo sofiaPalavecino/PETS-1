@@ -17,13 +17,14 @@ import { AuthService } from "../services/auth.service";
 })
 export class UserService {
 
-  public cuidador:Cuidador;
+  public cuidador:any=false;
   public mascotas:mascota[]=[];
-  public paseador:Paseador;
+  public paseador:any=false;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
     
   authSvc.user$.subscribe((user) => {
+    console.log("a")
     afs.firestore.collection("paseador").where("idUsuario","array-contains",user.uid).get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         let paseadorAux:Paseador={
@@ -55,8 +56,14 @@ export class UserService {
   });
 
   authSvc.user$.subscribe((user) =>{
-    afs.collection('users').doc(user.uid).collection('mascota').get().forEach
-
+    afs.collection('users').doc(user.uid).collection('mascota').get().subscribe((querySnapshot)=>{
+      querySnapshot.forEach((doc) => {
+        let mascotaAux:mascota={
+          nombre:doc.data()["nombre"],
+        }
+        this.mascotas.push(mascotaAux);
+      });
+    })
   })
 }
 }
