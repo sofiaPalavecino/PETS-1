@@ -20,6 +20,7 @@ export class UserService {
   public cuidador:any=false;
   public mascotas:mascota[]=[];
   public paseador:any=false;
+  public especies:Array<string>[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
     

@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'configuraciones',
     loadChildren: () => import('./configuraciones/configuraciones.module').then( m => m.ConfiguracionesPageModule)
   },
+  {
+    path: 'config-mascota',
+    loadChildren: () => import('./config-mascota/config-mascota.module').then( m => m.ConfigMascotaPageModule)
+  },
 
 ];
 
