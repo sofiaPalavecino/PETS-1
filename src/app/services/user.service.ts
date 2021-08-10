@@ -16,8 +16,7 @@ import { AuthService } from "../services/auth.service";
   providedIn: 'root'
 })
 export class UserService {
-
-  public categorias:Array<string>=[];;
+  public categorias:Array<string>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
 
