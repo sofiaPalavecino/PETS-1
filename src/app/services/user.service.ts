@@ -17,53 +17,28 @@ import { AuthService } from "../services/auth.service";
 })
 export class UserService {
 
-  public cuidador:any=false;
-  public mascotas:mascota[]=[];
-  public paseador:any=false;
+  public categorias:Array<string>=[];;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    
-  authSvc.user$.subscribe((user) => {
-    console.log("a")
-    afs.firestore.collection("paseador").where("idUsuario","array-contains",user.uid).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        let paseadorAux:Paseador={
-          calificacion_promedio:doc.data()["calificacion promedio"],
-          idUsuario:doc.data()["idUsuario"],
-        }
-        this.paseador=paseadorAux;
-      });
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-  });
 
-  authSvc.user$.subscribe((user) => {
-    afs.firestore.collection("cuidador").where("idUsuario","array-contains",user.uid).get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        let cuidadorAux:Cuidador={
-          calificacion_promedio:doc.data()["calificacion promedio"],
-          cupo:doc.data()["cupo"],
-          disponibilidad:doc.data()["disponibilidad"],
-          idUsuario:doc.data()["idUsuario"],
-          precio_dia:doc.data()["precio dia"],
-        }
-        this.cuidador=cuidadorAux;
-      });
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-  });
+      this.afs.firestore.collection("cuidador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
+        if (querySnapshot.size>0)
+          this.categorias.push("Cuidador");
+      }).catch((error)=>{
+        console.log("Error getting documents: ", error);
+      })
 
-  authSvc.user$.subscribe((user) =>{
-    afs.collection('users').doc(user.uid).collection('mascota').get().subscribe((querySnapshot)=>{
-      querySnapshot.forEach((doc) => {
-        let mascotaAux:mascota={
-          nombre:doc.data()["nombre"],
-        }
-        this.mascotas.push(mascotaAux);
+      this.afs.firestore.collection("paseador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
+        if (querySnapshot.size>0)
+          this.categorias.push("Paseador","Calificaciones");
+      }).catch((error)=>{
+        console.log("Error getting documents: ", error);
+      })
+
+      this.afs.collection('users').doc(authSvc.uid).collection('mascota').get().subscribe((querySnapshot)=>{
+        if(querySnapshot.size>0) this.categorias.push("Mascotas");
       });
-    })
-  })
-}
+  }
+
+  
 }

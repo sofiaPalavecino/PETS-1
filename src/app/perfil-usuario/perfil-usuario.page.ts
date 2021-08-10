@@ -18,27 +18,18 @@ import { UserService } from '../services/user.service';
 })
 
 
-export class PerfilUsuarioPage{
+export class PerfilUsuarioPage {
   user:any;
   
 
   //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
-  categorias:Array<string>=[];
+  
   constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
-    this.user=aServ.user$;
-    console.log(userServ.cuidador);
-    console.log(userServ.paseador);
-    if(userServ.cuidador!=false){
-      
-      this.categorias.push("Cuidador");
-
-    }
-    if(userServ.paseador!=false){
-      this.categorias.push("Paseador","Calificaciones");
-    }
+   
   }
 
-  
+  async ngOnInit(){
+  }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
