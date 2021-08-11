@@ -35,7 +35,6 @@ export class OrganizacionService {
                 localizacion:doc.data()["localizacion"],
                 oid:doc.data()["oid"],
               }
-
               this.organizaciones.push(orgAux);
               if(user.administrando == doc.id){
                 this.organizacion = orgAux;
