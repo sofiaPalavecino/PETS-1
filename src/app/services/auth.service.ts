@@ -136,12 +136,11 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:Number,uid:string){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:Number,uid:string,administrando:string){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
     let mailVerificar:any=true//( await (await this.user$.toPromise()).emailVerified);
-    let administrando:any=""//( await (await this.user$.toPromise()).administrando);
 
     if(apellido==""){
       apellido=null;
