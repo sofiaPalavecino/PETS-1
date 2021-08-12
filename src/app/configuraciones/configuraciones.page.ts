@@ -23,6 +23,7 @@ export class ConfiguracionesPage implements OnInit {
   correo:string;
   fechaNacimiento:string;
   uid:string;
+  administrando:string;
   
   // private imagePicker: ImagePicker
   constructor(private afs: AngularFirestore, private aServ:AuthService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController,) {
@@ -33,13 +34,14 @@ export class ConfiguracionesPage implements OnInit {
       this.correo=data.email;
       this.fechaNacimiento=data.nacimiento;
       this.uid=data.uid;
+      this.administrando=data.administrando;
     })  
   }
 
   ngOnInit() {}
 
   async cambiarDatos(){
-    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid);
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando);
   }
 
 
