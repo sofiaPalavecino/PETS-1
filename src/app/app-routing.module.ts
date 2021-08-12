@@ -63,7 +63,11 @@ const routes: Routes = [
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-
+  {
+    path: 'config-mascota',
+    loadChildren: () => import('./config-mascota/config-mascota.module').then( m => m.ConfigMascotaPageModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
 
 ];
 

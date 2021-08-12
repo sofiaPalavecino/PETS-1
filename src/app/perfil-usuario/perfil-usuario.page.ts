@@ -24,25 +24,14 @@ export class PerfilUsuarioPage {
 
   //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
   
-  constructor(public popoverController: PopoverController,private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
+  constructor(private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
    
   }
 
   async ngOnInit(){
   }
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: PopoverPerfilComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
+  
 
 
   
