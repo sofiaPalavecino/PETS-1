@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 
 
 
+
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.page.html',
@@ -24,7 +25,11 @@ export class PerfilUsuarioPage {
 
   //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
   
-  constructor(private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService) {
+  constructor(
+    private afs: AngularFirestore, 
+    private aServ:AuthService, 
+    private userServ: UserService, 
+    private popController: PopoverPerfilComponent) {
    
   }
 
