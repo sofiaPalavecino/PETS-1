@@ -68,6 +68,16 @@ const routes: Routes = [
     loadChildren: () => import('./config-mascota/config-mascota.module').then( m => m.ConfigMascotaPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
+  {
+    path: 'crear-paseo',
+    loadChildren: () => import('./crear-paseo/crear-paseo.module').then( m => m.CrearPaseoPageModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'plan-cuidado',
+    loadChildren: () => import('./plan-cuidado/plan-cuidado.module').then( m => m.PlanCuidadoPageModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
 
 ];
 
