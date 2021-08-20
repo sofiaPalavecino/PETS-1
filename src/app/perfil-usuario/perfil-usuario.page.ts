@@ -34,11 +34,11 @@ export class PerfilUsuarioPage {
   async ngOnInit(){
   }
 
-  goToTarget(categoria:string){
+  /*goToTarget(categoria:string){
     if(categoria=="Cuidados"){
       console.log("a")
     }
-  }
+  }*/
 
 
   

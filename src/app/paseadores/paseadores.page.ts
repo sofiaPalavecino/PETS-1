@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PaseosService } from "../services/paseos.service";
 
 @Component({
   selector: 'app-paseadores',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaseadoresPage implements OnInit {
 
-  constructor() { }
+  constructor(private PaseosServ:PaseosService) { }
 
   ngOnInit() {
+    
   }
 
 }
