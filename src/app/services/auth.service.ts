@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Dia } from '../dia';
 
 @Injectable({
   providedIn: 'root',
@@ -160,6 +161,11 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
+
+
+  async crearNuevoPaseo(costo:number,cupo:number,plazo:string,cantDiasPaseo:number,disponibilidad:boolean,estado:string,diasDisponibles:Array<Dia>){
+
+  }
 }
 
 
