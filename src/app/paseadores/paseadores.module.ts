@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PaseadoresPageRoutingModule } from './paseadores-routing.module';
 
 import { PaseadoresPage } from './paseadores.page';
+import { WorkerComponent } from "../components/worker/worker.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { PaseadoresPage } from './paseadores.page';
     IonicModule,
     PaseadoresPageRoutingModule
   ],
-  declarations: [PaseadoresPage]
+  declarations: [PaseadoresPage,WorkerComponent]
 })
 export class PaseadoresPageModule {}

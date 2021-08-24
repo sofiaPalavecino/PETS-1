@@ -1,0 +1,22 @@
+<ion-card class="card-paseo" *ngFor="let usuario of usuarios">
+  <ion-row>
+    <div>
+      <ion-avatar>
+        <img class="foto-mapa" src='../../assets/images/mapa.png'>
+      </ion-avatar>
+    </div>
+    <ion-col>
+      <ion-card-header class="header-titulo-paseo">
+        <ion-card-title class="titulo-paseo">{{usuario.nombre}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <span class="informacion-paseo">{{calificacion_promedio}}</span><br>
+        <span class="informacion-paseo">a</span>
+        <ion-row>
+          <span class="informacion-paseo">a</span>
+        </ion-row>
+        <button class="boton-editar">Editar</button>
+      </ion-card-content>
+    </ion-col>
+  </ion-row>
+</ion-card>

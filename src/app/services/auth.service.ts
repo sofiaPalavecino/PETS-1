@@ -42,7 +42,7 @@ export class AuthService {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       
       if (!(await this.afs.doc(`users/${user.uid}`).get().toPromise()).exists){
-        await this.updateUserData(user,null,null,null,null);
+        await this.updateUserData(user,null,null,null,null,null);
       }
       
       return user;
@@ -55,7 +55,7 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      await this.updateUserData(user,nombre,apellido,nacimiento,dni);
+      await this.updateUserData(user,nombre,apellido,nacimiento,dni,null);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -92,14 +92,14 @@ export class AuthService {
     }
   }
 
-  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number) {
+  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string) {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
     
     let dataAux:any=[];
     dataAux.push(user.uid);
     dataAux.push(user.email);
     dataAux.push(user.emailVerified);
-
+    
     if(nombre == null){
       dataAux.push(user.displayName)
       dataAux.push(null)
@@ -121,6 +121,8 @@ export class AuthService {
       dataAux.push(dni)
     }
 
+    dataAux.push(foto);
+
     var data: userProfile = {
       uid: dataAux[0],
       email: dataAux[1],
@@ -129,14 +131,15 @@ export class AuthService {
       apellido: dataAux[4],
       nacimiento: dataAux[5],
       DNI: dataAux[6],
-      administrando:null //arreglar
+      administrando:null, //arregla
+      foto: dataAux[7]
     };
     
     
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:Number,uid:string,administrando:string){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
@@ -154,7 +157,8 @@ export class AuthService {
       apellido: apellido,
       nacimiento: nacimiento,
       DNI: dni,
-      administrando:  administrando
+      administrando:  administrando,
+      foto:foto
     };
     console.log(data);
     return userRef.set(data, { merge: true });

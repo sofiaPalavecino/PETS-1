@@ -69,11 +69,10 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-<<<<<<< HEAD
     path: 'paseadores',
     loadChildren: () => import('./paseadores/paseadores.module').then( m => m.PaseadoresPageModule)
-  }
-=======
+  },
+  {
     path: 'crear-paseo',
     loadChildren: () => import('./crear-paseo/crear-paseo.module').then( m => m.CrearPaseoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
@@ -83,7 +82,6 @@ const routes: Routes = [
     loadChildren: () => import('./plan-cuidado/plan-cuidado.module').then( m => m.PlanCuidadoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
->>>>>>> 209f0c41e0f66c83c8e1142b7cbb4f138590e5f5
 
 ];
 

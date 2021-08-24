@@ -18,7 +18,6 @@ export class PaseosService {
             calificacion_promedio:doc.data()["calificacion promedio"],
             idUsuario:doc.data()["idUsuario"],
           }
-          console.log(paseadorAux);
           this.paseadores.push(paseadorAux);
         })
       }

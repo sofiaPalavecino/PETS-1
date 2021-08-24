@@ -1,5 +1,3 @@
-
-
 <ion-content>
   <ion-header>
     <ion-toolbar>
@@ -12,28 +10,11 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <div class="div-paseos" *ngFor="let paseador of PaseosServ.paseadores" value={{paseador}} >
-      <ion-card class="card-paseo">
-        <ion-row>
-          <div>
-            <ion-avatar>
-              <img class="foto-mapa" src='../../assets/images/mapa.png'>
-            </ion-avatar>
-          </div>
-          <ion-col>
-            <ion-card-header class="header-titulo-paseo">
-              <ion-card-title class="titulo-paseo">Nombre</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <span class="informacion-paseo">a</span><br>
-              <span class="informacion-paseo">a</span>
-              <ion-row>
-                <span class="informacion-paseo">{{paseador.calificacion_promedio}}</span>
-              </ion-row>
-              <button class="boton-editar">Editar</button>
-            </ion-card-content>
-          </ion-col>
-        </ion-row>
+
+    <div class="div-paseos"  >
+      <app-worker  *ngFor="let paseador of PaseosServ.paseadores" idUsuario={{paseador.idUsuario}}
+      calificacion_promedio={{paseador.calificacion_promedio}}></app-worker>
+      <ion-card  onclick="perfil(paseador)">
       </ion-card>
     </div>
   </ion-row>
