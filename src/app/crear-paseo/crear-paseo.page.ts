@@ -8,7 +8,7 @@ import { Dia } from '../dia'
   styleUrls: ['./crear-paseo.page.scss'],
 })
 export class CrearPaseoPage implements OnInit {
-
+  //Cant dias no muestra bien, plazo tira undefine(para este hacar algo parecido a los dias)
   costo:number;
   cupo:number;
   plazo:string;
@@ -20,12 +20,16 @@ export class CrearPaseoPage implements OnInit {
   constructor(private aServ:AuthService){ 
     this.diasDisponibles = new Array<Dia>();
     this.diasDisponibles.push(new Dia("Lunes",false), new Dia("Martes",false), new Dia("Miercoles",false), new Dia("Jueves",false), new Dia("Viernes",false), new Dia("Sabado",false), new Dia("Domingo",false));
+    this.estado="Abierto";
+    this.disponibilidad=true;   
+
   }
 
   ngOnInit() {}
 
   crearPaseo(){
-    this.aServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles)
+    //this.aServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles)
+    console.log(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles)
   }
 
 }

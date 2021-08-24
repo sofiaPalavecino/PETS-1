@@ -93,14 +93,20 @@
           <a>Selecciona los disponibles:</a>
           
           <ion-row>
+            
+            <ion-col>
 
-            <label *ngFor="let Dia of diasDisponibles">
-              
-              <ion-row>
-                <input type="checkbox" [(ngModel)]="Dia.estado" > {{Dia.nombre}}
-              </ion-row>
-              
-            </label>
+              <label *ngFor="let Dia of diasDisponibles">
+
+                <ion-row>
+  
+                  <ion-checkbox type="checkbox" [(ngModel)]="Dia.estado"></ion-checkbox> {{Dia.nombre}}
+                
+                </ion-row>
+                
+              </label>
+
+            </ion-col>
 
           </ion-row>
     
