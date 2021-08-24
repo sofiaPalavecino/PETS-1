@@ -1,6 +1,6 @@
 <ion-list>
   <ion-list-header class="popover-header">Agregar</ion-list-header>
-  <ion-item button class="popover-item">Plan de paseo</ion-item>
-  <ion-item button class="popover-item">Plan de cuidad</ion-item>
+  <ion-item button (click)="redirectTo('crear-paseo')" class="popover-item">Plan de paseo</ion-item>
+  <ion-item button (click)="redirectTo('plan-cuidado')" class="popover-item">Plan de cuidad</ion-item>
   <ion-item button (click)="redirectTo('config-mascota')" class="popover-item">Mascota</ion-item>
 </ion-list>

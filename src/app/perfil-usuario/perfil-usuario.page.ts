@@ -34,11 +34,19 @@ export class PerfilUsuarioPage {
   async ngOnInit(){
   }
 
+<<<<<<< HEAD
   /*goToTarget(categoria:string){
     if(categoria=="Cuidados"){
       console.log("a")
     }
   }*/
+=======
+  goToTarget(categoria:string){
+    if(categoria=="Cuidados"){
+      console.log("a")
+    }
+  }
+>>>>>>> 209f0c41e0f66c83c8e1142b7cbb4f138590e5f5
 
 
   

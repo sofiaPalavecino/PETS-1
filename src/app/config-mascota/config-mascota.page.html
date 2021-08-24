@@ -20,14 +20,14 @@
         </ion-col>
 
       </ion-row>
+      
       <ion-row>
 
         <ion-col>
           <a>Especie:</a>
           <ion-item lines="full" style="margin-left: 5px;">
             <ion-select placeholder="Select One">
-              <ion-select-option value="f">Gato</ion-select-option>
-              <ion-select-option value="m">Perro</ion-select-option>
+              <ion-select-option *ngFor="let especieMascota of this.especieServ.especies" value="{{especieMascota.nombreEspecie}}">{{especieMascota.nombreEspecie}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -53,8 +53,19 @@
         </ion-col>
 
       </ion-row>
+
+      <ion-row>
+          
+        <ion-col>
+          <a>Foto de la mascota:</a>
+          <button (click)="selectImage()">Subir foto</button>
+        </ion-col>
+
+      </ion-row>
+
     </ion-col>
 
+    <button type="submit" class="botonAceptar" (click)="cambiarDatos()">Aceptar</button>
   </div>
 
 </ion-content>

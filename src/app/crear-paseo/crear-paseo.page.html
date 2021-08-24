@@ -1,0 +1,148 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>crear-paseo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-col>
+
+    <ion-row>
+
+      <ion-col>
+        <a>Hora Inicio:</a>
+      <ion-item>
+        <ion-label>h:mm a</ion-label>
+        <ion-datetime displayFormat="h:mm a"></ion-datetime>
+      </ion-item>
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+
+      <ion-col>
+        <a>Hora Finalizacion:</a>
+      <ion-item>
+        <ion-label>h:mm a</ion-label>
+        <ion-datetime displayFormat="h:mm a"></ion-datetime>
+      </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      
+      <ion-col>
+        <a>Selecciona los dias:</a>
+        <ion-row>
+          <ion-item>
+            <ion-label>Lunes</ion-label>
+            <ion-checkbox checked="false" value="Lunes"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Martes</ion-label>
+            <ion-checkbox checked="false" value="Martes"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Miercoles</ion-label>
+            <ion-checkbox checked="false" value="Miercoles"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Jueves</ion-label>
+            <ion-checkbox checked="false" value="Jueves"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Viernes</ion-label>
+            <ion-checkbox checked="false" value="Viernes"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Sabado</ion-label>
+            <ion-checkbox checked="false" value="Sabado"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+        <ion-row>
+          <ion-item>
+            <ion-label>Domingo</ion-label>
+            <ion-checkbox checked="false" value="Domingo"></ion-checkbox>
+          </ion-item>
+        </ion-row>
+  
+      </ion-col>
+    
+    </ion-row>
+    
+    <ion-row>
+      
+      <ion-col>
+        
+        <a>Costo</a>
+        <ion-item lines="full" style="margin-left: 5px;">
+          <ion-input type="number" required></ion-input>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      
+      <ion-col>
+        
+        <a>Cupo</a>
+        <ion-item>
+          <ion-label>Cantidad de mascotas</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="1">1</ion-select-option>
+            <ion-select-option value="2">2</ion-select-option>
+            <ion-select-option value="3">3</ion-select-option>
+            <ion-select-option value="4">4</ion-select-option>
+            <ion-select-option value="5">5</ion-select-option>
+            <ion-select-option value="6">6</ion-select-option>
+            <ion-select-option value="7">7</ion-select-option>
+            <ion-select-option value="8">8</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      
+      <ion-col>
+        
+        <a>Duracion</a>
+        <ion-item>
+          <ion-label>Duracion</ion-label>
+          <ion-select placeholder="Select One">
+            <ion-select-option value="1">Semanal</ion-select-option>
+            <ion-select-option value="2">Quincenal</ion-select-option>
+            <ion-select-option value="3">Mensual</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-col>
+
+  
+</ion-content>
