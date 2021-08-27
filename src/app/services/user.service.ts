@@ -23,11 +23,14 @@ export class UserService {
   public categorias:Array<string>=[];
   public paseador:Paseador=null;
   public planesPaseador:Array<PlanPaseo>=[];
-  public cuidador:Cuidador=null;
+  public cuidador$: Observable<Cuidador> = null;
   public ofertasCuidador:Array<PlanCuidador>=[];
   public mascotas:Array<mascota>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
+//que sea observable
+
+
 
       this.afs.firestore.collection("cuidador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
         if (querySnapshot.size>0)
@@ -120,4 +123,18 @@ export class UserService {
   }
 
   
+  async crearNuevoPaseo(costo:number,cupo:number,plazo:string,cantDiasPaseo:number,disponibilidad:boolean,estado:string,diasDisponibles:Array<Dia>){
+    
+    if(!this.paseador){ //si paseador=false, no existe documento de paseador para el usuario
+      
+      const creoPaseador = await this.afs.collection('paseador').add({
+        calificacion_promedio: 0, 
+      })
+
+    }
+    
+    const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add()
+
+    
+  }
 }

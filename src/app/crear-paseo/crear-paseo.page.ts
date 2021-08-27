@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 import { Dia } from '../dia'
 
 @Component({
@@ -17,7 +17,7 @@ export class CrearPaseoPage implements OnInit {
   estado:string;
   diasDisponibles:Array<Dia>;
   
-  constructor(private aServ:AuthService){ 
+  constructor(private userServ: UserService,){ 
     this.diasDisponibles = new Array<Dia>();
     this.diasDisponibles.push(new Dia("Lunes",false), new Dia("Martes",false), new Dia("Miercoles",false), new Dia("Jueves",false), new Dia("Viernes",false), new Dia("Sabado",false), new Dia("Domingo",false));
     this.estado="Abierto";
@@ -28,8 +28,7 @@ export class CrearPaseoPage implements OnInit {
   ngOnInit() {}
 
   crearPaseo(){
-    //this.aServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles)
-    console.log(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles)
+    this.userServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles);
   }
 
 }
