@@ -18,4 +18,5 @@ export interface userProfile{
   administrando:string;
   DNI:number;
   foto:string;
+  barrio:string;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PaseosService } from "../services/paseos.service";
+import { Paseador } from '../shared/paseador';
 
 
 @Component({
@@ -14,5 +15,7 @@ export class PaseadoresPage implements OnInit {
   ngOnInit() {
     
   }
+
+  
 
 }

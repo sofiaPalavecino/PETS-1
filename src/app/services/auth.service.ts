@@ -133,14 +133,15 @@ export class AuthService {
       nacimiento: dataAux[5],
       DNI: dataAux[6],
       administrando:null, //arregla
-      foto: dataAux[7]
+      foto: dataAux[7],
+      barrio:dataAux[8],
     };
     
-    
+  
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
@@ -159,7 +160,8 @@ export class AuthService {
       nacimiento: nacimiento,
       DNI: dni,
       administrando:  administrando,
-      foto:foto
+      foto:foto,
+      barrio: barrio,
     };
     console.log(data);
     return userRef.set(data, { merge: true });

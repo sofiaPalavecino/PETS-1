@@ -1,8 +1,8 @@
-<ion-card class="card-paseo" *ngFor="let usuario of usuarios">
+<ion-card class="card-paseo" *ngFor="let usuario of usuarios" (click)="perfil()">
   <ion-row>
     <div>
       <ion-avatar>
-        <img class="foto-mapa" src='../../assets/images/mapa.png'>
+        <img class="foto-mapa" src="{{usuario.foto}}">
       </ion-avatar>
     </div>
     <ion-col>
@@ -11,9 +11,8 @@
       </ion-card-header>
       <ion-card-content>
         <span class="informacion-paseo">{{calificacion_promedio}}</span><br>
-        <span class="informacion-paseo">a</span>
         <ion-row>
-          <span class="informacion-paseo">a</span>
+          <span class="informacion-paseo">{{usuario.barrio}}</span>
         </ion-row>
         <button class="boton-editar">Editar</button>
       </ion-card-content>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Paseador } from "../shared/paseador";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { userProfile } from '../shared/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class PaseosService {
         })
       }
     })
-
   }
+
+  
 }

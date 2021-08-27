@@ -13,9 +13,7 @@
 
     <div class="div-paseos"  >
       <app-worker  *ngFor="let paseador of PaseosServ.paseadores" idUsuario={{paseador.idUsuario}}
-      calificacion_promedio={{paseador.calificacion_promedio}}></app-worker>
-      <ion-card  onclick="perfil(paseador)">
-      </ion-card>
+      calificacion_promedio={{paseador.calificacion_promedio}} ></app-worker>
     </div>
   </ion-row>
 

@@ -82,6 +82,11 @@ const routes: Routes = [
     loadChildren: () => import('./plan-cuidado/plan-cuidado.module').then( m => m.PlanCuidadoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
+  {
+    path: 'perfil-persona:',
+    loadChildren: () => import('./perfil-persona/perfil-persona.module').then( m => m.PerfilPersonaPageModule)
+  },
+
 
 ];
 

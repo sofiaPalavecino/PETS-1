@@ -3,6 +3,7 @@ import { Paseador } from 'src/app/shared/paseador';
 import { User,userProfile } from 'src/app/shared/user.interface'; 
 import { PaseosService } from 'src/app/services/paseos.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-worker',
@@ -16,7 +17,8 @@ export class WorkerComponent implements OnInit {
   public usuarios:Array<userProfile> = []
 
 
-  constructor(private PaseosServ:PaseosService, private afs: AngularFirestore) {
+  constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router) {
+    
   }
 
   ngOnInit() {
@@ -32,14 +34,25 @@ export class WorkerComponent implements OnInit {
             nacimiento: doc.data()["nacimiento"],
             administrando:doc.data()["administrando"],
             DNI:doc.data()["DNI"],
-            foto:doc.data()["foto"]
+            foto:doc.data()["foto"],
+            barrio:doc.data()["barrio"]
           }
-          this.usuarios.push(userAux); 
+          this.usuarios.push(userAux);
         })
-      }
+      } 
     })
   }
 
+
+  perfil(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(this.usuarios[0])
+      }
+    };
+    this.router.navigate(['perfil-persona'],navigationExtras);
+  }
+ 
   
 
 }
