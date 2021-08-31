@@ -22,10 +22,10 @@ import { Dia } from '../dia';
 })
 export class UserService {
   public categorias:Array<string>=[];
-  public paseador:Paseador=null;
-  public planesPaseador:Array<PlanPaseo>=[];
+  public paseador$:Observable<Paseador>=null;
+  public planesPaseador$:Array<Observable<PlanPaseo>>=null;
   public cuidador$: Observable<Cuidador> = null;
-  public ofertasCuidador:Array<PlanCuidador>=[];
+  public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
   public mascotas:Array<mascota>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
@@ -33,29 +33,17 @@ export class UserService {
     this.afs.firestore.collection("cuidador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
       if (querySnapshot.size>0)
         this.categorias.push("Cuidador");
-        querySnapshot.forEach((doc) =>{
-          this.cuidador$ = this.afs.doc<Cuidador>(`cuidador/${doc.id}`).valueChanges();
-        })
-        this.afs.firestore.collection('cuidador').where("idUsuario","==",authSvc.uid).get().then((querySnapshot)=>{
-          
-          if(querySnapshot.size>0){
-            querySnapshot.forEach((doc)=>{
-              this.afs.collection('cuidador').doc(doc.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
-                if(querySnapshot.size>0){
-                  querySnapshot.forEach((doc) =>{
-                    let planCuidadorAux:PlanCuidador ={
-                      cantidad_dias:doc.data()["cantidad dias"],
-                      costo:doc.data()["costo"],
-                      cupo:doc.data()["cupo"],
-                      disponible:doc.data()["disponible"],
-                    }
-                    this.ofertasCuidador.push(planCuidadorAux);
-                  })
-                }
+        querySnapshot.forEach((docC) =>{
+          this.cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
+          this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
+            if(querySnapshot.size>0){
+              querySnapshot.forEach((docPC) =>{
+                this.ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
               })
-            })
-          }
+            }
+          })
         })
+  
     }).catch((error)=>{
       console.log("Error getting documents: ", error);
     })
@@ -63,35 +51,15 @@ export class UserService {
     this.afs.firestore.collection("paseador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
       if (querySnapshot.size>0){
         this.categorias.push("Paseador","Calificaciones");
-        querySnapshot.forEach((doc) =>{
-          let paseadorAux:Paseador ={
-            calificacion_promedio:doc.data()["calificacion promedio"],
-            idUsuario:doc.data()["idUsuario"],
-          }
-          this.paseador=paseadorAux;
-        })
-        this.afs.firestore.collection('paseador').where("idUsuario","==",authSvc.uid).get().then((querySnapshot)=>{
-          
-          if(querySnapshot.size>0){
-            querySnapshot.forEach((doc)=>{
-              this.afs.collection('paseador').doc(doc.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
-                if(querySnapshot.size>0){
-                  querySnapshot.forEach((doc) =>{
-                    let planPaseadorAux:PlanPaseo ={
-                      costo:doc.data()["costo"],
-                      cupo:doc.data()["cupo"],
-                      dias:doc.data()["dias"],
-                      disponibilidad:doc.data()["disponibilidad"],
-                      duracion:doc.data()["duracion"],
-                      duracion_plan:doc.data()["duracion plan"],
-                      hora:doc.data()["hora"],
-                    }
-                    this.planesPaseador.push(planPaseadorAux);
-                  })
-                }
-              })
+        querySnapshot.forEach((docPaseador) =>{
+            this.paseador$=this.afs.doc<Cuidador>(`paseador/${docPaseador.id}`).valueChanges();
+            this.afs.collection('paseador').doc(docPaseador.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
+              if(querySnapshot.size>0){
+                this.planesPaseador$.subscribe((data) => {
+                  data.push()
+                })
+              }
             })
-          }
         })
       }
     }).catch((error)=>{
@@ -116,14 +84,19 @@ export class UserService {
   
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
     
-    if(!this.paseador){ //si paseador=false, no existe documento de paseador para el usuario
+    if(this.paseador==null){ //si paseador=false, no existe documento de paseador para el usuario
       
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
+        idUsuario: this.authSvc.uid,
       })
+
+      console.log(this.paseador);
 
     }
     
+    
+
     const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
       costo:costoA,
       cupo:cupoA,
