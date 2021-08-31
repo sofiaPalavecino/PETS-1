@@ -83,11 +83,10 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'perfil-persona:',
-    loadChildren: () => import('./perfil-persona/perfil-persona.module').then( m => m.PerfilPersonaPageModule)
+    path: 'perfil/:id',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
-
-
 ];
 
 @NgModule({

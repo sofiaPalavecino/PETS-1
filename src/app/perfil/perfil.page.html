@@ -1,0 +1,189 @@
+<ion-content id="contentPerfilUsusario"  [scrollEvents]="true" [appHideHeader]="toolbar" [appFadeHeader]="toolbar">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!---->
+  <ion-row class="columna-foto-datos" #toolbar>
+    <ion-col>
+      <div class="div-contiene-foto-nombre" >
+        <ion-avatar>
+          <img  >
+        </ion-avatar>
+        <div class="div-contiene-nombre-provincia">
+          <div class="div-nombre-usuario">
+            <h2 class="h2-nombre-usuario" ></h2>
+          </div>
+          <div class="div-provincia-usuario">
+            <h3 class="h2-provincia-usuario" ></h3>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="12">
+      <div>
+        <ion-segment scrollable >
+          <ion-segment-button  >
+            <ion-label></ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-col>
+  </ion-row> 
+  <div class="fondo-color-casi-blanco">
+    <!------------------------------------paseos------------------------------------------>
+    <ion-row id="Paseos" >
+      <ion-col >
+        <ion-row>
+          <h2 class="titulo-apartado-paseo" >Paseos</h2>
+        </ion-row>
+        <ion-row>
+          <div class="div-paseos"  >
+            <ion-card class="card-paseo">
+              <ion-row>
+                <div>
+                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                </div>
+                <ion-col>
+                  <ion-card-header class="header-titulo-paseo">
+                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="informacion-paseo"></span><br>
+                    <span class="informacion-paseo"></span>
+                    <ion-row>
+                      <span class="informacion-paseo">Cupos disponibles:</span>
+                      <span class="informacion-paseo">
+                        
+                      </span>
+                    </ion-row>
+                    <button class="boton-editar">Editar</button>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+            <!---<ion-card class="card-paseo">
+              <ion-row>
+                <div>
+                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                </div>
+                <ion-col>
+                  <ion-card-header class="header-titulo-paseo">
+                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="informacion-paseo">
+                      Lunes a Viernes
+                    </span>
+                    <span class="informacion-paseo">
+                      10:00 
+                    </span>
+                    <ion-row>
+                      <span class="informacion-paseo">
+                        Cupos disponibles:
+                      </span>
+                      <span class="informacion-paseo">
+                        1
+                      </span>
+                    </ion-row>
+                    <button class="boton-editar">Editar</button>
+                  </ion-card-content>
+                </ion-col>
+              </ion-row>
+            </ion-card>--->
+          </div>
+        </ion-row>  
+      </ion-col>
+    </ion-row>
+   <!------------------------------cuidados----------------------------------------------------->    
+    <ion-row id="Cuidados" >
+      <ion-col>
+        <ion-row>
+          <h2 class="titulo-apartado-paseo" >Cuidados</h2>
+        </ion-row>
+        <ion-row>
+          <h3 class="subitulo-cuidados">Precio por día de cuidado</h3>
+          <h3 class="precio-dia-cuidado"></h3>
+        </ion-row>
+        <ion-row>
+          <div class="div-paseos" >
+            <ion-card class="card-paseo">
+              <ion-row>
+                <ion-col>
+                  <ion-card-header class="header-titulo-paseo">
+                    <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="informacion-paseo">Precio: </span><br>
+                    <span class="informacion-paseo">Cantidad de dias: </span>
+                  </ion-card-content>
+                </ion-col>
+                <div>
+                  <button class="boton-editar-cuidados">Editar</button>
+                </div>
+              </ion-row>
+            </ion-card>
+            <!--<ion-card class="card-paseo">
+              <ion-row>
+                <ion-col>
+                  <ion-card-header class="header-titulo-paseo">
+                    <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <span class="informacion-paseo">precio $mucha plata</span>
+                  </ion-card-content>
+                </ion-col>
+                <div>
+                  <button class="boton-editar-cuidados">Editar</button>
+                </div>
+              </ion-row>
+            </ion-card>-->
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row> 
+     <!------------------------------mascotas----------------------------------------------------->
+    <ion-row id="Mascotas" >
+      <ion-col>
+        <ion-row>
+          <h2 class="titulo-apartado-paseo" >Mascotas</h2>
+        </ion-row>
+        <ion-row>
+          <div class='div-mascotas'>
+            <ion-slides  class='div-mascotas' pager="true">
+              <ion-slide>
+                <ion-card class="card-mascota">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/pets-5ca11.appspot.com/o/sailor%20mercury.jpg?alt=media&token=b49aa0f9-43a1-4999-b78e-e168c8e62eb8" class="image">
+                  <ion-row>
+                    <ion-col>
+                      <ion-card-header class="header-titulo-mascota">
+                        <ion-card-title class="titulo-paseo"></ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <span class="informacion-paseo">calificación</span>
+                      </ion-card-content>
+                    </ion-col>
+                    <ion-card-content>
+                      <span class="informacion-mascota">Ver Más</span>
+                    </ion-card-content>
+                  </ion-row>
+                </ion-card>
+              </ion-slide>
+            </ion-slides>
+          </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div> 
+</ion-content>
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="popController.presentPopover()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

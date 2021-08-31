@@ -1,4 +1,4 @@
-<ion-card class="card-paseo" *ngFor="let usuario of usuarios" (click)="perfil()">
+<ion-card class="card-paseo" *ngFor="let usuario of usuarios"  [routerLink]="['/perfil',this.usuarios[0].uid]">
   <ion-row>
     <div>
       <ion-avatar>
