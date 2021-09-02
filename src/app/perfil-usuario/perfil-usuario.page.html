@@ -38,66 +38,72 @@
   </ion-row> 
   <div class="fondo-color-casi-blanco">
     <!------------------------------------paseos------------------------------------------>
-    <ion-row id="Paseos" *ngIf="userServ.paseador != null">
+    <ion-row id="Paseos" *ngIf="userServ.paseador$ | async;let">
       <ion-col >
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
         <ion-row>
-          <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador" value={{plan}} >
-            <ion-card class="card-paseo">
-              <ion-row>
-                <div>
-                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
-                </div>
-                <ion-col>
-                  <ion-card-header class="header-titulo-paseo">
-                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <span class="informacion-paseo">{{plan.dias}}</span><br>
-                    <span class="informacion-paseo">{{plan.hora}}</span>
-                    <ion-row>
-                      <span class="informacion-paseo">Cupos disponibles:</span>
+          
+          <div>
+
+            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador" value={{plan}} >
+              <ion-card class="card-paseo">
+                <ion-row>
+                  <div>
+                    <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                  </div>
+                  <ion-col>
+                    <ion-card-header class="header-titulo-paseo">
+                      <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <span class="informacion-paseo">{{plan.dias}}</span><br>
+                      <span class="informacion-paseo">{{plan.hora}}</span>
+                      <ion-row>
+                        <span class="informacion-paseo">Cupos disponibles:</span>
+                        <span class="informacion-paseo">
+                          {{plan.cupo}}
+                        </span>
+                      </ion-row>
+                      <button class="boton-editar">Editar</button>
+                    </ion-card-content>
+                  </ion-col>
+                </ion-row>
+              </ion-card>
+              <!---<ion-card class="card-paseo">
+                <ion-row>
+                  <div>
+                    <img class="foto-mapa" src='../../assets/images/mapa.png'>
+                  </div>
+                  <ion-col>
+                    <ion-card-header class="header-titulo-paseo">
+                      <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
                       <span class="informacion-paseo">
-                        {{plan.cupo}}
-                      </span>
-                    </ion-row>
-                    <button class="boton-editar">Editar</button>
-                  </ion-card-content>
-                </ion-col>
-              </ion-row>
-            </ion-card>
-            <!---<ion-card class="card-paseo">
-              <ion-row>
-                <div>
-                  <img class="foto-mapa" src='../../assets/images/mapa.png'>
-                </div>
-                <ion-col>
-                  <ion-card-header class="header-titulo-paseo">
-                    <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <span class="informacion-paseo">
-                      Lunes a Viernes
-                    </span>
-                    <span class="informacion-paseo">
-                      10:00 
-                    </span>
-                    <ion-row>
-                      <span class="informacion-paseo">
-                        Cupos disponibles:
+                        Lunes a Viernes
                       </span>
                       <span class="informacion-paseo">
-                        1
+                        10:00 
                       </span>
-                    </ion-row>
-                    <button class="boton-editar">Editar</button>
-                  </ion-card-content>
-                </ion-col>
-              </ion-row>
-            </ion-card>--->
+                      <ion-row>
+                        <span class="informacion-paseo">
+                          Cupos disponibles:
+                        </span>
+                        <span class="informacion-paseo">
+                          1
+                        </span>
+                      </ion-row>
+                      <button class="boton-editar">Editar</button>
+                    </ion-card-content>
+                  </ion-col>
+                </ion-row>
+              </ion-card>--->
+            </div>
+
           </div>
+          
         </ion-row>  
       </ion-col>
     </ion-row>
