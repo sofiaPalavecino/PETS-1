@@ -4,6 +4,7 @@ import { User,userProfile } from 'src/app/shared/user.interface';
 import { PaseosService } from 'src/app/services/paseos.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { NavigationExtras, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-worker',
@@ -17,7 +18,7 @@ export class WorkerComponent implements OnInit {
   public usuarios:Array<userProfile> = []
 
 
-  constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router) {
+  constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
     
   }
 
@@ -45,12 +46,19 @@ export class WorkerComponent implements OnInit {
 
 
   perfil(){
-    let navigationExtras: NavigationExtras = {
+    const id:any=this.usuarios[0].uid;
+    console.log(id)
+    /*let navigationExtras: NavigationExtras = {
       queryParams: {
-        special: JSON.stringify(this.usuarios[0])
-      }
-    };
-    this.router.navigate(['perfil-persona'],navigationExtras);
+        usuario: this.usuarios[0]
+        idUsuario: this.idUsuario,
+        calificacion_promedio: this.calificacion_promedio
+      },
+      queryParamsHandling:'merge'
+    };*/
+    /*this.navCtrl.navigateForward(['perfil-persona'],navigationExtras);*/
+    
+    this.router.navigate(["perfil-persona/",id]);
   }
  
   
