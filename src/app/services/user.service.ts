@@ -26,7 +26,7 @@ export class UserService {
   public planesPaseador$:Array<Observable<PlanPaseo>>=[];
   public cuidador$: Observable<Cuidador> = null;
   public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
-  public mascotas$:Array<Observable<mascota>>=[];
+  public mascotas:Array<Observable<mascota>>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
 
@@ -70,10 +70,12 @@ export class UserService {
       if(querySnapshot.size>0){
         this.categorias.push("Mascotas");
         querySnapshot.forEach((doc) =>{
-          this.mascotas$.push(this.afs.doc<mascota>(`users/${authSvc.uid}/mascota/${doc.id}`).valueChanges());
+          this.mascotas.push(this.afs.doc<mascota>(`users/${authSvc.uid}/mascota/${doc.id}`).valueChanges());
         })
       }
     });
+
+    console.log(this.mascotas)
   }
   
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){

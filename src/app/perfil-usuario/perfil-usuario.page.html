@@ -38,16 +38,16 @@
   </ion-row> 
   <div class="fondo-color-casi-blanco">
     <!------------------------------------paseos------------------------------------------>
-    <ion-row id="Paseos" *ngIf="userServ.paseador$ | async;let">
+    <ion-row id="Paseos" *ngIf="userServ.paseador$ | async;let paseador">
       <ion-col >
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
         <ion-row>
           
-          <div>
+          <div *ngIf="userServ.planesPaseador$ | async;let planesPaseador" >
 
-            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador" value={{plan}} >
+            <div class="div-paseos" *ngFor="let plan of planesPaseador" value={{plan}} >
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>
@@ -108,17 +108,17 @@
       </ion-col>
     </ion-row>
    <!------------------------------cuidados----------------------------------------------------->    
-    <ion-row id="Cuidados" *ngIf="userServ.cuidador != null">
+    <ion-row id="Cuidados" *ngIf="userServ.cuidador$ | async; let cuidador">
       <ion-col>
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Cuidados</h2>
         </ion-row>
         <ion-row>
           <h3 class="subitulo-cuidados">Precio por día de cuidado</h3>
-          <h3 class="precio-dia-cuidado">: ${{userServ.cuidador.precio_dia}}</h3>
+          <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
         </ion-row>
-        <ion-row>
-          <div class="div-paseos" *ngFor="let oferta of userServ.ofertasCuidador" value={{oferta}}  >
+        <ion-row *ngIf="userServ.ofertasCuidador$ | async ; let ofertasCuidador">
+          <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}  >
             <ion-card class="card-paseo">
               <ion-row>
                 <ion-col>
@@ -155,14 +155,14 @@
       </ion-col>
     </ion-row> 
      <!------------------------------mascotas----------------------------------------------------->
-    <ion-row id="Mascotas" *ngIf="userServ.mascotas.length > 0">
+    <ion-row id="Mascotas" *ngIf="userServ.mascotas$ | async ; let mascotas">
       <ion-col>
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Mascotas</h2>
         </ion-row>
         <ion-row>
           <div class='div-mascotas'>
-            <ion-slides *ngFor="let mascota of userServ.mascotas" value={{mascota}} class='div-mascotas' pager="true">
+            <ion-slides *ngFor="let mascota of mascotas" value={{mascota}} class='div-mascotas' pager="true">
               <ion-slide>
                 <ion-card class="card-mascota">
                   <img src="https://firebasestorage.googleapis.com/v0/b/pets-5ca11.appspot.com/o/sailor%20mercury.jpg?alt=media&token=b49aa0f9-43a1-4999-b78e-e168c8e62eb8" class="image">
