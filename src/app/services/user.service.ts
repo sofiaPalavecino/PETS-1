@@ -29,51 +29,19 @@ export class UserService {
   public mascotas$:Array<Observable<mascota>>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-
-    this.afs.firestore.collection("cuidador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
-      if (querySnapshot.size>0)
-        this.categorias.push("Cuidador");
-        querySnapshot.forEach((docC) =>{
-          this.cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
-          this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
-            if(querySnapshot.size>0){
-              querySnapshot.forEach((docPC) =>{
-                this.ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
-              })
-            }
-          })
-        })
-  
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
+    
+    let funciones:Promise<Map<any,any>>=this.formarPerfil(this.authSvc.uid);
+    
+    funciones.then((data)=> {
+      console.log(data)
+      this.categorias=data.get("categorias");
+      this.paseador$=data.get("paseador");
+      this.planesPaseador$=data.get("planes");
+      this.cuidador$ =data.get("cuidador");
+      this.ofertasCuidador$=data.get("ofertas");
+      this.mascotas$=data.get("mascotas");
     })
-
-    this.afs.firestore.collection("paseador").where("idUsuario","==",authSvc.uid).get().then((querySnapshot) => {
-      if (querySnapshot.size>0){
-        this.categorias.push("Paseador","Calificaciones");
-        querySnapshot.forEach((docP) =>{
-            this.paseador$=this.afs.doc<Cuidador>(`paseador/${docP.id}`).valueChanges();
-            this.afs.collection('paseador').doc(docP.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
-              if(querySnapshot.size>0){
-                querySnapshot.forEach((docPP) =>{
-                  this.planesPaseador$.push(this.afs.doc<PlanPaseo>(`paseador/${docP.id}/Plan Paseador/${docPP.id}`).valueChanges());
-                })
-              }
-            })
-        })
-      }
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-
-    this.afs.collection('users').doc(authSvc.uid).collection('mascota').get().subscribe((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        this.categorias.push("Mascotas");
-        querySnapshot.forEach((doc) =>{
-          this.mascotas$.push(this.afs.doc<mascota>(`users/${authSvc.uid}/mascota/${doc.id}`).valueChanges());
-        })
-      }
-    });
+    
   }
   
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
@@ -89,8 +57,6 @@ export class UserService {
 
     }
     
-    
-
     const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
       costo:costoA,
       cupo:cupoA,
@@ -102,5 +68,72 @@ export class UserService {
     });
 
     
+  }
+
+  async formarPerfil(id:any):Promise<Map<any,any>>{
+    var funciones:Map<any,any>=new Map();
+    let categorias:Array<string>=[];
+    let paseador$:Observable<Paseador>=null;
+    let planesPaseador$:Array<Observable<PlanPaseo>>=[]
+    let cuidador$: Observable<Cuidador> = null;
+    let ofertasCuidador$:Array<Observable<PlanCuidador>>
+    let mascotas$:Array<Observable<mascota>>=[];
+
+    
+
+    this.afs.firestore.collection("cuidador").where("idUsuario","==",id).get().then((querySnapshot) => {
+      if (querySnapshot.size>0)
+        categorias.push("Cuidador");
+        querySnapshot.forEach((docC) =>{
+          cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
+          
+          funciones.set("cuidador",cuidador$);
+          this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
+            if(querySnapshot.size>0){
+              querySnapshot.forEach((docPC) =>{
+                
+                ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
+                
+              })
+              funciones.set("ofertas",ofertasCuidador$)
+            }
+          })
+        })
+  
+    }).catch((error)=>{
+      console.log("Error getting documents: ", error);
+    })
+
+    this.afs.firestore.collection("paseador").where("idUsuario","==",id).get().then((querySnapshot) => {
+      if (querySnapshot.size>0){
+        categorias.push("Paseador","Calificaciones");
+        querySnapshot.forEach((docP) =>{
+            paseador$=this.afs.doc<Cuidador>(`paseador/${docP.id}`).valueChanges();
+            funciones.set("paseador",paseador$)
+            this.afs.collection('paseador').doc(docP.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
+              if(querySnapshot.size>0){
+                querySnapshot.forEach((docPP) =>{
+                  planesPaseador$.push(this.afs.doc<PlanPaseo>(`paseador/${docP.id}/Plan Paseador/${docPP.id}`).valueChanges());
+                })
+                funciones.set("planes",planesPaseador$)
+              }
+            })
+        })
+      }
+    }).catch((error)=>{
+      console.log("Error getting documents: ", error);
+    })
+
+    this.afs.collection('users').doc(id).collection('mascota').get().subscribe((querySnapshot)=>{
+      if(querySnapshot.size>0){
+        categorias.push("Mascotas");
+        querySnapshot.forEach((doc) =>{
+          mascotas$.push(this.afs.doc<mascota>(`users/${id}/mascota/${doc.id}`).valueChanges());
+        })
+        funciones.set("mascotas",mascotas$)
+      }
+    });
+    await funciones.set("categorias",categorias)
+    return(funciones)
   }
 }

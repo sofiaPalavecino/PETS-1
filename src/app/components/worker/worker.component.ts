@@ -48,15 +48,8 @@ export class WorkerComponent implements OnInit {
   perfil(){
     const id:any=this.usuarios[0].uid;
     console.log(id)
-    /*let navigationExtras: NavigationExtras = {
-      queryParams: {
-        usuario: this.usuarios[0]
-        idUsuario: this.idUsuario,
-        calificacion_promedio: this.calificacion_promedio
-      },
-      queryParamsHandling:'merge'
-    };*/
-    /*this.navCtrl.navigateForward(['perfil-persona'],navigationExtras);*/
+    
+    
     
     this.router.navigate(["perfil-persona/",id]);
   }
