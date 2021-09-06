@@ -40,13 +40,13 @@ export class UserService {
       this.cuidador$ =data.get("cuidador");
       this.ofertasCuidador$=data.get("ofertas");
       this.mascotas=data.get("mascotas");
+      console.log("paseador",this.paseador$,"planes paseador",this.planesPaseador$,"cuidador",this.cuidador$,"ofertas cuidador",this.ofertasCuidador$,"mascotas",this.mascotas);
+      
     })
     
   }
-  
-  
 
-  async formarPerfil(id:any):Promise<Map<any,any>>{
+  async formarPerfil(id:any):Promise<Map<any,any>>{ //formar perfil para el listado de usuarios
     var funciones:Map<any,any>=new Map();
     let categorias:Array<string>=[];
     let paseador$:Observable<Paseador>=null;
@@ -55,34 +55,32 @@ export class UserService {
     let ofertasCuidador$:Array<Observable<PlanCuidador>>
     let mascotas$:Array<Observable<mascota>>=[];
 
-    
-
-    this.afs.firestore.collection("cuidador").where("idUsuario","==",id).get().then((querySnapshot) => {
-      if (querySnapshot.size>0)
-        categorias.push("Cuidador");
+    await this.afs.firestore.collection("cuidador").where("idUsuario","==",id).get().then((querySnapshot) => {
+      if (querySnapshot.size>0){
+        categorias.push("Cuidador");//es cuidador
         querySnapshot.forEach((docC) =>{
           cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
-          
           funciones.set("cuidador",cuidador$);
+          
           this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
             if(querySnapshot.size>0){
               querySnapshot.forEach((docPC) =>{
-                
                 ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
-                
               })
               funciones.set("ofertas",ofertasCuidador$)
             }
           })
         })
+      }
+        
   
     }).catch((error)=>{
       console.log("Error getting documents: ", error);
     })
 
-    this.afs.firestore.collection("paseador").where("idUsuario","==",id).get().then((querySnapshot) => {
+    await this.afs.firestore.collection("paseador").where("idUsuario","==",id).get().then((querySnapshot) => {
       if (querySnapshot.size>0){
-        categorias.push("Paseador","Calificaciones");
+        categorias.push("Paseador","Calificaciones");//es paseador
         querySnapshot.forEach((docP) =>{
             paseador$=this.afs.doc<Cuidador>(`paseador/${docP.id}`).valueChanges();
             funciones.set("paseador",paseador$)
@@ -100,35 +98,31 @@ export class UserService {
       console.log("Error getting documents: ", error);
     })
 
-    this.afs.collection('users').doc(id).collection('mascota').get().subscribe((querySnapshot)=>{
+    await this.afs.collection('users').doc(id).collection('mascota').get().subscribe((querySnapshot)=>{
       if(querySnapshot.size>0){
-        categorias.push("Mascotas");
+        categorias.push("Mascotas");//tiene mascotas
         querySnapshot.forEach((doc) =>{
-          this.mascotas.push(this.afs.doc<mascota>(`users/${this.authSvc.uid}/mascota/${doc.id}`).valueChanges());
+          mascotas$.push(this.afs.doc<mascota>(`users/${this.authSvc.uid}/mascota/${doc.id}`).valueChanges());
         })
         funciones.set("mascotas",mascotas$)
       }
     });
     await funciones.set("categorias",categorias)
     return(funciones)
-
-    console.log(this.mascotas)
   }
   
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
     
+    console.log(this.paseador$)
     if(this.paseador$==null){ //si paseador=false, no existe documento de paseador para el usuario
+      
       
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
-
       console.log(this.paseador$);
-
     }
-    
-    
 
     const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
       costo:costoA,
@@ -139,7 +133,5 @@ export class UserService {
       estado:estadoA,
       diasDisponibles:diasDisponiblesA
     });
-
-    
   }
 }

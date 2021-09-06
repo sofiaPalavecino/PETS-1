@@ -116,6 +116,7 @@
         <ion-row>
           <h3 class="subitulo-cuidados">Precio por día de cuidado</h3>
           <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
+          <h3 class="precio-dia-cuidado">: {{precio}}</h3>
         </ion-row>
         <ion-row *ngIf="userServ.ofertasCuidador$ | async ; let ofertasCuidador">
           <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}  >

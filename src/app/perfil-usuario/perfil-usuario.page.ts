@@ -8,7 +8,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-
+import { Cuidador } from '../shared/cuidador.interface';
 
 
 
@@ -21,7 +21,6 @@ import { UserService } from '../services/user.service';
 
 export class PerfilUsuarioPage {
   user:any;
-
   
   constructor(
     private afs: AngularFirestore, 
@@ -29,17 +28,16 @@ export class PerfilUsuarioPage {
     private userServ: UserService, 
     private popController: PopoverPerfilComponent) {
    
+      /*let a:any=userServ.cuidador$.subscribe((value)=>{
+
+      })*/
   }
 
   async ngOnInit(){
+    
   }
 
-  goToTarget(categoria:string){
-    if(categoria=="Cuidados"){
-      console.log("a")
-    }
-  }
-
-
+  
+ 
   
 }
