@@ -26,7 +26,7 @@ export class UserService {
   public planesPaseador$:Array<Observable<PlanPaseo>>=[];
   public cuidador$: Observable<Cuidador> = null;
   public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
-  public mascotas$:Array<Observable<mascota>>=[];
+  public mascotas:Array<Observable<mascota>>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
     
@@ -39,36 +39,12 @@ export class UserService {
       this.planesPaseador$=data.get("planes");
       this.cuidador$ =data.get("cuidador");
       this.ofertasCuidador$=data.get("ofertas");
-      this.mascotas$=data.get("mascotas");
+      this.mascotas=data.get("mascotas");
     })
     
   }
   
-  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
-    
-    if(this.paseador$==null){ //si paseador=false, no existe documento de paseador para el usuario
-      
-      const creoPaseador = await this.afs.collection('paseador').add({
-        calificacion_promedio: 0, 
-        idUsuario: this.authSvc.uid,
-      })
-
-      console.log(this.paseador$);
-
-    }
-    
-    const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
-      costo:costoA,
-      cupo:cupoA,
-      plazo:plazoA,
-      cantDiasPaseo:cantDiasPaseoA,
-      disponibilidad:disponibilidadA,
-      estado:estadoA,
-      diasDisponibles:diasDisponiblesA
-    });
-
-    
-  }
+  
 
   async formarPerfil(id:any):Promise<Map<any,any>>{
     var funciones:Map<any,any>=new Map();
@@ -128,12 +104,42 @@ export class UserService {
       if(querySnapshot.size>0){
         categorias.push("Mascotas");
         querySnapshot.forEach((doc) =>{
-          mascotas$.push(this.afs.doc<mascota>(`users/${id}/mascota/${doc.id}`).valueChanges());
+          this.mascotas.push(this.afs.doc<mascota>(`users/${this.authSvc.uid}/mascota/${doc.id}`).valueChanges());
         })
         funciones.set("mascotas",mascotas$)
       }
     });
     await funciones.set("categorias",categorias)
     return(funciones)
+
+    console.log(this.mascotas)
+  }
+  
+  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
+    
+    if(this.paseador$==null){ //si paseador=false, no existe documento de paseador para el usuario
+      
+      const creoPaseador = await this.afs.collection('paseador').add({
+        calificacion_promedio: 0, 
+        idUsuario: this.authSvc.uid,
+      })
+
+      console.log(this.paseador$);
+
+    }
+    
+    
+
+    const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
+      costo:costoA,
+      cupo:cupoA,
+      plazo:plazoA,
+      cantDiasPaseo:cantDiasPaseoA,
+      disponibilidad:disponibilidadA,
+      estado:estadoA,
+      diasDisponibles:diasDisponiblesA
+    });
+
+    
   }
 }
