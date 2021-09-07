@@ -10,16 +10,18 @@ import { PerfilUsuarioPage } from './perfil-usuario.page';
 
 import { DirectivesModule } from '../directives/directives.module';
 import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
+import { PaseosComponent } from '../components/paseos/paseos.component';
+import { CuidadosComponent } from '../components/cuidados/cuidados.component';
 
 @NgModule({
-  declarations: [PerfilUsuarioPage,PopoverPerfilComponent],
+  declarations: [PerfilUsuarioPage,PopoverPerfilComponent,PaseosComponent,CuidadosComponent],
   providers: [PopoverPerfilComponent],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     PerfilUsuarioPageRoutingModule,
-    DirectivesModule
+    DirectivesModule,
   ],
 })
 export class PerfilUsuarioPageModule {}

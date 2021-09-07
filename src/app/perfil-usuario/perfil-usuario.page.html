@@ -47,8 +47,10 @@
           
           <div *ngIf="userServ.planesPaseador$ | async;let planesPaseador" >
 
-            <div class="div-paseos" *ngFor="let plan of planesPaseador" value={{plan}} >
-              <ion-card class="card-paseo">
+            <div class="div-paseos"  value={{plan}} >
+              <app-paseos *ngFor="let plan of planesPaseador" paseadorId="paseador.id"></app-paseos>
+              
+              <!--<ion-card class="card-paseo">
                 <ion-row>
                   <div>
                     <img class="foto-mapa" src='../../assets/images/mapa.png'>
@@ -70,36 +72,8 @@
                     </ion-card-content>
                   </ion-col>
                 </ion-row>
-              </ion-card>
-              <!---<ion-card class="card-paseo">
-                <ion-row>
-                  <div>
-                    <img class="foto-mapa" src='../../assets/images/mapa.png'>
-                  </div>
-                  <ion-col>
-                    <ion-card-header class="header-titulo-paseo">
-                      <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                      <span class="informacion-paseo">
-                        Lunes a Viernes
-                      </span>
-                      <span class="informacion-paseo">
-                        10:00 
-                      </span>
-                      <ion-row>
-                        <span class="informacion-paseo">
-                          Cupos disponibles:
-                        </span>
-                        <span class="informacion-paseo">
-                          1
-                        </span>
-                      </ion-row>
-                      <button class="boton-editar">Editar</button>
-                    </ion-card-content>
-                  </ion-col>
-                </ion-row>
-              </ion-card>--->
+              </ion-card>-->
+              
             </div>
 
           </div>
@@ -120,7 +94,9 @@
         </ion-row>
         <ion-row *ngIf="userServ.ofertasCuidador$ | async ; let ofertasCuidador">
           <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}  >
-            <ion-card class="card-paseo">
+            
+            
+            <!--<ion-card class="card-paseo">
               <ion-row>
                 <ion-col>
                   <ion-card-header class="header-titulo-paseo">
@@ -135,22 +111,8 @@
                   <button class="boton-editar-cuidados">Editar</button>
                 </div>
               </ion-row>
-            </ion-card>
-            <!--<ion-card class="card-paseo">
-              <ion-row>
-                <ion-col>
-                  <ion-card-header class="header-titulo-paseo">
-                    <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <span class="informacion-paseo">precio $mucha plata</span>
-                  </ion-card-content>
-                </ion-col>
-                <div>
-                  <button class="boton-editar-cuidados">Editar</button>
-                </div>
-              </ion-row>
             </ion-card>-->
+            
           </div>
         </ion-row>
       </ion-col>
