@@ -45,12 +45,12 @@
         </ion-row>
         <ion-row>
           
-          <div *ngIf="userServ.planesPaseador$ | async;let planesPaseador" >
-
-            <div class="div-paseos"  value={{plan}} >
-              <app-paseos *ngFor="let plan of planesPaseador" paseadorId="paseador.id"></app-paseos>
+          <div *ngIf="userServ.planesPaseador$.length > 0" >
+            <h1>a</h1>
+            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador$" value={{plan}} >
+              <app-paseos  paseadorId="paseador.id"></app-paseos>
               
-              <!--<ion-card class="card-paseo">
+              <ion-card class="card-paseo">
                 <ion-row>
                   <div>
                     <img class="foto-mapa" src='../../assets/images/mapa.png'>
@@ -72,7 +72,7 @@
                     </ion-card-content>
                   </ion-col>
                 </ion-row>
-              </ion-card>-->
+              </ion-card>
               
             </div>
 

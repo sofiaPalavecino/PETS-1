@@ -60,14 +60,16 @@ export class UserService {
         categorias.push("Cuidador");//es cuidador
         querySnapshot.forEach((docC) =>{
           cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
-          funciones.set("cuidador",cuidador$);
-          
+          funciones.set("cuidador",cuidador$);      
           this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
             if(querySnapshot.size>0){
               querySnapshot.forEach((docPC) =>{
                 ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
               })
               funciones.set("ofertas",ofertasCuidador$)
+              funciones.get("ofertas").forEach(element => {
+                element.subscribe((data)=>console.log(data))
+              });
             }
           })
         })
