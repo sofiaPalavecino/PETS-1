@@ -114,24 +114,45 @@ export class UserService {
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
     
     console.log(this.paseador$)
-    if(this.paseador$==null){ //si paseador=false, no existe documento de paseador para el usuario
-      
-      
+
+    if(this.paseador$==undefined){ //si paseador=false, no existe documento de paseador para el usuario
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
       console.log(this.paseador$);
+      console.log("Entree");
     }
 
-    const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
-      costo:costoA,
-      cupo:cupoA,
-      plazo:plazoA,
-      cantDiasPaseo:cantDiasPaseoA,
-      disponibilidad:disponibilidadA,
-      estado:estadoA,
-      diasDisponibles:diasDisponiblesA
-    });
+    console.log("usuario logeado:", this.paseador$);
+    
+    console.log(costoA,cupoA,plazoA,cantDiasPaseoA,disponibilidadA,estadoA,diasDisponiblesA);
+
+    this.paseador$.subscribe((val) =>{
+      
+      this.afs.firestore.collection('paseador').where('idUsuario',"==",val).get().then((querySnapshot)=>{
+        if(querySnapshot.size > 0){
+          querySnapshot.forEach((docP)=>{
+            if(val.idUsuario==docP.data['idUsuario']){
+              const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('Plan_Paseo').add({
+                /*costo:costoA,
+                cupo:cupoA,
+                plazo:plazoA,
+                cantDiasPaseo:cantDiasPaseoA,
+                disponibilidad:disponibilidadA,
+                estado:estadoA,
+                diasDisponibles:diasDisponiblesA*/
+                hola:"Aloha"
+              });
+            }
+          })
+        }
+
+
+      })
+  
+      console.log("Lolazo");
+   
+    });   
   }
 }
