@@ -21,12 +21,6 @@ import { Cuidador } from '../shared/cuidador.interface';
 
 export class PerfilUsuarioPage {
   user:any;
-<<<<<<< HEAD
-=======
-  
-
-  //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
->>>>>>> 558f584528a94b5f30dac62d24727acede81c603
   
   constructor(
     private afs: AngularFirestore, 
@@ -39,13 +33,9 @@ export class PerfilUsuarioPage {
       })*/
   }
 
-<<<<<<< HEAD
   async ngOnInit(){
     
   }
-=======
-  
->>>>>>> 558f584528a94b5f30dac62d24727acede81c603
 
   
  

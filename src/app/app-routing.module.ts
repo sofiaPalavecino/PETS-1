@@ -68,7 +68,6 @@ const routes: Routes = [
     loadChildren: () => import('./config-mascota/config-mascota.module').then( m => m.ConfigMascotaPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-<<<<<<< HEAD
   {
     path: 'paseadores',
     loadChildren: () => import('./paseadores/paseadores.module').then( m => m.PaseadoresPageModule)
@@ -88,9 +87,6 @@ const routes: Routes = [
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-=======
-
->>>>>>> 558f584528a94b5f30dac62d24727acede81c603
 ];
 
 @NgModule({
