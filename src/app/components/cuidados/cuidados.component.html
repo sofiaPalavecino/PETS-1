@@ -1,3 +1,16 @@
-<p>
-  cuidados works!
-</p>
+<ion-card class="card-paseo">
+  <ion-row>
+    <ion-col>
+      <ion-card-header class="header-titulo-paseo">
+        <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <span class="informacion-paseo">Precio: {{oferta.costo}}</span><br>
+        <span class="informacion-paseo">Cantidad de dias: {{oferta.cantidad_dias}}</span>
+      </ion-card-content>
+    </ion-col>
+    <div>
+      <button class="boton-editar-cuidados">Editar</button>
+    </div>
+  </ion-row>
+</ion-card>

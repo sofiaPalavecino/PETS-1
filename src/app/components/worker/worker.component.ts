@@ -18,6 +18,7 @@ export class WorkerComponent implements OnInit {
   public usuarios:Array<userProfile> = []
 
 
+  
   constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
     
   }

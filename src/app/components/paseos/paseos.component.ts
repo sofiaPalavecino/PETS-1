@@ -2,19 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-cuidados',
-  templateUrl: './cuidados.component.html',
-  styleUrls: ['./cuidados.component.scss'],
+  selector: 'app-paseos',
+  templateUrl: './paseos.component.html',
+  styleUrls: ['./paseos.component.scss'],
 })
-export class CuidadosComponent implements OnInit {
-
-  @Input() cuidadorId:any;
+export class PaseosComponent implements OnInit {
+  @Input() paseadorId:any;
 
   constructor(private userServ:UserService) { }
 
   ngOnInit() {
-
-
 
   }
 
