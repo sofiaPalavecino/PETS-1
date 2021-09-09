@@ -1,20 +1,26 @@
 .card-mascota{
-    position:absolute;
-    height: 400px !important;
-    box-shadow: 2px 5px 5px #999;
-    
+    box-shadow: 2px 5px 5px #999;    
 }
 
 .card-mascota > img{
-    height: 300px;
 }
+
 .div-mascotas{
     height: 500px;
     width: 100%;
     
 }
+
 .informacion-mascota{
     font-size: 10px;
     font-family: Roboto;
     color:rgba(38, 164, 140, 1)
+}
+
+.informacion-mascota-calificacion{
+    position: relative;
+    height: 20px;
+    font-size: 15px;
+    font-family: Roboto;
+    color: gray;
 }

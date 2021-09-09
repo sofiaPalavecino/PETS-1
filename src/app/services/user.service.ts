@@ -42,26 +42,6 @@ export class UserService {
             }
             this.cuidador=cuidadorAux;
           })
-          this.afs.firestore.collection('cuidador').where("idUsuario","==",authSvc.uid).get().then((querySnapshot)=>{
-            
-            if(querySnapshot.size>0){
-              querySnapshot.forEach((doc)=>{
-                this.afs.collection('cuidador').doc(doc.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
-                  if(querySnapshot.size>0){
-                    querySnapshot.forEach((doc) =>{
-                      let planCuidadorAux:PlanCuidador ={
-                        cantidad_dias:doc.data()["cantidad dias"],
-                        costo:doc.data()["costo"],
-                        cupo:doc.data()["cupo"],
-                        disponible:doc.data()["disponible"],
-                      }
-                      this.ofertasCuidador.push(planCuidadorAux);
-                    })
-                  }
-                })
-              })
-            }
-          })
       }).catch((error)=>{
         console.log("Error getting documents: ", error);
       })
@@ -74,32 +54,18 @@ export class UserService {
               calificacion_promedio:doc.data()["calificacion promedio"],
               idUsuario:doc.data()["idUsuario"],
             }
+            console.log(doc.data())
             this.paseador=paseadorAux;
           })
-          this.afs.firestore.collection('paseador').where("idUsuario","==",authSvc.uid).get().then((querySnapshot)=>{
-            
+          this.afs.collection('paseador').doc(authSvc.uid).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
             if(querySnapshot.size>0){
               querySnapshot.forEach((doc)=>{
-                this.afs.collection('paseador').doc(doc.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
-                  if(querySnapshot.size>0){
-                    querySnapshot.forEach((doc) =>{
-                      let planPaseadorAux:PlanPaseo ={
-                        costo:doc.data()["costo"],
-                        cupo:doc.data()["cupo"],
-                        dias:doc.data()["dias"],
-                        disponibilidad:doc.data()["disponibilidad"],
-                        duracion:doc.data()["duracion"],
-                        duracion_plan:doc.data()["duracion plan"],
-                        hora:doc.data()["hora"],
-                      }
-                      this.planesPaseador.push(planPaseadorAux);
-                    })
-                  }
-                })
+                
               })
             }
           })
         }
+          
       }).catch((error)=>{
         console.log("Error getting documents: ", error);
       })

@@ -21,7 +21,9 @@ import { UserService } from '../services/user.service';
 
 export class PerfilUsuarioPage {
   user:any;
+  
 
+  //categorias=["paseos", "cuidados", "calificaciones","mascotas","calificaciones"];
   
   constructor(
     private afs: AngularFirestore, 
@@ -34,11 +36,7 @@ export class PerfilUsuarioPage {
   async ngOnInit(){
   }
 
-  goToTarget(categoria:string){
-    if(categoria=="Cuidados"){
-      console.log("a")
-    }
-  }
+  
 
 
   

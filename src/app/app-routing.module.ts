@@ -68,10 +68,6 @@ const routes: Routes = [
     loadChildren: () => import('./config-mascota/config-mascota.module').then( m => m.ConfigMascotaPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-  {
-    path: 'paseadores',
-    loadChildren: () => import('./paseadores/paseadores.module').then( m => m.PaseadoresPageModule)
-  }
 
 ];
 
