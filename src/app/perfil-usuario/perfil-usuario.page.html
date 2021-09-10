@@ -44,9 +44,9 @@
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
         <ion-row>
-          
-          <div *ngIf="userServ.planesPaseador$.length > 0" >
-            <h1>a</h1>
+          <h1></h1>
+          <div *ngIf="userServ.planesPaseador$" >
+            <h1>b</h1>
             <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador$" value={{plan}} >
               <app-paseos  paseadorId="paseador.id"></app-paseos>
               

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Query } from '@angular/core';
 import { User } from '../shared/user.interface'; 
 import { Paseador } from "../shared/paseador";
 import {Cuidador} from "../shared/cuidador.interface"
@@ -16,6 +16,7 @@ import { AuthService } from "../services/auth.service";
 import { ConfigMascotaPageModule } from '../config-mascota/config-mascota.module';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Dia } from '../dia';
+import { newArray } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
@@ -23,96 +24,53 @@ import { Dia } from '../dia';
 export class UserService {
   public categorias:Array<string>=[];
   public paseador$:Observable<Paseador>=null;
-  public planesPaseador$:Array<Observable<PlanPaseo>>=[];
+  public planesPaseador$:Array<Observable<PlanPaseo>>;
   public cuidador$: Observable<Cuidador> = null;
   public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
   public mascotas:Array<Observable<mascota>>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    
-    let funciones:Promise<Map<any,any>>=this.formarPerfil(this.authSvc.uid);
-    
-    funciones.then((data)=> {
-      console.log(data)
-      this.categorias=data.get("categorias");
-      this.paseador$=data.get("paseador");
-      this.planesPaseador$=data.get("planes");
-      this.cuidador$ =data.get("cuidador");
-      this.ofertasCuidador$=data.get("ofertas");
-      this.mascotas=data.get("mascotas");
-      console.log("paseador",this.paseador$,"planes paseador",this.planesPaseador$,"cuidador",this.cuidador$,"ofertas cuidador",this.ofertasCuidador$,"mascotas",this.mascotas);
-      
-    })
-    
+    this.planesPaseador$=new Array(); 
   }
 
-  async formarPerfil(id:any):Promise<Map<any,any>>{ //formar perfil para el listado de usuarios
-    var funciones:Map<any,any>=new Map();
-    let categorias:Array<string>=[];
-    let paseador$:Observable<Paseador>=null;
-    let planesPaseador$:Array<Observable<PlanPaseo>>=[]
-    let cuidador$: Observable<Cuidador> = null;
-    let ofertasCuidador$:Array<Observable<PlanCuidador>>
-    let mascotas$:Array<Observable<mascota>>=[];
-
-    await this.afs.firestore.collection("cuidador").where("idUsuario","==",id).get().then((querySnapshot) => {
-      if (querySnapshot.size>0){
-        categorias.push("Cuidador");//es cuidador
-        querySnapshot.forEach((docC) =>{
-          cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
-          funciones.set("cuidador",cuidador$);      
-          this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
-            if(querySnapshot.size>0){
-              querySnapshot.forEach((docPC) =>{
-                ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
-              })
-              funciones.set("ofertas",ofertasCuidador$)
-              funciones.get("ofertas").forEach(element => {
-                element.subscribe((data)=>console.log(data))
-              });
-            }
-          })
-        })
-      }
-        
-  
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-
-    await this.afs.firestore.collection("paseador").where("idUsuario","==",id).get().then((querySnapshot) => {
-      if (querySnapshot.size>0){
-        categorias.push("Paseador","Calificaciones");//es paseador
-        querySnapshot.forEach((docP) =>{
-            paseador$=this.afs.doc<Cuidador>(`paseador/${docP.id}`).valueChanges();
-            funciones.set("paseador",paseador$)
-            this.afs.collection('paseador').doc(docP.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
-              if(querySnapshot.size>0){
-                querySnapshot.forEach((docPP) =>{
-                  planesPaseador$.push(this.afs.doc<PlanPaseo>(`paseador/${docP.id}/Plan Paseador/${docPP.id}`).valueChanges());
-                })
-                funciones.set("planes",planesPaseador$)
-              }
-            })
-        })
-      }
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-
-    await this.afs.collection('users').doc(id).collection('mascota').get().subscribe((querySnapshot)=>{
+  async getTrabajador(idUsuario:string,tipo:string){
+    await this.afs.firestore.collection(tipo).where("idUsuario","==",idUsuario).get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
-        categorias.push("Mascotas");//tiene mascotas
-        querySnapshot.forEach((doc) =>{
-          mascotas$.push(this.afs.doc<mascota>(`users/${this.authSvc.uid}/mascota/${doc.id}`).valueChanges());
+        querySnapshot.forEach((docC) =>{
+          return (this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges());
         })
-        funciones.set("mascotas",mascotas$)
+      }
+    }).catch((error)=>{
+      return (error);
+    })
+  }
+
+  async getPlanes(idTrabajador:string,tipo:string){
+    await this.afs.collection(tipo).doc(idTrabajador).collection(`plan ${tipo}`).get().subscribe((querySnapshot)=>{
+      if(querySnapshot.size>0){
+        let planesCuidadorAux=new Array()
+        querySnapshot.forEach((docPC) =>{
+          planesCuidadorAux.push(this.afs.doc<PlanCuidador>(`${tipo}/${idTrabajador}/plan ${tipo}/${docPC.id}`).valueChanges());
+        })
+        return (planesCuidadorAux)
+      }
+    })
+    return(false)
+  }
+
+  async getMascotas(idUsuario:string){
+    await this.afs.collection('users').doc(idUsuario).collection('mascota').get().subscribe((querySnapshot)=>{
+      if(querySnapshot.size>0){
+        let mascotasUsuarioAux=new Array()
+        querySnapshot.forEach((doc) =>{
+          mascotasUsuarioAux.push(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${doc.id}`).valueChanges());
+        })
+        return (mascotasUsuarioAux)
       }
     });
-    await funciones.set("categorias",categorias)
-    return(funciones)
+    return (false)
   }
-  
+
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
     
     console.log(this.paseador$)
