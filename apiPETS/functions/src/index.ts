@@ -18,26 +18,14 @@ app.get("/hello-world", (req: any, res: any) => {
   return res.status(200).send("Hello World!");
 });
 
-async function getNombreUsuario(uid: any) {
+async function getUserAttriute(uid: any,attribute: any) {
   return await db
     .collection("users")
     .where("uid", "==", uid)
     .get()
     .then((querySnapshot: any) => {
       querySnapshot.forEach((usuario: any) => {
-        return usuario.data()["Nombre"];
-      });
-    });
-}
-
-async function getBarrio(uid: any) {
-  return await db
-    .collection("users")
-    .where("uid", "==", uid)
-    .get()
-    .then((querySnapshot: any) => {
-      querySnapshot.forEach((usuario: any) => {
-        return usuario.data()["barrio"];
+        return usuario.data()[attribute];
       });
     });
 }
@@ -63,7 +51,7 @@ app.get("/api/mascotasPorBarrio/:barrio", async function (req: any, res: any) {
     .where("barrio", "==", barrio)
     .get()
     .then((querySnapshot: any) => {
-      const tipos = new Map();
+      let tipos = new Map();
       querySnapshot.forEach((usuario: any) => {
         db.collection("users")
           .doc(usuario.id)
@@ -93,7 +81,7 @@ app.get("/api/paseadores", async function (req: any, res: any) {
     .then((querySnapshot: any) => {
       let paseadores = new Map();
       querySnapshot.forEach(async (pasedor: any) => {
-        let nombreUsuario = await getNombreUsuario(pasedor.data()["idUsuario"]);
+        let nombreUsuario = await getUserAttriute(pasedor.data()["idUsuario"],"Nombre");
         paseadores.set(
           nombreUsuario + pasedor.data()["idUsuario"],
           pasedor.data()["calificacion promedio"]
@@ -128,7 +116,7 @@ app.get("/api/casasConMascotas", async function (req: any, res: any) {
 
 
 app.get(
-  "/api/organizacionesMasTrancitadas",
+  "/api/organizacionesMasTransitadas",
   async function (req: any, res: any) {
     await db
       .collection("organización")
@@ -162,7 +150,7 @@ app.get(
       .then((contratos: any) => {
         let barrios    = new Map();
         contratos.forEach(async (contrato: any) => {
-          let barrio = await getBarrio(contrato.data()["idCliente"]);
+          let barrio = await getUserAttriute(contrato.data()["idCliente"],"barrio");
           if (barrios.has(barrio)) {
             barrios.set(barrio, barrios.get(barrio) + 1);
           } else {
@@ -175,3 +163,4 @@ app.get(
 );
 
 //server.listen(port);
+
