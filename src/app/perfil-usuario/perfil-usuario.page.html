@@ -44,12 +44,9 @@
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
         <ion-row>
-          <h1></h1>
           <div *ngIf="userServ.planesPaseador$" >
-            <h1>b</h1>
-            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador$" value={{plan}} >
-              <app-paseos  paseadorId="paseador.id"></app-paseos>
-              
+            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador$">
+          
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>
@@ -93,31 +90,29 @@
           <h3 class="precio-dia-cuidado">: {{precio}}</h3>
         </ion-row>
         <ion-row *ngIf="userServ.ofertasCuidador$ | async ; let ofertasCuidador">
-          <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}  >
-            
-            
-            <!--<ion-card class="card-paseo">
+          <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}>
+            <ion-card class="card-paseo">
               <ion-row>
                 <ion-col>
                   <ion-card-header class="header-titulo-paseo">
                     <ion-card-title class="titulo-paseo">Promo 1</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
-                    <span class="informacion-paseo">precio $mucha plata</span>
+                    <span class="informacion-paseo">Precio: {{oferta.costo}}</span><br>
+                    <span class="informacion-paseo">Cantidad de dias: {{oferta.cantidad_dias}}</span>
                   </ion-card-content>
                 </ion-col>
                 <div>
                   <button class="boton-editar-cuidados">Editar</button>
                 </div>
               </ion-row>
-            </ion-card>-->
-            
+            </ion-card>
           </div>
         </ion-row>
       </ion-col>
     </ion-row> 
      <!------------------------------mascotas----------------------------------------------------->
-    <ion-row id="Mascotas" *ngIf="userServ.mascotas$ | async ; let mascotas">
+    <ion-row id="Mascotas" *ngIf="userServ.mascotas.length > 0">
       <ion-col>
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Mascotas</h2>

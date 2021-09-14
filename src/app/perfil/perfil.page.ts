@@ -19,11 +19,7 @@ export class PerfilPage implements OnInit {
 
   async ngOnInit() {
 
-    let funciones= this.userServ.formarPerfil(this.id);
-    funciones.then((data)=>{
-      this.funciones=data;
-    })
-    console.log(this.funciones);
+    
     
     this.afs.firestore.collection("users").where("uid","==",this.ActivatesToute.snapshot.paramMap.get("id")).get().then((querySnapshot)=>{
       if(querySnapshot.size>0){

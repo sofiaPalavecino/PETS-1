@@ -24,51 +24,66 @@ import { newArray } from '@angular/compiler/src/util';
 export class UserService {
   public categorias:Array<string>=[];
   public paseador$:Observable<Paseador>=null;
-  public planesPaseador$:Array<Observable<PlanPaseo>>;
+  public planesPaseador$:Array<Observable<PlanPaseo>>=[];
   public cuidador$: Observable<Cuidador> = null;
   public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
   public mascotas:Array<Observable<mascota>>=[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    this.planesPaseador$=new Array(); 
+    this.getTrabajador(this.authSvc.uid,"paseador")
+    this.getTrabajador(this.authSvc.uid,"cuidador")
+    this.getPlanes(this.authSvc.uid,"paseador")
+    this.getPlanes(this.authSvc.uid,"cuidador")
+    this.getMascotas(this.authSvc.uid)
   }
 
   async getTrabajador(idUsuario:string,tipo:string){
     await this.afs.firestore.collection(tipo).where("idUsuario","==",idUsuario).get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
         querySnapshot.forEach((docC) =>{
-          return (this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges());
+          if(tipo=="paseador"){
+            this.paseador$=this.afs.doc<Paseador>(`${tipo}/${docC.id}`).valueChanges()
+            //this.categorias.push("Paseos")
+          }else{
+            this.cuidador$=this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges()
+            //this.categorias.push("Cuidados")
+          }
         })
       }
-    }).catch((error)=>{
-      return (error);
     })
   }
 
   async getPlanes(idTrabajador:string,tipo:string){
-    await this.afs.collection(tipo).doc(idTrabajador).collection(`plan ${tipo}`).get().subscribe((querySnapshot)=>{
+    let id
+    await this.afs.firestore.collection(tipo).where("idUsuario","==",idTrabajador).get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
-        let planesCuidadorAux=new Array()
-        querySnapshot.forEach((docPC) =>{
-          planesCuidadorAux.push(this.afs.doc<PlanCuidador>(`${tipo}/${idTrabajador}/plan ${tipo}/${docPC.id}`).valueChanges());
+        querySnapshot.forEach((doc)=>{
+          id=doc.id
         })
-        return (planesCuidadorAux)
       }
     })
-    return(false)
+    await this.afs.collection(tipo).doc(id).collection("plan"+tipo).get().subscribe((querySnapshot)=>{
+      if(querySnapshot.size>0){
+        querySnapshot.forEach((docPC) =>{
+          if(tipo=="paseador"){
+            this.planesPaseador$.push(this.afs.doc<PlanPaseo>(`${tipo}/${idTrabajador}/planpaseador/${docPC.id}`).valueChanges()); 
+          }
+          else{
+            this.ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`${tipo}/${idTrabajador}/plan${tipo}/${docPC.id}`).valueChanges());
+          }
+        })
+      }
+    })
   }
 
   async getMascotas(idUsuario:string){
     await this.afs.collection('users').doc(idUsuario).collection('mascota').get().subscribe((querySnapshot)=>{
       if(querySnapshot.size>0){
-        let mascotasUsuarioAux=new Array()
         querySnapshot.forEach((doc) =>{
-          mascotasUsuarioAux.push(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${doc.id}`).valueChanges());
+          this.mascotas.push(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${doc.id}`).valueChanges());
         })
-        return (mascotasUsuarioAux)
       }
     });
-    return (false)
   }
 
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){

@@ -20,17 +20,12 @@ import { Cuidador } from '../shared/cuidador.interface';
 
 
 export class PerfilUsuarioPage {
-  user:any;
   
   constructor(
     private afs: AngularFirestore, 
     private aServ:AuthService, 
     private userServ: UserService, 
     private popController: PopoverPerfilComponent) {
-   
-      /*let a:any=userServ.cuidador$.subscribe((value)=>{
-
-      })*/
   }
 
   async ngOnInit(){
