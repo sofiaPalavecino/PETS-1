@@ -149,4 +149,8 @@ export class UserService {
    
     });   
   }
+
+  async crearNuevoCuidado(){
+
+  }
 }
