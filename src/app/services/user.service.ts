@@ -16,6 +16,7 @@ import { AuthService } from "../services/auth.service";
 import { ConfigMascotaPageModule } from '../config-mascota/config-mascota.module';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Dia } from '../dia';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -111,47 +112,40 @@ export class UserService {
     return(funciones)
   }
   
-  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
-    
-    console.log(this.paseador$)
+  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,lunes:Dia,martes:Dia,miercoles:Dia,jueves:Dia,viernes:Dia,sabado:Dia,domingo:Dia){
 
     if(this.paseador$==undefined){ //si paseador=false, no existe documento de paseador para el usuario
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
-      console.log(this.paseador$);
-      console.log("Entree");
+      this.paseador$=this.afs.doc<Cuidador>(`paseador/${creoPaseador.id}`).valueChanges();
     }
-
-    console.log("usuario logeado:", this.paseador$);
-    
-    console.log(costoA,cupoA,plazoA,cantDiasPaseoA,disponibilidadA,estadoA,diasDisponiblesA);
 
     this.paseador$.subscribe((val) =>{
       
-      this.afs.firestore.collection('paseador').where('idUsuario',"==",val).get().then((querySnapshot)=>{
+      this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size > 0){
           querySnapshot.forEach((docP)=>{
-            if(val.idUsuario==docP.data['idUsuario']){
-              const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('Plan_Paseo').add({
-                /*costo:costoA,
+              const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('planpaseador').add({
+                costo:costoA,
                 cupo:cupoA,
                 plazo:plazoA,
                 cantDiasPaseo:cantDiasPaseoA,
                 disponibilidad:disponibilidadA,
                 estado:estadoA,
-                diasDisponibles:diasDisponiblesA*/
-                hola:"Aloha"
-              });
-            }
+                lunes:lunes.estado,
+                martes:martes.estado,
+                miercoles:miercoles.estado,
+                jueves:jueves.estado,
+                viernes:viernes.estado,
+                sabado:sabado.estado,
+                domingo:domingo.estado
+              })
           })
         }
 
-
       })
-  
-      console.log("Lolazo");
    
     });   
   }
