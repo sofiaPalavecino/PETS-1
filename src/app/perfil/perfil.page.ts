@@ -17,7 +17,6 @@ export class PerfilPage implements OnInit {
   constructor(public ActivatesToute: ActivatedRoute,public afs:AngularFirestore, public userServ:UserService) { }
 
   async ngOnInit() {
-
     
   }
 

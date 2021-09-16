@@ -43,10 +43,12 @@
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Paseos</h2>
         </ion-row>
-        <ion-row>
-          <div *ngIf="userServ.planesPaseador$" >
-            <div class="div-paseos" *ngFor="let plan of userServ.planesPaseador$">
+        <ion-row >
           
+          <div *ngFor="let plan of userServ.planesPaseador$">
+            <h2>{{plan}}</h2>
+            <div class="div-paseos" *ngIf="plan | async;let plan1">
+              <h2>eo{{plan1}}</h2>
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>
@@ -54,15 +56,15 @@
                   </div>
                   <ion-col>
                     <ion-card-header class="header-titulo-paseo">
-                      <ion-card-title class="titulo-paseo">Plan 1</ion-card-title>
+                      <ion-card-title class="titulo-paseo">{{plan1.hora}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                      <span class="informacion-paseo">{{plan.dias}}</span><br>
-                      <span class="informacion-paseo">{{plan.hora}}</span>
+                      <span class="informacion-paseo">{{plan1.dias}}</span><br>
+                      <span class="informacion-paseo">{{plan1.hora}}</span>
                       <ion-row>
                         <span class="informacion-paseo">Cupos disponibles:</span>
                         <span class="informacion-paseo">
-                          {{plan.cupo}}
+                          {{plan1.cupo}}
                         </span>
                       </ion-row>
                       <button class="boton-editar">Editar</button>
@@ -74,7 +76,6 @@
             </div>
 
           </div>
-          
         </ion-row>  
       </ion-col>
     </ion-row>

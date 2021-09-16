@@ -29,7 +29,6 @@ export class PerfilUsuarioPage {
   }
 
   async ngOnInit(){
-    
   }
 
   

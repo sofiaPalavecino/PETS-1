@@ -42,6 +42,7 @@ export class UserService {
       if(querySnapshot.size>0){
         querySnapshot.forEach((docC) =>{
           if(tipo=="paseador"){
+            
             this.paseador$=this.afs.doc<Paseador>(`${tipo}/${docC.id}`).valueChanges()
             //this.categorias.push("Paseos")
           }else{
