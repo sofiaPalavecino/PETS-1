@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-plan-cuidado',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanCuidadoPage implements OnInit {
 
-  constructor() { }
+  costo:number;
+  cupo:number;
+
+  constructor(private userServ: UserService) { 
+    this.userServ.cuidador$.subscribe((data)=>{
+      this.costo=data.precio_dia;
+      this.cupo=data.cupo;
+    })
+  }
 
   ngOnInit() {
   }
 
+  async crearCuidado(){
+    this.userServ.crearNuevoCuidado(this.costo,this.cupo);
+  }
 }

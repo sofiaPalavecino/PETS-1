@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'popover-perfil',
@@ -8,7 +9,7 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./popover-perfil.component.scss']
 })
 export class PopoverPerfilComponent {
-  constructor( private router: Router,public popoverController: PopoverController) {}
+  constructor( private router: Router,public popoverController: PopoverController, public uServ: UserService) {}
 
   private popover = null;
 
