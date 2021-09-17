@@ -4,4 +4,5 @@ export interface Cuidador{
     disponibilidad:boolean;
     idUsuario:string;
     precio_dia:number;
+    maximoMascotas:number;
 }

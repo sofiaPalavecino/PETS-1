@@ -28,7 +28,7 @@ export class CrearPaseoPage implements OnInit {
   ngOnInit() {}
 
   crearPaseo(){
-    this.userServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles);
+    this.userServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles[0],this.diasDisponibles[1],this.diasDisponibles[2],this.diasDisponibles[3],this.diasDisponibles[4],this.diasDisponibles[5],this.diasDisponibles[6]);
   }
 
 }

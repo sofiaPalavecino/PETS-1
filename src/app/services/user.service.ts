@@ -16,8 +16,12 @@ import { AuthService } from "../services/auth.service";
 import { ConfigMascotaPageModule } from '../config-mascota/config-mascota.module';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Dia } from '../dia';
+
+import { element } from 'protractor';
+
 import { newArray } from '@angular/compiler/src/util';
 import { ObtenerDataService } from './obtener-data.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -50,27 +54,99 @@ export class UserService {
 
   
 
-  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
-    
-    console.log(this.paseador)
-    if(this.paseador==null){ //si paseador=false, no existe documento de paseador para el usuario
-      
-      
+  async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,lunes:Dia,martes:Dia,miercoles:Dia,jueves:Dia,viernes:Dia,sabado:Dia,domingo:Dia){
+
+    if(this.paseador$==undefined){ //si paseador=false, no existe documento de paseador para el usuario
+
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
-      console.log(this.paseador);
+
+      this.paseador$=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
+
     }
 
-    const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({
-      costo:costoA,
-      cupo:cupoA,
-      plazo:plazoA,
-      cantDiasPaseo:cantDiasPaseoA,
-      disponibilidad:disponibilidadA,
-      estado:estadoA,
-      diasDisponibles:diasDisponiblesA
-    });
+    this.paseador$.subscribe((val) =>{
+      
+      this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
+        if(querySnapshot.size > 0){
+          querySnapshot.forEach((docP)=>{
+              const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('planpaseador').add({
+                costo:costoA,
+                cupo:cupoA,
+                plazo:plazoA,
+                cantDiasPaseo:cantDiasPaseoA,
+                disponibilidad:disponibilidadA,
+                estado:estadoA,
+                lunes:lunes.estado,
+                martes:martes.estado,
+                miercoles:miercoles.estado,
+                jueves:jueves.estado,
+                viernes:viernes.estado,
+                sabado:sabado.estado,
+                domingo:domingo.estado
+              })
+          })
+        }
+
+      })
+   
+    });   
+  }
+
+  async crearNuevoCuidado(costoA:number,cupoA:number){
+
+    if(this.cuidador$==undefined){
+
+      const creoCuidador = await this.afs.collection('cuidador').add({
+        calificacion_promedio: 0, 
+        idUsuario: this.authSvc.uid,
+        precio_dia:costoA,
+        maximoMascotas:cupoA,
+        disponibilidad:true,
+        cupo:0
+      })
+      this.cuidador$=this.afs.doc<Cuidador>(`cuidador/${creoCuidador.id}`).valueChanges();
+
+    }
+    else{
+      this.cuidador$.subscribe(val=>{
+        this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then(async (querySnapshot)=>{
+          if(querySnapshot.size>0){
+  
+            querySnapshot.forEach(docP=>{
+              const actualizoCuidado = this.afs.collection('cuidador').doc(docP.id).update({
+                precio_dia:costoA,
+                maximoMascotas:cupoA,
+                calificacion_promedio: val.calificacion_promedio,
+                cupo:val.cupo,
+                disponibilidad:val.disponibilidad,
+                idUsuario:val.idUsuario
+              })
+            })  
+          }
+         })
+       });
+    }
+  }
+
+
+  async crearComboCuidador(costoA:number,cantidad_diasA:number){
+    
+    this.cuidador$.subscribe(val =>{
+      this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
+        if(querySnapshot.size>0){
+          querySnapshot.forEach(docP =>{
+            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('planCuidador').add({ 
+              cantidad_dias:cantidad_diasA,
+              costo:costoA
+            })
+            //this.ofertasCuidador$.push(creoPlan);
+          })
+        }
+      })
+    })
+  
   }
 }

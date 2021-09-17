@@ -1,8 +1,10 @@
-export class Dia {
+import { DiaI } from "../app/dia-i";
 
-    private nombre:string;
-    private estado:boolean;
+export class Dia implements DiaI {
 
+    nombre:string;
+    estado:boolean;
+        
     constructor(nombre:string,estado:boolean){
         this.nombre=nombre;
         this.estado=estado;
