@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-cuidados',
@@ -7,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CuidadosComponent implements OnInit {
 
-  constructor() { }
+  @Input() cuidadorId:any;
 
-  ngOnInit() {}
+  constructor(private userServ:UserService) { }
+
+  ngOnInit() {
+
+
+
+  }
 
 }

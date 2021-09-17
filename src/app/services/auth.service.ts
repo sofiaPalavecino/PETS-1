@@ -43,7 +43,7 @@ export class AuthService {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       
       if (!(await this.afs.doc(`users/${user.uid}`).get().toPromise()).exists){
-        await this.updateUserData(user,null,null,null,null,null);
+        await this.updateUserData(user,null,null,null,null,null,null);
       }
       
       return user;
@@ -56,7 +56,7 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      await this.updateUserData(user,nombre,apellido,nacimiento,dni,null);
+      await this.updateUserData(user,nombre,apellido,nacimiento,dni,null,null);
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -93,7 +93,7 @@ export class AuthService {
     }
   }
 
-  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string) {
+  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string, barrio:string) {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
     
     let dataAux:any=[];
@@ -123,6 +123,7 @@ export class AuthService {
     }
 
     dataAux.push(foto);
+    dataAux.push(barrio)
 
     var data: userProfile = {
       uid: dataAux[0],

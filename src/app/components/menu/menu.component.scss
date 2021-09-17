@@ -15,9 +15,8 @@ ion-toolbar{
 }
 
 ion-label{
-    --color: black !important;
-    font-size: 20px !important;
-    font-weight: bolder;
+    --color: black;
+    font-size: 17px;
 }
 
 ion-icon{
@@ -51,4 +50,11 @@ h6{
     --border-radius: 100px;
     width: 50px;
     height: 50px;
+}
+
+.label-toolbar{
+    position: fixed;
+    top: 40px;
+    left: 50px;
+    font-size: 10px;
 }

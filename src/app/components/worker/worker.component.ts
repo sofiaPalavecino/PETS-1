@@ -18,6 +18,7 @@ export class WorkerComponent implements OnInit {
   public usuarios:Array<userProfile> = []
 
 
+  
   constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
     
   }
@@ -48,8 +49,6 @@ export class WorkerComponent implements OnInit {
   perfil(){
     const id:any=this.usuarios[0].uid;
     console.log(id)
-    
-    
     
     this.router.navigate(["perfil-persona/",id]);
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Query } from '@angular/core';
 import { User } from '../shared/user.interface'; 
 import { Paseador } from "../shared/paseador";
 import {Cuidador} from "../shared/cuidador.interface"
@@ -16,110 +16,55 @@ import { AuthService } from "../services/auth.service";
 import { ConfigMascotaPageModule } from '../config-mascota/config-mascota.module';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Dia } from '../dia';
+
 import { element } from 'protractor';
+
+import { newArray } from '@angular/compiler/src/util';
+import { ObtenerDataService } from './obtener-data.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   public categorias:Array<string>=[];
-  public paseador$:Observable<Paseador>=null;
-  public planesPaseador$:Array<Observable<PlanPaseo>>=[];
-  public cuidador$: Observable<Cuidador> = null;
-  public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
+  public paseador:Observable<Paseador>=null;
+  public planesPaseador:Array<Observable<PlanPaseo>>=[];
+  public cuidador: Observable<Cuidador> = null;
+  public planesCuidador:Array<Observable<PlanCuidador>>=[];
   public mascotas:Array<Observable<mascota>>=[];
 
-  constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    
-    let funciones:Promise<Map<any,any>>=this.formarPerfil(this.authSvc.uid);
-    
-    funciones.then((data)=> {
-      console.log(data)
-      this.categorias=data.get("categorias");
-      this.paseador$=data.get("paseador");
-      this.planesPaseador$=data.get("planes");
-      this.cuidador$ =data.get("cuidador");
-      this.ofertasCuidador$=data.get("ofertas");
-      this.mascotas=data.get("mascotas");
-      console.log("paseador",this.paseador$,"planes paseador",this.planesPaseador$,"cuidador",this.cuidador$,"ofertas cuidador",this.ofertasCuidador$,"mascotas",this.mascotas);
-      
+  constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
+    this.obDataServ.getTrabajador(this.authSvc.uid,"paseador").then((doc)=>{
+      this.paseador = doc;
     })
-    
+    this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador").then((doc)=>{
+      this.cuidador = doc;
+    })
+    this.obDataServ.getPlanes(this.authSvc.uid,"paseador").then((doc)=>{
+      this.planesPaseador = doc;
+    })
+    this.obDataServ.getPlanes(this.authSvc.uid,"cuidador").then((doc)=>{
+      this.planesCuidador = doc;
+    })
+    this.obDataServ.getMascotas(this.authSvc.uid).then((doc)=>{
+      this.mascotas = doc;
+    })
   }
 
-  async formarPerfil(id:any):Promise<Map<any,any>>{ //formar perfil para el listado de usuarios
-    var funciones:Map<any,any>=new Map();
-    let categorias:Array<string>=[];
-    let paseador$:Observable<Paseador>=null;
-    let planesPaseador$:Array<Observable<PlanPaseo>>=[]
-    let cuidador$: Observable<Cuidador> = null;
-    let ofertasCuidador$:Array<Observable<PlanCuidador>>
-    let mascotas$:Array<Observable<mascota>>=[];
-
-    await this.afs.firestore.collection("cuidador").where("idUsuario","==",id).get().then((querySnapshot) => {
-      if (querySnapshot.size>0){
-        categorias.push("Cuidador");//es cuidador
-        querySnapshot.forEach((docC) =>{
-          cuidador$ = this.afs.doc<Cuidador>(`cuidador/${docC.id}`).valueChanges();
-          funciones.set("cuidador",cuidador$);
-          
-          this.afs.collection('cuidador').doc(docC.id).collection('plan cuidador').get().subscribe((querySnapshot)=>{
-            if(querySnapshot.size>0){
-              querySnapshot.forEach((docPC) =>{
-                ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`cuidador/${docC.id}/plan cuidador/${docPC.id}`).valueChanges());
-              })
-              funciones.set("ofertas",ofertasCuidador$)
-            }
-          })
-        })
-      }
-        
   
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
 
-    await this.afs.firestore.collection("paseador").where("idUsuario","==",id).get().then((querySnapshot) => {
-      if (querySnapshot.size>0){
-        categorias.push("Paseador","Calificaciones");//es paseador
-        querySnapshot.forEach((docP) =>{
-            paseador$=this.afs.doc<Cuidador>(`paseador/${docP.id}`).valueChanges();
-            funciones.set("paseador",paseador$)
-            this.afs.collection('paseador').doc(docP.id).collection('Plan Paseador').get().subscribe((querySnapshot)=>{
-              if(querySnapshot.size>0){
-                querySnapshot.forEach((docPP) =>{
-                  planesPaseador$.push(this.afs.doc<PlanPaseo>(`paseador/${docP.id}/Plan Paseador/${docPP.id}`).valueChanges());
-                })
-                funciones.set("planes",planesPaseador$)
-              }
-            })
-        })
-      }
-    }).catch((error)=>{
-      console.log("Error getting documents: ", error);
-    })
-
-    await this.afs.collection('users').doc(id).collection('mascota').get().subscribe((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        categorias.push("Mascotas");//tiene mascotas
-        querySnapshot.forEach((doc) =>{
-          mascotas$.push(this.afs.doc<mascota>(`users/${this.authSvc.uid}/mascota/${doc.id}`).valueChanges());
-        })
-        funciones.set("mascotas",mascotas$)
-      }
-    });
-    await funciones.set("categorias",categorias)
-    return(funciones)
-  }
-  
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,lunes:Dia,martes:Dia,miercoles:Dia,jueves:Dia,viernes:Dia,sabado:Dia,domingo:Dia){
 
     if(this.paseador$==undefined){ //si paseador=false, no existe documento de paseador para el usuario
+
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
+
       this.paseador$=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
+
     }
 
     this.paseador$.subscribe((val) =>{

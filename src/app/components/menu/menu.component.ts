@@ -10,6 +10,9 @@ import { OrganizacionService } from "../../services/organizacion.service";
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+  static getElementById(arg0: string): HTMLTextAreaElement {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private menuCtrl: MenuController, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { }
 
@@ -26,8 +29,22 @@ export class MenuComponent implements OnInit {
     });
   }
 
+
+
+  /*changeToolBarText(){
+  let cont = document.getElementById("toolbar");
+    cont.setAttribute("name", "Publicaciones");
+  }*/
+
   closeMenu(){
     this.menuCtrl.close();
     this.changeIconMenu();
+    //this.changeToolBarText();
   }
+
+  closeSession(){
+    this.aServ.logout();
+    this.closeMenu()
+  }
+  
 }

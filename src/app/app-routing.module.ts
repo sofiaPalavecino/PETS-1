@@ -26,7 +26,6 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then((m) => m.RegisterPageModule),
-    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'admin',
@@ -86,9 +85,6 @@ const routes: Routes = [
     path: 'perfil/:id',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
-  },  {
-    path: 'combo-cuidador',
-    loadChildren: () => import('./combo-cuidador/combo-cuidador.module').then( m => m.ComboCuidadorPageModule)
   },
 
 ];
