@@ -50,8 +50,6 @@ export class WorkerComponent implements OnInit {
     const id:any=this.usuarios[0].uid;
     console.log(id)
     
-    
-    
     this.router.navigate(["perfil-persona/",id]);
   }
  

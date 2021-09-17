@@ -41,5 +41,10 @@ export class MenuComponent implements OnInit {
     this.changeIconMenu();
     //this.changeToolBarText();
   }
+
+  closeSession(){
+    this.aServ.logout();
+    this.closeMenu()
+  }
   
 }
