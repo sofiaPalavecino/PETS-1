@@ -46,9 +46,7 @@
         <ion-row >
           
           <div *ngFor="let plan of userServ.planesPaseador$">
-            <h2>{{plan}}</h2>
             <div class="div-paseos" *ngIf="plan | async;let plan1">
-              <h2>eo{{plan1}}</h2>
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>

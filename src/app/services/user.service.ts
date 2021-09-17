@@ -17,87 +17,50 @@ import { ConfigMascotaPageModule } from '../config-mascota/config-mascota.module
 import { identifierModuleUrl } from '@angular/compiler';
 import { Dia } from '../dia';
 import { newArray } from '@angular/compiler/src/util';
+import { ObtenerDataService } from './obtener-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   public categorias:Array<string>=[];
-  public paseador$:Observable<Paseador>=null;
-  public planesPaseador$:Array<Observable<PlanPaseo>>=[];
-  public cuidador$: Observable<Cuidador> = null;
-  public ofertasCuidador$:Array<Observable<PlanCuidador>>=[];
+  public paseador:Observable<Paseador>=null;
+  public planesPaseador:Array<Observable<PlanPaseo>>=[];
+  public cuidador: Observable<Cuidador> = null;
+  public planesCuidador:Array<Observable<PlanCuidador>>=[];
   public mascotas:Array<Observable<mascota>>=[];
 
-  constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    this.getTrabajador(this.authSvc.uid,"paseador")
-    this.getTrabajador(this.authSvc.uid,"cuidador")
-    this.getPlanes(this.authSvc.uid,"paseador")
-    this.getPlanes(this.authSvc.uid,"cuidador")
-    this.getMascotas(this.authSvc.uid)
-  }
-
-  async getTrabajador(idUsuario:string,tipo:string){
-    await this.afs.firestore.collection(tipo).where("idUsuario","==",idUsuario).get().then((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((docC) =>{
-          if(tipo=="paseador"){
-            
-            this.paseador$=this.afs.doc<Paseador>(`${tipo}/${docC.id}`).valueChanges()
-            //this.categorias.push("Paseos")
-          }else{
-            this.cuidador$=this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges()
-            //this.categorias.push("Cuidados")
-          }
-        })
-      }
+  constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
+    this.obDataServ.getTrabajador(this.authSvc.uid,"paseador").then((doc)=>{
+      this.paseador = doc;
+    })
+    this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador").then((doc)=>{
+      this.cuidador = doc;
+    })
+    this.obDataServ.getPlanes(this.authSvc.uid,"paseador").then((doc)=>{
+      this.planesPaseador = doc;
+    })
+    this.obDataServ.getPlanes(this.authSvc.uid,"cuidador").then((doc)=>{
+      this.planesCuidador = doc;
+    })
+    this.obDataServ.getMascotas(this.authSvc.uid).then((doc)=>{
+      this.mascotas = doc;
     })
   }
 
-  async getPlanes(idTrabajador:string,tipo:string){
-    let id
-    await this.afs.firestore.collection(tipo).where("idUsuario","==",idTrabajador).get().then((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc)=>{
-          id=doc.id
-        })
-      }
-    })
-    await this.afs.collection(tipo).doc(id).collection("plan"+tipo).get().subscribe((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((docPC) =>{
-          if(tipo=="paseador"){
-            this.planesPaseador$.push(this.afs.doc<PlanPaseo>(`${tipo}/${idTrabajador}/planpaseador/${docPC.id}`).valueChanges()); 
-          }
-          else{
-            this.ofertasCuidador$.push(this.afs.doc<PlanCuidador>(`${tipo}/${idTrabajador}/plan${tipo}/${docPC.id}`).valueChanges());
-          }
-        })
-      }
-    })
-  }
-
-  async getMascotas(idUsuario:string){
-    await this.afs.collection('users').doc(idUsuario).collection('mascota').get().subscribe((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc) =>{
-          this.mascotas.push(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${doc.id}`).valueChanges());
-        })
-      }
-    });
-  }
+  
 
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,diasDisponiblesA:Array<Dia>){
     
-    console.log(this.paseador$)
-    if(this.paseador$==null){ //si paseador=false, no existe documento de paseador para el usuario
+    console.log(this.paseador)
+    if(this.paseador==null){ //si paseador=false, no existe documento de paseador para el usuario
       
       
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
-      console.log(this.paseador$);
+      console.log(this.paseador);
     }
 
     const creoPlan = await this.afs.collection('paseador').doc().collection('Plan_Paseo').add({

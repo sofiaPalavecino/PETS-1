@@ -21,11 +21,8 @@ import { Cuidador } from '../shared/cuidador.interface';
 
 export class PerfilUsuarioPage {
   
-  constructor(
-    private afs: AngularFirestore, 
-    private aServ:AuthService, 
-    private userServ: UserService, 
-    private popController: PopoverPerfilComponent) {
+  constructor(private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService, private popController: PopoverPerfilComponent) {
+    
   }
 
   async ngOnInit(){
