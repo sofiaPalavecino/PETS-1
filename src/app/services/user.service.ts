@@ -185,4 +185,23 @@ export class UserService {
        });
     }
   }
+
+
+  async crearComboCuidador(costoA:number,cantidad_diasA:number){
+    
+    this.cuidador$.subscribe(val =>{
+      this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
+        if(querySnapshot.size>0){
+          querySnapshot.forEach(docP =>{
+            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('planCuidador').add({ 
+              cantidad_dias:cantidad_diasA,
+              costo:costoA
+            })
+            //this.ofertasCuidador$.push(creoPlan);
+          })
+        }
+      })
+    })
+  
+  }
 }

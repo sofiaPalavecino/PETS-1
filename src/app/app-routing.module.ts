@@ -86,7 +86,11 @@ const routes: Routes = [
     path: 'perfil/:id',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
+  },  {
+    path: 'combo-cuidador',
+    loadChildren: () => import('./combo-cuidador/combo-cuidador.module').then( m => m.ComboCuidadorPageModule)
   },
+
 ];
 
 @NgModule({
