@@ -22,4 +22,3 @@ describe('PaseadoresPage', () => {
     expect(component).toBeTruthy();
   });
 });
-
