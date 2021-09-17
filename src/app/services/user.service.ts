@@ -119,7 +119,7 @@ export class UserService {
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
-      this.paseador$=this.afs.doc<Cuidador>(`paseador/${creoPaseador.id}`).valueChanges();
+      this.paseador$=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
     }
 
     this.paseador$.subscribe((val) =>{
@@ -152,32 +152,37 @@ export class UserService {
 
   async crearNuevoCuidado(costoA:number,cupoA:number){
 
-    this.cuidador$.subscribe(val=>{
-      this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then(async (querySnapshot)=>{
-        if(querySnapshot.size>0){
+    if(this.cuidador$==undefined){
 
-          querySnapshot.forEach(docP=>{
-            const actualizoCuidado=  this.afs.collection('cuidador').doc(docP.id).update({
-              costo:costoA,
-              maximoMascotas:cupoA
-            })
-          })  
-          //this.cuidador$=this.afs.doc<Cuidador>(`paseador/${actualizoCuidado.id}`).valueChanges();
-        }
-        else{
-
-          const creoCuidador = await this.afs.collection('cuidador').add({
-            alificacion_promedio: 0, 
-            idUsuario: this.authSvc.uid,
-            costo:costoA,
-            maximoMascotas:cupoA,
-            disponibilidad:true,
-            cupo:0
-          })
-          this.cuidador$=this.afs.doc<Cuidador>(`paseador/${creoCuidador.id}`).valueChanges();
-        }
+      const creoCuidador = await this.afs.collection('cuidador').add({
+        calificacion_promedio: 0, 
+        idUsuario: this.authSvc.uid,
+        precio_dia:costoA,
+        maximoMascotas:cupoA,
+        disponibilidad:true,
+        cupo:0
       })
-    });
-    
+      this.cuidador$=this.afs.doc<Cuidador>(`cuidador/${creoCuidador.id}`).valueChanges();
+
+    }
+    else{
+      this.cuidador$.subscribe(val=>{
+        this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then(async (querySnapshot)=>{
+          if(querySnapshot.size>0){
+  
+            querySnapshot.forEach(docP=>{
+              const actualizoCuidado = this.afs.collection('cuidador').doc(docP.id).update({
+                precio_dia:costoA,
+                maximoMascotas:cupoA,
+                calificacion_promedio: val.calificacion_promedio,
+                cupo:val.cupo,
+                disponibilidad:val.disponibilidad,
+                idUsuario:val.idUsuario
+              })
+            })  
+          }
+         })
+       });
+    }
   }
 }

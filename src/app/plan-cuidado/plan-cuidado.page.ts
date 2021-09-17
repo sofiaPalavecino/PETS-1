@@ -9,19 +9,26 @@ import { UserService } from '../services/user.service';
 export class PlanCuidadoPage implements OnInit {
 
   costo:number;
-  cupo:number;
+  maximoMascotas:number;
 
   constructor(private userServ: UserService) { 
-    this.userServ.cuidador$.subscribe((data)=>{
-      this.costo=data.precio_dia;
-      this.cupo=data.cupo;
-    })
+    if(this.userServ.cuidador$==undefined){
+      this.costo=0;
+      this.maximoMascotas=0;
+    }
+    else{
+      this.userServ.cuidador$.subscribe((data)=>{
+        this.costo=data.precio_dia;
+        this.maximoMascotas=data.maximoMascotas;
+      })
+    }
+    
   }
 
   ngOnInit() {
   }
 
   async crearCuidado(){
-    this.userServ.crearNuevoCuidado(this.costo,this.cupo);
+    this.userServ.crearNuevoCuidado(this.costo,this.maximoMascotas);
   }
 }
