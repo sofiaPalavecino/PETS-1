@@ -22,9 +22,9 @@ export class ObtenerDataService {
       if(querySnapshot.size>0){
         querySnapshot.forEach((docC) =>{
           if(tipo=="paseador"){
-            return (this.afs.doc<Paseador>(`${tipo}/${docC.id}`).valueChanges(),"Paseos")
+            return (this.afs.doc<Paseador>(`${tipo}/${docC.id}`).valueChanges(),"Paseos");
           }else{
-            return (this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges(),"Cuidados")
+            return (this.afs.doc<Cuidador>(`${tipo}/${docC.id}`).valueChanges(),"Cuidados");
           }
         })
       }

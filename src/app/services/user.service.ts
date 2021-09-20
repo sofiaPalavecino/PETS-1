@@ -45,7 +45,7 @@ export class UserService {
       this.planesPaseador = doc;
     })
     this.obDataServ.getPlanes(this.authSvc.uid,"cuidador").then((doc)=>{
-      this.planesCuidador = doc;
+        this.planesCuidador = doc;
     })
     this.obDataServ.getMascotas(this.authSvc.uid).then((doc)=>{
       this.mascotas = doc;
@@ -56,18 +56,18 @@ export class UserService {
 
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,lunes:Dia,martes:Dia,miercoles:Dia,jueves:Dia,viernes:Dia,sabado:Dia,domingo:Dia){
 
-    if(this.paseador$==undefined){ //si paseador=false, no existe documento de paseador para el usuario
+    if(this.paseador==undefined){ //si paseador=false, no existe documento de paseador para el usuario
 
       const creoPaseador = await this.afs.collection('paseador').add({
         calificacion_promedio: 0, 
         idUsuario: this.authSvc.uid,
       })
 
-      this.paseador$=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
+      this.paseador=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
 
     }
 
-    this.paseador$.subscribe((val) =>{
+    this.paseador.subscribe((val) =>{
       
       this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size > 0){
@@ -97,7 +97,7 @@ export class UserService {
 
   async crearNuevoCuidado(costoA:number,cupoA:number){
 
-    if(this.cuidador$==undefined){
+    if(this.cuidador==undefined){
 
       const creoCuidador = await this.afs.collection('cuidador').add({
         calificacion_promedio: 0, 
@@ -107,11 +107,11 @@ export class UserService {
         disponibilidad:true,
         cupo:0
       })
-      this.cuidador$=this.afs.doc<Cuidador>(`cuidador/${creoCuidador.id}`).valueChanges();
+      this.cuidador=this.afs.doc<Cuidador>(`cuidador/${creoCuidador.id}`).valueChanges();
 
     }
     else{
-      this.cuidador$.subscribe(val=>{
+      this.cuidador.subscribe(val=>{
         this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then(async (querySnapshot)=>{
           if(querySnapshot.size>0){
   
@@ -134,7 +134,7 @@ export class UserService {
 
   async crearComboCuidador(costoA:number,cantidad_diasA:number){
     
-    this.cuidador$.subscribe(val =>{
+    this.cuidador.subscribe(val =>{
       this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size>0){
           querySnapshot.forEach(docP =>{
