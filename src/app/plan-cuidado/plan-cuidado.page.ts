@@ -12,12 +12,12 @@ export class PlanCuidadoPage implements OnInit {
   maximoMascotas:number;
 
   constructor(private userServ: UserService) { 
-    if(this.userServ.cuidador$==undefined){
+    if(this.userServ.cuidador==undefined){
       this.costo=0;
       this.maximoMascotas=0;
     }
     else{
-      this.userServ.cuidador$.subscribe((data)=>{
+      this.userServ.cuidador.subscribe((data)=>{
         this.costo=data.precio_dia;
         this.maximoMascotas=data.maximoMascotas;
       })
