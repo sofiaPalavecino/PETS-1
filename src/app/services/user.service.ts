@@ -47,7 +47,7 @@ export class UserService {
       this.planesPaseador = doc;
     })
     this.obDataServ.getPlanes(this.authSvc.uid,"cuidador").then((doc)=>{
-      this.planesCuidador = doc;
+        this.planesCuidador = doc;
     })
     this.obDataServ.getMascotas(this.authSvc.uid).then((doc)=>{
       this.mascotas = doc;
