@@ -37,18 +37,10 @@ export class UserService {
   constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
     
   
-    this.obDataServ.getTrabajador(this.authSvc.uid,"paseador").then((doc)=>{
-      this.paseador = doc;
-    })
-    this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador").then((doc)=>{
-      this.cuidador = doc;
-    })
-    this.obDataServ.getPlanes(this.authSvc.uid,"paseador").then((doc)=>{
-      this.planesPaseador = doc;
-    })
-    this.obDataServ.getPlanes(this.authSvc.uid,"cuidador").then((doc)=>{
-        this.planesCuidador = doc;
-    })
+    this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"paseador")
+    this.cuidador=this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador")
+    this.planesPaseador=this.obDataServ.getPlanes(this.authSvc.uid,"paseador")
+    this.planesCuidador=this.obDataServ.getPlanes(this.authSvc.uid,"cuidador")
     this.obDataServ.getMascotas(this.authSvc.uid).then((doc)=>{
       this.mascotas = doc;
     })
@@ -57,44 +49,67 @@ export class UserService {
   
 
   async crearNuevoPaseo(costoA:number,cupoA:number,plazoA:string,cantDiasPaseoA:number,disponibilidadA:boolean,estadoA:string,lunes:Dia,martes:Dia,miercoles:Dia,jueves:Dia,viernes:Dia,sabado:Dia,domingo:Dia){
-
-    if(this.paseador==undefined){ //si paseador=false, no existe documento de paseador para el usuario
-
-      const creoPaseador = await this.afs.collection('paseador').add({
-        calificacion_promedio: 0, 
-        idUsuario: this.authSvc.uid,
-      })
-
-      this.paseador=this.afs.doc<Paseador>(`paseador/${creoPaseador.id}`).valueChanges();
-
-    }
-
-    this.paseador.subscribe((val) =>{
+    this.obDataServ.checkTrabajador(this.authSvc.uid,"paseador").toPromise().then((paseadorLolazo) =>
       
-      this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
-        if(querySnapshot.size > 0){
-          querySnapshot.forEach((docP)=>{
-              const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('planpaseador').add({
-                costo:costoA,
-                cupo:cupoA,
-                plazo:plazoA,
-                cantDiasPaseo:cantDiasPaseoA,
-                disponibilidad:disponibilidadA,
-                estado:estadoA,
-                lunes:lunes.estado,
-                martes:martes.estado,
-                miercoles:miercoles.estado,
-                jueves:jueves.estado,
-                viernes:viernes.estado,
-                sabado:sabado.estado,
-                domingo:domingo.estado
-              })
-          })
-        }
+    {
+ 
+        if(!paseadorLolazo.exists){ //si paseador=false, no existe documento de paseador para el usuario
 
-      })
+         
+          this.afs.collection('paseador').doc(this.authSvc.uid).set({
+            calificacion_promedio: 0
+          })
+          
+          this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"paseador")
+    
+        }
+        
+        const creoPlan =  this.afs.collection('paseador').doc(this.authSvc.uid).collection('planpaseador').add({
+          costo:costoA,
+          cupo:cupoA,
+          plazo:plazoA,
+          cantDiasPaseo:cantDiasPaseoA,
+          disponibilidad:disponibilidadA,
+          estado:estadoA,
+          lunes:lunes.estado,
+          martes:martes.estado,
+          miercoles:miercoles.estado,
+          jueves:jueves.estado,
+          viernes:viernes.estado,
+          sabado:sabado.estado,
+          domingo:domingo.estado
+        })
+    
+        /*this.paseador.subscribe((val) =>{
+          
+          this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
+            if(querySnapshot.size > 0){
+              querySnapshot.forEach((docP)=>{
+                  const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('planpaseador').add({
+                    costo:costoA,
+                    cupo:cupoA,
+                    plazo:plazoA,
+                    cantDiasPaseo:cantDiasPaseoA,
+                    disponibilidad:disponibilidadA,
+                    estado:estadoA,
+                    lunes:lunes.estado,
+                    martes:martes.estado,
+                    miercoles:miercoles.estado,
+                    jueves:jueves.estado,
+                    viernes:viernes.estado,
+                    sabado:sabado.estado,
+                    domingo:domingo.estado
+                  })
+              })
+            }
+    
+          })
+       
+        });  */ 
+      }
+    )
+
    
-    });   
   }
 
   async crearNuevoCuidado(costoA:number,cupoA:number){
@@ -140,7 +155,7 @@ export class UserService {
       this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size>0){
           querySnapshot.forEach(docP =>{
-            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('planCuidador').add({ 
+            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('plancuidador').add({ 
               cantidad_dias:cantidad_diasA,
               costo:costoA
             })
