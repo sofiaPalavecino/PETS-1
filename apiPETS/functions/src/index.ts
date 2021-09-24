@@ -41,6 +41,25 @@ async function getCantDocs(docID: any, col1: any, col2: any) {
     });
 }
 
+async function mapBarrios(querySnapshot: any){
+  let barrios = new Map();
+  await Promise.all(querySnapshot.forEach(async (user: any) => {
+    if(user.data()["barrio"] != undefined && user.data()["barrio"] != null){
+      let cantMascotas = await getCantDocs(user.id, "users", "mascota");
+      if (barrios.has(user.data()["barrio"])) {
+      barrios.set(
+        user.data()["barrio"],
+        barrios.get(user.data()["barrio"]) + cantMascotas
+      );
+      } else {
+        barrios.set(user.data()["barrio"], cantMascotas);
+      }
+      console.log(barrios);
+    }
+  }));
+  return Object.fromEntries(barrios);
+}
+
 //-----------------------------------------------------------
 
 
@@ -93,24 +112,12 @@ app.get("/api/paseadores", async function (req: any, res: any) {
 
 
 app.get("/api/casasConMascotas", async function (req: any, res: any) {
-  return await db
+  await db
     .collection("users")
     .get()
-    .then((querySnapshot: any) => {
-      let barrios = new Map();
-      querySnapshot.forEach(async (user: any) => {
-        let cantMascotas = await getCantDocs(user.id, "users", "mascota");
-        if (barrios.has(user.data()["barrio"])) {
-          barrios.set(
-            user.data()["barrio"],
-            barrios.get(user.data()["barrio"]) + cantMascotas
-          );
-        } else {
-          barrios.set(user.data()["barrio"], cantMascotas);
-        }
-      });
-      console.log(barrios);
-      res.send(Object.fromEntries(barrios));
+    .then(async (querySnapshot: any) => {
+      let barrios = await mapBarrios(querySnapshot);
+      res.send((barrios));
     });
 });
 
@@ -163,4 +170,3 @@ app.get(
 );
 
 //server.listen(port);
-
