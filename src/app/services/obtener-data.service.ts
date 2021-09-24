@@ -17,8 +17,8 @@ export class ObtenerDataService {
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) { }
 
-  async getTrabajador(idUsuario:string,tipo:string):Promise<any>{
-    let id:any
+  async getID(idUsuario,tipo){
+    let id
     await this.afs.firestore.collection(tipo).where("idUsuario","==",idUsuario).get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
         querySnapshot.forEach((doc)=>{
@@ -26,6 +26,11 @@ export class ObtenerDataService {
         })
       }
     })
+    return id
+  }
+  
+  async getTrabajador(idUsuario:string,tipo:string):Promise<any>{
+    let id=await this.getID(idUsuario,tipo)
     if(tipo=="paseador"){
       return (this.afs.doc<Paseador>(`${tipo}/${id}`).valueChanges(),"Paseos")
     }else{
@@ -35,39 +40,13 @@ export class ObtenerDataService {
   }
 
   async getPlanes(idTrabajador:string,tipo:string):Promise<any>{
-    let id
-    let planesPaseadorAux:Array<Observable<PlanPaseo>> = new Array();
-    let planesCuidadorAux:Array<Observable<PlanCuidador>> = new Array();
-
-    await this.afs.firestore.collection(tipo).where("idUsuario","==",idTrabajador).get().then((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc)=>{
-          id=doc.id
-        })
-      }
-    })
+    let id=await this.getID(idTrabajador,tipo)
     if(tipo=="paseador"){
       return this.afs.collection<PlanPaseo>(`${tipo}/${id}/plan${tipo}`).valueChanges();
     }
     else{
       return this.afs.collection<PlanCuidador>(`${tipo}/${id}/plan${tipo}`).valueChanges();
     }
-    
-    // await this.afs.collection(`${tipo}/${id}/plan${tipo}`).get().toPromise().then((querySnapshot)=>{
-    //   if(querySnapshot.size>0){
-    //     querySnapshot.forEach((docPC) =>{
-    //       if(tipo=="paseador"){
-    //         planesPaseadorAux.push(this.afs.doc<PlanPaseo>(`${tipo}/${id}/planpaseador/${docPC.id}`).valueChanges()); 
-    //       }
-    //       else{
-    //         planesCuidadorAux.push(this.afs.doc<PlanCuidador>(`${tipo}/${id}/plan${tipo}/${docPC.id}`).valueChanges());
-    //       }
-    //     })
-    //   }
-    // })
-
-    // if(planesCuidadorAux.length != 0) return planesCuidadorAux;
-    // else return planesPaseadorAux;
   }
 
   async getMascotas(idUsuario:string):Promise<any>{
