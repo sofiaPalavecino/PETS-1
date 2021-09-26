@@ -78,34 +78,7 @@ export class UserService {
           viernes:viernes.estado,
           sabado:sabado.estado,
           domingo:domingo.estado
-        })
-    
-        /*this.paseador.subscribe((val) =>{
-          
-          this.afs.firestore.collection('paseador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
-            if(querySnapshot.size > 0){
-              querySnapshot.forEach((docP)=>{
-                  const creoPlan =  this.afs.collection('paseador').doc(docP.id).collection('planpaseador').add({
-                    costo:costoA,
-                    cupo:cupoA,
-                    plazo:plazoA,
-                    cantDiasPaseo:cantDiasPaseoA,
-                    disponibilidad:disponibilidadA,
-                    estado:estadoA,
-                    lunes:lunes.estado,
-                    martes:martes.estado,
-                    miercoles:miercoles.estado,
-                    jueves:jueves.estado,
-                    viernes:viernes.estado,
-                    sabado:sabado.estado,
-                    domingo:domingo.estado
-                  })
-              })
-            }
-    
-          })
-       
-        });  */ 
+        }) 
       }
     )
 
@@ -114,7 +87,37 @@ export class UserService {
 
   async crearNuevoCuidado(costoA:number,cupoA:number){
 
-    if(this.cuidador==undefined){
+    this.obDataServ.checkTrabajador(this.authSvc.uid,"cuidador").toPromise().then((cuidadorLolazo) =>
+      
+    {
+ 
+        if(!cuidadorLolazo.exists){ //si paseador=false, no existe documento de paseador para el usuario
+
+         
+          this.afs.collection('cuidador').doc(this.authSvc.uid).set({
+            calificacion_promedio: 0,
+            precio_dia:costoA,
+            maximoMascotas:cupoA,
+            disponibilidad:true,
+            cupo:0
+          })
+          
+          this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador")
+    
+        }
+        else{
+
+          const actualizoCuidado = this.afs.collection('cuidador').doc(this.authSvc.uid).update({
+            precio_dia:costoA,
+            maximoMascotas:cupoA
+          })
+
+        }
+
+      }
+    )
+
+    /*if(this.cuidador==undefined){
 
       const creoCuidador = await this.afs.collection('cuidador').add({
         calificacion_promedio: 0, 
@@ -145,7 +148,7 @@ export class UserService {
           }
          })
        });
-    }
+    }*/
   }
 
 
