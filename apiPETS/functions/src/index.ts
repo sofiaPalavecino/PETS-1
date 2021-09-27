@@ -14,157 +14,200 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-app.get("/hello-world", (req: any, res: any) => {
-  return res.status(200).send("Hello World!");
-});
-
-async function getUserAttriute(uid: any,attribute: any) {
-  return await db
-    .collection("users")
-    .where("uid", "==", uid)
-    .get()
-    .then((querySnapshot: any) => {
-      querySnapshot.forEach((usuario: any) => {
-        return usuario.data()[attribute];
+function getUserAttriute(uid: any, attribute: any): Promise<any> {
+  return new Promise((res: any) => {
+    return db
+      .collection("users")
+      .where("uid", "==", uid)
+      .get()
+      .then((querySnapshot: any) => {
+        querySnapshot.forEach((usuario: any) => {
+          res(usuario.data()[`${attribute}`]);
+        });
       });
-    });
+  });
 }
 
-async function getCantDocs(docID: any, col1: any, col2: any) {
-  return await db
-    .collection(col1)
-    .doc(docID)
-    .collection(col2)
-    .get()
-    .then((docs: any) => {
-      return docs.size;
-    });
-}
-
-async function mapBarrios(querySnapshot: any){
-  let barrios = new Map();
-  await Promise.all(querySnapshot.forEach(async (user: any) => {
-    if(user.data()["barrio"] != undefined && user.data()["barrio"] != null){
-      let cantMascotas = await getCantDocs(user.id, "users", "mascota");
-      if (barrios.has(user.data()["barrio"])) {
-      barrios.set(
-        user.data()["barrio"],
-        barrios.get(user.data()["barrio"]) + cantMascotas
-      );
-      } else {
-        barrios.set(user.data()["barrio"], cantMascotas);
-      }
-      console.log(barrios);
-    }
-  }));
-  return Object.fromEntries(barrios);
+function getCantDocs(docID: any, col1: any, col2: any): Promise<number> {
+  return new Promise((res: any) => {
+    return db
+      .collection(col1)
+      .doc(docID)
+      .collection(col2)
+      .get()
+      .then((docs: any) => {
+        res(docs.size);
+      });
+  });
 }
 
 //-----------------------------------------------------------
 
-
-app.get("/api/mascotasPorBarrio/:barrio", async function (req: any, res: any) {
+app.get("/api/mascotasPorBarrio/:barrio", function (req: any, res: any) {
   const barrio = req.params.barrio;
-  await db
-    .collection("users")
+  db.collection("users")
     .where("barrio", "==", barrio)
     .get()
     .then((querySnapshot: any) => {
       let tipos = new Map();
-      querySnapshot.forEach((usuario: any) => {
-        db.collection("users")
-          .doc(usuario.id)
-          .collection("mascota")
-          .get()
-          .then((mascotas: any) => {
-            mascotas.forEach((mascota: any) => {
-              if (tipos.has(mascota.data()["especie"])) {
-                tipos.set(
-                  mascota.data()["especie"],
-                  tipos.get(mascota.data()["especie"]) + 1
-                );
-              } else {
-                tipos.set(mascota.data()["especie"], 1);
+      let promises = [];
+      let users: any = querySnapshot.docs;
+
+      for (const user of users) {
+        var paux = new Promise((resolve, reject) => {
+          db.collection("users")
+            .doc(user.id)
+            .collection("mascota")
+            .get()
+            .then((querySnapshot: any) => {
+              let mascotas: any = querySnapshot.docs;
+
+              for (const mascota of mascotas) {
+                if (tipos.has(mascota.data()["especie"])) {
+                  tipos.set(
+                    mascota.data()["especie"],
+                    tipos.get(mascota.data()["especie"]) + 1
+                  );
+                } else {
+                  tipos.set(mascota.data()["especie"], 1);
+                }
               }
+
+              resolve(true);
             });
-          });
+        });
+
+        promises.push(paux);
+      }
+
+      Promise.all(promises).then((result) => {
+        res.send(Object.fromEntries(tipos));
       });
-      res.send(Object.fromEntries(tipos));
     });
 });
 
-
-app.get("/api/paseadores", async function (req: any, res: any) {
+app.get("/api/paseadores", function (req: any, res: any) {
   db.collection("paseador")
     .get()
     .then((querySnapshot: any) => {
       let paseadores = new Map();
-      querySnapshot.forEach(async (pasedor: any) => {
-        let nombreUsuario = await getUserAttriute(pasedor.data()["idUsuario"],"Nombre");
-        paseadores.set(
-          nombreUsuario + pasedor.data()["idUsuario"],
-          pasedor.data()["calificacion promedio"]
-        );
-      });
-      res.send(Object.fromEntries(paseadores));
-    });
-});
+      let promises = [];
+      let docs: any = querySnapshot.docs;
 
-
-app.get("/api/casasConMascotas", async function (req: any, res: any) {
-  await db
-    .collection("users")
-    .get()
-    .then(async (querySnapshot: any) => {
-      let barrios = await mapBarrios(querySnapshot);
-      res.send((barrios));
-    });
-});
-
-
-app.get(
-  "/api/organizacionesMasTransitadas",
-  async function (req: any, res: any) {
-    await db
-      .collection("organización")
-      .get()
-      .then((querySnapshot: any) => {
-        let organizaciones = new Map();
-        querySnapshot.forEach(async (organizacion: any) => {
-          let dataOrga = [];
-          let cantPublicaciones = await getCantDocs(
-            organizacion.id,
-            "organización",
-            "publicaciones"
-          );
-          dataOrga.push(organizacion.data()["calificacion"]);
-          dataOrga.push(cantPublicaciones);
-
-          organizaciones.set(organizacion.data()["nombre"], dataOrga);
+      for (const paseador of docs) {
+        var paux = new Promise((resolve, reject) => {
+          getUserAttriute(paseador.id, "nombre").then((nombreUsuario) => {
+            paseadores.set(
+              nombreUsuario + " (uid: " + paseador.id + " )",
+              paseador.data()["calificacion_promedio"]
+            );
+            resolve(true);
+          });
         });
+        promises.push(paux);
+      }
+
+      Promise.all(promises).then((result) => {
+        res.send(Object.fromEntries(paseadores));
+      });
+    });
+});
+
+app.get("/api/casasConMascotas", function (req: any, res: any) {
+  db.collection("users")
+    .get()
+    .then((querySnapshot: any) => {
+      let barrios = new Map();
+      let promises = [];
+      let usuarios: any = querySnapshot.docs;
+
+      for (const user of usuarios) {
+        var paux = new Promise((resolve, reject) => {
+          if (user.data()["barrio"] != undefined && user.data()["barrio"] != null) {
+            getCantDocs(user.id, "users", "mascota").then((cantMascotas) => {
+              if (barrios.has(user.data()["barrio"])) {
+                barrios.set(
+                  user.data()["barrio"],
+                  barrios.get(user.data()["barrio"]) + cantMascotas
+                );
+              } else {
+                barrios.set(user.data()["barrio"], cantMascotas);
+              }
+              resolve(true);
+            });
+          }
+        });
+        promises.push(paux);
+      }
+      
+      Promise.all(promises).then((result) => {
+        res.send(Object.fromEntries(barrios));
+      });
+    });
+});
+
+app.get("/api/organizacionesMasTransitadas", function (req: any, res: any) {
+  db.collection("organización")
+    .get()
+    .then((querySnapshot: any) => {
+      let organizaciones = new Map();
+      let promises = [];
+      let docs: any = querySnapshot.docs;
+
+      for (const organizacion of docs) {
+        var paux = new Promise((resolve, reject) => {
+          getCantDocs(organizacion.id, "organización", "publicaciones").then(
+            (cantPublicaciones) => {
+              let dataOrga = new Map();
+              dataOrga.set("calificacion", organizacion.data()["calificacion"]);
+              dataOrga.set("publicaciones", cantPublicaciones);
+              organizaciones.set(
+                organizacion.data()["nombre"],
+                Object.fromEntries(dataOrga)
+              );
+              resolve(true);
+            }
+          );
+        });
+        promises.push(paux);
+      }
+
+      Promise.all(promises).then((result) => {
         res.send(Object.fromEntries(organizaciones));
       });
-  }
-);
-
+    });
+});
 
 app.get(
   "/api/serviciosPorBarrio/:servicio",
   async function (req: any, res: any) {
     const servicio = req.params.servicio;
-    db.collection("contrato " + servicio)
+    db.collection("contrato" + servicio)
       .get()
-      .then((contratos: any) => {
-        let barrios    = new Map();
-        contratos.forEach(async (contrato: any) => {
-          let barrio = await getUserAttriute(contrato.data()["idCliente"],"barrio");
-          if (barrios.has(barrio)) {
-            barrios.set(barrio, barrios.get(barrio) + 1);
-          } else {
-            barrios.set(barrio, 1);
-          }
+      .then((querySnapshot: any) => {
+        let barrios = new Map();
+        let promises = [];
+        let contratos: any = querySnapshot.docs;
+
+        for (const contrato of contratos) {
+          var paux = new Promise((resolve, reject) => {
+            getUserAttriute(contrato.data()["idCliente"], "barrio").then(
+              (barrio: any) => {
+                if (barrios.has(barrio)) {
+                  barrios.set(barrio, barrios.get(barrio) + 1);
+                } else {
+                  barrios.set(barrio, 1);
+                }
+                resolve(true);
+              }
+            );
+          });
+          promises.push(paux);
+        }
+
+        Promise.all(promises).then((result) => {
+          res.send(Object.fromEntries(barrios));
         });
-        res.send(Object.fromEntries(barrios));
       });
   }
 );
