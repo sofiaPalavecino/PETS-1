@@ -32,9 +32,9 @@ export class ObtenerDataService {
   async getTrabajador(idUsuario:string,tipo:string):Promise<any>{
     let id=await this.getID(idUsuario,tipo)
     if(tipo=="paseador"){
-      return (this.afs.doc<Paseador>(`${tipo}/${id}`).valueChanges(),"Paseos")
+      return (this.afs.doc<Paseador>(`${tipo}/${id}`).valueChanges())
     }else{
-      return (this.afs.doc<Cuidador>(`${tipo}/${id}`).valueChanges(),"Cuidador")
+      return (this.afs.doc<Cuidador>(`${tipo}/${id}`).valueChanges())
     }
     
   }
@@ -50,9 +50,7 @@ export class ObtenerDataService {
   }
 
   async getMascotas(idUsuario:string):Promise<any>{
-
     let mascotasAux:Array<Observable<mascota>> = new Array();
-
     await this.afs.collection('users').doc(idUsuario).collection('mascota').get().subscribe((querySnapshot)=>{
       if(querySnapshot.size>0){
         querySnapshot.forEach((doc) =>{
@@ -60,7 +58,6 @@ export class ObtenerDataService {
         })
       }
     });
-
     return mascotasAux;
   }
 }

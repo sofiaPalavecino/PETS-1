@@ -79,18 +79,17 @@
       </ion-col>
     </ion-row>
    <!------------------------------cuidados----------------------------------------------------->    
-    <ion-row id="Cuidados" *ngIf="userServ.ofertascuidador | async">
+    <ion-row id="Cuidados" *ngIf="userServ.planesCuidador | async">
       <ion-col>
         <ion-row>
           <h2 class="titulo-apartado-paseo" >Cuidados</h2>
         </ion-row>
-        <ion-row>
+        <ion-row *ngIf="userServ.cuidador | async; let cuidador">
           <h3 class="subitulo-cuidados">Precio por día de cuidado</h3>
           <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
-          <h3 class="precio-dia-cuidado">: {{precio}}</h3>
         </ion-row>
-        <ion-row *ngIf="userServ.ofertascuidador | async ; let ofertasCuidador">
-          <div class="div-paseos" *ngFor="let oferta of ofertasCuidador" value={{oferta}}>
+        <ion-row >
+          <div class="div-paseos" *ngFor="let oferta of userServ.planesCuidador | async">
             <ion-card class="card-paseo">
               <ion-row>
                 <ion-col>

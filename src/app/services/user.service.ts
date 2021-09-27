@@ -140,7 +140,7 @@ export class UserService {
       this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size>0){
           querySnapshot.forEach(docP =>{
-            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('planCuidador').add({ 
+            const creoPlan =  this.afs.collection('cuidador').doc(docP.id).collection('plancuidador').add({ 
               cantidad_dias:cantidad_diasA,
               costo:costoA
             })
