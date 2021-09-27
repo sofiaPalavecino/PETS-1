@@ -50,14 +50,6 @@ export class ObtenerDataService {
   }
 
   async getMascotas(idUsuario:string):Promise<any>{
-    let mascotasAux:Array<Observable<mascota>> = new Array();
-    await this.afs.collection('users').doc(idUsuario).collection('mascota').get().subscribe((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc) =>{
-          mascotasAux.push(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${doc.id}`).valueChanges());
-        })
-      }
-    });
-    return mascotasAux;
+    return this.afs.doc<mascota>(`users/${idUsuario}/mascota`).valueChanges();
   }
 }
