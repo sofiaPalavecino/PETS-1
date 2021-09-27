@@ -10,12 +10,8 @@ export class CuidadosComponent implements OnInit {
 
   @Input() cuidadorId:any;
 
-  constructor(private userServ:UserService) { }
+  constructor(private userServ: UserService) { }
 
-  ngOnInit() {
-
-
-
-  }
+  ngOnInit() {}
 
 }
