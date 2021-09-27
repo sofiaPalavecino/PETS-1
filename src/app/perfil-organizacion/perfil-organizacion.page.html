@@ -44,17 +44,18 @@
     <ion-grid>
       <ion-row>
         <ion-col id="capa" class="insertar">
-          <app-mascota-card></app-mascota-card>
-          <app-mascota-card></app-mascota-card>
+          <publi-card></publi-card>
+          <publi-card></publi-card>
+          <div *ngIf="boton == true"><publi-card></publi-card></div>
         </ion-col>
         <ion-col col-8>
-          <app-mascota-card></app-mascota-card>
-          <app-mascota-card></app-mascota-card>
+          <publi-card></publi-card>
+          <publi-card></publi-card>
         </ion-col>
       </ion-row>
     </ion-grid>
   <!--</scrollable-component> !-->
 
-  <ion-fab-button class="boton-publicaciones" (click)="subirPublicaciones()"> <ion-icon _ngcontent-nyo-c149="" name="add" ng-reflect-name="add" role="img" class="md hydrated" aria-label="add"></ion-icon> </ion-fab-button>  
+  <ion-fab-button class="boton-publicaciones" routerLink="/config-publicacion" (click)="subirPublicaciones()"> <ion-icon _ngcontent-nyo-c149="" name="add" ng-reflect-name="add" role="img" class="md hydrated" aria-label="add"></ion-icon> </ion-fab-button>  
 
 </ion-content>

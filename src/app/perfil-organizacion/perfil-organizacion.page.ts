@@ -12,7 +12,11 @@ import { OrganizacionService } from "../services/organizacion.service";
 
 export class PerfilOrganizacionPage implements OnInit {
 
-  constructor(private org:OrganizacionService) { }
+  boton:boolean;
+
+  constructor(private org:OrganizacionService) { 
+
+  }
 
   idOrganizacion:string;
 
@@ -39,12 +43,8 @@ export class PerfilOrganizacionPage implements OnInit {
     }*/
 
     subirPublicaciones(){
-      var capa = document.getElementById("capa");
-      var card = document.createElement("div");
-      //card.innerHTML='<app-mascota-card>' + '</app-mascota-card>';
-      //card.innerHTML='<div><app-mascota-card></app-mascota-card></div>';
-      capa.append(card);
-      console.log("Seguí así pa");
+      this.boton = true;
+      //this.boton = false;
     }
 
 }
