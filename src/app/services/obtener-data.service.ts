@@ -40,7 +40,7 @@ export class ObtenerDataService {
     
   }
 
-   getPlanes(idUsuario:string,tipo:string):Observable<any>{
+  getPlanes(idUsuario:string,tipo:string):Observable<any>{
    
     if(tipo=="paseador"){
       return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges();
@@ -50,7 +50,7 @@ export class ObtenerDataService {
     }
   }
 
-  async getMascotas(idUsuario:string):Promise<any>{
+  getMascotas(idUsuario:string):Observable<any>{
     return this.afs.doc<mascota>(`users/${idUsuario}/mascota`).valueChanges();
   }
 }
