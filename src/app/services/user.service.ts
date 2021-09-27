@@ -99,7 +99,7 @@ export class UserService {
             precio_dia:costoA,
             maximoMascotas:cupoA,
             disponibilidad:true,
-            cupo:0
+            cupo:cupoA
           })
           
           this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador")
@@ -109,7 +109,8 @@ export class UserService {
 
           const actualizoCuidado = this.afs.collection('cuidador').doc(this.authSvc.uid).update({
             precio_dia:costoA,
-            maximoMascotas:cupoA
+            maximoMascotas:cupoA,
+            cupo:cupoA
           })
 
         }
@@ -154,7 +155,12 @@ export class UserService {
 
   async crearComboCuidador(costoA:number,cantidad_diasA:number){
     
-    this.cuidador.subscribe(val =>{
+    const creoPlan =  this.afs.collection('cuidador').doc(this.authSvc.uid).collection('plancuidador').add({ 
+      cantidad_dias:cantidad_diasA,
+      costo:costoA
+    });
+    
+    /*this.cuidador.subscribe(val =>{
       this.afs.firestore.collection('cuidador').where('idUsuario',"==",val.idUsuario).get().then((querySnapshot)=>{
         if(querySnapshot.size>0){
           querySnapshot.forEach(docP =>{
@@ -166,7 +172,7 @@ export class UserService {
           })
         }
       })
-    })
+    })*/
   
   }
 }
