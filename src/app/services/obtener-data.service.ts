@@ -17,35 +17,36 @@ export class ObtenerDataService {
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) { }
 
-  async getID(idUsuario,tipo){
-    let id
-    await this.afs.firestore.collection(tipo).where("idUsuario","==",idUsuario).get().then((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc)=>{
-          id=doc.id
-        })
-      }
-    })
-    return id
-  }
   
-  async getTrabajador(idUsuario:string,tipo:string):Promise<any>{
-    let id=await this.getID(idUsuario,tipo)
+  
+  checkTrabajador(idUsuario:string,tipo:string):Observable<any>{
+   
     if(tipo=="paseador"){
-      return (this.afs.doc<Paseador>(`${tipo}/${id}`).valueChanges())
+      return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).get())
     }else{
-      return (this.afs.doc<Cuidador>(`${tipo}/${id}`).valueChanges())
+      return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).get())
     }
     
   }
 
-  async getPlanes(idTrabajador:string,tipo:string):Promise<any>{
-    let id=await this.getID(idTrabajador,tipo)
+  
+  getTrabajador(idUsuario:string,tipo:string):Observable<any>{
+   
     if(tipo=="paseador"){
-      return this.afs.collection<PlanPaseo>(`${tipo}/${id}/plan${tipo}`).valueChanges();
+      return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges())
+    }else{
+      return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).valueChanges())
+    }
+    
+  }
+
+   getPlanes(idUsuario:string,tipo:string):Observable<any>{
+   
+    if(tipo=="paseador"){
+      return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges();
     }
     else{
-      return this.afs.collection<PlanCuidador>(`${tipo}/${id}/plan${tipo}`).valueChanges();
+      return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges();
     }
   }
 
