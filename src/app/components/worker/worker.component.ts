@@ -5,6 +5,8 @@ import { PaseosService } from 'src/app/services/paseos.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { NavigationExtras, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { PlanPaseo } from 'src/app/shared/plan-paseo.interface';
 
 @Component({
   selector: 'app-worker',
@@ -15,16 +17,17 @@ export class WorkerComponent implements OnInit {
   
   @Input() idUsuario:string;
   @Input() calificacion_promedio:string;
-  public usuarios:Array<userProfile> = []
+  public usuario:Observable<userProfile>=null;
 
 
   
   constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
+    this.usuario = this.afs.doc<userProfile>(`user/${this.idUsuario}`).valueChanges()
     
   }
 
   ngOnInit() {
-    this.afs.firestore.collection("users").where("uid","==",this.idUsuario).get().then((querySnapshot)=>{
+    /*this.afs.firestore.collection("paseador").get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
         querySnapshot.forEach((doc) =>{
           let userAux:userProfile = {
@@ -41,16 +44,12 @@ export class WorkerComponent implements OnInit {
           }
           this.usuarios.push(userAux);
         })
-      } 
-    })
+      } */
   }
 
 
-  perfil(){
-    const id:any=this.usuarios[0].uid;
-    console.log(id)
-    
-    this.router.navigate(["perfil-persona/",id]);
+  perfil(){  
+    this.router.navigate(["perfil-persona/",this.idUsuario]);
   }
  
   
