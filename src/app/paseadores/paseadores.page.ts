@@ -10,7 +10,7 @@ import { Paseador } from '../shared/paseador';
 })
 export class PaseadoresPage implements OnInit {
 
-  constructor(private PaseosServ:PaseosService) { }
+  constructor(private pasServ:PaseosService) { }
 
   ngOnInit() {
     

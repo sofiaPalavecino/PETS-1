@@ -1,9 +1,9 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrganizacionService } from 'src/app/services/organizacion.service';
 import { PubliService } from 'src/app/services/publi.service';
 import { Publicacion } from 'src/app/shared/publicacion';
-
 
 @Component({
   selector: 'publi-card',
@@ -12,6 +12,7 @@ import { Publicacion } from 'src/app/shared/publicacion';
 })
 export class PubliCardComponent implements OnInit {
 
+
   idOrganizacion:string;
   @Input() pid:string
   @Input() nombre:string
@@ -19,6 +20,7 @@ export class PubliCardComponent implements OnInit {
   @Input() calificacion:number
 
   constructor(private org:OrganizacionService, private publiServ:PubliService) { }
+
 
   ngOnInit() {}
 

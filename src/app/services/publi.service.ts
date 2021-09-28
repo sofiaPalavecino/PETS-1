@@ -10,6 +10,7 @@ import { OrganizacionService } from './organizacion.service';
 })
 export class PubliService {
 
+
   public publicaciones:Observable<Publicacion[]>=null;
 
   constructor(private afs: AngularFirestore, private orgServ:OrganizacionService) {
@@ -31,5 +32,5 @@ export class PubliService {
       cuidados: cuidados
     })
   }
-  
+
 }

@@ -13,6 +13,7 @@ import { PubliService } from '../services/publi.service';
 
 export class PerfilOrganizacionPage implements OnInit {
 
+
   
   boton:boolean;
   idOrganizacion:string;
@@ -42,6 +43,7 @@ export class PerfilOrganizacionPage implements OnInit {
     let cont = document.getElementById("toolbar");
       cont.setAttribute("name", "Publicaciones");
     }*/
+
 
   /*nuevaPublicacion(){
     this.boton = true;

@@ -44,10 +44,13 @@
     <ion-grid>
       <ion-row *ngIf="publiServ.publicaciones| async">
         <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}} foto={{publi.foto}} nombre={{publi.nombre}} pid={{publi.pid}}></publi-card>
+
       </ion-row>
     </ion-grid>
   <!--</scrollable-component> !-->
 
+
   <ion-fab-button class="boton-publicaciones" routerLink="/config-publicacion"> <ion-icon _ngcontent-nyo-c149="" name="add" ng-reflect-name="add" role="img" class="md hydrated" aria-label="add"></ion-icon> </ion-fab-button>  
+
 
 </ion-content>

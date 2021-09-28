@@ -8,6 +8,7 @@ import { OrganizacionService } from 'src/app/services/organizacion.service';
 import { PubliService } from 'src/app/services/publi.service';
 import { Publicacion } from 'src/app/shared/publicacion';
 
+
 @Component({
   selector: 'app-config-publicacion',
   templateUrl: './config-publicacion.page.html',
@@ -15,7 +16,9 @@ import { Publicacion } from 'src/app/shared/publicacion';
 })
 export class ConfigPublicacionPage implements OnInit {
 
+
   constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, private org:OrganizacionService, private publiServ:PubliService) { }
+
 
   ngOnInit() {
   }
