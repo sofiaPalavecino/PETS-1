@@ -1,7 +1,8 @@
 import { variable } from '@angular/compiler/src/output/output_ast';
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit, HostListener, Input} from '@angular/core';
 import { MenuComponent } from '../components/menu/menu.component';
 import { OrganizacionService } from "../services/organizacion.service";
+import { PubliService } from '../services/publi.service';
 
 
 @Component({
@@ -12,13 +13,13 @@ import { OrganizacionService } from "../services/organizacion.service";
 
 export class PerfilOrganizacionPage implements OnInit {
 
+  
   boton:boolean;
+  idOrganizacion:string;
 
-  constructor(private org:OrganizacionService) { 
+  constructor(private org:OrganizacionService,private publiServ:PubliService) { 
 
   }
-
-  idOrganizacion:string;
 
   ngOnInit() {
   }
@@ -42,9 +43,9 @@ export class PerfilOrganizacionPage implements OnInit {
       cont.setAttribute("name", "Publicaciones");
     }*/
 
-    subirPublicaciones(){
-      this.boton = true;
-      //this.boton = false;
-    }
+  /*nuevaPublicacion(){
+    this.boton = true;
+    //this.boton = false;
+  }*/
 
 }
