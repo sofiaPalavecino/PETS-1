@@ -10,13 +10,17 @@ import { PerfilOrganizacionPage } from './perfil-organizacion.page';
 
 import { MascotaCardComponent } from "../components/mascota-card/mascota-card.component";
 
+import { PubliCardComponent } from "../components/publi-card/publi-card.component";
+
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilOrganizacionPageRoutingModule
+    PerfilOrganizacionPageRoutingModule,
   ],
-  declarations: [PerfilOrganizacionPage,MascotaCardComponent]
+  declarations: [PerfilOrganizacionPage,MascotaCardComponent,PubliCardComponent]
 })
 export class PerfilOrganizacionPageModule {}

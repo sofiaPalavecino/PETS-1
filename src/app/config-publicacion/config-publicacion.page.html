@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nueva Publicacion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    
+    <ion-col>
+
+      <ion-row>
+        
+        <ion-col>
+          <a>Nombre:</a>
+          <ion-item lines="full" style="margin-left: 5px;">
+            <ion-input type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      
+      <ion-row>
+
+        <ion-col>
+          <a>Especie:</a>
+          <ion-item lines="full" style="margin-left: 5px;">
+            <ion-select placeholder="Select One">
+              <ion-select-option *ngFor="let especieMascota of this.especieServ.especies" value="{{especieMascota.nombreEspecie}}">{{especieMascota.nombreEspecie}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        
+        <ion-col>
+          <a>Descripcion:</a>
+          <ion-item lines="full" style="margin-left: 5px;">
+            <ion-input type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+      <ion-row>
+        
+        <ion-col>
+          <a>Cuidados:</a>
+          <ion-item lines="full" style="margin-left: 5px;">
+            <ion-input type="text" required></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+          
+        <ion-col>
+          <a>Foto de la mascota:</a>
+          <button (click)="selectImage()">Subir foto</button>
+        </ion-col>
+
+      </ion-row>
+
+    </ion-col>
+
+    <button type="submit" class="botonAceptar" (click)="cambiarDatos()">Aceptar</button>
+  </div>
+
+</ion-content>

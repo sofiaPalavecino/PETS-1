@@ -91,6 +91,10 @@ const routes: Routes = [
     loadChildren: () => import('./combo-cuidador/combo-cuidador.module').then( m => m.ComboCuidadorPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
+  {
+    path: 'config-publicacion',
+    loadChildren: () => import('./config-publicacion/config-publicacion.module').then( m => m.ConfigPublicacionPageModule)
+  },
 ];
 
 @NgModule({
