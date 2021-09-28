@@ -3,6 +3,11 @@ import { EspecieService } from '../services/especie.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ActionSheetController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { OrganizacionService } from 'src/app/services/organizacion.service';
+import { PubliService } from 'src/app/services/publi.service';
+import { Publicacion } from 'src/app/shared/publicacion';
+
 
 @Component({
   selector: 'app-config-publicacion',
@@ -11,7 +16,9 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class ConfigPublicacionPage implements OnInit {
 
-  constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController) { }
+
+  constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, private org:OrganizacionService, private publiServ:PubliService) { }
+
 
   ngOnInit() {
   }
@@ -55,6 +62,10 @@ export class ConfigPublicacionPage implements OnInit {
       ]
     });
     await actionSheet.present();
+  }
+
+  subirPublicacion(){
+  //  this.publiServ.nuevaPublicacion()
   }
 
 }
