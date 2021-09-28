@@ -22,11 +22,15 @@ export class WorkerComponent implements OnInit {
 
   
   constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
-    this.usuario = this.afs.doc<userProfile>(`user/${this.idUsuario}`).valueChanges()
     
   }
 
   ngOnInit() {
+    console.log(this.idUsuario)
+    this.usuario = this.afs.doc<userProfile>(`user/${this.idUsuario}`).valueChanges()
+    this.usuario.subscribe((data) => {
+      console.log(data.uid)
+    })
     /*this.afs.firestore.collection("paseador").get().then((querySnapshot)=>{
       if(querySnapshot.size>0){
         querySnapshot.forEach((doc) =>{

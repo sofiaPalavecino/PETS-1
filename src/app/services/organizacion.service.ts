@@ -20,8 +20,8 @@ export class OrganizacionService {
   public organizaciones: Organizacion[];
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService) {
-    authSvc.user$.subscribe((user) => {
-      afs.firestore.collection("organización").where("administradores", "array-contains", user.uid)
+  
+      afs.firestore.collection("organización").where("administradores", "array-contains", this.authSvc.user$.uid)
       .get()
       .then((querySnapshot) => {
           this.organizacion = null;
@@ -37,7 +37,7 @@ export class OrganizacionService {
                 oid:doc.data()["oid"],
               }
               this.organizaciones.push(orgAux);
-              if(user.administrando == doc.id){
+              if(this.authSvc.user$.administrando == doc.id){
                 this.oid = doc.id;
                 this.organizacion = orgAux;
               }
@@ -46,7 +46,7 @@ export class OrganizacionService {
       .catch((error) => {
           console.log("Error getting documents: ", error);
       });
-    }) 
+  
   }
 
   async actualizarOrganizacion(oid:string){
