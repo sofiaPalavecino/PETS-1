@@ -31,8 +31,8 @@ export class UserService {
   public paseador:Observable<Paseador>=null;
   public planesPaseador:Observable<Paseador>;
   public cuidador: Observable<Cuidador> = null;
-  public planesCuidador:Observable<Cuidador>;
-  public mascotas:Observable<mascota>=null;
+  public planesCuidador:Observable<Cuidador> = null;
+  public mascotas:Observable<mascota>;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
     

@@ -51,6 +51,6 @@ export class ObtenerDataService {
   }
 
   getMascotas(idUsuario:string):Observable<any>{
-    return this.afs.doc<mascota>(`users/${idUsuario}/mascota`).valueChanges();
+    return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges();
   }
 }
