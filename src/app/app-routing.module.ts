@@ -96,6 +96,10 @@ const routes: Routes = [
     loadChildren: () => import('./config-publicacion/config-publicacion.module').then( m => m.ConfigPublicacionPageModule)
   },
   {
+    path: 'reserva/:id',
+    loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
+  {
     path: 'cuidadores',
     loadChildren: () => import('./cuidadores/cuidadores.module').then( m => m.CuidadoresPageModule)
   },
