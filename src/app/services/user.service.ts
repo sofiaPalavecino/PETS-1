@@ -29,10 +29,10 @@ import { ObtenerDataService } from './obtener-data.service';
 export class UserService {
   public categorias:Array<string>=[];
   public paseador:Observable<Paseador>=null;
-  public planesPaseador:Observable<Paseador>;
+  public planesPaseador:Observable<Paseador> = null;
   public cuidador: Observable<Cuidador> = null;
   public planesCuidador:Observable<Cuidador> = null;
-  public mascotas:Observable<mascota>;
+  public mascotas:Observable<mascota> = null;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
     

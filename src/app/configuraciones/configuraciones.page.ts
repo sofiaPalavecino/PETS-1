@@ -29,17 +29,17 @@ export class ConfiguracionesPage implements OnInit {
   
   // private imagePicker: ImagePicker
   constructor(private afs: AngularFirestore, private aServ:AuthService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController,) {
-    this.aServ.user$.subscribe((data)=>{
-      this.nombre=data.nombre;
-      this.apellido=data.apellido;
-      this.DNI=data.DNI;
-      this.correo=data.email;
-      this.fechaNacimiento=data.nacimiento;
-      this.uid=data.uid;
-      this.administrando=data.administrando;
-      this.foto=data.foto;
-      this.barrio=data.barrio;
-    })  
+    
+      this.nombre=this.aServ.user$.nombre;
+      this.apellido=this.aServ.user$.apellido;
+      this.DNI=this.aServ.user$.DNI;
+      this.correo=this.aServ.user$.email;
+      this.fechaNacimiento=this.aServ.user$.nacimiento;
+      this.uid=this.aServ.user$.uid;
+      this.administrando=this.aServ.user$.administrando;
+      this.foto=this.aServ.user$.foto;
+      this.barrio=this.aServ.user$.barrio;
+   
   }
 
   ngOnInit() {}
