@@ -43,13 +43,5 @@ export class PerfilOrganizacionPage implements OnInit {
       cont.setAttribute("name", "Publicaciones");
     }*/
 
-<<<<<<< HEAD
-=======
-
-  /*nuevaPublicacion(){
-    this.boton = true;
-    //this.boton = false;
-  }*/
->>>>>>> 754de9b755d7a1028ba0b17e65fd4d209da8ae92
 
 }
