@@ -99,6 +99,10 @@ const routes: Routes = [
     path: 'reserva/:id',
     loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
   },
+  {
+    path: 'cuidadores',
+    loadChildren: () => import('./cuidadores/cuidadores.module').then( m => m.CuidadoresPageModule)
+  },
 ];
 
 @NgModule({
