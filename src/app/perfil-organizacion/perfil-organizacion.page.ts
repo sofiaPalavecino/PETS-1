@@ -15,7 +15,6 @@ export class PerfilOrganizacionPage implements OnInit {
 
 
   
-  boton:boolean;
   idOrganizacion:string;
 
   constructor(private org:OrganizacionService,private publiServ:PubliService) { 
@@ -44,10 +43,5 @@ export class PerfilOrganizacionPage implements OnInit {
       cont.setAttribute("name", "Publicaciones");
     }*/
 
-
-  /*nuevaPublicacion(){
-    this.boton = true;
-    //this.boton = false;
-  }*/
 
 }
