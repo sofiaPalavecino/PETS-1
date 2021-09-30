@@ -95,6 +95,10 @@ const routes: Routes = [
     path: 'config-publicacion',
     loadChildren: () => import('./config-publicacion/config-publicacion.module').then( m => m.ConfigPublicacionPageModule)
   },
+  {
+    path: 'reserva/:id',
+    loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
 ];
 
 @NgModule({
