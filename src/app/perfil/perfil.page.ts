@@ -20,43 +20,24 @@ import { PlanPaseo } from '../shared/plan-paseo.interface';
 export class PerfilPage implements OnInit {
   public categorias:Array<string>=[];
   public paseador:Observable<Paseador>=null;
-  public planesPaseador:Array<Observable<PlanPaseo>>=[];
+  public planesPaseador:Observable<Paseador>;
   public cuidador: Observable<Cuidador> = null;
-  public planesCuidador:Array<Observable<PlanCuidador>>=[];
-  public mascotas:Array<Observable<mascota>>=[];
+  public planesCuidador:Observable<Cuidador> = null;
 
-  public usuarios:Array<userProfile> = []
+
+  public usuario:Observable<userProfile>;
   public id:any=0;
 
   constructor(private route: ActivatedRoute,private afs:AngularFirestore, private userServ:UserService, private aServ:AuthService,private obDataServ:ObtenerDataService) {
-    this.obDataServ.getTrabajador(this.id,"paseador")
-    this.obDataServ.getTrabajador(this.id,"cuidador")
-    this.obDataServ.getPlanes(this.id,"paseador")
-    this.obDataServ.getPlanes(this.id,"cuidador")
-    this.obDataServ.getMascotas(this.id)
   }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')
-    this.afs.firestore.collection("users").where("uid","==",this.id).get().then((querySnapshot)=>{
-      if(querySnapshot.size>0){
-        querySnapshot.forEach((doc) =>{
-          let userAux:userProfile = {
-            nombre: doc.data()["nombre"],
-            apellido: doc.data()["apellido"],
-            uid: doc.data()["uid"],
-            email: doc.data()["email"],
-            emailVerified: doc.data()["emailVerified"],
-            nacimiento: doc.data()["nacimiento"],
-            administrando:doc.data()["administrando"],
-            DNI:doc.data()["DNI"],
-            foto:doc.data()["foto"],
-            barrio:doc.data()["barrio"]
-          }
-          this.usuarios.push(userAux);
-        })
-      } 
-    })
+    this.paseador=this.obDataServ.getTrabajador(this.id,"paseador")
+    this.cuidador=this.obDataServ.getTrabajador(this.id,"cuidador")
+    this.planesPaseador=this.obDataServ.getPlanes(this.id,"paseador")
+    this.planesCuidador=this.obDataServ.getPlanes(this.id,"cuidador")
+    this.usuario=this.afs.doc<userProfile>(`users/${this.id}`).valueChanges()
   }
 
 }

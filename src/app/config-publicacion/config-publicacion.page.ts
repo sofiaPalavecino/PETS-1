@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { OrganizacionService } from 'src/app/services/organizacion.service';
 import { PubliService } from 'src/app/services/publi.service';
 import { Publicacion } from 'src/app/shared/publicacion';
+import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
 
 @Component({
@@ -16,6 +17,12 @@ import { Publicacion } from 'src/app/shared/publicacion';
 })
 export class ConfigPublicacionPage implements OnInit {
 
+  nombre:string;
+  calificacion:number;
+  especie:string;
+  descripcion:string;
+  cuidados:string;
+  foto:string;
 
   constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, private org:OrganizacionService, private publiServ:PubliService) { }
 
@@ -65,7 +72,7 @@ export class ConfigPublicacionPage implements OnInit {
   }
 
   subirPublicacion(){
-  //  this.publiServ.nuevaPublicacion()
+    this.publiServ.nuevaPublicacion(this.nombre, this.especie, this.descripcion, this.cuidados);
   }
 
 }

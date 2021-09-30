@@ -49,7 +49,7 @@ export class OrganizacionService {
   
   }
 
-  async actualizarOrganizacion(oid:string){
+  async   actualizarOrganizacion(oid:string){
     this.organizaciones.forEach(orgAux => {
       
       if(orgAux.oid == oid){
