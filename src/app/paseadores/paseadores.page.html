@@ -12,9 +12,10 @@
   <ion-row>
 
     <div class="div-paseos"  >
-      <app-worker  *ngFor="let paseador of PaseosServ.paseadores" idUsuario={{paseador.idUsuario}}
+      <app-worker  *ngFor="let paseador of pasServ.listaPaseadores" idUsuario={{paseador.idUsuario}}
       calificacion_promedio={{paseador.calificacion_promedio}} ></app-worker>
     </div>
+
   </ion-row>
 
 

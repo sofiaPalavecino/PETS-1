@@ -9,6 +9,7 @@ import { PubliService } from 'src/app/services/publi.service';
 import { Publicacion } from 'src/app/shared/publicacion';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 
+
 @Component({
   selector: 'app-config-publicacion',
   templateUrl: './config-publicacion.page.html',
@@ -24,6 +25,7 @@ export class ConfigPublicacionPage implements OnInit {
   foto:string;
 
   constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, private org:OrganizacionService, private publiServ:PubliService) { }
+
 
   ngOnInit() {
   }

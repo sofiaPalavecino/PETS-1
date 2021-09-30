@@ -22,6 +22,12 @@
         <ion-label *ngIf="aServ.user$ | async; let user1" (click)="closeMenu()" class="h2-nombre-usuario">{{ user1.nombre }} {{user1.apellido}}</ion-label>
       </ion-item>
       <ion-item>
+        <a menuClose routerLink="/home" (click)="closeMenu()" style="display: block; text-align: center;">
+          <ion-icon name="home-outline"></ion-icon>
+          <h6>Home</h6>
+        </a>
+      </ion-item>
+      <ion-item>
         <a menuClose routerLink="/perfil-usuario" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="person-outline"></ion-icon>
           <h6>Perfil</h6>
@@ -29,13 +35,13 @@
       </ion-item>
       <ion-item *ngIf="orga.organizaciones">
         <a routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
-          <ion-icon name="heart-outline"></ion-icon>
+          <ion-icon name="business-outline"></ion-icon>
           <h6>Perfil de Organizacion</h6>
         </a>
       </ion-item>
       <ion-item>
         <a routerLink="/register" (click)="closeMenu()" style="display: block; text-align: center;">
-          <ion-icon name="bookmark-outline"></ion-icon>
+          <ion-icon name="heart-outline"></ion-icon>
           <h6>Mis Organizaciones</h6>
         </a>
       </ion-item>

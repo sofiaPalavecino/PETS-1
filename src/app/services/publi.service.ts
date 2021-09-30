@@ -55,5 +55,5 @@ export class PubliService {
     })
     console.log(estandar)
   }
-  
+
 }

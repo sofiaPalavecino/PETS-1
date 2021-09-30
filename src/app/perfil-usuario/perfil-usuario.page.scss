@@ -100,3 +100,16 @@
     align-items: center;
     justify-content: center;
 }
+
+.div-contiene-foto-nombre{
+    display: flex;
+    width: fit-content;
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+}
+
+.item-publicaciones{
+    position: relative;
+    bottom: 25px;
+}
