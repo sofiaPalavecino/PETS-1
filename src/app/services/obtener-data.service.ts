@@ -33,9 +33,9 @@ export class ObtenerDataService {
   getTrabajador(idUsuario:string,tipo:string):Observable<any>{
    
     if(tipo=="paseador"){
-      return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges())
+      return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges({idField:"docId"}))
     }else{
-      return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).valueChanges())
+      return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).valueChanges({idField:"docId"}))
     }
     
   }
@@ -43,14 +43,14 @@ export class ObtenerDataService {
   getPlanes(idUsuario:string,tipo:string):Observable<any>{
    
     if(tipo=="paseador"){
-      return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges();
+      return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
     }
     else{
-      return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges();
+      return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
     }
   }
 
   getMascotas(idUsuario:string):Observable<any>{
-    return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges();
+    return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges({idField:"docId"});
   }
 }
