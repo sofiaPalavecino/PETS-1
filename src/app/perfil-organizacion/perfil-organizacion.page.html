@@ -43,7 +43,7 @@
     </ion-list>
     <ion-grid>
       <ion-row *ngIf="publiServ.publicaciones| async">
-        <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}} foto={{publi.foto}} nombre={{publi.nombre}} pid={{publi.pid}}></publi-card>
+        <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}} foto={{publi.foto}} nombre={{publi.nombre}} id={{publi.docId}}></publi-card>
 
       </ion-row>
     </ion-grid>

@@ -1,0 +1,80 @@
+.div-contiene-foto-nombre{
+    display: flex;
+    width: fit-content;
+    margin-left: 10px;
+    position: relative;
+    bottom: 10px;
+}
+
+.item-publicaciones{
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    position: relative;
+    bottom: 5px;
+    left: 7px;
+}
+
+.label-publicaciones{
+    position: relative;
+    left: 10px;
+    font-size: medium;
+    color: black; 
+}
+
+.div-nombre-organizacion,.div-localizacion-org{
+    margin-top: 0px;
+    margin-left: 10px;
+}
+
+.div-contiene-nombre-provincia{
+    margin-left: 10px;
+}
+
+#org-avatar{
+    height: 100px;
+    width: 100px;
+    // margin-left: 30px;
+    box-shadow: 5px 2px 20px 2px rgb(0 0 0 / 30%);
+}
+
+.label-organizacion {
+    text-align: center;
+    font-size: large;
+    color:white;
+    position: relative;
+    top: 5px;
+}
+
+.label-toolbar{
+    position: fixed;
+    top: 40px;
+    left: 50px;
+    font-size: 10px;
+}
+
+.boton-publicaciones{
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.foto{
+    position: relative;
+    width: 75%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.nombre-publi{
+    position: relative;
+    text-align: center;
+    bottom: 20px;
+}
+
+.centrado{
+    text-align: center;
+}

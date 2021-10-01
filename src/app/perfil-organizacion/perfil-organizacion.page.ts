@@ -33,15 +33,4 @@ export class PerfilOrganizacionPage implements OnInit {
     this.org.actualizarOrganizacion(this.idOrganizacion);
   }
 
-  /*doSomethingOnScroll():void {
-    let cont = document.getElementById("toolbar");
-      cont.setAttribute("name", "Publicaciones");
-  }*/
-
-  /*changeToolBarText(){
-    let cont = document.getElementById("toolbar");
-      cont.setAttribute("name", "Publicaciones");
-    }*/
-
-
 }
