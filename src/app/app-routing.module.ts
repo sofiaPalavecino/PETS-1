@@ -104,7 +104,7 @@ const routes: Routes = [
     loadChildren: () => import('./cuidadores/cuidadores.module').then( m => m.CuidadoresPageModule)
   },
   {
-    path: 'reserva/:id',
+    path: 'reserva/:uid/:pid',
     loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
   },
 

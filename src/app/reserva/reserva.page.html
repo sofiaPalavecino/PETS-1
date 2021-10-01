@@ -5,5 +5,37 @@
 </ion-header>
 
 <ion-content>
+  <ion-row class="columna-foto-datos" #toolbar>
+    <ion-col>
+      <div class="div-contiene-foto-nombre" >
+        <ion-avatar>
+          <img *ngIf="this.usuario | async; let user1" src="{{user1.foto}}" >
+        </ion-avatar>
+        <div class="div-contiene-nombre-provincia">
+          <div class="div-nombre-usuario">
+            <h2 class="h2-nombre-usuario" *ngIf="this.usuario | async; let user1">{{ user1.nombre }} {{user1.apellido}}</h2>
+          </div>
+          <div class="div-provincia-usuario">
+            <h3 class="h2-provincia-usuario" *ngIf="this.usuario | async; let user1">{{ user1.barrio }}</h3>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <label *ngFor="let Dia of diasDisponibles">
 
+        <ion-row>
+
+          <ion-checkbox type="checkbox" [(ngModel)]="Dia.estado"></ion-checkbox> {{Dia.nombre}}
+        
+        </ion-row>
+        
+      </label>  
+    </ion-col>>
+  </ion-row>
+  <ion-row>
+    <label>Mascotas:</label>
+  </ion-row>
 </ion-content>

@@ -1,6 +1,6 @@
-import { DiaI } from "../app/dia-i";
 
-export class Dia implements DiaI {
+
+export class Dia  {
 
     nombre:string;
     estado:boolean;
