@@ -4,7 +4,7 @@ export interface disponibilidades{
   Martes:number;
   Miercoles:number;
   Jueves:number;
-  Vieernes:number;
+  Viernes:number;
   Sabado:number;
   Domingo:number
 }

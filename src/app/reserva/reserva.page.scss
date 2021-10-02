@@ -1,3 +1,18 @@
+ion-toggle{
+    --background-checked: #b0ddd6;--handle-background-checked: #87bdb4;z-index:0
+}
+
+#reservar{
+    font-family: "Roboto", sans-serif;
+    display: block;
+    height: 50px;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    border-radius: 15px;
+    background-color: #97c3bb
+}
 .columna-foto-datos{
     border-bottom: inset;
 }
@@ -14,7 +29,6 @@
 }
 .div-contiene-nombre-provincia{
     margin-left: 10px;
-    margin-top: 10px;
 }
 .h2-nombre-usuario{
     font-family: Roboto;

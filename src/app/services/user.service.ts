@@ -32,12 +32,10 @@ export class UserService {
   public planesPaseador:Observable<Paseador> = null;
   public cuidador: Observable<Cuidador> = null;
   public planesCuidador:Observable<Cuidador> = null;
-  public mascotas:Observable<mascota> = null;
+  public mascotas:Observable<mascota[]> = null;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
-    
-
-  
+    console.log(authSvc.uid)
     this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"paseador")
     this.cuidador=this.obDataServ.getTrabajador(this.authSvc.uid,"cuidador")
     this.planesPaseador=this.obDataServ.getPlanes(this.authSvc.uid,"paseador")
