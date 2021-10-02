@@ -1,7 +1,65 @@
 .ion-button-cancel{
-    color: #26A48C;
-    font-size: 10px;
-    margin-left: -180px;
-    margin-top: 15px;
-    height: 20px;
+  color: #26A48C;
+  font-size: 10px;
+  margin-top: 61px;
+  position: absolute;
+  right: 38%;
+}
+
+.card{
+  height: 190px;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 500px 20px rgba(0,0,0,0.19), 0 5px 6px rgba(0,0,0,0.23);
+}
+
+.margen{
+  margin: 10%;
+  margin-right: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+.subtituloHorario{
+  margin-top: 26%;
+  position: absolute;
+  left: 16%;
+  font-size: 11px;
+}
+
+.descripcionContent{
+  position: absolute;
+  right: 0%;
+  top: 63%;
+  font-size: 11px;
+  height: 54px;
+  text-align: initial;
+  width: 125px;
+  --offset-bottom: auto!important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
   }
+}
+
+
+.prueba{
+  background-color: brown;
+  height: 110px;
+  width: 110px;
+  margin-top: 30%;
+  margin-left: 12%;
+}
+
+
+.filaCard{
+  height: 100%;
+}
+
+.titulo{
+  position: absolute;
+  width: 100%;
+  font-size: large;
+  left: 10%;
+}
