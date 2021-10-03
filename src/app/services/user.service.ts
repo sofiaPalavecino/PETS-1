@@ -119,6 +119,23 @@ export class UserService {
             domingo: domingo.estado,
           });
 
+        let cupos = []
+        if(lunes.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(martes.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(miercoles.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(jueves.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(viernes.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(sabado.estado) cupos.push(cupoA)
+        else cupos.push(0)
+        if(domingo.estado) cupos.push(cupoA)
+        else cupos.push(0)
+
+
         creoPlan.then((data) => {
           this.afs
             .collection("paseador")
@@ -127,13 +144,13 @@ export class UserService {
             .doc(data.id)
             .collection("disponibilidades")
             .add({
-              Lunes: cupoA,
-              Martes: cupoA,
-              Miercoles: cupoA,
-              Jueves: cupoA,
-              Viernes: cupoA,
-              Sabado: cupoA,
-              Domingo: cupoA,
+              Lunes: cupos[0],
+              Martes: cupos[1],
+              Miercoles: cupos[2],
+              Jueves: cupos[3],
+              Viernes: cupos[4],
+              Sabado: cupos[5],
+              Domingo: cupos[5],
             });
         });
       });

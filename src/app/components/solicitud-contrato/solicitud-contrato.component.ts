@@ -35,4 +35,12 @@ export class SolicitudContratoComponent implements OnInit {
 
   }
 
+  aceptarContrato(){
+
+  }
+
+  rechazarContrato(){
+    
+  }
+
 }
