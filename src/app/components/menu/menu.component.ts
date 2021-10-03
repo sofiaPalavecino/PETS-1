@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { OrganizacionService } from "../../services/organizacion.service";
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,11 +11,18 @@ import { OrganizacionService } from "../../services/organizacion.service";
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+ 
   static getElementById(arg0: string): HTMLTextAreaElement {
     throw new Error('Method not implemented.');
   }
 
-  constructor(private menuCtrl: MenuController, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { }
+  notificacion:boolean = false;
+
+  constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
+    this.userServ.contratosPaseador.forEach(element => {
+      if(element.estado == "solicitud") this.notificacion = true;
+    });
+  }
 
   ngOnInit() {}
   
@@ -28,13 +36,6 @@ export class MenuComponent implements OnInit {
       }
     });
   }
-
-
-
-  /*changeToolBarText(){
-  let cont = document.getElementById("toolbar");
-    cont.setAttribute("name", "Publicaciones");
-  }*/
 
   closeMenu(){
     this.menuCtrl.close();

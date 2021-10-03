@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable} from 'rxjs';
 
 import { AuthService } from "../services/auth.service";
+import { ContratoPaseador } from '../shared/contrato-paseador.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,19 @@ export class ObtenerDataService {
 
   getMascotas(idUsuario:string):Observable<any>{
     return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges({idField:"docId"});
+  }
+
+  async getContratos(idUsuario:string,tipo:string):Promise<any>{
+    return await 
+    this.afs.firestore
+    .collection(`contrato${tipo}`)
+    .where(`id${tipo}`,"==",idUsuario)
+    .get().then((querySnapshot)=>{
+      let contratos:Array<any> = new Array<any>();
+      querySnapshot.forEach(element => {
+        contratos.push(element.data())
+      });
+      return contratos;
+    });
   }
 }

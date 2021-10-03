@@ -106,7 +106,11 @@ const routes: Routes = [
   {
     path: 'reserva/:uid/:pid',
     loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
+
 
 ];
 

@@ -52,10 +52,19 @@
         </a>
       </ion-item>
       <ion-item>
-        <button routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
+        <a routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
+          <span *ngIf="notificacion == false; else elseBlock" class="iconify" data-icon="carbon:notification" style="color: black;height: 20px;width: 20px;"></span>
+          <ng-template #elseBlock>
+            <span class="iconify" data-icon="carbon:notification-new" style="color: black;height: 20px;width: 20px;"></span>
+          </ng-template>
+          <h6>Notificaciones</h6>
+        </a>
+      </ion-item>
+      <ion-item>
+        <a routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
           <ion-icon name="exit-outline"></ion-icon>
           <h6>Exit</h6>
-        </button>
+        </a>
       </ion-item>
     </ion-list>
   </ion-content>

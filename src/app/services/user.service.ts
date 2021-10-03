@@ -21,6 +21,7 @@ import { element } from 'protractor';
 
 import { newArray } from '@angular/compiler/src/util';
 import { ObtenerDataService } from './obtener-data.service';
+import { ContratoPaseador } from '../shared/contrato-paseador.interface';
 
 
 @Injectable({
@@ -33,6 +34,7 @@ export class UserService {
   public cuidador: Observable<Cuidador> = null;
   public planesCuidador:Observable<Cuidador> = null;
   public mascotas:Observable<mascota[]> = null;
+  public contratosPaseador:ContratoPaseador[] = null;
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService, private obDataServ:ObtenerDataService) {
     console.log(authSvc.uid)
@@ -41,6 +43,10 @@ export class UserService {
     this.planesPaseador=this.obDataServ.getPlanes(this.authSvc.uid,"paseador")
     this.planesCuidador=this.obDataServ.getPlanes(this.authSvc.uid,"cuidador")
     this.mascotas=this.obDataServ.getMascotas(this.authSvc.uid)
+    this.obDataServ.getContratos(this.authSvc.uid,"Paseador").then((result) => {
+      this.contratosPaseador=result;
+    })
+    
   }
 
   
@@ -60,12 +66,18 @@ export class UserService {
           this.paseador=this.obDataServ.getTrabajador(this.authSvc.uid,"paseador")
     
         }
+
+    
+        cupoA = Number(cupoA)
+        cantDiasPaseoA = Number(cantDiasPaseoA)
+
+        console.log(typeof cupoA)
         
         const creoPlan =  this.afs.collection('paseador').doc(this.authSvc.uid).collection('planpaseador').add({
           costo:costoA,
           cupo:cupoA,
           plazo:plazoA,
-          cantDiasPaseo:cantDiasPaseoA,
+          cantidad_dias:cantDiasPaseoA,
           disponibilidad:disponibilidadA,
           estado:estadoA,
           lunes:lunes.estado,
@@ -76,6 +88,18 @@ export class UserService {
           sabado:sabado.estado,
           domingo:domingo.estado
         }) 
+
+        creoPlan.then((data) => {
+          this.afs.collection('paseador').doc(this.authSvc.uid).collection('planpaseador').doc(data.id).collection('disponibilidades').add({
+            Lunes:cupoA,
+            Martes:cupoA,
+            Miercoles:cupoA,
+            Jueves:cupoA,
+            Viernes:cupoA,
+            Sabado:cupoA,
+            Domingo:cupoA
+          })
+        })
       }
     )
 

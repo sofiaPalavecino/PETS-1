@@ -105,31 +105,31 @@ export class ReservaPage implements OnInit {
     let cantDias:number = this.getCantDias();
 
     this.disponibilidades.subscribe((data) => {
-      if (data[0].Lunes - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[0].estado == false) {
+      if (data[0].Lunes - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[0].estado == false) {
         this.diasDisponibles[0].modificador = "disable";
         this.diasDisponibles[0].estado = false;
       } else this.diasDisponibles[0].modificador = "";
-      if (data[0].Martes - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[1].estado == false){
+      if (data[0].Martes - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[1].estado == false){
         this.diasDisponibles[1].modificador = "disable";
         this.diasDisponibles[1].estado = false;
       } else this.diasDisponibles[1].modificador = "";
-      if (data[0].Miercoles - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[2].estado == false){
+      if (data[0].Miercoles - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[2].estado == false){
         this.diasDisponibles[2].modificador = "disable";
         this.diasDisponibles[2].estado = false;
       } else this.diasDisponibles[2].modificador = "";
-      if (data[0].Jueves - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[3].estado == false){
+      if (data[0].Jueves - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[3].estado == false){
         this.diasDisponibles[3].modificador = "disable";
         this.diasDisponibles[3].estado = false;
       } else this.diasDisponibles[3].modificador = "";
-      if (data[0].Viernes - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[4].estado == false){
+      if (data[0].Viernes - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[4].estado == false){
         this.diasDisponibles[4].modificador = "disable";
         this.diasDisponibles[4].estado = false;
       } else this.diasDisponibles[4].modificador = "";
-      if (data[0].Sabado - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[5].estado == false){
+      if (data[0].Sabado - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[5].estado == false){
         this.diasDisponibles[5].modificador = "disable";
         this.diasDisponibles[5].estado = false;
       } else this.diasDisponibles[5].modificador = "";
-      if (data[0].Domingo - cantMascotas <= 0 || this.cantidadDias == cantDias && this.diasDisponibles[6].estado == false){
+      if (data[0].Domingo - cantMascotas < 0 || this.cantidadDias == cantDias && this.diasDisponibles[6].estado == false){
         this.diasDisponibles[6].modificador = "disable";
         this.diasDisponibles[6].estado = false;
       } else this.diasDisponibles[6].modificador = "";
@@ -154,7 +154,7 @@ export class ReservaPage implements OnInit {
 
         const nuevoContrato = this.afs.collection('contratoPaseador').add({
           cantMascotas:cantMascotas,
-          estado:false,
+          estado:"solicitud",
           idCliente:this.aServ.uid,
           idMascota:mascotasId,
           idPaseador:this.uid,
