@@ -57,7 +57,7 @@ export class ObtenerDataService {
   }
 
   getUser(idUsuario:string):Observable<any>{
-    return this.afs.collection<userProfile>(`users/${idUsuario}`).valueChanges({idField:"docId"});
+    return this.afs.doc<userProfile>(`users/${idUsuario}`).valueChanges({idField:"docId"});
   }
 
   async getContratos(idUsuario:string,tipo:string):Promise<any>{

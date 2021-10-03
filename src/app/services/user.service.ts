@@ -41,7 +41,7 @@ export class UserService {
   constructor(
     private afs: AngularFirestore,
     private authSvc: AuthService,
-    private obDataServ: ObtenerDataService
+    private obDataServ: ObtenerDataService,
   ) {
     console.log(authSvc.uid);
     this.paseador = this.obDataServ.getTrabajador(this.authSvc.uid, "paseador");
