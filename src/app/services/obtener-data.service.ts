@@ -10,6 +10,7 @@ import { Observable} from 'rxjs';
 
 import { AuthService } from "../services/auth.service";
 import { ContratoPaseador } from '../shared/contrato-paseador.interface';
+import { userProfile } from '../shared/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,12 @@ export class ObtenerDataService {
     return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges({idField:"docId"});
   }
 
+  getUser(idUsuario:string):Observable<any>{
+    return this.afs.collection<userProfile>(`users/${idUsuario}`).valueChanges({idField:"docId"});
+  }
+
   async getContratos(idUsuario:string,tipo:string):Promise<any>{
+    console.log(idUsuario,tipo);
     return await 
     this.afs.firestore
     .collection(`contrato${tipo}`)
@@ -63,9 +69,21 @@ export class ObtenerDataService {
     .get().then((querySnapshot)=>{
       let contratos:Array<any> = new Array<any>();
       querySnapshot.forEach(element => {
-        contratos.push(element.data())
+        contratos.push({
+          cantMascotas:element.data()["cantMascotas"],
+          estado:element.data()["estado"],
+          idCliente:element.data()["idCliente"],
+          idMascota:element.data()["idMascota"],
+          dias:element.data()["dias"],
+          idPaseador:element.data()["idPaseador"],
+          planContratado:element.data()["planContratado"],
+          fechaContratacion:element.data()["fechaContratacion"],
+          docId:element.id
+        })
       });
       return contratos;
     });
   }
+
+
 }

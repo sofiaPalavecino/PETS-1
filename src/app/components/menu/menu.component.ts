@@ -19,12 +19,14 @@ export class MenuComponent implements OnInit {
   notificacion:boolean = false;
 
   constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
-    this.userServ.contratosPaseador.forEach(element => {
-      if(element.estado == "solicitud") this.notificacion = true;
-    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userServ.contratosPaseador.forEach(element => {
+      if(element.estado == "solicitud") this.notificacion = true;
+      console.log(element);
+    });
+  }
   
   changeIconMenu(){
     let menuIcon = document.getElementById("menu-icon"); 

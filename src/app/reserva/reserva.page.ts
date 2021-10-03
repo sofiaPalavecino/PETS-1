@@ -145,9 +145,14 @@ export class ReservaPage implements OnInit {
       if(cantDias > 0){
 
         let mascotasId:Array<string> = new Array<string>();
+        let dias:Array<string> = new Array<string>();
 
         this.mascotasCheck.forEach(element => {
           if(element.estado == true) mascotasId.push(element.dataExtra)
+        });
+
+        this.diasDisponibles.forEach(element => {
+          if(element.estado == true) dias.push(element.nombre)
         });
 
         let fecha = this.date.transform(new Date(), 'MM/dd/yyyy')
@@ -159,7 +164,8 @@ export class ReservaPage implements OnInit {
           idMascota:mascotasId,
           idPaseador:this.uid,
           planContratado:this.pid,
-          fechaContratacion:fecha
+          fechaContratacion:fecha,
+          dias:dias
         })
 
       } else {

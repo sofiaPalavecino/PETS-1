@@ -8,6 +8,8 @@ import { NotificacionesPageRoutingModule } from './notificaciones-routing.module
 
 import { NotificacionesPage } from './notificaciones.page';
 
+import { SolicitudContratoComponent } from "../components/solicitud-contrato/solicitud-contrato.component";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { NotificacionesPage } from './notificaciones.page';
     IonicModule,
     NotificacionesPageRoutingModule
   ],
-  declarations: [NotificacionesPage]
+  declarations: [NotificacionesPage,SolicitudContratoComponent]
 })
 export class NotificacionesPageModule {}
