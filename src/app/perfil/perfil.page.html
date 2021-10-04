@@ -45,7 +45,7 @@
             <h2 class="titulo-apartado-paseo" >Paseos</h2>
           </ion-row>
           <div *ngFor="let plan of this.planesPaseador | async">
-            <div class="div-paseos">
+            <div class="div-paseos"  [routerLink]="['/reserva',id,plan.docId]">
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>

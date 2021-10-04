@@ -28,7 +28,6 @@ export class WorkerComponent implements OnInit {
 
   async ngOnInit() {
     this.usuario = await this.getUsuario(this.idUsuario);
-    console.log(this.usuario)
   }
 
 

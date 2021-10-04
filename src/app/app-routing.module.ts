@@ -103,6 +103,15 @@ const routes: Routes = [
     path: 'cuidadores',
     loadChildren: () => import('./cuidadores/cuidadores.module').then( m => m.CuidadoresPageModule)
   },
+  {
+    path: 'reserva/:uid/:pid',
+    loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+
+
 ];
 
 @NgModule({

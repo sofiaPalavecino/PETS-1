@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>notificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="userServ.contratosPaseador.length > 0">
+    <ion-row style="background: #a1cac363;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
+      <label style="margin: auto;font-size: x-large;">Solicitud Paseo</label>
+    </ion-row>
+    <app-solicitud-contrato *ngFor="let contrato of userServ.contratosPaseador" idContrato = {{contrato.docId}}>
+
+    </app-solicitud-contrato>
+  </div>
+
+</ion-content>
