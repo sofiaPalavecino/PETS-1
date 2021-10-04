@@ -34,14 +34,6 @@ export class SolicitudContratoComponent implements OnInit {
         this.userName = data.nombre + " " + data.apellido;
       })
     }));
-  }
-
-  aceptarContrato(){
-
-  }
-
-  rechazarContrato(){
-    
-  }
+  } 
 
 }
