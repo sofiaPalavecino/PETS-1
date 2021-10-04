@@ -199,6 +199,7 @@ export class ReservaPage implements OnInit {
             
           })
           this.router.navigate(['/home']);
+          this.presentAlert("Listo!","Reserva relizada");
   
         } else {
           this.presentAlert("Datos Incompletos","Debes seleccionar al menos un día");
@@ -219,6 +220,7 @@ export class ReservaPage implements OnInit {
             diasTotales:this.cantidadDias
           })
           this.router.navigate(['/home']);
+          this.presentAlert("Listo!","Reserva relizada");
         }else{
           this.presentAlert("Datos Incompletos","Debes seleccionar el día de inicio del cuidado");
         }
