@@ -2,7 +2,7 @@
   <ion-row>
     <ion-col>
     <ion-card-title>{{this.userName}}</ion-card-title>
-    <ion-card-subtitle>{{this.contrato.dias}}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="contrato">{{this.contrato.dias}}</ion-card-subtitle>
     <ion-label>Mascotas:</ion-label>
   </ion-col>
   <ion-col style="margin: auto;text-align: end;">

@@ -208,7 +208,12 @@ export class ReservaPage implements OnInit {
             dias:dias,
             montoTotal:this.montoTotal
           })
-  
+          nuevoContrato.then((data)=> {
+            console.log(`paseador/${this.uid}`)
+            this.afs.doc(`paseador/${this.uid}`).update({
+              contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+            })
+          });
         } else {
           alert("Debes seleccionar al menos un día")
         }
