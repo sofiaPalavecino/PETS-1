@@ -35,9 +35,15 @@ export class ObtenerDataService {
   getTrabajador(idUsuario:string,tipo:string):Observable<any>{
    
     if(tipo=="paseador"){
+<<<<<<< HEAD
       return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges({idField:"docId"}))
     }else{
       return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).valueChanges({idField:"docId"}))
+=======
+      return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges({ idField: 'docId' }))
+    }else{
+      return (this.afs.doc<Cuidador>(`${tipo}/${idUsuario}`).valueChanges({ idField: 'docId' }))
+>>>>>>> c920dcfc76c4fa9253b0f9bbb087ea944e35a001
     }
     
   }
@@ -45,15 +51,26 @@ export class ObtenerDataService {
   getPlanes(idUsuario:string,tipo:string):Observable<any>{
    
     if(tipo=="paseador"){
+<<<<<<< HEAD
       return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
     }
     else{
       return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
+=======
+      return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({ idField: 'docId' });
+    }
+    else{
+      return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({ idField: 'docId' });
+>>>>>>> c920dcfc76c4fa9253b0f9bbb087ea944e35a001
     }
   }
 
   getMascotas(idUsuario:string):Observable<any>{
+<<<<<<< HEAD
     return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges({idField:"docId"});
+=======
+    return this.afs.collection<mascota>(`users/${idUsuario}/mascota`).valueChanges({ idField: 'docId' });
+>>>>>>> c920dcfc76c4fa9253b0f9bbb087ea944e35a001
   }
 
   getUser(idUsuario:string):Observable<any>{
