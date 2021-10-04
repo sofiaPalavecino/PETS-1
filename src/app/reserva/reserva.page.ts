@@ -244,12 +244,4 @@ export class ReservaPage implements OnInit {
     
     console.log(this.diasDisponibles, this.mascotasCheck);
   }
-
-  aceptarContrato(idContrato:string){
-   console.log(idContrato) 
-  }
-
-  rechazarContrato(idContrato:string){
-    console.log(idContrato)
-  }
 }
