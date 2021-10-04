@@ -16,7 +16,6 @@ import { DatePipe } from '@angular/common';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-
 @Component({
   selector: "app-reserva",
   templateUrl: "./reserva.page.html",
@@ -25,38 +24,55 @@ import 'firebase/firestore';
 export class ReservaPage implements OnInit {
   uid: any;
   pid: any;
+  tipo:any;
 
   planPaseo: Observable<PlanPaseo> = null;
-  disponibilidades: Observable<disponibilidades[]> = null;
+  planCuidado:Observable<PlanCuidador>=null;
+  disponibilidades: Observable<disponibilidades[]>;
   usuario: Observable<userProfile> = null;
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;
   cantidadDias:number;
   semana:Array<boolean> = new Array<boolean>();
+  montoTotal:number;
+  fecha:any="";
 
   constructor(
     private aServ: AuthService,
     private route: ActivatedRoute,
     private afs: AngularFirestore,
     private userServ: UserService,
-    private date:DatePipe
+    private date:DatePipe,
+    
   ) {}
 
   async ngOnInit() {
+
+   
+
     this.uid = await this.route.snapshot.paramMap.get("uid");
     this.pid = await this.route.snapshot.paramMap.get("pid");
+    this.tipo=await this.route.snapshot.paramMap.get("tipo")
 
     this.usuario = this.afs
       .doc<userProfile>(`users/${this.uid}`)
       .valueChanges();
-    this.planPaseo = this.afs
+
+    if(this.tipo=="paseador"){
+      this.planPaseo = this.afs
       .doc<PlanPaseo>(`paseador/${this.uid}/planpaseador/${this.pid}/`)
       .valueChanges();
-    this.disponibilidades = this.afs
-      .collection<disponibilidades>(
-        `paseador/${this.uid}/planpaseador/${this.pid}/disponibilidades`
-      )
+      this.disponibilidades = this.afs
+        .collection<disponibilidades>(
+          `paseador/${this.uid}/planpaseador/${this.pid}/disponibilidades`
+        )
+        .valueChanges();
+    }else{
+      this.planCuidado = this.afs
+      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}/`)
       .valueChanges();
+    }
+    
 
     this.diasDisponibles = new Array<Dia>();
     this.diasDisponibles.push(
@@ -87,6 +103,18 @@ export class ReservaPage implements OnInit {
         data.domingo
       );
     })
+    if(this.tipo=="paseador"){
+      this.planPaseo.subscribe((data) => {
+        this.cantidadDias = data.cantidad_dias
+        this.montoTotal=data.costo
+      })
+    }else{
+      this.planCuidado.subscribe((data) => {
+        this.cantidadDias = data.cantidad_dias
+        this.montoTotal=data.costo
+      })
+    }
+    
 
     this.checkDisponibilidad();
     
@@ -154,45 +182,59 @@ export class ReservaPage implements OnInit {
     let cantMascotas:number = this.getCantMascotas();
     let cantDias:number = this.getCantDias();
 
+    
+
     if(cantMascotas > 0){
-      if(cantDias > 0){
-
-        let mascotasId:Array<string> = new Array<string>();
-        let dias:Array<string> = new Array<string>();
-
-        this.mascotasCheck.forEach(element => {
-          if(element.estado == true) mascotasId.push(element.dataExtra)
-        });
-
-        this.diasDisponibles.forEach(element => {
-          if(element.estado == true) dias.push(element.nombre)
-        });
-
-        let fecha = this.date.transform(new Date(), 'MM/dd/yyyy')
-
-        const nuevoContrato = this.afs.collection<any>('contratoPaseador').add({
-          cantMascotas:cantMascotas,
-          estado:"solicitud",
-          idCliente:this.aServ.uid,
-          idMascota:mascotasId,
-          idPaseador:this.uid,
-          planContratado:this.pid,
-          fechaContratacion:fecha,
-          dias:dias
-        })
-        nuevoContrato.then((data)=> {
-          console.log(`paseador/${this.uid}`)
-          this.afs.doc(`paseador/${this.uid}`).update({
-            contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+      let mascotasId:Array<string> = new Array<string>();
+      this.mascotasCheck.forEach(element => {
+        if(element.estado == true) mascotasId.push(element.dataExtra)
+      });
+      let fecha = this.date.transform(new Date(), 'MM/dd/yyyy')
+      if(this.tipo=="paseador"){
+        if(cantDias > 0){
+          let dias:Array<string> = new Array<string>();
+          this.diasDisponibles.forEach(element => {
+            if(element.estado == true) dias.push(element.nombre)
+          });
+          
+          const nuevoContrato = this.afs.collection('contratoPaseador').add({
+            cantMascotas:cantMascotas,
+            estado:"solicitud",
+            idCliente:this.aServ.uid,
+            idMascota:mascotasId,
+            idPaseador:this.uid,
+            planContratado:this.pid,
+            fechaContratacion:fecha,
+            dias:dias,
+            montoTotal:this.montoTotal
           })
-        });
+  
+        } else {
+          alert("Debes seleccionar al menos un día")
+        }
+      }else{
+        if(this.fecha!=null){
+          let fechaInicio=this.date.transform(this.fecha, 'MM/dd/yyyy')
+          console.log(fechaInicio)
+          const nuevoContrato = this.afs.collection('contratoCuidador').add({
+            cantMascotas:cantMascotas,
+            estado:"solicitud",
+            idCliente:this.aServ.uid,
+            idMascota:mascotasId,
+            idCuidador:this.uid,
+            planContratado:this.pid,
+            fechaInicio:fechaInicio,
+            fechaContratacion:fecha,
+            montoTotal:this.montoTotal,
+            diasTotales:this.cantidadDias
+          })
+        }else{
+          alert("Debes seleccionar el día de inicio del cuidado")
+        }
         
-
-      } else {
-        alert("debes seleccionar al menos un dia")
       }
     } else {
-      alert("debes seleccionar al menos una de tus mascotas")
+      alert("Debes seleccionar al menos una de tus mascotas")
     }
     
     console.log(this.diasDisponibles, this.mascotasCheck);
