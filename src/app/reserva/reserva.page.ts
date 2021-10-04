@@ -13,6 +13,9 @@ import { mascota } from "../shared/mascota.interface";
 import { PlanPaseo } from "../shared/plan-paseo.interface";
 import { Dia } from "../dia";
 import { DatePipe } from '@angular/common';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 
 @Component({
   selector: "app-reserva",
@@ -167,7 +170,7 @@ export class ReservaPage implements OnInit {
 
         let fecha = this.date.transform(new Date(), 'MM/dd/yyyy')
 
-        const nuevoContrato = this.afs.collection('contratoPaseador').add({
+        const nuevoContrato = this.afs.collection<any>('contratoPaseador').add({
           cantMascotas:cantMascotas,
           estado:"solicitud",
           idCliente:this.aServ.uid,
@@ -177,6 +180,13 @@ export class ReservaPage implements OnInit {
           fechaContratacion:fecha,
           dias:dias
         })
+        nuevoContrato.then((data)=> {
+          console.log(`paseador/${this.uid}`)
+          this.afs.doc(`paseador/${this.uid}`).update({
+            contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+          })
+        });
+        
 
       } else {
         alert("debes seleccionar al menos un dia")

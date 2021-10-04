@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ObtenerDataService } from 'src/app/services/obtener-data.service';
 import { UserService } from 'src/app/services/user.service';
@@ -19,20 +20,20 @@ export class SolicitudContratoComponent implements OnInit {
   mascotas:Array<string> = new Array<string>();
   cliente:Observable<userProfile>;
 
-  constructor(private userServ: UserService,private obDataServ: ObtenerDataService) {
+  constructor(private afs: AngularFirestore,private userServ: UserService,private obDataServ: ObtenerDataService) {
   }
 
   ngOnInit() {
-    this.userServ.contratosPaseador.forEach(element => {
-      if(element.docId == this.idContrato) this.contrato = element;
-    });
-    
-    this.cliente = this.obDataServ.getUser(this.contrato.idCliente);
 
-    this.cliente.subscribe(data => {
-      this.userName = data.nombre + " " + data.apellido;
-    })
-
+    console.log(this.idContrato)
+    this.afs.doc<ContratoPaseador>(`contratoPaseador/${this.idContrato}`)
+    .valueChanges({idField:"docId"}).subscribe((data=>{
+      this.contrato = data;
+      this.cliente = this.obDataServ.getUser(data.idCliente);
+      this.cliente.subscribe(data => {
+        this.userName = data.nombre + " " + data.apellido;
+      })
+    }));
   }
 
   aceptarContrato(){

@@ -22,10 +22,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userServ.contratosPaseador.forEach(element => {
+    /*this.userServ.contratosPaseador.forEach(element => {
       if(element.estado == "solicitud") this.notificacion = true;
       console.log(element);
-    });
+    });*/
   }
   
   changeIconMenu(){
