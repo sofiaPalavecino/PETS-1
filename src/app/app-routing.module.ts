@@ -82,7 +82,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'perfil/:id/:tipo',
+    path: 'perfil/:id',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },

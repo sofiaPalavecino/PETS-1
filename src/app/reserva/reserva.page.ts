@@ -51,6 +51,7 @@ export class ReservaPage implements OnInit {
     this.uid = await this.route.snapshot.paramMap.get("uid");
     this.pid = await this.route.snapshot.paramMap.get("pid");
     this.tipo=await this.route.snapshot.paramMap.get("tipo")
+    console.log(this.tipo)
 
     this.usuario = this.afs
       .doc<userProfile>(`users/${this.uid}`)
@@ -66,8 +67,8 @@ export class ReservaPage implements OnInit {
         )
         .valueChanges();
     }else{
-      this.planCuidado = this.afs
-      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}/`)
+      this.planCuidado =  this.afs
+      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}`)
       .valueChanges();
     }
     
@@ -94,15 +95,17 @@ export class ReservaPage implements OnInit {
         this.cantidadDias = data.cantidad_dias
         this.montoTotal=data.costo
       })
+      this.checkDisponibilidad();
     }else{
       this.planCuidado.subscribe((data) => {
+        console.log(data)
         this.cantidadDias = data.cantidad_dias
         this.montoTotal=data.costo
       })
     }
     
 
-    this.checkDisponibilidad();
+    
     
   }
 
