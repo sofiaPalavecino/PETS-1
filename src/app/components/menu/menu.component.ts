@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { OrganizacionService } from "../../services/organizacion.service";
 import { UserService } from 'src/app/services/user.service';
+import { ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
 
 @Component({
   selector: 'app-menu',
@@ -22,10 +23,14 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.userServ.contratosPaseador.forEach(element => {
-      if(element.estado == "solicitud") this.notificacion = true;
-      console.log(element);
-    });*/
+    this.userServ.paseador.subscribe(element => {
+      element.contratos.forEach(contrato => {
+        this.afs.doc<ContratoPaseador>("contratoPaseador/"+contrato).valueChanges().subscribe((data)=>{
+          if(data.estado == "solicitud") this.notificacion = true;
+          console.log(this.notificacion)
+        })
+      });
+    });
   }
   
   changeIconMenu(){
