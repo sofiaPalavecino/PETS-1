@@ -27,7 +27,7 @@ export class ReservaPage implements OnInit {
 
   planPaseo: Observable<PlanPaseo> = null;
   planCuidado:Observable<PlanCuidador>=null;
-  disponibilidades: Observable<disponibilidades[]> = null;
+  disponibilidades: Observable<disponibilidades[]>;
   usuario: Observable<userProfile> = null;
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;

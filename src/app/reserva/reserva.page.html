@@ -36,6 +36,7 @@
     </ion-col>
     <ng-template #a>
       <ion-col *ngIf="this.planCuidador | async; let cuidado" style="margin: auto">
+        <h3>A</h3>
         <h5>» costo diario: {{cuidado.costo}}</h5>
         <h5>» cantidad de dias: {{cuidado.cantidad_dias}}</h5>
       </ion-col>
