@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
   constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
   }
 
-  ngOnInit() {
+  ngOnInit() {/*
     this.userServ.paseador.subscribe(element => {
       element.contratos.forEach(contrato => {
         this.afs.doc<ContratoPaseador>("contratoPaseador/"+contrato).valueChanges().subscribe((data)=>{
@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
           console.log(this.notificacion)
         })
       });
-    });
+    });*/
   }
   
   changeIconMenu(){
