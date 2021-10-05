@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrganizacionesService } from '../services/organizaciones.service';
 
 @Component({
   selector: 'app-organizaciones',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganizacionesPage implements OnInit {
 
-  constructor() { }
+  constructor(private orgServ:OrganizacionesService) { }
 
   ngOnInit() {
   }

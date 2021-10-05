@@ -116,6 +116,14 @@ const routes: Routes = [
     path: 'organizaciones',
     loadChildren: () => import('./organizaciones/organizaciones.module').then( m => m.OrganizacionesPageModule)
   },
+  {
+    path: 'misorganizaciones',
+    loadChildren: () => import('./misorganizaciones/misorganizaciones.module').then( m => m.MisorganizacionesPageModule)
+  },
+  {
+    path: 'organizacion/:id',
+    loadChildren: () => import('./organizacion/organizacion.module').then( m => m.OrganizacionPageModule)
+  },
 
 
 ];

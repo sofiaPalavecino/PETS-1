@@ -1,9 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>organizaciones</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content >
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Organizaciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-row style="background: #f8f8f8;text-align: center;" class="barra_titulo_filtro" #toolbar> 
+    <ion-col>
+      <div><h3>Organizaciones</h3></div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="background: #f8f8f8;">
 
-<ion-content>
+    <div class="div-paseos"  *ngFor="let orga of orgServ.organizaciones | async ">
+      <ion-card class="card-paseo">
+        <ion-row>
+          <div style="margin:auto 0 auto 10px;">
+            <ion-avatar>
+              <img class="foto-mapa" src="{{orga.foto}}">
+            </ion-avatar>
+          </div>
+          <div>
+            <ion-card-content>
+              <div class="header-titulo-paseo">
+                <ion-card-title class="titulo-servicio">{{orga.nombre}}</ion-card-title>
+              </div>
+                <ion-row>
+                  <span class="informacion-paseo">{{orga.localidad}}</span>
+                </ion-row>
+              <button class="button-green" [routerLink]="['/perfil',this.idorga]">Ver perfil</button>
+            </ion-card-content>
+          </div>
+          <div style="font-size: 27px;margin-right: 0;margin-left: auto;margin:auto 10px auto auto;">
+      
+              <span class="informacion-paseo">{{orga.calificacion}}</span> 
+              <ion-icon name="star"></ion-icon>
+          </div>
+        </ion-row>
+      </ion-card>
+    </div>
+
+  </ion-row>
+
 
 </ion-content>
