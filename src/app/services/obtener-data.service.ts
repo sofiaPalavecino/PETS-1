@@ -61,30 +61,4 @@ export class ObtenerDataService {
     return this.afs.doc<userProfile>(`users/${idUsuario}`).valueChanges({idField:"docId"});
   }
 
-  async getContratos(idUsuario:string,tipo:string):Promise<any>{
-    console.log(idUsuario,tipo);
-    return await 
-    this.afs.firestore
-    .collection(`contrato${tipo}`)
-    .where(`id${tipo}`,"==",idUsuario)
-    .get().then((querySnapshot)=>{
-      let contratos:Array<any> = new Array<any>();
-      querySnapshot.forEach(element => {
-        contratos.push({
-          cantMascotas:element.data()["cantMascotas"],
-          estado:element.data()["estado"],
-          idCliente:element.data()["idCliente"],
-          idMascota:element.data()["idMascota"],
-          dias:element.data()["dias"],
-          idPaseador:element.data()["idPaseador"],
-          planContratado:element.data()["planContratado"],
-          fechaContratacion:element.data()["fechaContratacion"],
-          docId:element.id
-        })
-      });
-      return contratos;
-    });
-  }
-
-
 }

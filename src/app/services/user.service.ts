@@ -36,7 +36,6 @@ export class UserService {
   public cuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public planesCuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public mascotas: Observable<mascota[]> = new Observable<mascota[]>();
-  public contratosPaseador: ContratoPaseador[] = [];
 
   constructor(
     private afs: AngularFirestore,
@@ -55,11 +54,6 @@ export class UserService {
       "cuidador"
     );
     this.mascotas = this.obDataServ.getMascotas(this.authSvc.uid);
-    this.obDataServ
-      .getContratos(this.authSvc.uid, "Paseador")
-      .then((result) => {
-        this.contratosPaseador = result;
-      });
   }
 
   async crearNuevoPaseo(
