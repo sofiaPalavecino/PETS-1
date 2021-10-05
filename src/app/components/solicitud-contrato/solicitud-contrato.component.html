@@ -1,0 +1,14 @@
+<ion-card *ngIf="show">
+  <ion-row>
+    <ion-col>
+    <ion-card-title>{{this.userName}}</ion-card-title>
+    <ion-card-subtitle *ngIf="contrato">{{this.contrato.dias}}</ion-card-subtitle>
+    <ion-label>Mascotas:</ion-label>
+  </ion-col>
+  <ion-col style="margin: auto;text-align: end;">
+    <ion-button color="success" (click)="aceptarContrato(idContrato)">ok</ion-button>
+    <ion-button color="danger"  (click)="rechazarContrato(idContrato)">no</ion-button>
+  </ion-col>
+  </ion-row>
+  
+</ion-card>

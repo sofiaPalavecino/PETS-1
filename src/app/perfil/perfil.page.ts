@@ -28,7 +28,7 @@ export class PerfilPage implements OnInit {
   public usuario:Observable<userProfile>;
   public id:any=0;
 
-  constructor(private route: ActivatedRoute,private afs:AngularFirestore, private userServ:UserService, private aServ:AuthService,private obDataServ:ObtenerDataService) {
+  constructor(private route: ActivatedRoute,private afs:AngularFirestore,private obDataServ:ObtenerDataService) {
   }
 
   async ngOnInit() {

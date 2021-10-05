@@ -24,12 +24,10 @@ export class WorkerComponent implements OnInit {
   
   constructor(private PaseosServ:PaseosService, private afs: AngularFirestore,private router: Router,public navCtrl: NavController) {
     
-    
   }
 
   async ngOnInit() {
     this.usuario = await this.getUsuario(this.idUsuario);
-    console.log(this.usuario)
   }
 
 

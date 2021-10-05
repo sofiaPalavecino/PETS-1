@@ -13,7 +13,7 @@
 
     <div class="div-paseos"  >
       <app-worker  *ngFor="let paseador of pasServ.listaCuidadores  | async " idUsuario={{paseador.docId}}
-      calificacion_promedio={{paseador.calificacion_promedio}} ></app-worker>
+      calificacion_promedio={{paseador.calificacion_promedio}} tipo=cuidador></app-worker>
     </div>
 
   </ion-row>

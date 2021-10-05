@@ -1,4 +1,4 @@
-<ion-content id="contentPerfilUsusario"  [scrollEvents]="true" [appHideHeader]="toolbar" [appFadeHeader]="toolbar">
+<ion-content id="contentPerfilUsusario"  [scrollEvents]="true"  >
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -45,7 +45,7 @@
             <h2 class="titulo-apartado-paseo" >Paseos</h2>
           </ion-row>
           <div *ngFor="let plan of this.planesPaseador | async">
-            <div class="div-paseos">
+            <div class="div-paseos"  [routerLink]="['/reserva',id,plan.docId,'paseador']">
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>
@@ -85,7 +85,7 @@
           <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
         </ion-row>
         <ion-row >
-          <div class="div-paseos" *ngFor="let oferta of this.planesCuidador | async">
+          <div class="div-paseos" *ngFor="let oferta of this.planesCuidador | async" [routerLink]="['/reserva',id,oferta.docId,'cuidador']">
             <ion-card class="card-paseo">
               <ion-row>
                 <ion-col>

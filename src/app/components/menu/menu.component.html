@@ -3,7 +3,7 @@
     <ion-menu-button slot="start" menu="ion-menu" (click)="changeIconMenu()">
       <ion-icon id="menu-icon" name="menu-outline"></ion-icon>
     </ion-menu-button>
-    <ion-label *ngIf="aServ.user$ | async; let user1" class="ion-label-toolbar">{{ user1.nombre }} {{user1.apellido}}</ion-label>
+    <ion-label *ngIf="aServ.user$" class="ion-label-toolbar">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
     <ion-label class="label-toolbar" id="toolbar">  </ion-label>
     <ion-button id="mail-button" slot="end" routerLink="/chat">
       <ion-icon style="font-size: 32px;position: absolute;" name="mail-outline"></ion-icon>
@@ -15,11 +15,11 @@
     <ion-list>
       <ion-item>
         <ion-avatar>
-          <img *ngIf="aServ.user$ | async; let user1" src="{{user1.foto}}" >
+          <img *ngIf="aServ.user$" src="{{aServ.user$.foto}}" >
         </ion-avatar>
       </ion-item>
       <ion-item>
-        <ion-label *ngIf="aServ.user$ | async; let user1" (click)="closeMenu()" class="h2-nombre-usuario">{{ user1.nombre }} {{user1.apellido}}</ion-label>
+        <ion-label *ngIf="aServ.user$" (click)="closeMenu()" class="h2-nombre-usuario">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
       </ion-item>
       <ion-item>
         <a menuClose routerLink="/home" (click)="closeMenu()" style="display: block; text-align: center;">
@@ -52,10 +52,19 @@
         </a>
       </ion-item>
       <ion-item>
-        <button routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
+        <a routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
+          <span *ngIf="notificacion == false; else elseBlock" class="iconify" data-icon="carbon:notification" style="color: black;height: 20px;width: 20px;"></span>
+          <ng-template #elseBlock>
+            <span class="iconify" data-icon="carbon:notification-new" style="color: black;height: 20px;width: 20px;"></span>
+          </ng-template>
+          <h6>Notificaciones</h6>
+        </a>
+      </ion-item>
+      <ion-item>
+        <a routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
           <ion-icon name="exit-outline"></ion-icon>
           <h6>Exit</h6>
-        </button>
+        </a>
       </ion-item>
     </ion-list>
   </ion-content>
