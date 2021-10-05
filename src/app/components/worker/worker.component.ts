@@ -17,7 +17,6 @@ export class WorkerComponent implements OnInit {
   
   @Input() idUsuario:string;
   @Input() calificacion_promedio:string;
-  @Input() tipo:string;
 
   public usuario:Observable<userProfile>=null;
 

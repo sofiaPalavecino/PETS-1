@@ -48,6 +48,7 @@ export class ObtenerDataService {
       return this.afs.collection<PlanPaseo>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
     }
     else{
+      console.log(`${tipo}/${idUsuario}/plan${tipo}`)
       return this.afs.collection<PlanCuidador>(`${tipo}/${idUsuario}/plan${tipo}`).valueChanges({idField:"docId"});
     }
   }

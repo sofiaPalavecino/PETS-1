@@ -27,20 +27,20 @@
     <label style="margin: auto;font-size: x-large;">Informacion</label>
   </ion-row>
   <ion-row>
-    <ion-col *ngIf="tipo == 'paseador'; else a" >
+    
+    <ion-col *ngIf="this.tipo == 'paseador'; else a" >
       <div *ngIf="this.planPaseo | async; let plan" style="margin: auto">
         <h5>» costo diario: {{plan.costo}}</h5>
         <h5>» plazo: {{plan.plazo}}</h5>
-        <h5>» cantidad de dias: {{plan.cantidad_dias}}</h5>
+        <h5>» cantidad de dias: {{cantidadDias}}</h5>
       </div>
     </ion-col>
-    <ng-template #a>
-      <ion-col *ngIf="this.planCuidador | async; let cuidado" style="margin: auto">
-        <h3>A</h3>
-        <h5>» costo diario: {{cuidado.costo}}</h5>
-        <h5>» cantidad de dias: {{cuidado.cantidad_dias}}</h5>
-      </ion-col>
-    </ng-template>
+    <ion-col *ngIf="tipo == 'cuidador'; else a" >
+      <div style="margin: auto">
+        <h5>» costo final: {{montoTotal}}</h5>
+        <h5>» cantidad de dias: {{cantidadDias}}</h5>
+      </div>
+    </ion-col>
   </ion-row>
   <ion-row style="background: #a1cac363;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
     <label style="margin: auto;font-size: x-large;">Mascotas</label>
