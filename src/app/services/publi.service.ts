@@ -42,8 +42,8 @@ export class PubliService {
     return this.afs.collection<Publicacion>(`organización/${idOrga}/publicaciones`).valueChanges({idField: 'docId'})
   }
 
-  getPublicacion(idPublicacion:string){
-    return this.afs.doc<Publicacion>(`organización/${this.org.oid}/publicaciones/${idPublicacion}`).valueChanges()
+  getPublicacion(idPublicacion:string, idOrga:string){
+    return this.afs.doc<Publicacion>(`organización/${idOrga}/publicaciones/${idPublicacion}`).valueChanges()
   }
 
   async  nuevaPublicacion(nombre:string, especie:string, descripcion:string, cuidados:string){

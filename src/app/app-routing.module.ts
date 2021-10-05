@@ -97,7 +97,7 @@ const routes: Routes = [
     loadChildren: () => import('./config-publicacion/config-publicacion.module').then( m => m.ConfigPublicacionPageModule)
   },
   {
-    path: 'publicacion/:id',
+    path: 'publicacion/:id/:idOrga',
     loadChildren: () => import('./publicacion/publicacion.module').then( m => m.PublicacionPageModule)
   },
   {

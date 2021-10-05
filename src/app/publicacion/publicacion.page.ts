@@ -6,6 +6,8 @@ import { MenuComponent } from '../components/menu/menu.component';
 import { OrganizacionService } from "../services/organizacion.service";
 import { Publicacion } from '../shared/publicacion';
 import { ActivatedRoute } from '@angular/router';
+import { Organizacion } from '../shared/organizacion.interface';
+import { OrganizacionesService } from '../services/organizaciones.service';
 
 
 
@@ -17,13 +19,18 @@ import { ActivatedRoute } from '@angular/router';
 export class PublicacionPage implements OnInit {
 
   public publicacion:Observable<Publicacion>=null
+  public organizacion:Observable<Organizacion>=null
   public id:string=""
+  public idOrga:string=""
+  
 
-  constructor(private publiServ:PubliService, private org:OrganizacionService, private route:ActivatedRoute) { }
+  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute) { }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')
-    this.publicacion=this.publiServ.getPublicacion(this.id)
+    this.idOrga= await this.route.snapshot.paramMap.get('idOrga')
+    this.organizacion=this.orgServ.getOrganizacion(this.idOrga)
+    this.publicacion=this.publiServ.getPublicacion(this.id,this.idOrga)
   }
   
   cambiarOrganizacion(){

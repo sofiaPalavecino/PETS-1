@@ -20,4 +20,8 @@ export class OrganizacionesService {
   getOrganizaciones():Observable<any>{
     return (this.afs.collection<Organizacion>(`organización`).valueChanges({idField: 'docId'}))
   }
+
+  getOrganizacion(id:string):Observable<any>{
+    return (this.afs.doc<Organizacion>(`organización/${id}`).valueChanges({idField: 'docId'}))
+  }
 }

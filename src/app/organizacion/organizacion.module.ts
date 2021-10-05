@@ -7,6 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { OrganizacionPageRoutingModule } from './organizacion-routing.module';
 
 import { OrganizacionPage } from './organizacion.page';
+import { MascotaCardComponent } from "../components/mascota-card/mascota-card.component";
+
+import { PubliCardComponent } from "../components/publi-card/publi-card.component";
 
 @NgModule({
   imports: [
@@ -15,6 +18,6 @@ import { OrganizacionPage } from './organizacion.page';
     IonicModule,
     OrganizacionPageRoutingModule
   ],
-  declarations: [OrganizacionPage]
+  declarations: [OrganizacionPage,MascotaCardComponent,PubliCardComponent]
 })
 export class OrganizacionPageModule {}

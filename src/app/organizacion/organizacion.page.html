@@ -1,9 +1,34 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>organizacion</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content *ngIf="this.organizacion | async; let organizacion">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Usuario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-col>
+    <div class="div-contiene-foto-nombre" >
+      <ion-avatar  id="org-avatar">
+        <img src="{{organizacion.foto}}" >
+      </ion-avatar>
+      <div class="div-contiene-nombre-provincia">
+        <div class="div-nombre-organizacion">
+          <h1 style="font-weight: bold;">{{ organizacion.nombre }}</h1>
+        </div>
+        <div class="div-localizacion-org">
+          <h6 style="margin-top: -10px;">Se encuentra en: {{ organizacion.localidad }}</h6>
+        </div>
+      </div> 
+    </div>
+  </ion-col>
+    <h2 class="titulo-apartado-paseo">Publicaciones</h2>
+    <ion-grid>
+      <ion-row *ngIf="this.publicaciones| async">
+        <publi-card *ngFor="let publi of this.publicaciones | async" calificacion={{publi.calificacion}} foto={{publi.foto}} nombre={{publi.nombre}} id={{publi.docId}} idOrga={{organizacion.docId}}></publi-card>
 
-<ion-content>
+      </ion-row>
+    </ion-grid>
+  <!--</scrollable-component> !-->
 
 </ion-content>

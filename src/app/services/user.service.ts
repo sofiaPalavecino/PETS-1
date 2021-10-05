@@ -42,7 +42,6 @@ export class UserService {
     private authSvc: AuthService,
     private obDataServ: ObtenerDataService,
   ) {
-    console.log(authSvc.uid);
     this.paseador = this.obDataServ.getTrabajador(this.authSvc.uid, "paseador");
     this.cuidador = this.obDataServ.getTrabajador(this.authSvc.uid, "cuidador");
     this.planesPaseador = this.obDataServ.getPlanes(

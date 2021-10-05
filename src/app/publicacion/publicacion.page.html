@@ -8,14 +8,14 @@
     </ion-toolbar>
   </ion-header>
   <ion-label><p class="label-organizacion">.</p></ion-label>
-  <ion-col>
+  <ion-col *ngIf= "this.organizacion | async; let org">
     <div class="div-contiene-foto-nombre" >
       <ion-avatar  id="org-avatar">
-        <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}">
+        <img src="{{org.foto}}">
       </ion-avatar>
       <div class="div-contiene-nombre-provincia">
         <div class="div-nombre-organizacion">
-          <h1 *ngIf="org.organizacion; let orgAux" style="font-weight: bold;">{{ orgAux.nombre }}</h1>
+          <h1 style="font-weight: bold;">{{ org.nombre }}</h1>
         </div>
       </div> 
     </div>
