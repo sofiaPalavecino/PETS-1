@@ -30,8 +30,14 @@ export class PublicacionPage implements OnInit {
     this.org.actualizarOrganizacion(this.org.oid);
   }
 
-  setPublicacion(){
-    //this.publiServ.getIDPublicacion(this.publiServ);
+  mostrarTexto(id:string){
+    let vista=document.getElementById(id).style.display;
+	if (vista=='none')
+		vista='block';
+	else
+		vista='none';
+
+	document.getElementById(id).style.display = vista;
   }
 
 }
