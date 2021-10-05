@@ -94,8 +94,13 @@ export class ReservaPage implements OnInit {
         this.mascotasCheck[this.mascotasCheck.length-1].dataExtra = element.docId;
       });
     });
-    this.planPaseo.subscribe((data) => {
-      this.cantidadDias = data.cantidad_dias
+
+    
+    console.log(this.tipo)
+    if(this.tipo=="paseador"){
+      this.planPaseo.subscribe((data) => {
+      this.cantidadDias = data.cantidad_dias;
+      this.montoTotal=data.costo;
       this.semana.push(
         data.lunes,
         data.martes,
@@ -105,11 +110,6 @@ export class ReservaPage implements OnInit {
         data.sabado,
         data.domingo
       );
-    })
-    if(this.tipo=="paseador"){
-      this.planPaseo.subscribe((data) => {
-        this.cantidadDias = data.cantidad_dias
-        this.montoTotal=data.costo
       })
       this.checkDisponibilidad();
     }else{
@@ -240,6 +240,12 @@ export class ReservaPage implements OnInit {
             montoTotal:this.montoTotal,
             diasTotales:this.cantidadDias
           })
+          nuevoContrato.then((data)=> {
+            console.log(`cuidador/${this.uid}`)
+            this.afs.doc(`cuidador/${this.uid}`).update({
+              contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+            })
+          });
           this.router.navigate(['/home']);
           this.presentAlert("Listo!","Reserva relizada");
         }else{
