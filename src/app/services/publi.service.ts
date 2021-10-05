@@ -39,7 +39,11 @@ export class PubliService {
   }
 
   getPublicaciones(idOrga:string):Observable<any>{
-    return this.afs.collection<Publicacion>(`organización/${idOrga}/publicaciones`).valueChanges()
+    return this.afs.collection<Publicacion>(`organización/${idOrga}/publicaciones`).valueChanges({idField: 'docId'})
+  }
+
+  getPublicacion(idPublicacion:string){
+    return this.afs.doc<Publicacion>(`organización/${this.org.oid}/publicaciones/${idPublicacion}`).valueChanges()
   }
 
   async  nuevaPublicacion(nombre:string, especie:string, descripcion:string, cuidados:string){

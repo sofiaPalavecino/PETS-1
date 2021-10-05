@@ -1,9 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>publicacion</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content  *ngIf="this.publicacion | async; let publi">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Publicacion</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-label><p class="label-organizacion">.</p></ion-label>
+  <ion-col>
+    <div class="div-contiene-foto-nombre" >
+      <ion-avatar  id="org-avatar">
+        <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}">
+      </ion-avatar>
+      <div class="div-contiene-nombre-provincia">
+        <div class="div-nombre-organizacion">
+          <h1 *ngIf="org.organizacion; let orgAux" style="font-weight: bold;">{{ orgAux.nombre }}</h1>
+        </div>
+      </div> 
+    </div>
+  </ion-col>
+  <ion-item class="item-publicaciones">
+  </ion-item>
+  <ion-label class="centrado">{{publi.nombre}}</ion-label>
+  <div class="centrado"> <img class="foto" src="{{publi.foto}}"> </div>
 </ion-content>

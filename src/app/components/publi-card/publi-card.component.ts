@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { OrganizacionService } from 'src/app/services/organizacion.service';
 import { PubliService } from 'src/app/services/publi.service';
 import { Publicacion } from 'src/app/shared/publicacion';
+import { NavigationExtras, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'publi-card',
@@ -18,10 +20,13 @@ export class PubliCardComponent implements OnInit {
   @Input() nombre:string
   @Input() foto:string
   @Input() calificacion:number
+  @Input() id:string
 
-  constructor(private org:OrganizacionService, private publiServ:PubliService) { }
+  constructor(private org:OrganizacionService, private publiServ:PubliService, private router:Router) { }
 
 
   ngOnInit() {}
+
+  
 
 }
