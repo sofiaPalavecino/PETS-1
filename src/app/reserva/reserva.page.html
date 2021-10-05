@@ -23,8 +23,8 @@
       </div>
     </ion-col>
   </ion-row>
-  <ion-row style="background: #a1cac363;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;">Informacion</label>
+  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
+    <label style="margin: auto;font-size: x-large;color: white;">Informacion</label>
   </ion-row>
   <ion-row>
     
@@ -42,21 +42,21 @@
       </div>
     </ion-col>
   </ion-row>
-  <ion-row style="background: #a1cac363;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;">Mascotas</label>
+  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
+    <label style="margin: auto;font-size: x-large;color: white;">Mascotas</label>
   </ion-row>
   <ion-row>
     <ion-col>
       <label *ngFor="let mascota of mascotasCheck">
         <ion-row>
           <ion-toggle type="checkbox" [(ngModel)]="mascota.estado"></ion-toggle>
-          <label>{{mascota.nombre}}</label>
+          <label style="padding: 10px;">{{mascota.nombre}}</label>
         </ion-row>
       </label>
     </ion-col>
   </ion-row>
-  <ion-row style="background: #a1cac363;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;">Dias</label>
+  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
+    <label style="margin: auto;font-size: x-large;color: white;">Dias</label>
   </ion-row>
   <ion-row>
     <ion-col *ngIf="tipo == 'paseador'; else elseBlock">
@@ -67,7 +67,7 @@
           <ng-template #elseBlock>
             <ion-toggle disabled type="checkbox" [(ngModel)]="Dia.estado"></ion-toggle>
           </ng-template>
-          <label>{{Dia.nombre}}</label>
+          <label style="padding: 10px;">{{Dia.nombre}}</label>
         </ion-row>
       </label>
     </ion-col>
@@ -75,12 +75,6 @@
       <ion-datetime style="margin:auto;" placeholder="Seleccionar el dia de comienzo del cuidado" displayFormat="DD-MMM-YYYY" [(ngModel)]="fecha"></ion-datetime>
     </ng-template>
   </ion-row>
-  <!-- <ion-row style="background-color: rgb(0 0 0 / 21%);
-  position: fixed;
-  padding: 10px;
-  width: 100%;
-  bottom: 0;
-  box-shadow: 5px 5px 25px 20px rgb(0 0 0 / 24%);"> -->
   <ion-row>
     <button id="reservar" (click)="reservar()">RESERVAR</button>
   </ion-row>

@@ -1,25 +1,26 @@
-<ion-card class="card-paseo" *ngIf="usuario | async; let usuario"  [routerLink]="['/perfil',this.idUsuario]">
+<ion-card class="card-paseo" *ngIf="usuario | async; let usuario"  >
   <ion-row>
-    <div>
+    <div style="margin:auto 0 auto 10px;">
       <ion-avatar>
         <img class="foto-mapa" src="{{usuario.foto}}">
       </ion-avatar>
     </div>
-    <ion-col>
-      <ion-card-header class="header-titulo-paseo">
-        <ion-card-title class="titulo-paseo">{{usuario.nombre}}</ion-card-title>
-      </ion-card-header>
+    <div>
+      
       <ion-card-content>
-        
+        <div class="header-titulo-paseo">
+          <ion-card-title class="titulo-servicio">{{usuario.nombre}}</ion-card-title>
+        </div>
           <ion-row>
             <span class="informacion-paseo">{{usuario.barrio}}</span>
           </ion-row>
-          <ion-row>
-            <p>Calificacion:</p>
-            <span class="informacion-paseo">{{calificacion_promedio}}</span> 
-          </ion-row> 
-        <button class="boton-editar">Ver perfil</button>
+        <button class="button-green" [routerLink]="['/perfil',this.idUsuario]">Ver perfil</button>
       </ion-card-content>
-    </ion-col>
+    </div>
+    <div style="font-size: 27px;margin-right: 0;margin-left: auto;margin:auto 10px auto auto;">
+
+        <span class="informacion-paseo">{{calificacion_promedio}}</span> 
+        <ion-icon name="star"></ion-icon>
+    </div>
   </ion-row>
 </ion-card>
