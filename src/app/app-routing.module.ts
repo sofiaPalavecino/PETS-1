@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { canActivate , redirectLoggedInTo , redirectUnauthorizedTo } from "@angular/fire/auth-guard";
@@ -96,13 +97,23 @@ const routes: Routes = [
     loadChildren: () => import('./config-publicacion/config-publicacion.module').then( m => m.ConfigPublicacionPageModule)
   },
   {
-    path: 'publicacion/:id',
+    path: 'publicacion',
     loadChildren: () => import('./publicacion/publicacion.module').then( m => m.PublicacionPageModule)
   },
   {
     path: 'cuidadores',
     loadChildren: () => import('./cuidadores/cuidadores.module').then( m => m.CuidadoresPageModule)
   },
+  {
+    path: 'reserva/:uid/:pid/:tipo',
+    loadChildren: () => import('./reserva/reserva.module').then( m => m.ReservaPageModule)
+  },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+
+
 ];
 
 @NgModule({

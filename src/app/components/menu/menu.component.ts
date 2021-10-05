@@ -3,6 +3,8 @@ import { MenuController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { OrganizacionService } from "../../services/organizacion.service";
+import { UserService } from 'src/app/services/user.service';
+import { ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
 
 @Component({
   selector: 'app-menu',
@@ -10,13 +12,26 @@ import { OrganizacionService } from "../../services/organizacion.service";
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+ 
   static getElementById(arg0: string): HTMLTextAreaElement {
     throw new Error('Method not implemented.');
   }
 
-  constructor(private menuCtrl: MenuController, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { }
+  notificacion:boolean = false;
 
-  ngOnInit() {}
+  constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
+  }
+
+  ngOnInit() {
+    this.userServ.paseador.subscribe(element => {
+      element.contratos.forEach(contrato => {
+        this.afs.doc<ContratoPaseador>("contratoPaseador/"+contrato).valueChanges().subscribe((data)=>{
+          if(data.estado == "solicitud") this.notificacion = true;
+          console.log(this.notificacion)
+        })
+      });
+    });
+  }
   
   changeIconMenu(){
     let menuIcon = document.getElementById("menu-icon"); 
@@ -28,13 +43,6 @@ export class MenuComponent implements OnInit {
       }
     });
   }
-
-
-
-  /*changeToolBarText(){
-  let cont = document.getElementById("toolbar");
-    cont.setAttribute("name", "Publicaciones");
-  }*/
 
   closeMenu(){
     this.menuCtrl.close();
