@@ -59,7 +59,7 @@ export class SolicitudContratoComponent implements OnInit {
         case "Miercoles":
           disponibilidades.Miercoles = disponibilidades.Miercoles - cantMascotas;
           break;
-        case "Lunes":
+        case "Jueves":
           disponibilidades.Jueves = disponibilidades.Jueves - cantMascotas;
           break;
         case "Viernes":
@@ -117,7 +117,8 @@ export class SolicitudContratoComponent implements OnInit {
    }
  
    rechazarContrato(idContrato:string){
-     console.log(idContrato)
+    this.afs.collection('contratoPaseador').doc(idContrato)
+    .update({estado:"rechazado"});
    }
 
    async getDisponibilidades(){
