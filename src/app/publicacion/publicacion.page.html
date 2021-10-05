@@ -22,6 +22,14 @@
   </ion-col>
   <ion-item class="item-publicaciones">
   </ion-item>
-  <ion-label class="centrado">{{publi.nombre}}</ion-label>
-  <div class="centrado"> <img class="foto" src="{{publi.foto}}"> </div>
+  <div>
+    <div class="centrado"><ion-label class="nombre-publi">{{publi.nombre}}</ion-label></div>
+    <div class="centrado"> <img class="foto" src="{{publi.foto}}"> </div>
+    <div class="izquierda">
+      <ion-button (click)="mostrarTexto('descripcion')" color="none" class="boton-desc"> Descripcion </ion-button>
+      <p id="descripcion" style="display: none;" class="label-desc"><font color="brown">🐾</font>&nbsp;{{publi.descripcion}}</p>
+      <div class="izquierda"> <ion-button (click)="mostrarTexto('cuidados')" color="none" class="boton-cuidados"> Cuidados </ion-button></div>
+      <p id="cuidados" style="display: none;" class="label-cuidados"><font color="green">✚</font>&nbsp;{{publi.cuidados}}</p>
+    </div>
+  </div>
 </ion-content>
