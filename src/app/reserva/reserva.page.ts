@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Router,ActivatedRoute } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { userProfile } from "src/app/shared/user.interface";
 import { Observable, of, using } from "rxjs";
@@ -13,7 +13,7 @@ import { mascota } from "../shared/mascota.interface";
 import { PlanPaseo } from "../shared/plan-paseo.interface";
 import { Dia } from "../dia";
 import { DatePipe } from '@angular/common';
-import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: "app-reserva",
@@ -27,7 +27,7 @@ export class ReservaPage implements OnInit {
 
   planPaseo: Observable<PlanPaseo> = null;
   planCuidado:Observable<PlanCuidador>=null;
-  disponibilidades: Observable<disponibilidades[]> = null;
+  disponibilidades: Observable<disponibilidades[]>;
   usuario: Observable<userProfile> = null;
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;
@@ -41,6 +41,8 @@ export class ReservaPage implements OnInit {
     private afs: AngularFirestore,
     private userServ: UserService,
     private date:DatePipe,
+    public alertController: AlertController,
+    private router: Router 
     
   ) {}
 
@@ -66,8 +68,8 @@ export class ReservaPage implements OnInit {
         )
         .valueChanges();
     }else{
-      this.planCuidado = this.afs
-      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}/`)
+      this.planCuidado =  this.afs
+      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}`)
       .valueChanges();
     }
     
@@ -94,6 +96,7 @@ export class ReservaPage implements OnInit {
         this.cantidadDias = data.cantidad_dias
         this.montoTotal=data.costo
       })
+      this.checkDisponibilidad();
     }else{
       this.planCuidado.subscribe((data) => {
         this.cantidadDias = data.cantidad_dias
@@ -102,7 +105,7 @@ export class ReservaPage implements OnInit {
     }
     
 
-    this.checkDisponibilidad();
+    
     
   }
 
@@ -193,15 +196,17 @@ export class ReservaPage implements OnInit {
             fechaContratacion:fecha,
             dias:dias,
             montoTotal:this.montoTotal
+            
           })
+          this.router.navigate(['/home']);
+          this.presentAlert("Listo!","Reserva relizada");
   
         } else {
-          alert("Debes seleccionar al menos un día")
+          this.presentAlert("Datos Incompletos","Debes seleccionar al menos un día");
         }
       }else{
-        if(this.fecha!=null){
+        if(this.fecha!=""){
           let fechaInicio=this.date.transform(this.fecha, 'MM/dd/yyyy')
-          console.log(fechaInicio)
           const nuevoContrato = this.afs.collection('contratoCuidador').add({
             cantMascotas:cantMascotas,
             estado:"solicitud",
@@ -214,15 +219,27 @@ export class ReservaPage implements OnInit {
             montoTotal:this.montoTotal,
             diasTotales:this.cantidadDias
           })
+          this.router.navigate(['/home']);
+          this.presentAlert("Listo!","Reserva relizada");
         }else{
-          alert("Debes seleccionar el día de inicio del cuidado")
+          this.presentAlert("Datos Incompletos","Debes seleccionar el día de inicio del cuidado");
         }
         
       }
     } else {
-      alert("Debes seleccionar al menos una de tus mascotas")
+      this.presentAlert("Datos Incompletos","Debes seleccionar al menos una de tus mascotas");
     }
     
-    console.log(this.diasDisponibles, this.mascotasCheck);
+    
+  }
+  async presentAlert(subtitulo:string,mensaje:string) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

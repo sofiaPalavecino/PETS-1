@@ -27,15 +27,12 @@ export class PerfilPage implements OnInit {
 
   public usuario:Observable<userProfile>;
   public id:any=0;
-  public tipo:string=""
 
   constructor(private route: ActivatedRoute,private afs:AngularFirestore,private obDataServ:ObtenerDataService) {
   }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')
-    this.tipo= await this.route.snapshot.paramMap.get('tipo')
-    console.log(this.tipo)
     this.paseador=this.obDataServ.getTrabajador(this.id,"paseador")
     this.cuidador=this.obDataServ.getTrabajador(this.id,"cuidador")
     this.planesPaseador=this.obDataServ.getPlanes(this.id,"paseador")
