@@ -42,10 +42,10 @@
       <ion-col >
         <ion-row *ngIf="this.paseador | async; let paseador">
           <ion-row>
-            <h2 class="titulo-apartado-paseo" >Paseos</h2>
+            <h2 class="titulo-apartado-paseo" >Planes de paseos</h2>
           </ion-row>
-          <div *ngFor="let plan of this.planesPaseador | async">
-            <div class="div-paseos"  [routerLink]="['/reserva',id,plan.docId,'paseador']">
+          <ion-row *ngFor="let plan of this.planesPaseador | async" style="margin: auto;width: 100%;">
+            <div class="div-paseos">
               <ion-card class="card-paseo">
                 <ion-row>
                   <div>
@@ -64,13 +64,13 @@
                           {{plan.cupo}}
                         </span>
                       </ion-row>
-                      <button class="boton-editar">reservar</button>
+                      <button class="button-green" style="width: 100%;" [routerLink]="['/reserva',id,plan.docId,'paseador']">reservar</button>
                     </ion-card-content>
                   </ion-col>
                 </ion-row>
               </ion-card>
             </div>
-          </div>
+          </ion-row>
         </ion-row>  
       </ion-col>
     </ion-row>

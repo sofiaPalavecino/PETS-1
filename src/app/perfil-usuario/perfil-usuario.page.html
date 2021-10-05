@@ -44,7 +44,7 @@
           <ion-row>
             <h2 class="titulo-apartado-paseo" >Paseos</h2>
           </ion-row>
-          <div *ngFor="let plan of userServ.planesPaseador | async">
+          <ion-row *ngFor="let plan of userServ.planesPaseador | async" style="margin: auto;width: 100%;">
             <div class="div-paseos">
               <ion-card class="card-paseo">
                 <ion-row>
@@ -64,13 +64,13 @@
                           {{plan.cupo}}
                         </span>
                       </ion-row>
-                      <button class="boton-editar">Editar</button>
+                      <button class="button-green" style="width: 100%;" >Editar</button>
                     </ion-card-content>
                   </ion-col>
                 </ion-row>
               </ion-card>
             </div>
-          </div>
+          </ion-row >
         </ion-row>  
       </ion-col>
     </ion-row>

@@ -4,12 +4,12 @@
       <ion-title>paseadores</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-row class="barra_titulo_filtro" #toolbar> 
+  <ion-row style="background: #f8f8f8;text-align: center;" class="barra_titulo_filtro" #toolbar> 
     <ion-col>
       <div><h3>Cuidadores</h3></div>
     </ion-col>
   </ion-row>
-  <ion-row>
+  <ion-row style="background: #f8f8f8">
 
     <div class="div-paseos"  >
       <app-worker  *ngFor="let paseador of pasServ.listaCuidadores  | async " idUsuario={{paseador.docId}}
