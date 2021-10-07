@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>misorganizaciones</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content >
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Mis Organizaciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-row style="background: #f8f8f8;text-align: center;" class="barra_titulo_filtro" #toolbar> 
+    <ion-col>
+      <div><h3>Organizaciones</h3></div>
+    </ion-col>
+  </ion-row>
+  <ion-row style="background: #f8f8f8;">
 
-<ion-content>
+    <div class="div-paseos"  *ngFor="let orgaID of aServ.user$.orgFavoritas">
+      <app-orga-card orgaID={{orgaID}}></app-orga-card>
+    </div>
+
+  </ion-row>
+  <ion-row >
+    <div style="align-items: center; position: absolute; left: 13%; top: 60%;">
+      <button style="font-size: larger; width: 300px;" class="button-green" [routerLink]="['/organizaciones']">Explorar más organizaciones</button>
+    </div>
+  </ion-row>
+
 
 </ion-content>

@@ -1,0 +1,25 @@
+<ion-card class="card-paseo" *ngIf="this.organizacion | async; let orga">
+  <ion-row>
+    <div style="margin:auto 0 auto 10px;">
+      <ion-avatar>
+        <img class="foto-mapa" src="{{orga.foto}}">
+      </ion-avatar>
+    </div>
+    <div>
+      <ion-card-content>
+        <div class="header-titulo-paseo">
+          <ion-card-title class="titulo-servicio">{{orga.nombre}}</ion-card-title>
+        </div>
+          <ion-row>
+            <span class="informacion-paseo">{{orga.localidad}}</span>
+          </ion-row>
+        <button class="button-green" [routerLink]="['/organizacion',orga.docId]">Ver perfil</button>
+      </ion-card-content>
+    </div>
+    <div style="font-size: 27px;margin-right: 0;margin-left: auto;margin:auto 10px auto auto;">
+
+        <span class="informacion-paseo">{{orga.calificacion}}</span> 
+        <ion-icon name="star"></ion-icon>
+    </div>
+  </ion-row>
+</ion-card>

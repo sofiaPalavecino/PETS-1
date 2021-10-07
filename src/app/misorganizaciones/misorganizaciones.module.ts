@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MisorganizacionesPageRoutingModule } from './misorganizaciones-routing.module';
 
 import { MisorganizacionesPage } from './misorganizaciones.page';
+import { OrgaCardComponent } from '../components/orga-card/orga-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { MisorganizacionesPage } from './misorganizaciones.page';
     IonicModule,
     MisorganizacionesPageRoutingModule
   ],
-  declarations: [MisorganizacionesPage]
+  declarations: [MisorganizacionesPage,OrgaCardComponent]
 })
 export class MisorganizacionesPageModule {}

@@ -24,4 +24,5 @@ export class OrganizacionesService {
   getOrganizacion(id:string):Observable<any>{
     return (this.afs.doc<Organizacion>(`organización/${id}`).valueChanges({idField: 'docId'}))
   }
+
 }

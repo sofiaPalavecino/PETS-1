@@ -19,4 +19,5 @@ export interface userProfile{
   DNI:number;
   foto:string;
   barrio:string;
+  orgFavoritas:Array<string>
 }
