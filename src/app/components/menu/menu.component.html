@@ -3,7 +3,7 @@
     <ion-menu-button slot="start" menu="ion-menu" (click)="changeIconMenu()">
       <ion-icon id="menu-icon" name="menu-outline"></ion-icon>
     </ion-menu-button>
-    <ion-label *ngIf="aServ.user$" class="ion-label-toolbar">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
+    <ion-label *ngIf="aServ.user$" class="ion-label-toolbar" >{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
     <ion-label class="label-toolbar" id="toolbar">  </ion-label>
     <ion-button id="mail-button" slot="end" routerLink="/chat">
       <ion-icon style="font-size: 32px;position: absolute;" name="mail-outline"></ion-icon>
@@ -19,7 +19,7 @@
         </ion-avatar>
       </ion-item>
       <ion-item>
-        <ion-label *ngIf="aServ.user$" (click)="closeMenu()" class="h2-nombre-usuario">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
+        <ion-label *ngIf="aServ.user$" (click)="closeMenu()" class="h2-nombre-usuario" id="nombre-apellido">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</ion-label>
       </ion-item>
       <ion-item>
         <a menuClose routerLink="/home" (click)="closeMenu()" style="display: block; text-align: center;">
@@ -34,25 +34,25 @@
         </a>
       </ion-item>
       <ion-item *ngIf="orga.organizaciones">
-        <a routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
+        <a menuClose routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="business-outline"></ion-icon>
           <h6>Perfil de Organizacion</h6>
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/misorganizaciones" (click)="closeMenu()" style="display: block; text-align: center;">
+        <a menuClose routerLink="/misorganizaciones" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="heart-outline"></ion-icon>
           <h6>Mis Organizaciones</h6>
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/configuraciones" (click)="closeMenu()" style="display: block; text-align: center;">
+        <a menuClose routerLink="/configuraciones" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="settings-outline"></ion-icon>
           <h6>Configuracion</h6>
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
+        <a menuClose routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
           <span *ngIf="notificacion == false; else elseBlock" class="iconify" data-icon="carbon:notification" style="color: black;height: 20px;width: 20px;"></span>
           <ng-template #elseBlock>
             <span class="iconify" data-icon="carbon:notification-new" style="color: black;height: 20px;width: 20px;"></span>
@@ -61,9 +61,9 @@
         </a>
       </ion-item>
       <ion-item>
-        <a routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
-          <ion-icon name="exit-outline"></ion-icon>
-          <h6>Exit</h6>
+        <a menuClose routerLink="/login" (click)="closeSession()" style="display: block; text-align: center;">
+          <ion-icon style="color: red;" name="exit-outline"></ion-icon>
+          <h6 style="color: red;">Cerrar sesión</h6>
         </a>
       </ion-item>
     </ion-list>
