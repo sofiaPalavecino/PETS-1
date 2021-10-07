@@ -19,8 +19,10 @@ export class SolicitudContratoComponent implements OnInit {
   @Input() tipo: string;
 
   show: boolean = true;
+  botonInfo: string = "ver mas";
   contrato: ContratoPaseador;
   userName: string;
+  imgCliente: string;
   mascotas: Array<string> = new Array<string>();
   cliente: Observable<userProfile>;
 
@@ -37,6 +39,7 @@ export class SolicitudContratoComponent implements OnInit {
         this.cliente = this.obDataServ.getUser(data.idCliente);
         this.cliente.subscribe(data => {
           this.userName = data.nombre + " " + data.apellido;
+          this.imgCliente = data.foto;
         })
         if (this.contrato.estado != "solicitud") {
           this.show = false;
@@ -123,9 +126,15 @@ export class SolicitudContratoComponent implements OnInit {
     }
   }
 
-  rechazarContrato(idContrato: string) {
+  async rechazarContrato(idContrato: string) {
+    document.getElementById(this.idContrato).style.transform = "translateX(120%)";
+    await this.delay(200);
     this.afs.collection(`contrato${this.tipo}`).doc(idContrato)
       .update({ estado: "rechazado" });
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   async getDisponibilidades() {
@@ -140,6 +149,14 @@ export class SolicitudContratoComponent implements OnInit {
     })
   }
 
-
+  expandirSolicitud(){
+    if(this.botonInfo == "ver mas"){
+      document.getElementById(this.idContrato).style.height = "200px"
+      this.botonInfo = "ver menos";
+    } else {
+      document.getElementById(this.idContrato).style.height = "65px"
+      this.botonInfo = "ver mas";
+    }
+  }
 
 }
