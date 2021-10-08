@@ -6,7 +6,6 @@
     <ion-slide class="slide2" >
       <div *ngFor="let publi of this.publicaciones | async">
         <div *ngIf="this.pasarADate(publi.fecha) >= this.ahora">
-          <h1>{{publi.nombre}}</h1>
           <publi-card  id={{publi.docId}} nombre={{publi.nombre}} foto={{publi.foto}} calificacion={{publi.calificacion}} idOrga={{org.docId}}></publi-card>
         </div>
       </div>
