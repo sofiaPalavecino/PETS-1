@@ -1,5 +1,3 @@
-
-
 <ion-content>
   <ion-header>
     <ion-toolbar>
@@ -9,48 +7,56 @@
       <ion-title>Usuario</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-label><p class="label-organizacion">Organización</p></ion-label>
+  <ion-label>
+    <p class="label-organizacion">Organización</p>
+  </ion-label>
   <ion-col>
-    <div class="div-contiene-foto-nombre" >
-      <ion-avatar  id="org-avatar">
-        <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}" >
+    <div class="div-contiene-foto-nombre">
+      <ion-avatar id="org-avatar">
+        <img *ngIf="this.org.organizacion" src="{{this.org.organizacion.foto}}">
       </ion-avatar>
-      <div class="div-contiene-nombre-provincia">
+      <div class="div-contiene-nombre-provincia" *ngIf="org.organizacion; let orgAux">
         <div class="div-nombre-organizacion">
-          <h1 *ngIf="org.organizacion; let orgAux" style="font-weight: bold;">{{ orgAux.nombre }}</h1>
+          <h1 style="font-weight: bold;">{{ orgAux.nombre }}</h1>
         </div>
         <div class="div-localizacion-org">
-          <h6 *ngIf="org.organizacion; let orgAux" style="margin-top: -10px;">Se encuentra en: {{ orgAux.localizacion }}</h6>
+          <h6 *ngIf="org.organizacion; let orgAux" style="margin-top: -10px;">Se encuentra en: {{ orgAux.localidad }}</h6>
         </div>
-      </div> 
+      </div>
     </div>
-</ion-col>
-    <ion-list>
-      <ion-item class="item-publicaciones">
-        <ion-label> <p class="label-publicaciones">Publicaciones</p></ion-label>
-        <ion-select 
-        [interfaceOptions]="customActionSheetOptions" 
-        *ngIf="org.organizacion; let orgAux"
-        interface="action-sheet" 
-        placeholder="{{orgAux.nombre}}"
-        [(ngModel)]="idOrganizacion"
-        (ionChange)="cambiarOrganizacion()"
-        >
-          <ion-select-option *ngFor="let orgAux of this.org.organizaciones"  value="{{orgAux.oid}}">{{orgAux.nombre}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
-    <ion-grid>
-      <ion-row *ngIf="publiServ.publicaciones| async">
-        <div *ngIf="org.organizacion; let orgAux">
-          <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}} foto={{publi.foto}} nombre={{publi.nombre}} id={{publi.docId}} idOrga={{orgAux.oid}}></publi-card>
-        </div>
-      </ion-row>
-    </ion-grid>
+  </ion-col>
+  <ion-list>
+    <ion-item class="item-publicaciones">
+      <ion-label>
+        <p class="label-publicaciones">Publicaciones</p>
+      </ion-label>
+      <ion-select [interfaceOptions]="customActionSheetOptions" *ngIf="org.organizacion; let orgAux"
+        interface="action-sheet" placeholder="{{orgAux.nombre}}" [(ngModel)]="idOrganizacion"
+        (ionChange)="cambiarOrganizacion()">
+        <ion-select-option *ngFor="let orgAux of this.org.organizaciones" value="{{orgAux.oid}}">{{orgAux.nombre}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row *ngIf="publiServ.publicaciones| async">
+      <div *ngIf="this.org.organizacion; let orgAux">
+        <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}}
+          foto={{publi.foto}} nombre={{publi.nombre}} id={{publi.docId}} idOrga={{orgAux.oid}}></publi-card>
+      </div>
+    </ion-row>
+  </ion-grid>
   <!--</scrollable-component> !-->
 
 
-  <ion-fab-button class="boton-publicaciones" routerLink="/config-publicacion"> <ion-icon _ngcontent-nyo-c149="" name="add" ng-reflect-name="add" role="img" class="md hydrated" aria-label="add"></ion-icon> </ion-fab-button>  
-
+  <ion-fab-button class="boton-publicaciones" routerLink="/config-publicacion">
+    <ion-icon _ngcontent-nyo-c149="" name="add" ng-reflect-name="add" role="img" class="md hydrated" aria-label="add">
+    </ion-icon>
+  </ion-fab-button>
+  <ion-fab>
+    <ion-fab-button (click)="popController.presentPopover()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

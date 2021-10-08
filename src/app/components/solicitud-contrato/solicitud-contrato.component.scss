@@ -1,0 +1,15 @@
+.button-ver-mas{
+    --background: #7bd7b5;
+    --color: white;
+    --border-radius: 100px;
+    --width: 90px;
+    --font-size: 15px;
+    --height: 30px;
+}
+
+ion-card{
+    box-shadow: 2px 5px 5px #999;
+    border-radius: 30px;
+    transition: all 0.2s ease-out;
+    height: 65px;
+}

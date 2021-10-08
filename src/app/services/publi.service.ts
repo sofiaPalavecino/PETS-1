@@ -55,7 +55,8 @@ export class PubliService {
       especie:especie,
       foto:estandar,
       descripcion: descripcion,
-      cuidados: cuidados
+      cuidados: cuidados,
+      fecha: new Date()
     })
     console.log(estandar)
   }

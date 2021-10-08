@@ -11,6 +11,8 @@ import { PerfilOrganizacionPage } from './perfil-organizacion.page';
 import { MascotaCardComponent } from "../components/mascota-card/mascota-card.component";
 
 import { PubliCardComponent } from "../components/publi-card/publi-card.component";
+import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
+import { PopoverAddAdministradoresComponent } from '../components/popover-add-administradores/popover-add-administradores.component';
 
 
 
@@ -21,6 +23,7 @@ import { PubliCardComponent } from "../components/publi-card/publi-card.componen
     IonicModule,
     PerfilOrganizacionPageRoutingModule,
   ],
-  declarations: [PerfilOrganizacionPage,MascotaCardComponent,PubliCardComponent]
+  declarations: [PerfilOrganizacionPage,MascotaCardComponent,PubliCardComponent,PopoverAddAdministradoresComponent],
+  providers: [PopoverAddAdministradoresComponent],
 })
 export class PerfilOrganizacionPageModule {}

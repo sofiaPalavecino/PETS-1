@@ -50,3 +50,8 @@
 .titulo-servicio{
     color: #7bd7b5
 }
+
+.my-custom-class{
+    --min-width: 80% !important;
+    --min-height: 400px !important;
+}
