@@ -15,7 +15,7 @@ export class PopoverAddAdministradoresComponent {
 
   private popover = null;
   busqueda:string;
-  usuarios:Array<string> = new Array<string>();
+  usuarios:Array<any> = new Array<any>();
 
   async presentPopover(ev: any) {
     this.popover = await this.popoverController.create({
@@ -41,7 +41,7 @@ export class PopoverAddAdministradoresComponent {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user)=>{
-          this.usuarios.push(user.data()["nombre"])
+          this.usuarios.push(user.data())
         })
      
       })
@@ -55,7 +55,7 @@ export class PopoverAddAdministradoresComponent {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user)=>{
-          this.usuarios.push(user.data()["email"])
+          this.usuarios.push(user.data())
         })
      
       })
@@ -69,7 +69,7 @@ export class PopoverAddAdministradoresComponent {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user)=>{
-          this.usuarios.push(user.data()["apellido"])
+          this.usuarios.push(user.data())
         })
      
       })
