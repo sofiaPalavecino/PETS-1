@@ -5,4 +5,6 @@ export interface Cuidador{
     idUsuario:string;
     precio_dia:number;
     maximoMascotas:number;
+    contratos:Array<string>;
+    solicitud_cuidado:Array<string>;
 }

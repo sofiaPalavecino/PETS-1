@@ -9,17 +9,20 @@
     <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
       <label style="margin: auto;font-size: x-large;color: white">Solicitud Paseo</label>
     </ion-row>
-    <app-solicitud-contrato *ngFor="let contrato of paseador.contratos" idContrato = {{contrato}} tipo = "Paseador">
+    <app-solicitud-contrato *ngFor="let contrato of paseador.solicitud_paseo" idContrato={{contrato}} tipo="Paseador">
 
     </app-solicitud-contrato>
   </div>
   <div *ngIf="userServ.cuidador | async;let cuidador">
-    <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-      <label style="margin: auto;font-size: x-large;color: white">Solicitud Cuidado</label>
-    </ion-row>
-    <app-solicitud-contrato *ngFor="let contrato of cuidador.contratos" idContrato = {{contrato}} tipo = "Cuidador">
+    <div *ngIf="cuidador.solicitud_cuidado.length > 0">
+      <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
+        <label style="margin: auto;font-size: x-large;color: white">Solicitud Cuidado</label>
+      </ion-row>
+      <app-solicitud-contrato *ngFor="let contrato of cuidador.solicitud_cuidado" idContrato={{contrato}}
+        tipo="Cuidador">
+      </app-solicitud-contrato>
+    </div>
 
-    </app-solicitud-contrato>
   </div>
 
 </ion-content>

@@ -17,20 +17,15 @@ export class MenuComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  notificacion:boolean = false;
+  notificacion:string = "carbon:notification";
 
   constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
   }
 
-  ngOnInit() {/*
+  ngOnInit() {
     this.userServ.paseador.subscribe(element => {
-      element.contratos.forEach(contrato => {
-        this.afs.doc<ContratoPaseador>("contratoPaseador/"+contrato).valueChanges().subscribe((data)=>{
-          if(data.estado == "solicitud") this.notificacion = true;
-          console.log(this.notificacion)
-        })
-      });
-    });*/
+      if (element.solicitud_paseo.length > 0) document.getElementById("a").setAttribute("name","mail-unread-outline")
+    })
   }
   
   changeIconMenu(){

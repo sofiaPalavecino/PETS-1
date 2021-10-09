@@ -7,6 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 import { ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
 import { disponibilidades } from 'src/app/shared/disponibilidades.interface';
 import { userProfile } from 'src/app/shared/user.interface';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
+import { mascota } from "../../shared/mascota.interface";
 
 @Component({
   selector: 'app-solicitud-contrato',
@@ -18,13 +22,12 @@ export class SolicitudContratoComponent implements OnInit {
   @Input() idContrato: string;
   @Input() tipo: string;
 
-  show: boolean = true;
   botonInfo: string = "ver mas";
   contrato: ContratoPaseador;
   userName: string;
   imgCliente: string;
-  mascotas: Array<string> = new Array<string>();
-  cliente: Observable<userProfile>;
+  mascotas: Observable<mascota[]> = new Observable<mascota[]>();
+  cliente: Observable<userProfile> = new Observable<userProfile>();
 
   constructor(private authServ: AuthService, private afs: AngularFirestore, private userServ: UserService, private obDataServ: ObtenerDataService) {
   }
@@ -40,16 +43,25 @@ export class SolicitudContratoComponent implements OnInit {
         this.cliente.subscribe(data => {
           this.userName = data.nombre + " " + data.apellido;
           this.imgCliente = data.foto;
+          this.mascotas = this.obDataServ.getMascotas(data.uid);
         })
-        if (this.contrato.estado != "solicitud") {
-          this.show = false;
-        }
       }));
   }
 
   async aceptarContrato(idContrato: string) {
     this.afs.collection(`contrato${this.tipo}`).doc(idContrato)
       .update({ estado: "aceptado" });
+    if(this.tipo == "Paseador"){
+      this.afs.collection("paseador").doc(this.authServ.uid)
+      .update({solicitud_paseo:firebase.firestore.FieldValue.arrayRemove(this.idContrato)}) 
+      this.afs.collection("paseador").doc(this.authServ.uid)
+      .update({contratos:firebase.firestore.FieldValue.arrayUnion(this.idContrato)}) 
+    } else {
+      this.afs.collection("cuidador").doc(this.authServ.uid)
+      .update({solicitud_cuidado:firebase.firestore.FieldValue.arrayRemove(this.idContrato)}) 
+      this.afs.collection("cuidador").doc(this.authServ.uid)
+      .update({contratos:firebase.firestore.FieldValue.arrayUnion(this.idContrato)}) 
+    }
 
     if (this.tipo == "Paseador") {
 
@@ -131,6 +143,15 @@ export class SolicitudContratoComponent implements OnInit {
     await this.delay(200);
     this.afs.collection(`contrato${this.tipo}`).doc(idContrato)
       .update({ estado: "rechazado" });
+    
+    if(this.tipo == "Paseador"){
+      this.afs.collection("paseador").doc(this.authServ.uid)
+      .update({solicitud_paseo:firebase.firestore.FieldValue.arrayRemove(this.idContrato)}) 
+    } else {
+      this.afs.collection("cuidador").doc(this.authServ.uid)
+      .update({solicitud_cuidado:firebase.firestore.FieldValue.arrayRemove(this.idContrato)}) 
+    }
+    
   }
 
   delay(ms: number) {
@@ -151,7 +172,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   expandirSolicitud(){
     if(this.botonInfo == "ver mas"){
-      document.getElementById(this.idContrato).style.height = "200px"
+      document.getElementById(this.idContrato).style.height = "80vh"
       this.botonInfo = "ver menos";
     } else {
       document.getElementById(this.idContrato).style.height = "65px"

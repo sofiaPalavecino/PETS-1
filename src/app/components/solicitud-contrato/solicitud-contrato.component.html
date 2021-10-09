@@ -1,4 +1,4 @@
-<ion-card *ngIf="show" id="{{idContrato}}">
+<ion-card id="{{idContrato}}" class="card-notificacion">
   <ion-row>
     <ion-col style="display: contents">
       <ion-avatar>
@@ -8,17 +8,49 @@
     <ion-col>
     <ion-card-title>{{this.userName}}</ion-card-title>
     <ion-card-subtitle *ngIf="contrato">{{this.contrato.dias}}</ion-card-subtitle>
-    <ion-label>Mascotas:</ion-label>
   </ion-col>
   <ion-col style="margin: auto;text-align: end;">
     <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
   </ion-col>
   </ion-row>
-  <ion-row>
-    <label>aaaaaaaaaaaa</label>
+  <!--  -->
+  <ion-row id="Mascotas" *ngIf="mascotas | async">
+    <ion-col>
+      <ion-row *ngIf="mascotas | async; let mascota">
+        <ion-row style="width: 100%;">
+          <h2>Mascotas</h2>
+        </ion-row>
+        <ion-row class='div-mascotas'>
+          <ion-slides>
+            <ion-slide *ngFor="let mascota of mascotas | async" class='div-mascotas' pager="true">
+              <ion-card class="card-mascota">
+                <img style="    height: 160px;
+                object-fit: contain;
+                width: 160px;" src="https://firebasestorage.googleapis.com/v0/b/pets-5ca11.appspot.com/o/sailor%20mercury.jpg?alt=media&token=b49aa0f9-43a1-4999-b78e-e168c8e62eb8" class="image">
+                <ion-row>
+                  <ion-col>
+                    <ion-card-header class="header-titulo-mascota">
+                      <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <span class="informacion-paseo">calificación</span>
+                    </ion-card-content>
+                  </ion-col>
+                  <ion-card-content>
+                    <span class="informacion-mascota">Ver Más</span>
+                  </ion-card-content>
+                </ion-row>
+              </ion-card>
+            </ion-slide>
+            
+          </ion-slides>
+        </ion-row>
+      </ion-row>
+    </ion-col>
   </ion-row>
+  <!--  -->
   <ion-row>
-    <ion-col style="margin: auto;text-align: end;">
+    <ion-col style="margin: auto;text-align: center;">
       <ion-button color="success" (click)="aceptarContrato(idContrato)">ok</ion-button>
       <ion-button color="danger"  (click)="rechazarContrato(idContrato)">no</ion-button>
     </ion-col> 

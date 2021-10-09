@@ -2,7 +2,7 @@
   <ion-label position="floating">e-mail, nombre o apellido</ion-label>
   <ion-input [(ngModel)]="busqueda" (ngModelChange)="buscarUser()"></ion-input>
 </ion-item>
-<div >
+<div style="height: 345px;overflow: auto;">
   <ion-item *ngFor="let user of usuarios" style="font-size: 13px;">
     <ion-col style="display:contents">
       <ion-avatar style="height: 40px;width: 40px;">
@@ -14,12 +14,12 @@
       <label style="font-weight: bold;">{{user["nombre"]}} {{user["apellido"]}}</label>
     </ion-row>
     <ion-row>
-      <label style="color:#7bd7b5;font-size: 10px;">{{user["email"]}}</label>
+      <label style="color: #7bd7b5;font-size: 10px;max-width: 150px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{user["email"]}}</label>
     </ion-row>
     </ion-col>
     <ion-col style="margin: auto;text-align: end;">
       <ion-button class="button-enviar">
-        <ion-icon name="add-circle-outline"></ion-icon>
+        <ion-icon name="person-add-outline"></ion-icon>
       </ion-button>
     </ion-col>
   </ion-item>

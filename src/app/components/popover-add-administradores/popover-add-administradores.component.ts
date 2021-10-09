@@ -15,7 +15,8 @@ export class PopoverAddAdministradoresComponent {
 
   private popover = null;
   busqueda:string;
-  usuarios:Array<any> = new Array<any>();
+  usuarios:Array<any>;
+  uids:Array<any>;
 
   async presentPopover(ev: any) {
     this.popover = await this.popoverController.create({
@@ -30,46 +31,56 @@ export class PopoverAddAdministradoresComponent {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  buscarUser(){
-    this.usuarios = []
-    if(this.busqueda != ""){
+  async buscarUser(){
+    this.usuarios = new Array<any>();
+    this.uids = new Array<any>();
+    let busqueda = this.busqueda
+    if(busqueda.length != 0){
       console.log(this.busqueda)
-      this.afs.firestore
+      await this.afs.firestore
       .collection("users")
-      .where("nombre", ">=", this.busqueda)
-      .where('nombre', '<=', this.busqueda+ '\uf8ff')
+      .where("nombre", ">=",busqueda)
+      .where('nombre', '<=',busqueda+ '\uf8ff')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user)=>{
           this.usuarios.push(user.data())
+          this.uids.push(user.data()["uid"])
+        })
+        
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+      await this.afs.firestore
+      .collection("users")
+      .where("email", ">=",busqueda)
+      .where('email', '<=',busqueda+ '\uf8ff')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((user)=>{
+          if(!this.uids.includes(user.data()["uid"])){
+            this.uids.push(user.data()["uid"]);
+            this.usuarios.push(user.data());
+          }
         })
      
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-      this.afs.firestore
-      .collection("users")
-      .where("email", ">=", this.busqueda)
-      .where('email', '<=', this.busqueda+ '\uf8ff')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((user)=>{
-          this.usuarios.push(user.data())
-        })
      
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-      this.afs.firestore
+      await this.afs.firestore
       .collection("users")
-      .where("apellido", ">=", this.busqueda)
-      .where('apellido', '<=', this.busqueda+ '\uf8ff')
+      .where("apellido", ">=",busqueda)
+      .where('apellido', '<=',busqueda+ '\uf8ff')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((user)=>{
-          this.usuarios.push(user.data())
+          if(!this.uids.includes(user.data()["uid"])){
+            this.uids.push(user.data()["uid"]);
+            this.usuarios.push(user.data());
+          }
         })
      
       })
