@@ -17,7 +17,6 @@ export class MenuComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  notificacion:string = "carbon:notification";
 
   constructor(private menuCtrl: MenuController,private userServ: UserService, private aServ:AuthService, private afs: AngularFirestore, private orga:OrganizacionService) { 
   }
@@ -25,6 +24,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.userServ.paseador.subscribe(element => {
       if (element.solicitud_paseo.length > 0) document.getElementById("a").setAttribute("name","mail-unread-outline")
+      else document.getElementById("a").setAttribute("name","mail-outline")
     })
   }
   

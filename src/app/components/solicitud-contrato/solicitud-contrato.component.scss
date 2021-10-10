@@ -1,10 +1,36 @@
-.button-ver-mas{
+
+.button-rechazar,.button-aceptar,.button-ver-mas{
     --background: #7bd7b5;
     --color: white;
     --border-radius: 100px;
-    --width: 90px;
     --font-size: 15px;
     --height: 30px;
+}
+
+.button-rechazar{
+    --background: #d77b7b;
+    width: 100px;
+}
+
+.div-mascotas{
+    margin: auto;
+}
+
+.dia-semana{
+    height: 40px;
+    width: 40px;
+    border: 2px solid white;
+    border-radius: 9px;
+    background: #c6c6c6;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 2px;
+    color: white;
+    display: inline-block;
+}
+
+.button-aceptar{
+    width: 100px;
 }
 
 .card-notificacion{

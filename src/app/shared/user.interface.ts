@@ -20,4 +20,5 @@ export interface userProfile{
   foto:string;
   barrio:string;
   orgFavoritas:Array<string>
+  solicitud_admin:Array<string>
 }

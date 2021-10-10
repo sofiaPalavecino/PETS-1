@@ -2,57 +2,74 @@
   <ion-row>
     <ion-col style="display: contents">
       <ion-avatar>
-        <img *ngIf="imgCliente" src="{{imgCliente}}" >
+        <img *ngIf="imgCliente" src="{{imgCliente}}">
       </ion-avatar>
     </ion-col>
     <ion-col>
-    <ion-card-title>{{this.userName}}</ion-card-title>
-    <ion-card-subtitle *ngIf="contrato">{{this.contrato.dias}}</ion-card-subtitle>
-  </ion-col>
-  <ion-col style="margin: auto;text-align: end;">
-    <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
-  </ion-col>
+      <ion-card-title style="font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
+      <ion-card-subtitle *ngIf="contrato">{{this.barrio}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="contrato">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+    </ion-col>
+    <ion-col style="margin: auto;text-align: end;">
+      <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
+    </ion-col>
   </ion-row>
-  <!--  -->
-  <ion-row id="Mascotas" *ngIf="mascotas | async">
+
+  <ion-col *ngIf="tipo == 'Paseador'">
+    <!-- <ion-row style="width: 100%;">
+      <h2>Dias:</h2>
+    </ion-row> -->
+    <ion-row>
+      <div style="margin: auto;">
+      <div class="dia-semana" id="{{idContrato}}Lunes" >L</div>
+      <div class="dia-semana" id="{{idContrato}}Martes" >M</div>
+      <div class="dia-semana" id="{{idContrato}}Miercoles" >M</div>
+      <div class="dia-semana" id="{{idContrato}}Jueves" >J</div>
+      <div class="dia-semana" id="{{idContrato}}Viernes" >V</div>
+      <div class="dia-semana" id="{{idContrato}}Sabado" >S</div>
+      <div class="dia-semana" id="{{idContrato}}Domingo" >D</div>
+    </div>
+    </ion-row>
+  </ion-col>
+  
+  <ion-row id="Mascotas" *ngIf="mascotas">
     <ion-col>
-      <ion-row *ngIf="mascotas | async; let mascota">
-        <ion-row style="width: 100%;">
-          <h2>Mascotas</h2>
-        </ion-row>
-        <ion-row class='div-mascotas'>
+      <ion-row *ngIf="mascotas; let mascota">
+        <!-- <ion-row style="width: 100%;">
+          <h2>Mascotas:</h2>
+        </ion-row> -->
+ 
           <ion-slides>
-            <ion-slide *ngFor="let mascota of mascotas | async" class='div-mascotas' pager="true">
+            <ion-slide *ngFor="let mascota of mascotas" class='div-mascotas' pager="true">
               <ion-card class="card-mascota">
-                <img style="    height: 160px;
-                object-fit: contain;
-                width: 160px;" src="https://firebasestorage.googleapis.com/v0/b/pets-5ca11.appspot.com/o/sailor%20mercury.jpg?alt=media&token=b49aa0f9-43a1-4999-b78e-e168c8e62eb8" class="image">
-                <ion-row>
-                  <ion-col>
-                    <ion-card-header class="header-titulo-mascota">
-                      <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                      <span class="informacion-paseo">calificación</span>
-                    </ion-card-content>
-                  </ion-col>
+                <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{mascota.foto}}" class="image">
+                  <ion-card-header class="header-titulo-mascota">
+                    <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-subtitle>
+                    <span class="informacion-paseo">calificación:  {{mascota.calificacion}}
+                      <ion-icon name="star-outline"></ion-icon>
+                    </span>
+                  </ion-card-subtitle>
                   <ion-card-content>
-                    <span class="informacion-mascota">Ver Más</span>
+                    <span class="informacion-mascota" style="color: #7bd7b5;">Ver Más</span>
                   </ion-card-content>
-                </ion-row>
               </ion-card>
             </ion-slide>
-            
           </ion-slides>
-        </ion-row>
+        
       </ion-row>
     </ion-col>
   </ion-row>
   <!--  -->
   <ion-row>
     <ion-col style="margin: auto;text-align: center;">
-      <ion-button color="success" (click)="aceptarContrato(idContrato)">ok</ion-button>
-      <ion-button color="danger"  (click)="rechazarContrato(idContrato)">no</ion-button>
-    </ion-col> 
+      <ion-button  class="button-aceptar" (click)="aceptarContrato(idContrato)">
+        <ion-icon style="font-size: 30px;" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button  class="button-rechazar" (click)="rechazarContrato(idContrato)">
+        <ion-icon style="font-size: 30px;" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
   </ion-row>
 </ion-card>

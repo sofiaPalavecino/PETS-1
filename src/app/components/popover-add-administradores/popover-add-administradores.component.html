@@ -3,7 +3,7 @@
   <ion-input [(ngModel)]="busqueda" (ngModelChange)="buscarUser()"></ion-input>
 </ion-item>
 <div style="height: 345px;overflow: auto;">
-  <ion-item *ngFor="let user of usuarios" style="font-size: 13px;">
+  <ion-item *ngFor="let user of usuarios; let i = index" style="font-size: 13px;">
     <ion-col style="display:contents">
       <ion-avatar style="height: 40px;width: 40px;">
         <img src="{{user['foto']}}">
@@ -18,7 +18,7 @@
     </ion-row>
     </ion-col>
     <ion-col style="margin: auto;text-align: end;">
-      <ion-button class="button-enviar">
+      <ion-button class="button-enviar" (click)="solicitarAdministracion(i)">
         <ion-icon name="person-add-outline"></ion-icon>
       </ion-button>
     </ion-col>

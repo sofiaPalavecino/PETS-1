@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { UserService } from '../services/user.service';
 })
 export class NotificacionesPage implements OnInit {
 
-  constructor(private userServ: UserService) { }
+  constructor(private authSvc: AuthService,private userServ: UserService) { }
 
   ngOnInit() {
   }
