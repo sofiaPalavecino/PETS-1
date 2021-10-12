@@ -44,7 +44,7 @@ export class AuthService {
       const { user } = await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       
       if (!(await this.afs.doc(`users/${user.uid}`).get().toPromise()).exists){
-        await this.updateUserData(user,null,null,null,null,null,null,null,null);
+        await this.updateUserData(user,null,null,null,null,null,null,null,null,null);
       }
       
       return user;
@@ -57,7 +57,7 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       await this.sendVerifcationEmail();
-      await this.updateUserData(user,nombre,apellido,nacimiento,dni,null,null,null,null);//adiafjaofjaiofjaiosio
+      await this.updateUserData(user,nombre,apellido,nacimiento,dni,null,null,null,null,null);//adiafjaofjaiofjaiosio
       return user;
     } catch (error) {
       console.log('Error->', error);
@@ -94,7 +94,7 @@ export class AuthService {
     }
   }
 
-  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string, barrio:string, orgFavoritas:Array<string>, solicitud_admin:Array<string>) {
+  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string, barrio:string, orgFavoritas:Array<string>, solicitud_admin:Array<string>, contratosActivos:Array<string>) {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
     
     let dataAux:any=[];
@@ -126,7 +126,8 @@ export class AuthService {
     dataAux.push(foto);
     dataAux.push(barrio);
     dataAux.push(orgFavoritas);
-    dataAux.push(solicitud_admin)
+    dataAux.push(solicitud_admin);
+    dataAux.push(contratosActivos);
 
     var data: userProfile = {
       uid: dataAux[0],
@@ -140,14 +141,15 @@ export class AuthService {
       foto: dataAux[7],
       barrio:dataAux[8],
       orgFavoritas:dataAux[9],
-      solicitud_admin:dataAux[10]
+      solicitud_admin:dataAux[10],
+      contratosActivos:dataAux[11]
     };
     
   
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>,contratosActivos:Map<string,string>){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
@@ -169,7 +171,8 @@ export class AuthService {
       foto:foto,
       barrio: barrio,
       orgFavoritas:orgFavoritas,
-      solicitud_admin:solicitud_admin
+      solicitud_admin:solicitud_admin,
+      contratosActivos:contratosActivos,
     };
     console.log(data);
     return userRef.set(data, { merge: true });
