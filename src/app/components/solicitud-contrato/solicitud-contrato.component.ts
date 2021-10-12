@@ -38,11 +38,12 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.idContrato );
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
     .subscribe((data) => {
-      console.log(1);
+      
       this.contrato = data;
       this.cliente = this.obDataServ.getUser(data.idCliente);
       this.cliente.subscribe((data) => {
@@ -60,7 +61,7 @@ export class SolicitudContratoComponent implements OnInit {
           console.log(this.mascotas)
         })
       });
-      if (this.tipo == "Paseador") {
+      if (this.tipo == "Paseador") {  
         this.contrato.dias.forEach((element) => {
           document.getElementById(this.idContrato + element).style.background = "#7bd7b5";
         });
@@ -76,7 +77,23 @@ export class SolicitudContratoComponent implements OnInit {
       .collection(`contrato${this.tipo}`)
       .doc(idContrato)
       .update({ estado: "aceptado" });
-    if (this.tipo == "Paseador") {
+    if (this.tipo == "Transito") {
+      this.afs
+        .collection("organización")
+        .doc(this.authServ.uid)
+        .update({
+          solicitud_paseo: firebase.firestore.FieldValue.arrayRemove(
+            this.idContrato
+          ),
+        });
+      this.afs
+        .collection("organización")
+        .doc(this.authServ.uid)
+        .update({
+          contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
+      }
+    else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
         .doc(this.authServ.uid)

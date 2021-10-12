@@ -23,6 +23,7 @@ export class PublicacionPage implements OnInit {
   public organizacion:Observable<Organizacion>=null
   public id:string=""
   public idOrga:string=""
+  public nombre:string=""
   uid:string;
   
 
@@ -52,7 +53,7 @@ export class PublicacionPage implements OnInit {
   }
 
   nuevoTransito(){
-    this.publiServ.transitar(this.id, "idTRANSITADOR");
+    this.publiServ.transitar(this.id, this.uid);
   }
 
 }

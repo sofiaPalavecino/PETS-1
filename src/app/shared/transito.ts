@@ -3,4 +3,5 @@ export interface Transito {
     idAnimal: string;
     idOrganizacion: string;
     idTransitante: string;
+    nombre: string;
 }
