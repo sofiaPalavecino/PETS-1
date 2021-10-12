@@ -58,7 +58,16 @@ export class PubliService {
       cuidados: cuidados,
       fecha: new Date()
     })
-    console.log(estandar)
+  }
+
+  transitar(idAnimal:string, idTransitante:string){
+    const nuevoTransito = this.afs.collection('contratoTransito').add({
+      estado: "solicitud",
+      fecha: new Date(),
+      idAnimal: idAnimal,
+      idOrganizacion: this.org.oid,
+      idTransitante: idTransitante
+    })
   }
 
 }

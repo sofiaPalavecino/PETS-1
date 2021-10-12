@@ -8,6 +8,7 @@ import { Publicacion } from '../shared/publicacion';
 import { ActivatedRoute } from '@angular/router';
 import { Organizacion } from '../shared/organizacion.interface';
 import { OrganizacionesService } from '../services/organizaciones.service';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -22,9 +23,12 @@ export class PublicacionPage implements OnInit {
   public organizacion:Observable<Organizacion>=null
   public id:string=""
   public idOrga:string=""
+  uid:string;
   
 
-  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute) { }
+  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private aServ:AuthService) {
+      this.uid=this.aServ.user$.uid;
+   }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')
@@ -45,6 +49,10 @@ export class PublicacionPage implements OnInit {
 		vista='none';
 
 	document.getElementById(id).style.display = vista;
+  }
+
+  nuevoTransito(){
+    this.publiServ.transitar(this.id, "idTRANSITADOR");
   }
 
 }
