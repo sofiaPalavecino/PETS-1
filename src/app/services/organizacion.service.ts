@@ -19,7 +19,7 @@ import { User } from "../shared/user.interface";
 export class OrganizacionService {
   public oid: string;
   public organizacion: Organizacion;
-  public organizaciones: Organizacion[];
+  public organizaciones: Organizacion[] = [];
 
   constructor(private afs: AngularFirestore, private authSvc: AuthService) {
     afs.firestore

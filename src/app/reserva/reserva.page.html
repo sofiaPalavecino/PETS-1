@@ -49,7 +49,7 @@
     <ion-col>
       <label *ngFor="let mascota of mascotasCheck">
         <ion-row>
-          <ion-toggle type="checkbox" [(ngModel)]="mascota.estado"></ion-toggle>
+          <ion-toggle type="checkbox" [(ngModel)]="mascota.estado" (ngModelChange)="checkDisponibilidad()"></ion-toggle>
           <label style="padding: 10px;">{{mascota.nombre}}</label>
         </ion-row>
       </label>

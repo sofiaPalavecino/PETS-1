@@ -26,7 +26,8 @@ export class ConfiguracionesPage implements OnInit {
   administrando:string;
   foto:string;
   barrio:string;
-  orgFavoritas:Array<string>
+  orgFavoritas:Array<string>;
+  solicitud_admin:Array<string>;
   
   // private imagePicker: ImagePicker
   constructor(private afs: AngularFirestore, private aServ:AuthService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController,) {
@@ -41,13 +42,14 @@ export class ConfiguracionesPage implements OnInit {
       this.foto=this.aServ.user$.foto;
       this.barrio=this.aServ.user$.barrio;
       this.orgFavoritas=this.aServ.user$.orgFavoritas
+      this.solicitud_admin=this.aServ.user$.solicitud_admin
    
   }
 
   ngOnInit() {}
 
   async cambiarDatos(){
-    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.orgFavoritas);
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.orgFavoritas,this.solicitud_admin);
   }
 
 

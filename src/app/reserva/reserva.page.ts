@@ -146,6 +146,8 @@ export class ReservaPage implements OnInit {
 
   checkDisponibilidad(){
 
+    if(this.tipo == "paseador"){
+
     let cantMascotas:number = this.getCantMascotas();
     let cantDias:number = this.getCantDias();
 
@@ -179,6 +181,7 @@ export class ReservaPage implements OnInit {
         this.diasDisponibles[6].estado = false;
       } else this.diasDisponibles[6].modificador = "";
     });
+  }
   }
 
   reservar() {
@@ -216,7 +219,7 @@ export class ReservaPage implements OnInit {
           nuevoContrato.then((data)=> {
             console.log(`paseador/${this.uid}`)
             this.afs.doc(`paseador/${this.uid}`).update({
-              contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+              solicitud_paseo: firebase.firestore.FieldValue.arrayUnion(data.id)
             })
           });
           this.router.navigate(['/home']);
@@ -243,7 +246,7 @@ export class ReservaPage implements OnInit {
           nuevoContrato.then((data)=> {
             console.log(`cuidador/${this.uid}`)
             this.afs.doc(`cuidador/${this.uid}`).update({
-              contratos: firebase.firestore.FieldValue.arrayUnion(data.id)
+              solicitud_cuidado: firebase.firestore.FieldValue.arrayUnion(data.id)
             })
           });
           this.router.navigate(['/home']);

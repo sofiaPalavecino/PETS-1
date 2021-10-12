@@ -18,6 +18,16 @@
     color: black; 
 }
 
+.button-add-administrador{
+    width: 150px;
+    height: 25px;
+    margin-top: -10px;
+    --background: #7bd7b5;
+    --color: white;
+    --height: 30px;
+    --border-radius: 100px;
+}
+
 .div-nombre-organizacion,.div-localizacion-org{
     margin-top: 0px;
     margin-left: 10px;

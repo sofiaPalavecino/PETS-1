@@ -33,8 +33,8 @@
           <h6>Perfil</h6>
         </a>
       </ion-item>
-      <ion-item *ngIf="orga.organizaciones">
-        <a menuClose routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
+      <ion-item *ngIf="orga.organizaciones.length > 0">
+        <a routerLink="/perfil-organizacion" (click)="closeMenu()" style="display: block; text-align: center;">
           <ion-icon name="business-outline"></ion-icon>
           <h6>Perfil de Organizacion</h6>
         </a>
@@ -52,11 +52,8 @@
         </a>
       </ion-item>
       <ion-item>
-        <a menuClose routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
-          <span *ngIf="notificacion == false; else elseBlock" class="iconify" data-icon="carbon:notification" style="color: black;height: 20px;width: 20px;"></span>
-          <ng-template #elseBlock>
-            <span class="iconify" data-icon="carbon:notification-new" style="color: black;height: 20px;width: 20px;"></span>
-          </ng-template>
+        <a routerLink="/notificaciones" (click)="closeMenu()" style="display: block; text-align: center;">
+          <ion-icon id="a" name="mail-outline"></ion-icon>
           <h6>Notificaciones</h6>
         </a>
       </ion-item>
