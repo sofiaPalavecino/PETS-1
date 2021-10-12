@@ -22,6 +22,7 @@ export class PubliCardComponent implements OnInit {
   @Input() calificacion:number
   @Input() id:string
   @Input() idOrga:string
+  @Input() orgNombre:string
 
   constructor(private org:OrganizacionService, private publiServ:PubliService, private router:Router) { }
 

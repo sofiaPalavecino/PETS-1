@@ -7,6 +7,9 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { SliderAgendaComponent } from './../components/slider-agenda/slider-agenda.component'
+import { SectorPublisOrgaComponent } from '../components/sector-publis-orga/sector-publis-orga.component';
+import { SliderPublisOrgasComponent } from '../components/slider-publis-orgas/slider-publis-orgas.component';
+import { PubliCardComponent } from '../components/publi-card/publi-card.component';
 
 @NgModule({
   imports: [
@@ -16,6 +19,6 @@ import { SliderAgendaComponent } from './../components/slider-agenda/slider-agen
     HomePageRoutingModule,
     
   ],
-  declarations: [HomePage,SliderAgendaComponent]
+  declarations: [HomePage,SliderAgendaComponent,SectorPublisOrgaComponent, SliderPublisOrgasComponent,PubliCardComponent]
 })
 export class HomePageModule {}

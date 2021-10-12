@@ -18,18 +18,17 @@ export class AuthService {
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
-    this.afAuth.authState.subscribe(
-      (user) => {
-        if (user) {
-          this.uid=user.uid;
-          this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
-            this.user$ = userprofile;
-          });
-          
-        }
-      });
-    
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.uid=user.uid;
+        this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
+          this.user$ = userprofile;
+        });  
+      }
+    });
   }
+
+  
 
   async resetPassword(email: string): Promise<void> {
     try {
