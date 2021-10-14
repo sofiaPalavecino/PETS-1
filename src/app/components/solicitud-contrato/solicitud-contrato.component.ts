@@ -7,6 +7,7 @@ import { UserService } from "src/app/services/user.service";
 import { ContratoPaseador } from "src/app/shared/contrato-paseador.interface";
 import { disponibilidades } from "src/app/shared/disponibilidades.interface";
 import { userProfile } from "src/app/shared/user.interface";
+import { OrganizacionService } from "src/app/services/organizacion.service";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -34,7 +35,8 @@ export class SolicitudContratoComponent implements OnInit {
     private authServ: AuthService,
     private afs: AngularFirestore,
     private userServ: UserService,
-    private obDataServ: ObtenerDataService
+    private obDataServ: ObtenerDataService,
+    private org: OrganizacionService
   ) {}
 
   ngOnInit() {
@@ -80,18 +82,19 @@ export class SolicitudContratoComponent implements OnInit {
     if (this.tipo == "Transito") {
       this.afs
         .collection("organización")
-        .doc(this.authServ.uid)
+        .doc(this.org.oid)
         .update({
-          solicitud_paseo: firebase.firestore.FieldValue.arrayRemove(
+          solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
             this.idContrato
           ),
         });
       this.afs
         .collection("organización")
-        .doc(this.authServ.uid)
+        .doc(this.org.oid)
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
+        //################################## ACTUALIZAR ESTADO
       }
     else if (this.tipo == "Paseador") {
       this.afs
@@ -222,7 +225,19 @@ export class SolicitudContratoComponent implements OnInit {
       .doc(idContrato)
       .update({ estado: "rechazado" });
 
-    if (this.tipo == "Paseador") {
+    
+      if (this.tipo == "organización") {
+        this.afs
+          .collection("organización")
+          .doc(this.org.oid)
+          .update({
+            solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
+              this.idContrato
+            ),
+          });
+          //this.afs.collection('contratoTransito')################################## actualizar estado
+        }
+      else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
         .doc(this.authServ.uid)
@@ -231,7 +246,8 @@ export class SolicitudContratoComponent implements OnInit {
             this.idContrato
           ),
         });
-    } else {
+      } 
+      else {
       this.afs
         .collection("cuidador")
         .doc(this.authServ.uid)

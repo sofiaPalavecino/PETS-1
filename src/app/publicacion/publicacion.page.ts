@@ -52,8 +52,13 @@ export class PublicacionPage implements OnInit {
 	document.getElementById(id).style.display = vista;
   }
 
-  nuevoTransito(){
+  nuevoTransito(id: string){
     this.publiServ.transitar(this.id, this.uid);
-  }
+    let vista=document.getElementById(id).style.display;
+	if (vista=='none')
+		vista='inline';
+	document.getElementById(id).style.display = vista;
+  window.alert("Su solicitud está siendo procesada, espere la confirmación de la organización")
+}
 
 }
