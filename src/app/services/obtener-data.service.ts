@@ -33,7 +33,7 @@ export class ObtenerDataService {
 
   
   getTrabajador(idUsuario:string,tipo:string):Observable<any>{
-   
+
     if(tipo=="paseador"){
       return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).valueChanges({idField:"docId"}))
     }else{

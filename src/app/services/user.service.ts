@@ -41,18 +41,17 @@ export class UserService {
     private afs: AngularFirestore,
     private authSvc: AuthService,
     private obDataServ: ObtenerDataService,
-  ) { //ESTA LLEGANDO ANTES ACA DE QUE EL AUTHSERV TENGA EL UID
-    this.paseador = this.obDataServ.getTrabajador(this.authSvc.uid, "paseador");
-    this.cuidador = this.obDataServ.getTrabajador(this.authSvc.uid, "cuidador");
-    this.planesPaseador = this.obDataServ.getPlanes(
-      this.authSvc.uid,
-      "paseador"
-    );
-    this.planesCuidador = this.obDataServ.getPlanes(
-      this.authSvc.uid,
-      "cuidador"
-    );
-    this.mascotas = this.obDataServ.getMascotas(this.authSvc.uid);
+  ) { 
+    this.authSvc.afAuth.authState.subscribe((user) => {
+      if (user) {
+        this.paseador = this.obDataServ.getTrabajador(user.uid, "paseador");
+        this.cuidador = this.obDataServ.getTrabajador(user.uid, "cuidador");
+        this.planesPaseador = this.obDataServ.getPlanes(user.uid,"paseador");
+        this.planesCuidador = this.obDataServ.getPlanes(user.uid,"cuidador");
+        this.mascotas = this.obDataServ.getMascotas(user.uid);
+      }
+    });
+    
   }
 
   async crearNuevoPaseo(

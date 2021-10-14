@@ -14,7 +14,7 @@ import { Dia } from '../dia';
 })
 
 export class AuthService {
-  public user$: userProfile;
+  public user$:userProfile;
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
