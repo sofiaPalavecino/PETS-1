@@ -40,7 +40,10 @@ export class SolicitudContratoComponent implements OnInit {
     private obDataServ: ObtenerDataService
   ) {}
 
+   key = "a";
+
   ngOnInit() {
+    
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
@@ -48,6 +51,11 @@ export class SolicitudContratoComponent implements OnInit {
       console.log(1);
       this.contrato = data;
       this.idCliente=data.idCliente;
+      console.log(`users/${this.idCliente}`)
+      let key = "a";
+    this.afs.doc(`users/${this.idCliente}`).set({
+      contratosActivos : {[key]:"a"}
+    })
       this.cliente = this.obDataServ.getUser(data.idCliente);
       this.cliente.subscribe((data) => {
         this.userName = data.nombre + " " + data.apellido;
@@ -85,6 +93,7 @@ export class SolicitudContratoComponent implements OnInit {
     /*this.afs.doc(`users/${this.idCliente}`).update({
       contratosActivos : 
     })*/
+    
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
     await this.delay(200);
