@@ -3,7 +3,7 @@
     <ion-slide class="slide2" >
       <div *ngFor="let publi of this.publicaciones | async">
         <div *ngIf="this.pasarADate(publi.fecha) >= this.ahora">
-          <publi-card  id={{publi.docId}} nombre={{publi.nombre}} foto={{publi.foto}} calificacion={{publi.calificacion}} idOrga={{org.docId}} orgNombre={{org.nombre}}></publi-card>
+          <publi-card  class= "carta" id={{publi.docId}} nombre={{publi.nombre}} foto={{publi.foto}} calificacion={{publi.calificacion}} idOrga={{org.docId}} orgNombre={{org.nombre}}></publi-card>
         </div>
       </div>
     </ion-slide>
