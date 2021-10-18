@@ -18,8 +18,8 @@ import { User } from "../shared/user.interface";
 })
 export class OrganizacionService {
   public oid: string;
-  public organizacion: Organizacion;
-  public organizaciones: Organizacion[] = [];
+  public organizacion: Organizacion; //organización que se está administrando actualmente
+  public organizaciones: Organizacion[] = []; //todas las organizaciones que el usuario en sesión administra
 
   constructor(private afs: AngularFirestore, private authSvc: AuthService) {
     afs.firestore
@@ -38,6 +38,8 @@ export class OrganizacionService {
             foto: doc.data()["foto"],
             localizacion: doc.data()["localizacion"],
             oid: doc.data()["oid"],
+            solicitud_transito: doc.data()["solicitud_transito"],
+            contratos: doc.data()["contratos"]
           };
           this.organizaciones.push(orgAux);
           if (this.authSvc.user$.administrando == doc.id) {

@@ -10,6 +10,7 @@ import { userProfile } from "src/app/shared/user.interface";
 import { OrganizacionService } from "src/app/services/organizacion.service";
 import { OrganizacionesService } from "src/app/services/organizaciones.service";
 import { ActivatedRoute } from '@angular/router';
+import { PubliService } from "src/app/services/publi.service";
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -21,9 +22,14 @@ import { mascota } from "../../shared/mascota.interface";
   styleUrls: ["./solicitud-contrato.component.scss"],
 })
 export class SolicitudContratoComponent implements OnInit {
+  //public publicacion:Observable<Publicacion>=null
+  //public organizacion:Observable<Organizacion>=null
+  
   @Input() idContrato: string;
   @Input() tipo: string;
+  @Input() idOrga: string;
 
+  
   botonInfo: string = "ver mas";
   contrato: ContratoPaseador;
   userName: string;
@@ -32,7 +38,6 @@ export class SolicitudContratoComponent implements OnInit {
   fecha:string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
-  public idOrga:string=""
 
   constructor(
     private authServ: AuthService,
@@ -41,12 +46,15 @@ export class SolicitudContratoComponent implements OnInit {
     private obDataServ: ObtenerDataService,
     private org: OrganizacionService,
     private orgas: OrganizacionesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private publis: PubliService
   ) {}
 
-  async ngOnInit() {
-    this.idOrga = await this.route.snapshot.paramMap.get('idOrga')
-    console.log(this.idContrato );
+  ngOnInit() {
+    //this.organizacion = this.orgas.getOrganizacion(this.idOrga)
+    //this.publicacion = this.publis.getPublicacion(this.id/*AAAAAAAAAAA*/,this.idOrga)
+    console.log(this.idContrato);
+    console.log(this.idOrga)
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
@@ -100,7 +108,6 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
-        //################################## ACTUALIZAR ESTADO
       }
     else if (this.tipo == "Paseador") {
       this.afs
@@ -232,7 +239,7 @@ export class SolicitudContratoComponent implements OnInit {
       .update({ estado: "rechazado" });
 
     
-      if (this.tipo == "organización") {
+      if (this.tipo == "Transito") {
         this.afs
           .collection("organización")
           .doc(this.idOrga)
@@ -241,7 +248,6 @@ export class SolicitudContratoComponent implements OnInit {
               this.idContrato
             ),
           });
-          //this.afs.collection('contratoTransito')################################## actualizar estado
         }
       else if (this.tipo == "Paseador") {
       this.afs

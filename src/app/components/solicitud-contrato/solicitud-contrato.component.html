@@ -61,6 +61,29 @@
       </ion-row>
     </ion-col>
   </ion-row>
+
+  <ion-row id="transito" *ngIf="tipo==Transito">
+    <ion-col>
+          <ion-slides>
+            <ion-slide *ngFor="let mascota of mascotas" class='div-mascotas' pager="true">
+              <ion-card class="card-mascota">
+                <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{mascota.fotos}}" class="image">
+                  <ion-card-header class="header-titulo-mascota">
+                    <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-subtitle>
+                    <span class="informacion-paseo">calificación:  {{mascota.calificacion}}
+                      <ion-icon name="star-outline"></ion-icon>
+                    </span>
+                  </ion-card-subtitle>
+                  <ion-card-content>
+                    <span class="informacion-mascota" style="color: #7bd7b5;">Ver Más</span>
+                  </ion-card-content>
+              </ion-card>
+            </ion-slide>
+          </ion-slides>
+    </ion-col>
+  </ion-row>
   <!--  -->
   <ion-row>
     <ion-col style="margin: auto;text-align: center;">
