@@ -68,20 +68,19 @@ export class PubliService {
     
   }
 
-  transitar(idAnimal:string, idTransitante:string){
+  transitar(idAnimal:string, idTransitante:string, idOrganizacion: string){
     const nuevoTransito = this.afs.collection('contratoTransito').add({
       estado: "solicitud",
       fecha: new Date(),
       idAnimal: idAnimal,
-      //idOrganizacion: this.orga.organizaciones.DocId,
+      idOrganizacion: idOrganizacion,
       idTransitante: idTransitante
     })
-    /*nuevoTransito.then((data)=> {
-      this.afs.doc(`organización/${this.uid}`).update({
+    nuevoTransito.then((data)=> {
+      this.afs.doc(`organización/${idOrganizacion}`).update({
         solicitud_transito: firebase.firestore.FieldValue.arrayUnion(data.id)
       })
-    });*/
-    this.afs.collection('organización').doc(this.org.oid).update({solicitud_transito: firebase.firestore.FieldValue.arrayUnion('cosa')});
+    });
   }
 
 }

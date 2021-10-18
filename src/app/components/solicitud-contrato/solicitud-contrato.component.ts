@@ -8,6 +8,8 @@ import { ContratoPaseador } from "src/app/shared/contrato-paseador.interface";
 import { disponibilidades } from "src/app/shared/disponibilidades.interface";
 import { userProfile } from "src/app/shared/user.interface";
 import { OrganizacionService } from "src/app/services/organizacion.service";
+import { OrganizacionesService } from "src/app/services/organizaciones.service";
+import { ActivatedRoute } from '@angular/router';
 import firebase from "firebase/app";
 import "firebase/firestore";
 
@@ -30,16 +32,20 @@ export class SolicitudContratoComponent implements OnInit {
   fecha:string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
+  public idOrga:string=""
 
   constructor(
     private authServ: AuthService,
     private afs: AngularFirestore,
     private userServ: UserService,
     private obDataServ: ObtenerDataService,
-    private org: OrganizacionService
+    private org: OrganizacionService,
+    private orgas: OrganizacionesService,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.idOrga = await this.route.snapshot.paramMap.get('idOrga')
     console.log(this.idContrato );
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
@@ -82,7 +88,7 @@ export class SolicitudContratoComponent implements OnInit {
     if (this.tipo == "Transito") {
       this.afs
         .collection("organización")
-        .doc(this.org.oid)
+        .doc(this.idOrga)
         .update({
           solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
             this.idContrato
@@ -90,7 +96,7 @@ export class SolicitudContratoComponent implements OnInit {
         });
       this.afs
         .collection("organización")
-        .doc(this.org.oid)
+        .doc(this.idOrga)
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
@@ -229,7 +235,7 @@ export class SolicitudContratoComponent implements OnInit {
       if (this.tipo == "organización") {
         this.afs
           .collection("organización")
-          .doc(this.org.oid)
+          .doc(this.idOrga)
           .update({
             solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
               this.idContrato

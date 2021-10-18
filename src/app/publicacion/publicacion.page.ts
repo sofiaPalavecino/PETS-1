@@ -27,15 +27,15 @@ export class PublicacionPage implements OnInit {
   uid:string;
   
 
-  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private aServ:AuthService) {
-      this.uid=this.aServ.user$.uid;
+  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private authServ:AuthService) {
+      this.uid=this.authServ.user$.uid;
    }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')
-    this.idOrga= await this.route.snapshot.paramMap.get('idOrga')
-    this.organizacion=this.orgServ.getOrganizacion(this.idOrga)
-    this.publicacion=this.publiServ.getPublicacion(this.id,this.idOrga)
+    this.idOrga = await this.route.snapshot.paramMap.get('idOrga')
+    this.organizacion = this.orgServ.getOrganizacion(this.idOrga)
+    this.publicacion = this.publiServ.getPublicacion(this.id,this.idOrga)
   }
   
   cambiarOrganizacion(){
@@ -53,7 +53,7 @@ export class PublicacionPage implements OnInit {
   }
 
   nuevoTransito(id: string){
-    this.publiServ.transitar(this.id, this.uid);
+    this.publiServ.transitar(this.id, this.uid, this.idOrga);
     let vista=document.getElementById(id).style.display;
 	if (vista=='none')
 		vista='inline';
