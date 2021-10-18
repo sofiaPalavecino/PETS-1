@@ -2,39 +2,37 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
-
-import { Network } from '@ionic-native/network/ngx';
-import { Platform } from '@ionic/angular';
-import { getDatabase, ref, onDisconnect } from "firebase/database";
-
-
+import {ConectividadService} from './services/conectividad.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
 
-  
+export class AppComponent {
   public alertController: AlertController
 
-  constructor(private aServ:AuthService,private router: Router,private network: Network, private platform: Platform,private alertCtrl: AlertController) {
-    const db = getDatabase();
-    const presenceRef = ref(db, "disconnectmessage");
-    // Write a string when this client loses connection
-    onDisconnect(presenceRef).set("I disconnected!");
+  constructor(private conectividad:ConectividadService,private aServ:AuthService,private router: Router,private alertCtrl: AlertController) {
+    this.conectividad.appIsOnline$.subscribe(online => {
+
+      console.log(online)
+  
+      if (online) {
+  
+        console.log("App is online")
+  
+      } else {
+  
+        console.log("App is offline")
+  
+      }
+  
+  })
+    
 
   }
-
   
 
-  async showAlert(){
-    const alert = await this.alertController.create({
-      header: 'Alerta',
-      subHeader: "conexión",
-      message: "conexión",
-      buttons: ['OK']
-    });
-  }
+  
 }
