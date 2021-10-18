@@ -11,10 +11,14 @@ import { OrganizacionService } from "src/app/services/organizacion.service";
 import { OrganizacionesService } from "src/app/services/organizaciones.service";
 import { ActivatedRoute } from '@angular/router';
 import { PubliService } from "src/app/services/publi.service";
+import { Publicacion } from "src/app/shared/publicacion";
+import { Organizacion } from "src/app/shared/organizacion.interface"
+
+
 import firebase from "firebase/app";
 import "firebase/firestore";
-
 import { mascota } from "../../shared/mascota.interface";
+import { contratoTransito } from "src/app/shared/transito";
 
 @Component({
   selector: "app-solicitud-contrato",
@@ -22,14 +26,14 @@ import { mascota } from "../../shared/mascota.interface";
   styleUrls: ["./solicitud-contrato.component.scss"],
 })
 export class SolicitudContratoComponent implements OnInit {
-  //public publicacion:Observable<Publicacion>=null
-  //public organizacion:Observable<Organizacion>=null
+  public publicacion:Observable<Publicacion>=null
+  public organizacion:Observable<Organizacion>=null
+  public transito:Observable<contratoTransito>=null
   
   @Input() idContrato: string;
   @Input() tipo: string;
   @Input() idOrga: string;
 
-  
   botonInfo: string = "ver mas";
   contrato: ContratoPaseador;
   userName: string;
@@ -51,8 +55,13 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.organizacion = this.orgas.getOrganizacion(this.idOrga)
-    //this.publicacion = this.publis.getPublicacion(this.id/*AAAAAAAAAAA*/,this.idOrga)
+    this.transito = this.publis.getTransito(this.idContrato)
+    this.organizacion = this.orgas.getOrganizacion(this.idOrga)
+    var id:any
+    this.transito.subscribe((contrato)=>{
+      id=contrato.idAnimal
+    })
+    this.publicacion = this.publis.getPublicacion(id, this.idOrga)
     console.log(this.idContrato);
     console.log(this.idOrga)
     this.afs
