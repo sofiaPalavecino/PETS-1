@@ -18,7 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent,CarouselComponent,MenuComponent],
@@ -34,6 +34,7 @@ import { File } from '@ionic-native/file/ngx';
     SplashScreen,
     Camera,
     File,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   
   ],
