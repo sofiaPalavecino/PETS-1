@@ -23,6 +23,8 @@ export class ObtenerDataService {
   
   checkTrabajador(idUsuario:string,tipo:string):Observable<any>{
    
+    
+
     if(tipo=="paseador"){
       return (this.afs.doc<Paseador>(`${tipo}/${idUsuario}`).get())
     }else{

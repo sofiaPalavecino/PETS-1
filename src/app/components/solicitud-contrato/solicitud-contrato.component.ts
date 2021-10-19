@@ -11,6 +11,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 import { mascota } from "../../shared/mascota.interface";
+import { MapOperator } from "rxjs/internal/operators/map";
 
 @Component({
   selector: "app-solicitud-contrato",
@@ -28,6 +29,8 @@ export class SolicitudContratoComponent implements OnInit {
   barrio: string;
   fecha:string;
   mascotas: Array<mascota[]>;
+  contratosActivos=  new Map();
+  idCliente:string;
   cliente: Observable<userProfile> = new Observable<userProfile>();
 
   constructor(
@@ -37,18 +40,28 @@ export class SolicitudContratoComponent implements OnInit {
     private obDataServ: ObtenerDataService
   ) {}
 
+   key = "a";
+
   ngOnInit() {
+    
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
     .subscribe((data) => {
       console.log(1);
       this.contrato = data;
+      this.idCliente=data.idCliente;
+      console.log(`users/${this.idCliente}`)
+      let key = "a";
+    this.afs.doc(`users/${this.idCliente}`).set({
+      contratosActivos : {[key]:"a"}
+    })
       this.cliente = this.obDataServ.getUser(data.idCliente);
       this.cliente.subscribe((data) => {
         this.userName = data.nombre + " " + data.apellido;
         this.imgCliente = data.foto;
         this.barrio = data.barrio;
+        this.contratosActivos=data.contratosActivos;
         let mascotasUser = this.obDataServ.getMascotas(data.uid);
         mascotasUser.subscribe((mascotas) => {
           this.mascotas = new Array<mascota[]>();
@@ -69,6 +82,18 @@ export class SolicitudContratoComponent implements OnInit {
   }
 
   async aceptarContrato(idContrato: string) {
+    const keys = Object.keys(this.contratosActivos);
+    const map = new Map();
+    for(let i = 0; i < keys.length; i++){
+      //inserting new key value pair inside map
+      map.set(keys[i], this.contratosActivos[keys[i]]);
+    };
+    console.log(map)
+    map.set(idContrato,this.tipo);
+    /*this.afs.doc(`users/${this.idCliente}`).update({
+      contratosActivos : 
+    })*/
+    
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
     await this.delay(200);

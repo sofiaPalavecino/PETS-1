@@ -1,16 +1,20 @@
-<ion-card class="card">
-  <ion-row class="filaCard">
-    <ion-col>
-      <div class="margen">
-        <ion-card-title class="titulo" >Paseo de Biscuit</ion-card-title>
-        <ion-card-subtitle class="subtituloHorario">Mañana 10:00</ion-card-subtitle>
-        <ion-button fill="clear" class="ion-button-cancel">cancelar</ion-button>
-        <ion-content color="gray" class="descripcionContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</ion-content>
-      </div>
-    </ion-col>
-    <ion-col>
-      <ion-avatar class="prueba"> 
-      </ion-avatar>
-    </ion-col>
-  </ion-row>
-</ion-card>
+<ion-slides *ngFor="let contrato of this.user.contratosActivos">
+  <ion-slide>
+    <ion-card class="card">
+      <ion-row class="filaCard">
+        <ion-col>
+          <div class="margen">
+            <ion-card-title class="titulo" >Paseo de Biscuit</ion-card-title>
+            <ion-card-subtitle class="subtituloHorario">Mañana 10:00</ion-card-subtitle>
+            <ion-button fill="clear" class="ion-button-cancel">cancelar</ion-button>
+            <ion-content color="gray" class="descripcionContent">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</ion-content>
+          </div>
+        </ion-col>
+        <ion-col>
+          <ion-avatar class="prueba"> 
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-slide>
+</ion-slides>
