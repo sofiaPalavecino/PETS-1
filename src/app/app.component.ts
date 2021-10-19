@@ -27,6 +27,7 @@ export class AppComponent {
 
   async presentAlert(subtitulo:string,mensaje:string) {
     const alert = await this.alertController.create({
+      cssClass: 'conectAlert',
       header: 'Alerta',
       subHeader: subtitulo,
       message: mensaje,
