@@ -141,7 +141,9 @@
             <ion-slides *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas' pager="true">
               <ion-slide>
                 <ion-card class="card-mascota">
-                  <img src="https://firebasestorage.googleapis.com/v0/b/pets-5ca11.appspot.com/o/sailor%20mercury.jpg?alt=media&token=b49aa0f9-43a1-4999-b78e-e168c8e62eb8" class="image">
+                  <div *ngFor="let foto of mascota.fotos">
+                    <img src="{{foto}}" class="image">
+                  </div>
                   <ion-row>
                     <ion-col>
                       <ion-card-header class="header-titulo-mascota">

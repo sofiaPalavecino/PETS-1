@@ -27,6 +27,11 @@ export class PerfilUsuarioPage {
       console.log(dasda.contratos);
       console.log(dasda.solicitud_paseo);
     })
+    userServ.mascotas.subscribe(asds=>{
+      asds.forEach(element => {
+        console.log(element);
+      });
+    })
   }
 
   async ngOnInit(){}
