@@ -4,7 +4,7 @@ import { canActivate , emailVerified, redirectLoggedInTo , redirectUnauthorizedT
 
 const redirectUnauthorizedToLogin  = () =>  redirectUnauthorizedTo(["/login"])
 
-const redirectLoggedInToHome = () => redirectLoggedInTo(["/home"])
+const redirectLoggedInToHome = () => redirectLoggedInTo(["/load"])
 
 
 
@@ -123,6 +123,10 @@ const routes: Routes = [
   {
     path: 'organizacion/:id',
     loadChildren: () => import('./organizacion/organizacion.module').then( m => m.OrganizacionPageModule)
+  },
+  {
+    path: 'load',
+    loadChildren: () => import('./load/load.module').then( m => m.LoadModule)
   },
 
 
