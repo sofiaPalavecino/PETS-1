@@ -47,8 +47,8 @@ export class PubliService {
     return this.afs.collection<Publicacion>(`organización/${idOrga}/publicaciones`).valueChanges({idField: 'docId'})
   }
 
-  getPublicacion(idPublicacion:string, idOrga:string){
-    return this.afs.doc<Publicacion>(`organización/${idOrga}/publicaciones/${idPublicacion}`).valueChanges()
+  getPublicacion(idPublicacion:string, idOrga:string):Observable<any>{
+    return this.afs.doc<Publicacion>(`organización/${idOrga}/publicaciones/${idPublicacion}`).valueChanges({idField: 'docId'})
   }
 
   async  nuevaPublicacion(nombre:string, especie:string, descripcion:string, cuidados:string){
@@ -69,8 +69,10 @@ export class PubliService {
     
   }
 
-  getTransito(id:string){
-    return this.afs.doc<contratoTransito>(`contratoTransito/${id}`).valueChanges()
+  getTransito(id:string):Observable<any>{
+    console.log(id);
+    
+    return (this.afs.doc<contratoTransito>(`contratoTransito/${id}`).valueChanges({idField: 'docId'}))
   }
 
   transitar(idAnimal:string, idTransitante:string, idOrganizacion: string){

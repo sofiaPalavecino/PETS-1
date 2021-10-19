@@ -54,16 +54,20 @@ export class SolicitudContratoComponent implements OnInit {
     private publis: PubliService
   ) {}
 
-  ngOnInit() {
-    this.transito = this.publis.getTransito(this.idContrato)
-    this.organizacion = this.orgas.getOrganizacion(this.idOrga)
-    var id:any
-    this.transito.subscribe((contrato)=>{
-      id=contrato.idAnimal
-    })
-    this.publicacion = this.publis.getPublicacion(id, this.idOrga)
-    console.log(this.idContrato);
-    console.log(this.idOrga)
+  async ngOnInit() {
+    if(this.tipo=="Transito"){
+      this.transito = this.publis.getTransito(this.idContrato);
+      this.organizacion = this.orgas.getOrganizacion(this.idOrga);
+      var id:any
+      this.transito.subscribe((contrato)=>{
+        id=contrato.idAnimal
+
+        this.publicacion = this.publis.getPublicacion(id, this.idOrga);
+        console.log("aaaaaaaaaaaaaaa")
+      });
+    
+    }
+    
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
