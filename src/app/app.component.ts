@@ -11,26 +11,29 @@ import {ConectividadService} from './services/conectividad.service'
 })
 
 export class AppComponent {
-  public alertController: AlertController
 
-  constructor(private conectividad:ConectividadService,private aServ:AuthService,private router: Router,private alertCtrl: AlertController) {
+  constructor(private alertController:AlertController,private conectividad:ConectividadService,private aServ:AuthService,private router: Router,private alertCtrl: AlertController) {
     this.conectividad.appIsOnline$.subscribe(online => {
 
       console.log(online)
   
-      if (online) {
+      if (online) {console.log("online")} else {
   
-        console.log("App is online")
-  
-      } else {
-  
-        console.log("App is offline")
+        this.presentAlert("Verifique su conexión a internet","Sin conexión")
   
       }
-  
-  })
-    
+    })
+  }
 
+  async presentAlert(subtitulo:string,mensaje:string) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
   
 
