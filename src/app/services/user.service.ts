@@ -238,4 +238,14 @@ export class UserService {
       })
     })*/
   }
+
+  async crearMascota(nombreA:string,especieMascotaA:string,descripcionA:string,cuidadoA:string){
+    const creoMascota =  this.afs.collection("users").doc(this.authSvc.uid).collection("mascota").add({
+      nombre : nombreA,
+      cuidado : cuidadoA,
+      descripcion : descripcionA,
+      especie : especieMascotaA,
+      calificacion : 0
+    });
+  }
 }
