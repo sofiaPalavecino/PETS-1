@@ -30,6 +30,7 @@ export class OrganizacionPage implements OnInit {
     this.id = await this.route.snapshot.paramMap.get('id')
     this.organizacion=this.orgServ.getOrganizacion(this.id)
     this.publicaciones=this.publiServ.getPublicaciones(this.id)
+    console.log(this.publicaciones)
   }
 
   agregarAFav(orgID:string){
