@@ -1,5 +1,7 @@
-  import { Component, OnInit } from '@angular/core';
+  import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from 'src/app/services/user.service';
+import { mascota } from "src/app/shared/mascota.interface";
 
 @Component({
   selector: 'app-mascota-card',
@@ -8,7 +10,18 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MascotaCardComponent implements OnInit {
 
-  constructor(userServ:UserService) { }
+  @Input() id:string
+  @Input() idUser:string
+  public mascota1:mascota
+
+  constructor(userServ:UserService, private afs: AngularFirestore) { 
+    this.afs.doc<mascota>(`users/${this.idUser}/mascota/${this.id}`).valueChanges().subscribe((mascotita) =>{
+      this.mascota1=mascotita;
+      console.log(mascotita)
+      console.log(this.id)
+      console.log(this.idUser)
+    })
+  } 
 
   ngOnInit() {}
 
