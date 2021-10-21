@@ -309,7 +309,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   expandirSolicitud() {
     if (this.botonInfo == "ver mas") {
-      document.getElementById(this.idContrato).style.height = "520px";
+      document.getElementById(this.idContrato).style.height = "450px";
       this.botonInfo = "ver menos";
     } else {
       document.getElementById(this.idContrato).style.height = "65px";

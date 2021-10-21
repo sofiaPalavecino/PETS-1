@@ -41,7 +41,7 @@
  
           <ion-slides>
             <ion-slide *ngFor="let mascota of mascotas" class='div-mascotas' pager="true">
-              <ion-card class="card-mascota">
+              <ion-card class="card-transito">
                 <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{mascota.fotos}}" class="image">
                   <ion-card-header class="header-titulo-mascota">
                     <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
@@ -63,9 +63,9 @@
 
   <ion-row id="transito" *ngIf="tipo == 'Transito'">
     <ion-row *ngIf="this.publicacion | async ; let publi">
-      <ion-col>
+      <ion-col class='col-transito' style="position: relative; left: 40px;">
         <ion-slides>
-          <ion-slide class='div-mascotas' pager="true">
+          <ion-slide class='div-transito' pager="true">
             <ion-card class="card-mascota">
               <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{publi.foto}}" class="image">
                 <ion-card-header class="header-titulo-mascota">
