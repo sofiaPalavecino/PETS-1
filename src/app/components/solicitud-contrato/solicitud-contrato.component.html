@@ -7,7 +7,7 @@
     </ion-col>
     <ion-col>
       <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
-      <!--<ion-card-subtitle *ngIf="contrato">{{this.barrio}}</ion-card-subtitle> (LO COMENTÉ PORQUE QUEDABA MEDIO RANCIO ATTE: Kek-nahuuTK) -->
+      <ion-card-subtitle *ngIf="contrato">{{this.barrio}}</ion-card-subtitle>
       <ion-card-subtitle *ngIf="contrato" style="font-size: small;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
     </ion-col>
     <ion-col style="margin: auto;text-align: end;">
@@ -62,6 +62,7 @@
   </ion-row>
 
   <ion-row id="transito" *ngIf="tipo == 'Transito'">
+  
     <ion-row *ngIf="this.publicacion | async ; let publi">
       <ion-col class='col-transito' style="position: relative; left: 40px;">
         <ion-slides>

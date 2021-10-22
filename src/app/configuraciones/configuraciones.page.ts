@@ -23,7 +23,7 @@ export class ConfiguracionesPage implements OnInit {
   correo:string;
   fechaNacimiento:string;
   uid:string;
-  administrando:string;
+  administrando:Array<string>;
   foto:string;
   barrio:string;
   orgFavoritas:Array<string>;

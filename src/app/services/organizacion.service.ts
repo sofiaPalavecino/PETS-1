@@ -42,7 +42,7 @@ export class OrganizacionService {
             contratos: doc.data()["contratos"]
           };
           this.organizaciones.push(orgAux);
-          if (this.authSvc.user$.administrando == doc.id) {
+          if (this.authSvc.user$.administrando.includes(doc.id)) {
             this.oid = doc.id;
             this.organizacion = orgAux;
           }

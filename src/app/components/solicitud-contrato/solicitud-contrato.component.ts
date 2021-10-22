@@ -63,6 +63,7 @@ export class SolicitudContratoComponent implements OnInit {
         id=contrato.idAnimal
 
         this.publicacion = this.publis.getPublicacion(id, this.idOrga);
+      
         console.log("aaaaaaaaaaaaaaa")
       });
     

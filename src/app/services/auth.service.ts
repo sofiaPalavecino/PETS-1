@@ -147,7 +147,7 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:Array<string>,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
