@@ -15,14 +15,17 @@ export class MascotaCardComponent implements OnInit {
   public mascota1:mascota
 
   constructor(userServ:UserService, private afs: AngularFirestore) { 
+   
+  } 
+
+  ngOnInit() {
     this.afs.doc<mascota>(`users/${this.idUser}/mascota/${this.id}`).valueChanges().subscribe((mascotita) =>{
-      this.mascota1=mascotita;
+      this.mascota1 = mascotita;
+      this.mascota1.docId=this.id;
       console.log(mascotita)
       console.log(this.id)
       console.log(this.idUser)
     })
-  } 
-
-  ngOnInit() {}
+  }
 
 }
