@@ -1,10 +1,9 @@
-<div *ngIf="this.user | async; let user">
-  <ion-row class="subtitle" *ngIf="user.orgFavoritas">
+<div *ngIf="this.aServ.user$">
+  <ion-row class="subtitle" *ngIf="this.aServ.user$.orgFavoritas">
     <ion-label style="font-weight: bold;">Últimas publicaciones de tus organizaciones favoritas</ion-label>
   </ion-row>
-  <ion-row *ngFor="let orgaID of user.orgFavoritas">
+  <ion-row *ngFor="let orgaID of this.aServ.user$.orgFavoritas">
     <app-slider-publis-orgas orgaID={{orgaID}} ></app-slider-publis-orgas>
-   
   </ion-row>
 </div>
 

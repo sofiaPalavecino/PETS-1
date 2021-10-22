@@ -12,12 +12,12 @@ export class PubliService {
 
 
 
-  public publicaciones:Observable<Publicacion>=null;
+  public publicaciones:Observable<Publicacion[]>;
 
   constructor(private afs: AngularFirestore, private org:OrganizacionService) {
     this.publicaciones=this.getPublicaciones(this.org.oid)
    }
-
+ 
   fotoEstandar(especie:string){
     let estandar:string
     if(especie == "Perro"){
@@ -39,7 +39,10 @@ export class PubliService {
   }
 
   getPublicaciones(idOrga:string):Observable<any>{
+    
+
     return this.afs.collection<Publicacion>(`organización/${idOrga}/publicaciones`).valueChanges({idField: 'docId'})
+    
   }
 
   getPublicacion(idPublicacion:string, idOrga:string){

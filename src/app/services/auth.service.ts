@@ -23,6 +23,7 @@ export class AuthService {
         this.uid=user.uid;
         this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
           this.user$ = userprofile;
+          console.log(this.user$.orgFavoritas)
         });  
       }
     });

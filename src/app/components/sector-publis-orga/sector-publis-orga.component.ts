@@ -21,7 +21,7 @@ export class SectorPublisOrgaComponent implements OnInit {
   ngOnInit() {
     this.user=this.afs.doc<userProfile>(`users/${this.aServ.uid}`).valueChanges()
     console.log(this.user)
-
+    
   }
 
 }
