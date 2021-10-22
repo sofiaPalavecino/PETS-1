@@ -22,11 +22,19 @@ import { Cuidador } from '../shared/cuidador.interface';
 export class PerfilUsuarioPage {
   
   constructor(private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService, private popController: PopoverPerfilComponent) {
-    
+    userServ.paseador.subscribe(dasda=>{
+      console.log(dasda.calificacion_promedio);
+      console.log(dasda.contratos);
+      console.log(dasda.solicitud_paseo);
+    })
+    userServ.mascotas.subscribe(asds=>{
+      asds.forEach(element => {
+        console.log(element);
+      });
+    })
   }
 
-  async ngOnInit(){
-  }
+  async ngOnInit(){}
 
   
  
