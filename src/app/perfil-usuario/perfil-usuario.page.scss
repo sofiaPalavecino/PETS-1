@@ -111,3 +111,16 @@
     position: relative;
     bottom: 25px;
 }
+
+.button-green{
+    width: 200px;
+    background: #7bd7b5;
+    color: white;
+    height: 30px;
+    --border-radius: 100px;
+}
+
+.button-green:hover{
+    --background: #7bd7b5; 
+}
+
