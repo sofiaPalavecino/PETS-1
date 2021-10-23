@@ -1,4 +1,4 @@
-name: Build Android
+name: Get Android APK
 
 on: [push, pull_request]
 
@@ -7,50 +7,46 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: checkout source
         uses: actions/checkout@v2
 
-      - name: Setup java
+      - name: setup java sdk
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
-
-      - name: Setup Node.js
+          java-version: '9.0.4'
+          
+      - name: setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 14.15
+          node-version: 13.x
 
       - name: Install Cordova
         run: npm install -g cordova
 
-      - name: Install Ionic
+      - name: Install Ionic cli
         run: npm install -g @ionic/cli
 
       - name: Install app dependencies
         run: npm install
 
-      - name: Add Android platform
-        run: ionic cordova  platform add android@latest
-
-      - name: Build Android Dev APK
-        run: ionic cordova  build android
-
-      - name: Build Android Release APK
-        run: ionic cordova  build android --release --prod
+      - name: build the app
+        run: npm run build
+    
+      - name: remove existing folder if there 
+        run: rm -rf /home/runner/work/Bookie/Bookie/android
         
-      - name: Generate the Android App Bundle
-        working-directory: ./platforms/android/
-        run: gradlew bundle
+      - name: Add to android
+        run: npx cap add android
+  
+      - name: sync with source
+        run: npx cap sync
+
+      - name: Generate the Android App Apk
+        working-directory: /home/runner/work/Bookie/Bookie/android
+        run: bash ./gradlew assembleDebug --stacktrace
 
       - name: Upload dev APK
         uses: actions/upload-artifact@v1
         with:
           name: app-dev
-          path: platforms/android/app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload release bundle
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release
-          path: platforms/android/app/build/outputs/bundle/release/app.aab
-          
+          path: android/app/build/outputs/apk/debug/app-debug.apk
