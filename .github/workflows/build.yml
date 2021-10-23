@@ -37,10 +37,13 @@ jobs:
 
       - name: Build Android Release APK
         run: ionic capacitor build android --release --prod
-
-      - name: Generate Wrapper
-        run: gradle wrapper
-
+        
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      
+      - name: Build with Gradle
+        run: ./gradlew build
+        
       - name: Generate the Android App Bundle
         working-directory: ./platforms/android/
         run: ./gradlew bundle
