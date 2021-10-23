@@ -45,7 +45,7 @@ jobs:
         run: npx cap sync
 
       - name: Generate the Android App Apk
-        working-directory: /home/runner/work/Bookie/Bookie/android
+        
         run: bash ./gradlew assembleDebug --stacktrace
 
       - name: Upload dev APK
