@@ -17,7 +17,13 @@
       <!--<app-slider-publis-orgas orgaID={{orgaID}} ></app-slider-publis-orgas>-->
     </ion-row>
     <ng-template #noPublis>
-      no hay publis
+
+      <div style="display:grid; place-items:center; padding-top: 10px; margin-bottom: 10px;">
+        <div><span class="iconify" data-icon="noto:dog" style="width: 90px; height: 90%; "></span></div>
+        
+      </div>
+      
+      <ion-label>Ninguna de tus organizaciones favoritas tiene publicaciones nuevas</ion-label>
     </ng-template>
     <ion-row *ngFor="let orgaID of this.aServ.user$.orgFavoritas">
       <app-slider-publis-orgas orgaID={{orgaID}} ></app-slider-publis-orgas>
