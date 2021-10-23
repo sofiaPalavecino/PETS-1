@@ -38,10 +38,6 @@ jobs:
       - name: Build Android Release APK
         run: ionic capacitor build android --release --prod
         
-      - name: gradle wrapper
-        working-directory: ./platforms/android/
-        run: gradle wrapper
-        
       - name: Generate the Android App Bundle
         working-directory: ./platforms/android/
         run: ./gradlew bundle
