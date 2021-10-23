@@ -5,6 +5,7 @@ import { Organizacion } from 'src/app/shared/organizacion.interface';
 import { AuthService } from 'src/app/services/auth.service';
 import { userProfile } from 'src/app/shared/user.interface';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Publicacion } from 'src/app/shared/publicacion';
 
 @Component({
   selector: 'app-sector-publis-orga',
@@ -13,15 +14,43 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 })
 export class SectorPublisOrgaComponent implements OnInit {
 
-  //@Input() orgaID:string
-  public user:Observable<userProfile>
+  public ahora=new Date();
+  public publicaciones:Array<Publicacion>=[];
+  public publisRecientes:boolean;
 
   constructor(private orgServ:OrganizacionesService, private aServ:AuthService, private afs:AngularFirestore) { }
 
   ngOnInit() {
-    this.user=this.afs.doc<userProfile>(`users/${this.aServ.uid}`).valueChanges()
-    console.log(this.user)
+    
+    this.ahora.setDate(this.ahora.getDate()-2)
+    this.revisarPublis()
     
   }
+
+  revisarPublis(){
+    this.publisRecientes=false
+    this.publicaciones=[]
+    this.aServ.user$.orgFavoritas.forEach((org)=>{
+      this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges().subscribe((publi)=>{
+        
+        if(publi.length>0){
+          console.log();
+          
+          this.publisRecientes=true;
+          publi.forEach((pub)=>{
+            console.log(pub);
+
+            this.publicaciones.push(pub)
+          })
+        }else if(this.publisRecientes!=true){this.publisRecientes=false}
+        
+        console.log(this.publisRecientes);
+        console.log(this.publicaciones);
+      })
+    })
+    
+  }
+
+  
 
 }

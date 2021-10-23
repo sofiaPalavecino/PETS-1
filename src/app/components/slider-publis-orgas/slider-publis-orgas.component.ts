@@ -22,14 +22,14 @@ export class SliderPublisOrgasComponent implements OnInit {
   constructor(private afs:AngularFirestore, private orgServ:OrganizacionesService, private pubServ: PubliService) { }
 
   ngOnInit() {
-    this.ahora.setDate(this.ahora.getDate()-2)
+    /*this.ahora.setDate(this.ahora.getDate()-2)
     this.organizacion=this.orgServ.getOrganizacion(this.orgaID)
     this.publicaciones=this.pubServ.getPublicaciones(this.orgaID)
-    console.log(this.publicaciones)
+    console.log(this.publicaciones)*/
   }
 
-  pasarADate(fecha:any){
+  /*pasarADate(fecha:any){
     return(fecha.toDate('yyyy/MM/dd h:mm:ss a'))
-  }
+  }*/
 
 }
