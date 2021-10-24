@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { userProfile } from 'src/app/shared/user.interface';
+import { ContratoCuidador, ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
 
 @Component({
   selector: 'app-slider-agenda',
@@ -11,14 +11,24 @@ import { userProfile } from 'src/app/shared/user.interface';
 })
 export class SliderAgendaComponent implements OnInit {
 
-  public user:Observable<userProfile>
-
+  public contratosPendientes:boolean;
+  public paseos:ContratoPaseador;
+  public cuidados:ContratoCuidador;
+  
   constructor(private aServ:AuthService, private afs:AngularFirestore) { }
 
   ngOnInit() {
-    this.user=this.afs.doc<userProfile>(`users/${this.aServ.uid}`).valueChanges()
-    console.log(this.user)
+    this.revisarContratos()
+  }
 
+  revisarContratos(){
+    this.contratosPendientes=false;
+
+    if(this.aServ.user$.contratosActivos.size>0){
+        for (let [key, value] of this.aServ.user$.contratosActivos) {
+            console.log(key, value);            //"Lokesh" 37 "Raj" 35 "John" 40
+        }
+    }
   }
 
 }

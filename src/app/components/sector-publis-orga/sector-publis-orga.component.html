@@ -25,9 +25,6 @@
       
       <ion-label>Ninguna de tus organizaciones favoritas tiene publicaciones nuevas</ion-label>
     </ng-template>
-    <ion-row *ngFor="let orgaID of this.aServ.user$.orgFavoritas">
-      <app-slider-publis-orgas orgaID={{orgaID}} ></app-slider-publis-orgas>
-    </ion-row>
   </ion-row>
   <ng-template #elseBlock>
     <ion-label>No tenés organizaciones favoritas guardadas</ion-label>
