@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , OnInit} from '@angular/core';
 import { User, userProfile } from '../shared/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -13,8 +13,8 @@ import { Dia } from '../dia';
   providedIn: 'root',
 })
 
-export class AuthService {
-  public user$: userProfile;
+export class AuthService implements OnInit{
+  public user$:userProfile;
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
@@ -28,7 +28,10 @@ export class AuthService {
     });
   }
 
-  
+  ngOnInit() {
+    
+    
+  }
 
   async resetPassword(email: string): Promise<void> {
     try {
