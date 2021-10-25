@@ -31,6 +31,9 @@ jobs:
 
       - name: Add Android platform
         run: ionic cordova platform add android@latest
+        
+      - name: x
+        run: ionic cordova plugin rm cordova-plugin-whitelist
 
       - name: Build Android Dev APK
         run: ionic cordova build android
