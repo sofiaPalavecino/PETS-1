@@ -37,6 +37,10 @@ export class PublicacionPage implements OnInit {
     this.organizacion = this.orgServ.getOrganizacion(this.idOrga)
     this.publicacion = this.publiServ.getPublicacion(this.id,this.idOrga)
   }
+
+  ionViewDidEnter(){
+    this.noPodiTransitar();
+  }
   
   cambiarOrganizacion(){
     this.org.actualizarOrganizacion(this.org.oid);
@@ -45,11 +49,11 @@ export class PublicacionPage implements OnInit {
   mostrarTexto(id:string){
     let vista=document.getElementById(id).style.display;
 	if (vista=='none')
-		vista='block';
+    document.getElementById(id).style.display = 'block';
 	else
-		vista='none';
+    document.getElementById(id).style.display = 'none';
 
-	document.getElementById(id).style.display = vista;
+	
   }
 
   nuevoTransito(id: string){
@@ -59,6 +63,24 @@ export class PublicacionPage implements OnInit {
 		vista='inline';
 	document.getElementById(id).style.display = vista;
   window.alert("Su solicitud está siendo procesada, espere la confirmación de la organización")
-}
+  //##############################################ACTUALIZAR ESTO##############################################
+  }
+
+  noPodiTransitar(){
+    if (this.authServ.user$.administrando.includes(this.idOrga)){
+      document.getElementById('siPodi').style.display = 'none';
+      document.getElementById('noPodi').style.display = 'block';
+
+    }
+    else{
+      document.getElementById('siPodi').style.display = 'block';
+      document.getElementById('noPodi').style.display = 'none';
+    }
+  
+  }
+
+  eriGey(){
+    window.alert("eri gey?")
+  }
 
 }
