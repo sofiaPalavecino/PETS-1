@@ -75,10 +75,10 @@ export class PubliService {
     return (this.afs.doc<contratoTransito>(`contratoTransito/${id}`).valueChanges({idField: 'docId'}))
   }
 
-  transitar(idAnimal:string, idTransitante:string, idOrganizacion: string){
+  transitar(idAnimal:string, idTransitante:string, idOrganizacion: string, fecha: string){
     const nuevoTransito = this.afs.collection('contratoTransito').add({
       estado: "solicitud",
-      fecha: new Date(),
+      fecha: fecha,
       idAnimal: idAnimal,
       idOrganizacion: idOrganizacion,
       idTransitante: idTransitante

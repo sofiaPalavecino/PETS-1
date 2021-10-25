@@ -7,6 +7,7 @@ import { PaseosService } from '../services/paseos.service';
 import { Paseador } from '../shared/paseador';
 import { Cuidador } from '../shared/cuidador.interface';
 import { Organizacion } from '../shared/organizacion.interface';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class NotificacionesPage implements OnInit {
   @Input() hayCuidado: boolean;
   @Input() hayTransito: boolean;
 
-  constructor(private authSvc: AuthService,private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService) { }
+  constructor(private authSvc: AuthService,private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, date:DatePipe) { }
 
   ngOnInit() {
     /*this.paseador = this.trabajo.getPaseador(this.authSvc.user$.uid);

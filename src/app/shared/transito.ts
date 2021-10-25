@@ -1,6 +1,6 @@
 export interface contratoTransito {
     estado: string;
-    fecha: Date;
+    fecha: string;
     idAnimal: string;
     idOrganizacion: string;
     idTransitante: string;

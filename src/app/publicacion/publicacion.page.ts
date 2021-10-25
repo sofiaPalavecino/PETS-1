@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Organizacion } from '../shared/organizacion.interface';
 import { OrganizacionesService } from '../services/organizaciones.service';
 import { AuthService } from '../services/auth.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -27,7 +28,7 @@ export class PublicacionPage implements OnInit {
   uid:string;
   
 
-  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private authServ:AuthService) {
+  constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private authServ:AuthService, private date:DatePipe) {
       this.uid=this.authServ.user$.uid;
    }
 
@@ -57,7 +58,8 @@ export class PublicacionPage implements OnInit {
   }
 
   nuevoTransito(id: string){
-    this.publiServ.transitar(this.id, this.uid, this.idOrga);
+    let fecha = this.date.transform(new Date(), 'dd/MM/yyyy')
+    this.publiServ.transitar(this.id, this.uid, this.idOrga, fecha);
     let vista=document.getElementById(id).style.display;
 	if (vista=='none')
 		vista='inline';

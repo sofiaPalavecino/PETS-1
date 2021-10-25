@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PubliService } from "src/app/services/publi.service";
 import { Publicacion } from "src/app/shared/publicacion";
 import { Organizacion } from "src/app/shared/organizacion.interface"
+import { DatePipe } from '@angular/common';
 
 
 import firebase from "firebase/app";
@@ -39,7 +40,6 @@ export class SolicitudContratoComponent implements OnInit {
   userName: string;
   imgCliente: string;
   barrio: string;
-  fecha:string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
 
@@ -51,7 +51,8 @@ export class SolicitudContratoComponent implements OnInit {
     private org: OrganizacionService,
     private orgas: OrganizacionesService,
     private route: ActivatedRoute,
-    private publis: PubliService
+    private publis: PubliService,
+    private date: DatePipe
   ) {}
 
   async ngOnInit() {
@@ -61,12 +62,28 @@ export class SolicitudContratoComponent implements OnInit {
       var id:any
       this.transito.subscribe((contrato)=>{
         id=contrato.idAnimal
-
+        /*this.fecha=contrato.fecha
+        this.fecha.date.transform(this.fecha, 'dd/MM/yyyy')
+        console.log(this.fecha);*/
+        
         this.publicacion = this.publis.getPublicacion(id, this.idOrga);
         console.log("aaaaaaaaaaaaaaa")
       });
+      this.afs
+    .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
+    .valueChanges({ idField: "docId" })
+    .subscribe((data) => {
+      
+      this.contrato = data;
+      this.cliente = this.obDataServ.getUser(data.idTransitante);
+      this.cliente.subscribe((data) => {
+        this.userName = data.nombre + " " + data.apellido;
+        this.imgCliente = data.foto;
+        this.barrio = data.barrio;
+      });
+    });
     }
-    
+    else{
     this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
     .valueChanges({ idField: "docId" })
@@ -95,6 +112,7 @@ export class SolicitudContratoComponent implements OnInit {
         });
       }
     });
+  }
   }
 
   async aceptarContrato(idContrato: string) {
@@ -308,7 +326,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   expandirSolicitud() {
     if (this.botonInfo == "ver mas") {
-      document.getElementById(this.idContrato).style.height = "450px";
+      document.getElementById(this.idContrato).style.height = "auto";
       this.botonInfo = "ver menos";
     } else {
       document.getElementById(this.idContrato).style.height = "65px";

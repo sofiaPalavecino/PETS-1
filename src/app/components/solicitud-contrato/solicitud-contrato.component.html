@@ -8,7 +8,12 @@
     <ion-col>
       <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
       <ion-card-subtitle *ngIf="contrato">{{this.barrio}}</ion-card-subtitle>
-      <ion-card-subtitle *ngIf="contrato" style="font-size: small;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+      <div *ngIf="tipo == 'Transito'">
+        <ion-card-subtitle *ngIf="contrato" style="font-size: small;">{{this.contrato.fecha}}</ion-card-subtitle>  
+      </div>
+      <div *ngIf="tipo != 'Transito'">
+        <ion-card-subtitle *ngIf="contrato" style="font-size: small;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+      </div>
     </ion-col>
     <ion-col style="margin: auto;text-align: end;">
       <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
@@ -42,7 +47,7 @@
           <ion-slides>
             <ion-slide *ngFor="let mascota of mascotas" class='div-mascotas' pager="true">
               <ion-card class="card-transito">
-                <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{mascota.fotos}}" class="image">
+                <img style="height: auto;object-fit: cover;width: 60vw;" src="{{mascota.fotos}}" class="image">
                   <ion-card-header class="header-titulo-mascota">
                     <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
                   </ion-card-header>
@@ -68,7 +73,7 @@
         <ion-slides>
           <ion-slide class='div-transito' pager="true">
             <ion-card class="card-mascota">
-              <img style="height: 160px;object-fit: cover;width: 60vw;" src="{{publi.foto}}" class="image">
+              <img style="height: auto;object-fit: cover;width: 60vw;" src="{{publi.foto}}" class="image">
                 <ion-card-header class="header-titulo-mascota">
                   <ion-card-title class="titulo-paseo">{{publi.nombre}}</ion-card-title>
                 </ion-card-header>
