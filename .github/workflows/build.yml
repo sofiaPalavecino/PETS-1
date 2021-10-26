@@ -38,6 +38,10 @@ jobs:
       - name: Build Android Dev APK
         run: ionic cordova build android
 
+    
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+        
       - name: Build Android Release APK
         run: ionic cordova build android --release --prod
 
