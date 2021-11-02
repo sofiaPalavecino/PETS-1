@@ -11,7 +11,11 @@ jobs:
         run: sudo apt install tree 
         
       - name: cd
-        run: cd ..
+        run: |
+          pwd             
+          mkdir hello
+          cd hello
+          pwd   
       - name: cd
         run: cd ..
       - name: ls
