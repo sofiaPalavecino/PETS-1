@@ -37,7 +37,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-        
+      - name: ls 
+        run: ls
     
       - name: Build Android Dev APK
         run: ionic cordova build android
