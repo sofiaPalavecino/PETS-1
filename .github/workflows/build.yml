@@ -36,14 +36,14 @@ jobs:
         run: ionic cordova plugin rm cordova-plugin-whitelist
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@latest
         
-
+    
       - uses: actions/checkout@v2
       - uses: nttld/setup-ndk@v1
         with:
           ndk-version: r21e
-      - run: ndk-build NDK_PROJECT_PATH=. APP_BUILD_SCRIPT=./Android.mk NDK_APPLICATION_MK=./Application.mk
+      - run: ndk-build 
         
       - name: Build Android Dev APK
         run: ionic cordova build android
