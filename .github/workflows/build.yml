@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: install
         run: sudo apt install tree 
+        
+      - name: cd
+        run: cd ..
+      - name: ls
+        run: ls ..
+
     
       - name: Checkout source
         uses: actions/checkout@v2
@@ -26,7 +32,7 @@ jobs:
       - name: Install Cordova
         run: npm install -g cordova
 
-      - name: Install Ionic
+      - name: Install Ionicdx
         run: npm install -g @ionic/cli
 
       - name: Install app dependencies
