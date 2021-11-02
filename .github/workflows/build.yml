@@ -12,9 +12,12 @@ jobs:
         
       - name: cd
         run: cd ..
+      - name: cd
+        run: cd ..
       - name: ls
         run: ls 
-
+      - name: tree
+        run: tree
     
       - name: Checkout source
         uses: actions/checkout@v2
