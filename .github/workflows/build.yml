@@ -7,6 +7,9 @@ jobs:
     name: Build APK
     runs-on: ubuntu-latest
     steps:
+      - name: install
+        run: sudo apt install tree 
+    
       - name: Checkout source
         uses: actions/checkout@v2
 
@@ -37,8 +40,8 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
-      - name: ls 
-        run: ls
+      - name: tree 
+        run: tree
     
       - name: Build Android Dev APK
         run: ionic cordova build android
