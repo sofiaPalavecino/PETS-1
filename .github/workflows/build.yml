@@ -36,7 +36,7 @@ jobs:
         run: ionic cordova plugin rm cordova-plugin-whitelist
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@latest
+        uses: android-actions/setup-android@v2
         
     
       - uses: actions/checkout@v2
