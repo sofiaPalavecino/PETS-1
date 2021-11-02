@@ -66,3 +66,4 @@ jobs:
         with:
           name: app-release
           path: platforms/android/app/build/outputs/bundle/release/app.aab
+          
