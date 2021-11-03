@@ -9,17 +9,7 @@ jobs:
     steps:
       - name: install
         run: sudo apt install tree 
-        
-      - name: cd
-        run: |
-          pwd             
-          mkdir hello
-          cd hello
-          pwd   
-      - name: cd
-        run: cd ..
-      - name: ls
-        run: pwd 
+      
       - name: tree
         run: tree
     
