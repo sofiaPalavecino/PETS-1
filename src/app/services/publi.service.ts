@@ -81,7 +81,8 @@ export class PubliService {
       fecha: fecha,
       idAnimal: idAnimal,
       idOrganizacion: idOrganizacion,
-      idTransitante: idTransitante
+      idTransitante: idTransitante,
+      emision: new Date()
     })
     nuevoTransito.then((data)=> {
       this.afs.doc(`organización/${idOrganizacion}`).update({

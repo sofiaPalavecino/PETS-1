@@ -162,6 +162,11 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           transito: true
         });
+      this.afs
+        .doc<contratoTransito>(`contratoTransito/${this.idContrato}`)
+        .update({
+          cambioDeEstado: new Date()
+        });
       }
     else if (this.tipo == "Paseador") {
       this.afs
@@ -301,6 +306,11 @@ export class SolicitudContratoComponent implements OnInit {
             solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
               this.idContrato
             ),
+          });
+        this.afs
+          .doc<contratoTransito>(`contratoTransito/${this.idContrato}`)
+          .update({
+            cambioDeEstado: new Date()
           });
         }
       else if (this.tipo == "Paseador") {
