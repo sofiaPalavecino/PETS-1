@@ -65,4 +65,19 @@ export class OrganizacionService {
       }
     });
   }
+
+
+  /*public getCurrentUserAssignments(): Observable<any> {
+    return new Observable((observer) => {
+        const query = this.afs.firestore.collection("organización")
+          .where("administradores", "array-contains", this.authSvc.user$.uid);
+
+        let _currentUserAssignments = query.get().then(querySnapshot => {
+            this.ngZone.run(() => {
+                observer.next(querySnapshot.docSnapshots);
+            });
+        });
+    });
+}*/
+
 }

@@ -30,6 +30,7 @@ export class SolicitudContratoComponent implements OnInit {
   public publicacion:Observable<Publicacion>=null
   public organizacion:Observable<Organizacion>=null
   public transito:Observable<contratoTransito>=null
+  public momento:string
   
   @Input() idContrato: string;
   @Input() tipo: string;
@@ -42,6 +43,10 @@ export class SolicitudContratoComponent implements OnInit {
   barrio: string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
+  hoy: string;
+  ayer: string;
+  anteAyer: string;
+  idPubli: string;
 
   constructor(
     private authServ: AuthService,
@@ -56,18 +61,32 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.hoy = this.date.transform(new Date(), 'dd/MM/yyyy')
+    this.ayer = this.date.transform(new Date(Date.now() - 864e5), 'dd/MM/yyyy')
+    this.anteAyer = this.date.transform(new Date(Date.now() - (864e5*2)), 'dd/MM/yyyy')
     if(this.tipo=="Transito"){
       this.transito = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
-      var id:any
       this.transito.subscribe((contrato)=>{
-        id=contrato.idAnimal
+        this.idPubli=contrato.idAnimal
         /*this.fecha=contrato.fecha
         this.fecha.date.transform(this.fecha, 'dd/MM/yyyy')
         console.log(this.fecha);*/
         
-        this.publicacion = this.publis.getPublicacion(id, this.idOrga);
+        this.publicacion = this.publis.getPublicacion(this.idPubli, this.idOrga);
         console.log("aaaaaaaaaaaaaaa")
+        if (contrato.fecha === this.hoy){
+          this.momento = "Hoy";
+        }
+        else if (contrato.fecha === this.ayer){
+          this.momento = "Ayer";
+        }
+        else if (contrato.fecha === this.anteAyer){
+          this.momento = "Antes de ayer"
+        }
+        else{
+          this.momento = contrato.fecha;
+        }
       });
       this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
@@ -137,6 +156,11 @@ export class SolicitudContratoComponent implements OnInit {
         .doc(this.idOrga)
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
+      this.afs
+        .doc<Publicacion>(`organización/${this.idOrga}/publicaciones/${this.idPubli}`)
+        .update({
+          transito: true
         });
       }
     else if (this.tipo == "Paseador") {

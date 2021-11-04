@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { OrganizacionService } from '../services/organizacion.service';
+import { OrganizacionesService } from '../services/organizaciones.service';
 import { PaseosService } from '../services/paseos.service';
 import { Paseador } from '../shared/paseador';
 import { Cuidador } from '../shared/cuidador.interface';
@@ -18,14 +19,16 @@ import { DatePipe } from '@angular/common';
 export class NotificacionesPage implements OnInit {
   public paseador:Observable<Paseador>=null
   public cuidador:Observable<Cuidador>=null
+  public administrando:Observable<Organizacion>=null
 
   @Input() hayPaseo: boolean;
   @Input() hayCuidado: boolean;
   @Input() hayTransito: boolean;
 
-  constructor(private authSvc: AuthService,private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, date:DatePipe) { }
+  constructor(private authSvc: AuthService, private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, private date:DatePipe, private orgas: OrganizacionesService) { }
 
   ngOnInit() {
+    this.administrando = this.orgas.getAdministrando(this.authSvc.user$.uid);
     /*this.paseador = this.trabajo.getPaseador(this.authSvc.user$.uid);
     this.cuidador = this.trabajo.getCuidador(this.authSvc.user$.uid);
     this.paseador.subscribe((data)=>{

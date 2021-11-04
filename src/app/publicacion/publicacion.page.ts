@@ -26,6 +26,8 @@ export class PublicacionPage implements OnInit {
   public idOrga:string=""
   public nombre:string=""
   uid:string;
+  transito:boolean;
+  adopcion:boolean;
   
 
   constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private authServ:AuthService, private date:DatePipe) {
@@ -37,6 +39,10 @@ export class PublicacionPage implements OnInit {
     this.idOrga = await this.route.snapshot.paramMap.get('idOrga')
     this.organizacion = this.orgServ.getOrganizacion(this.idOrga)
     this.publicacion = this.publiServ.getPublicacion(this.id,this.idOrga)
+    this.publicacion.subscribe((data)=>{
+      this.transito = data.transito;
+      this.adopcion = data.adopcion;
+    });
   }
 
   ionViewDidEnter(){
@@ -69,7 +75,7 @@ export class PublicacionPage implements OnInit {
   }
 
   noPodiTransitar(){
-    if (this.authServ.user$.administrando.includes(this.idOrga)){
+    if (this.authServ.user$.administrando.includes(this.idOrga) || this.transito === true){
       document.getElementById('siPodi').style.display = 'none';
       document.getElementById('noPodi').style.display = 'block';
 
