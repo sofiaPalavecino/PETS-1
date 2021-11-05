@@ -18,7 +18,7 @@ jobs:
           java-version: 1.8
           
       - name: rename dxJar
-        run: ls /usr/local/lib/android/sdk/build-tools/31.0.0/lib/
+        run: mv /usr/local/lib/android/sdk/build-tools/31.0.0/lib/d8.jar /usr/local/lib/android/sdk/build-tools/31.0.0/lib/dx.jar
           
       - name: rename dx
         run: mv /usr/local/lib/android/sdk/build-tools/31.0.0/d8 /usr/local/lib/android/sdk/build-tools/31.0.0/dx 
