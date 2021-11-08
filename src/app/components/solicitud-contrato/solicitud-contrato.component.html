@@ -52,11 +52,11 @@
                     <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-subtitle>
-                    <span class="informacion-paseo">⭐{{mascota.calificacion}}
+                    <span class="informacion-paseo"><font color="yellow">★</font>{{mascota.calificacion}}
                     </span>
                   </ion-card-subtitle>
                   <ion-card-content>
-                    <span class="informacion-mascota" style="color: #7bd7b5;">Ver Más</span>
+                    <span class="informacion-mascota" style="color: #7bd7b5;">{{this.botonInfo}}</span>
                   </ion-card-content>
               </ion-card>
             </ion-slide>
@@ -78,7 +78,7 @@
                   <ion-card-title class="titulo-paseo">{{publi.nombre}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-subtitle>
-                  <span class="informacion-paseo">⭐{{publi.calificacion}}
+                  <span class="informacion-paseo"><font color="yellow">★</font>{{publi.calificacion}}
                   </span>
                 </ion-card-subtitle>
                 <ion-card-content>

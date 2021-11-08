@@ -43,10 +43,11 @@ export class SolicitudContratoComponent implements OnInit {
   barrio: string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
-  hoy: string;
-  ayer: string;
-  anteAyer: string;
+  fecha: string;
+  guardaMomento: string;
   idPubli: string;
+  dia: string;
+  mes: string;
 
   constructor(
     private authServ: AuthService,
@@ -61,13 +62,11 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.hoy = this.date.transform(new Date(), 'dd/MM/yyyy')
-    this.ayer = this.date.transform(new Date(Date.now() - 864e5), 'dd/MM/yyyy')
-    this.anteAyer = this.date.transform(new Date(Date.now() - (864e5*2)), 'dd/MM/yyyy')
     if(this.tipo=="Transito"){
       this.transito = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
       this.transito.subscribe((contrato)=>{
+        this.fecha = contrato.fecha;
         this.idPubli=contrato.idAnimal
         /*this.fecha=contrato.fecha
         this.fecha.date.transform(this.fecha, 'dd/MM/yyyy')
@@ -75,18 +74,95 @@ export class SolicitudContratoComponent implements OnInit {
         
         this.publicacion = this.publis.getPublicacion(this.idPubli, this.idOrga);
         console.log("aaaaaaaaaaaaaaa")
-        if (contrato.fecha === this.hoy){
-          this.momento = "Hoy";
+        
+        switch (contrato.fecha) {
+          case this.date.transform(new Date(), 'dd/MM/yyyy'):
+            this.momento = "Hoy";
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - 864e5), 'dd/MM/yyyy'):
+            this.momento = "Ayer";
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*2)), 'dd/MM/yyyy'):
+            this.momento = "Antes de ayer"
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*3)), 'dd/MM/yyyy'):
+            this.momento = "Hace 3 días";
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*4)), 'dd/MM/yyyy'):
+            this.momento = "Hace 4 días"
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*5)), 'dd/MM/yyyy'):
+            this.momento = "Hace 5 días"
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*6)), 'dd/MM/yyyy'):
+            this.momento = "Hace 6 días"
+            this.guardaMomento = this.momento;
+            break;
+          case this.date.transform(new Date(Date.now() - (864e5*7)), 'dd/MM/yyyy'):
+            this.momento = "Hace 1 semana"
+            this.guardaMomento = this.momento;
+            break;
+          default:
+            this.momento = "Hace más de 1 semana";
+            this.guardaMomento = this.momento;
         }
-        else if (contrato.fecha === this.ayer){
-          this.momento = "Ayer";
-        }
-        else if (contrato.fecha === this.anteAyer){
-          this.momento = "Antes de ayer"
+
+        // Evidentemente estos switch no van, algún día me voy a poner a entender los timestamps y arreglarlo, pero de momento esto sirve <3
+
+        if(contrato.fecha.charAt(0) === '0'){
+          this.dia = contrato.fecha.charAt(1)
         }
         else{
-          this.momento = contrato.fecha;
+          this.dia = contrato.fecha.charAt(0)+contrato.fecha.charAt(1);
         }
+        this.mes = contrato.fecha.charAt(3)+contrato.fecha.charAt(4);
+        switch (this.mes) {
+          case '01':
+            this.mes = "Enero";
+            break;
+          case '02':
+            this.mes = "Febrero";
+            break;
+          case '03':
+            this.mes = "Marzo";
+            break;
+          case '04':
+            this.mes = "Abril";
+            break;
+          case '05':
+            this.mes = "Mayo";
+            break;
+          case '06':
+            this.mes = "Junio";
+            break;
+          case '07':
+            this.mes = "Julio";
+            break;
+          case '08':
+            this.mes = "Agosto";
+            break;
+          case '09':
+            this.mes = "Septiembre";
+            break;
+          case '10':
+            this.mes = "Octubre";
+            break;
+          case '11':
+            this.mes = "Noviembre";
+            break;
+          case '12':
+            this.mes = "Diciembre";
+            break;
+          default:
+            this.mes = "ERROR";
+        }
+        this.fecha = this.dia + ' de ' + this.mes;
       });
       this.afs
     .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
@@ -361,10 +437,12 @@ export class SolicitudContratoComponent implements OnInit {
   expandirSolicitud() {
     if (this.botonInfo == "ver mas") {
       document.getElementById(this.idContrato).style.height = "auto";
+      this.momento = this.fecha;
       this.botonInfo = "ver menos";
     } else {
       document.getElementById(this.idContrato).style.height = "65px";
       this.botonInfo = "ver mas";
+      this.momento = this.guardaMomento;
     }
   }
 }
