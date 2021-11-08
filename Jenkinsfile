@@ -4,18 +4,6 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      stage('rename dx') {
-      steps {
-         sh 'mv /usr/local/lib/android/sdk/build-tools/31.0.0/d8 /usr/local/lib/android/sdk/build-tools/31.0.0/dx '
-      }
-   }
-   
-
-      stage('rename dxJar') {
-      steps {
-         sh 'mv /usr/local/lib/android/sdk/build-tools/31.0.0/lib/d8.jar /usr/local/lib/android/sdk/build-tools/31.0.0/lib/dx.jar'
-      }
-   }
    
 
       stage('rInstall Cordova') {
