@@ -24,7 +24,7 @@ export class PaseosService {
     return (this.afs.collection<Paseador>(`paseador`, ref => ref.where(ref.id,"!=",this.authServ.user$.uid)).valueChanges({idField: 'docId'}))
   }
   getCuidadores():Observable<any>{
-    return (this.afs.collection<Cuidador>(`cuidador`, ref => ref.where("uid", "==", this.authServ.user$.uid)).valueChanges({idField: 'docId'}))
+    return (this.afs.collection<Cuidador>(`cuidador`, ref => ref.where("uid", "!=", this.authServ.user$.uid)).valueChanges({idField: 'docId'}))
   }
   
 }
