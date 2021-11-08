@@ -5,6 +5,12 @@ pipeline {
       }
    stages {
    
+      stage('rInstall Node') {
+      steps {
+         sh 'apt install nodejs'
+      }
+   }
+   
 
       stage('rInstall Cordova') {
       steps {
