@@ -19,7 +19,7 @@ import { DatePipe } from '@angular/common';
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
-import { contratoTransito } from "src/app/shared/transito";
+import { contratoOrganizacion } from "src/app/shared/contratoOrganizacion";
 import { TouchSequence } from "selenium-webdriver";
 
 @Component({
@@ -30,7 +30,7 @@ import { TouchSequence } from "selenium-webdriver";
 export class SolicitudContratoComponent implements OnInit {
   public publicacion:Observable<Publicacion>=null
   public organizacion:Observable<Organizacion>=null
-  public transito:Observable<contratoTransito>=null
+  public transito:Observable<contratoOrganizacion>=null
   public momento:string
   
   @Input() idContrato: string;
@@ -69,7 +69,7 @@ export class SolicitudContratoComponent implements OnInit {
       this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9774);
     
     }
-    if(this.tipo=="Transito"){
+    if(this.tipo=="Organizacion"){
       this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9203);
       this.transito = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
@@ -226,7 +226,7 @@ export class SolicitudContratoComponent implements OnInit {
       .collection(`contrato${this.tipo}`)
       .doc(idContrato)
       .update({ estado: "aceptado" });
-    if (this.tipo == "Transito") {
+    if (this.tipo == "Organizacion") {
       this.afs
         .collection("organización")
         .doc(this.idOrga)
@@ -247,7 +247,7 @@ export class SolicitudContratoComponent implements OnInit {
           transito: true
         });
       this.afs
-        .doc<contratoTransito>(`contratoTransito/${this.idContrato}`)
+        .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
         .update({
           cambioDeEstado: new Date()
         });
@@ -382,7 +382,7 @@ export class SolicitudContratoComponent implements OnInit {
       .update({ estado: "rechazado" });
 
     
-      if (this.tipo == "Transito") {
+      if (this.tipo == "Organizacion") {
         this.afs
           .collection("organización")
           .doc(this.idOrga)
@@ -392,7 +392,7 @@ export class SolicitudContratoComponent implements OnInit {
             ),
           });
         this.afs
-          .doc<contratoTransito>(`contratoTransito/${this.idContrato}`)
+          .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
           .update({
             cambioDeEstado: new Date()
           });
@@ -447,12 +447,16 @@ export class SolicitudContratoComponent implements OnInit {
       document.getElementById(this.idContrato).style.height = "auto";
       this.momento = this.fecha;
       this.botonInfo = "ver menos";
-      document.getElementById("mostrarTipo").style.display = 'block';
+      if(this.tipo == 'Organizacion'){
+        document.getElementById("mostrarTipo").style.display = 'block';
+      }
     } else {
       document.getElementById(this.idContrato).style.height = "65px";
       this.botonInfo = "ver mas";
       this.momento = this.guardaMomento;
-      document.getElementById("mostrarTipo").style.display = 'none';
+      if(this.tipo == 'Organizacion'){
+        document.getElementById("mostrarTipo").style.display = 'none';
+      }
     }
   }
 }

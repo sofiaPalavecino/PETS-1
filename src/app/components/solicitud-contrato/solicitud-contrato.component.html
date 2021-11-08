@@ -5,21 +5,27 @@
         <img *ngIf="imgCliente" src="{{imgCliente}}">
       </ion-avatar>
     </ion-col>
-    <ion-col style="width: 180px;">
-      <div *ngIf="tipo == 'Transito'" style="width: 180px;">
-        <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5; width: 180px;">{{this.userName}}&nbsp;&nbsp;{{this.emojiTipo}}</ion-card-title>
+    <ion-col style="width: 180px;" >
+      <ion-card-subtitle id="mostrarTipo" style="font-size: medium; width: 100px;">{{this.tipo}}</ion-card-subtitle>
+      <div *ngIf="tipo == 'Organizacion'; else coso" style="width: 180px;">
+        <div>
+          <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5; width: 180px;">{{this.userName}}&nbsp;&nbsp;{{this.emojiTipo}}</ion-card-title>
+        </div>
+        
+        <div>
+          <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: auto;">{{this.momento}}</ion-card-subtitle>
+        </div>
       </div>
-      <ion-card-subtitle id="mostrarTipo" style="font-size: medium; width: 100px;"><font color="#AAAAAA">{{this.tipo}}</font></ion-card-subtitle>
-      <div *ngIf="tipo != 'Transito'">
-        <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
-      </div>
-        <ion-card-subtitle *ngIf="contrato" style="width: 100px;">{{this.barrio}}</ion-card-subtitle>
-      <div *ngIf="tipo == 'Transito'">
-        <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: auto;">{{this.momento}}</ion-card-subtitle>  
-      </div>
-      <div *ngIf="tipo != 'Transito'">
-        <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: 100px;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
-      </div>
+      <ng-template #coso>
+        <div>
+          <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
+        </div>
+        <div>
+          <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: 100px;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+        </div>
+      </ng-template>
+
+      <ion-card-subtitle *ngIf="contrato" style="width: 100px;">{{this.barrio}}</ion-card-subtitle>
     </ion-col>
     <ion-col style="margin: auto;text-align: end;">
       <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
@@ -58,7 +64,7 @@
                     <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
                   </ion-card-header>
                   <ion-card-subtitle>
-                    <span class="informacion-paseo"><font color="yellow">★</font>{{mascota.calificacion}}
+                    <span class="informacion-paseo"><font color="#ffbf00">★</font>{{mascota.calificacion}}
                     </span>
                   </ion-card-subtitle>
                   <ion-card-content>
@@ -72,7 +78,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row id="transito" *ngIf="tipo == 'Transito'">
+  <ion-row id="Organizacion" *ngIf="tipo == 'Organizacion'">
   
     <ion-row *ngIf="this.publicacion | async ; let publi">
       <ion-col class='col-transito' style="position: relative; left: 40px;">
@@ -84,7 +90,7 @@
                   <ion-card-title class="titulo-paseo">{{publi.nombre}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-subtitle>
-                  <span class="informacion-paseo"><font color="yellow">★</font>{{publi.calificacion}}
+                  <span class="informacion-paseo"><font color="#ffbf00">★</font>{{publi.calificacion}}
                   </span>
                 </ion-card-subtitle>
                 <ion-card-content>

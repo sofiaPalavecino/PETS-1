@@ -7,7 +7,7 @@ import { OrganizacionService } from './organizacion.service';
 import { OrganizacionesService } from './organizaciones.service';
 import firebase from "firebase/app";
 import "firebase/firestore";
-import { contratoTransito } from '../shared/transito';
+import { contratoOrganizacion } from '../shared/contratoOrganizacion';
 
 
 @Injectable({
@@ -72,11 +72,11 @@ export class PubliService {
   getTransito(id:string):Observable<any>{
     console.log(id);
     
-    return (this.afs.doc<contratoTransito>(`contratoTransito/${id}`).valueChanges({idField: 'docId'}))
+    return (this.afs.doc<contratoOrganizacion>(`contratoOrganizacion/${id}`).valueChanges({idField: 'docId'}))
   }
 
   transitar(idAnimal:string, idTransitante:string, idOrganizacion: string, fecha: string){
-    const nuevoTransito = this.afs.collection('contratoTransito').add({
+    const nuevoTransito = this.afs.collection('contratoOrganizacion').add({
       estado: "solicitud",
       fecha: fecha,
       idAnimal: idAnimal,

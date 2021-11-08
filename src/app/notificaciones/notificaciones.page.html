@@ -12,7 +12,7 @@
         <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
           <label style="margin: auto;font-size: x-large;color: white">{{orgAux.nombre}}</label>
         </ion-row>
-        <app-solicitud-contrato *ngFor="let contrato of orgAux.solicitud_transito" idContrato={{contrato}} tipo="Transito" idOrga={{orgAux.oid}}>
+        <app-solicitud-contrato *ngFor="let contrato of orgAux.solicitud_transito" idContrato={{contrato}} tipo="Organizacion" idOrga={{orgAux.oid}}>
         </app-solicitud-contrato>
       </div>
     </div>

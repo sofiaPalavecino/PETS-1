@@ -1,4 +1,5 @@
-export interface contratoTransito {
+export interface contratoOrganizacion {
+    
     cambioDeEstado: Date;
     emision: Date;
     estado: string;
