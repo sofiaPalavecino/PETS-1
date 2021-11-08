@@ -20,6 +20,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
 import { contratoTransito } from "src/app/shared/transito";
+import { TouchSequence } from "selenium-webdriver";
 
 @Component({
   selector: "app-solicitud-contrato",
@@ -48,6 +49,7 @@ export class SolicitudContratoComponent implements OnInit {
   idPubli: string;
   dia: string;
   mes: string;
+  emojiTipo: string;
 
   constructor(
     private authServ: AuthService,
@@ -62,7 +64,13 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    document.getElementById("mostrarTipo").style.display = 'none';
+    if (this.tipo == "Adopción"){
+      this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9774);
+    
+    }
     if(this.tipo=="Transito"){
+      this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9203);
       this.transito = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
       this.transito.subscribe((contrato)=>{
@@ -439,10 +447,12 @@ export class SolicitudContratoComponent implements OnInit {
       document.getElementById(this.idContrato).style.height = "auto";
       this.momento = this.fecha;
       this.botonInfo = "ver menos";
+      document.getElementById("mostrarTipo").style.display = 'block';
     } else {
       document.getElementById(this.idContrato).style.height = "65px";
       this.botonInfo = "ver mas";
       this.momento = this.guardaMomento;
+      document.getElementById("mostrarTipo").style.display = 'none';
     }
   }
 }
