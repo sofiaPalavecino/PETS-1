@@ -59,10 +59,12 @@
     font-size: 10px;
 }
 
-.boton-publicaciones{
-    position: relative;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    --ion-color-primary: #7bd7b5;
+
+.boton-publicaciones:hover{
+    --background: #7bd7b5;
 }
+.boton-publicaciones{
+    --ion-color-primary: #7bd7b5;
+    
+}
+
