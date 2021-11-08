@@ -16,15 +16,21 @@ export class PaseosService {
   public listaCuidadores:Observable<Cuidador>=null
 
   constructor(private afs: AngularFirestore, private authServ: AuthService) { 
-    this.listaCuidadores=this.getCuidadores()
-    this.listaPaseadores=this.getPaseadores()
+    this.authServ.afAuth.authState.subscribe((user)=>{
+      if(user){
+        this.listaCuidadores=this.getCuidadores(user.uid)
+        this.listaPaseadores=this.getPaseadores(user.uid)
+      }
+    })
   }
 
-  getPaseadores():Observable<any>{
-    return (this.afs.collection<Paseador>(`paseador`, ref => ref.where(ref.id,"!=",this.authServ.user$.uid)).valueChanges({idField: 'docId'}))
+
+
+  getPaseadores(userId:string):Observable<any>{
+    return (this.afs.collection<Paseador>(`paseador`).valueChanges({idField: 'docId'}))
   }
-  getCuidadores():Observable<any>{
-    return (this.afs.collection<Cuidador>(`cuidador`, ref => ref.where("uid", "!=", this.authServ.user$.uid)).valueChanges({idField: 'docId'}))
+  getCuidadores(userId:string):Observable<any>{
+    return (this.afs.collection<Cuidador>(`cuidador`).valueChanges({idField: 'docId'}))
   }
   
 }
