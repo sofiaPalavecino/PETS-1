@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { time } from 'console';
@@ -13,17 +13,20 @@ import { Router } from '@angular/router';
     CommonModule
   ]
 })
-export class LoadModule {  
+export class LoadModule implements OnInit{  
 
   constructor(private authServ:AuthService, private router: Router){
-
     of(this.authServ.uid).subscribe(val=>{
       if(val.length>0){
         console.log(val)
         this.router.navigateByUrl(`/home`);
       }
     })
+    
 
   }
 
+  ngOnInit(){
+    
+  }
 }

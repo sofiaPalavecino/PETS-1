@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA, APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -18,11 +18,12 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent,CarouselComponent,MenuComponent],
   entryComponents: [],
+  schemas: [NO_ERRORS_SCHEMA],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
@@ -34,6 +35,7 @@ import { File } from '@ionic-native/file/ngx';
     SplashScreen,
     Camera,
     File,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   
   ],
