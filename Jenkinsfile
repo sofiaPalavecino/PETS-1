@@ -3,15 +3,13 @@ pipeline {
       environment {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
+   tools {
+       // I hoped it would work with this command...
+       nodejs 'nodejs6'
+   }
    stages {
    
-      stage('rInstall Node') {
-      steps {
-         sh 'apt update'
-         sh 'apt install nodejs'
-         sh 'apt install npm'
-      }
-   }
+  
    
 
       stage('rInstall Cordova') {
