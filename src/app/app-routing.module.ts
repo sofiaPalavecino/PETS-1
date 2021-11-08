@@ -4,7 +4,7 @@ import { canActivate , emailVerified, redirectLoggedInTo , redirectUnauthorizedT
 
 const redirectUnauthorizedToLogin  = () =>  redirectUnauthorizedTo(["/login"])
 
-const redirectLoggedInToHome = () => redirectLoggedInTo(["/load"])
+const redirectLoggedInToHome = () => redirectLoggedInTo(["/home"])
 
 
 

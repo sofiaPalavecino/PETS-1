@@ -18,17 +18,27 @@ export class AuthService implements OnInit{
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
+    console.log(this.user$);
+    
+    
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        this.uid=user.uid;
-        this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
-          this.user$ = userprofile;
-        });  
+        console.log(user);
+        
+         this.uid=user.uid;
+         this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
+           this.user$ = userprofile;
+           console.log(this.user$);
+         });  
       }
+      
+      
     });
   }
 
   ngOnInit() {
+    console.log(this.user$,1);
+    
     
     
   }

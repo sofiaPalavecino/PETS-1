@@ -30,22 +30,18 @@ export class SectorPublisOrgaComponent implements OnInit {
   revisarPublis(){
     this.publisRecientes=false
     this.publicaciones=[]
+    
     this.aServ.user$.orgFavoritas.forEach((org)=>{
       this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges().subscribe((publi)=>{
         
         if(publi.length>0){
-          console.log();
           
           this.publisRecientes=true;
           publi.forEach((pub)=>{
-            console.log(pub);
 
             this.publicaciones.push(pub)
           })
         }else if(this.publisRecientes!=true){this.publisRecientes=false}
-        
-        console.log(this.publisRecientes);
-        console.log(this.publicaciones);
       })
     })
     
