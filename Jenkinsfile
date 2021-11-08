@@ -7,7 +7,9 @@ pipeline {
    
       stage('rInstall Node') {
       steps {
+         sh 'apt update'
          sh 'apt install nodejs'
+         sh 'apt install npm'
       }
    }
    
