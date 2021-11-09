@@ -65,6 +65,10 @@
 }
 .boton-publicaciones{
     --ion-color-primary: #7bd7b5;
+    display: flex;
+    position: absolute;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
     
 }
 
