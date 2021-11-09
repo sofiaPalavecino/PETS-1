@@ -51,5 +51,6 @@ pipeline {
         sh 'ionic cordova build android'
      }
    }
+      
 }
    }
