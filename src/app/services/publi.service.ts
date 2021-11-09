@@ -4,6 +4,11 @@ import { Publicacion } from '../shared/publicacion';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { OrganizacionService } from './organizacion.service';
+import { OrganizacionesService } from './organizaciones.service';
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { contratoTransito } from '../shared/transito';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +19,7 @@ export class PubliService {
 
   public publicaciones:Observable<Publicacion[]>;
 
-  constructor(private afs: AngularFirestore, private org:OrganizacionService) {
+  constructor(private afs: AngularFirestore, private org:OrganizacionService, private orga: OrganizacionesService) {
     this.publicaciones=this.getPublicaciones(this.org.oid)
    }
  
@@ -63,14 +68,27 @@ export class PubliService {
     })
   }
 
-  transitar(idAnimal:string, idTransitante:string){
+  getContrato(){
+    
+  }
+
+  getTransito(id:string){
+    return this.afs.doc<contratoTransito>(`contratoTransito/${id}`).valueChanges()
+  }
+
+  transitar(idAnimal:string, idTransitante:string, idOrganizacion: string){
     const nuevoTransito = this.afs.collection('contratoTransito').add({
       estado: "solicitud",
       fecha: new Date(),
       idAnimal: idAnimal,
-      idOrganizacion: this.org.oid,
+      idOrganizacion: idOrganizacion,
       idTransitante: idTransitante
     })
+    nuevoTransito.then((data)=> {
+      this.afs.doc(`organización/${idOrganizacion}`).update({
+        solicitud_transito: firebase.firestore.FieldValue.arrayUnion(data.id)
+      })
+    });
   }
 
 }

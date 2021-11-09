@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , OnInit} from '@angular/core';
 import { User, userProfile } from '../shared/user.interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -13,23 +13,27 @@ import { Dia } from '../dia';
   providedIn: 'root',
 })
 
-export class AuthService {
-  public user$:userProfile;
+export class AuthService implements OnInit{
+  public user$:Observable<userProfile>;
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
+   
     this.afAuth.authState.subscribe((user) => {
       if (user) {
+        console.log("user");
+        
         this.uid=user.uid;
-        this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
-          this.user$ = userprofile;
-          console.log(this.user$.orgFavoritas)
-        });  
+        this.user$=this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges({idField:"uid"})
+        
       }
     });
   }
 
-  
+  ngOnInit() {
+    
+    
+  }
 
   async resetPassword(email: string): Promise<void> {
     try {
