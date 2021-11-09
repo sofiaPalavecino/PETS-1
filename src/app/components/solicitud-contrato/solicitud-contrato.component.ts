@@ -9,12 +9,12 @@ import { disponibilidades } from "src/app/shared/disponibilidades.interface";
 import { userProfile } from "src/app/shared/user.interface";
 import { OrganizacionService } from "src/app/services/organizacion.service";
 import { OrganizacionesService } from "src/app/services/organizaciones.service";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { PubliService } from "src/app/services/publi.service";
 import { Publicacion } from "src/app/shared/publicacion";
-import { Organizacion } from "src/app/shared/organizacion.interface"
-import { DatePipe } from '@angular/common';
-
+import { Organizacion } from "src/app/shared/organizacion.interface";
+import { DatePipe } from "@angular/common";
+import { Routes } from "@angular/router";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
@@ -28,11 +28,11 @@ import { TouchSequence } from "selenium-webdriver";
   styleUrls: ["./solicitud-contrato.component.scss"],
 })
 export class SolicitudContratoComponent implements OnInit {
-  public publicacion:Observable<Publicacion>=null
-  public organizacion:Observable<Organizacion>=null
-  public transito:Observable<contratoOrganizacion>=null
-  public momento:string
-  
+  public publicacion: Observable<Publicacion> = null;
+  public organizacion: Observable<Organizacion> = null;
+  public transito: Observable<contratoOrganizacion> = null;
+  public momento: string;
+
   @Input() idContrato: string;
   @Input() tipo: string;
   @Input() idOrga: string;
@@ -63,57 +63,82 @@ export class SolicitudContratoComponent implements OnInit {
     private date: DatePipe
   ) {}
 
+  ionViewDidEnter() {
+    document.getElementById("mostrarTipo").style.display = "none";
+  }
+
   async ngOnInit() {
-    document.getElementById("mostrarTipo").style.display = 'none';
-    if (this.tipo == "Adopción"){
-      this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9774);
-    
-    }
-    if(this.tipo=="Organizacion"){
-      this.emojiTipo = String.fromCodePoint(128054)+String.fromCodePoint(9203);
+    if (this.tipo == "Adopción") {
+      this.emojiTipo =
+        String.fromCodePoint(128054) + String.fromCodePoint(9774);
+    } else if (this.tipo == "Organizacion") {
+      this.emojiTipo =
+        String.fromCodePoint(128054) + String.fromCodePoint(9203);
       this.transito = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
-      this.transito.subscribe((contrato)=>{
+      this.transito.subscribe((contrato) => {
+        console.log(contrato);
         this.fecha = contrato.fecha;
-        this.idPubli=contrato.idAnimal
+        this.idPubli = contrato.idAnimal;
         /*this.fecha=contrato.fecha
         this.fecha.date.transform(this.fecha, 'dd/MM/yyyy')
         console.log(this.fecha);*/
-        
-        this.publicacion = this.publis.getPublicacion(this.idPubli, this.idOrga);
-        console.log("aaaaaaaaaaaaaaa")
-        
+
+        this.publicacion = this.publis.getPublicacion(
+          this.idPubli,
+          this.idOrga
+        );
+        console.log("aaaaaaaaaaaaaaa");
+
         switch (contrato.fecha) {
-          case this.date.transform(new Date(), 'dd/MM/yyyy'):
+          case this.date.transform(new Date(), "dd/MM/yyyy"):
             this.momento = "Hoy";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - 864e5), 'dd/MM/yyyy'):
+          case this.date.transform(new Date(Date.now() - 864e5), "dd/MM/yyyy"):
             this.momento = "Ayer";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*2)), 'dd/MM/yyyy'):
-            this.momento = "Antes de ayer"
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 2),
+            "dd/MM/yyyy"
+          ):
+            this.momento = "Antes de ayer";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*3)), 'dd/MM/yyyy'):
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 3),
+            "dd/MM/yyyy"
+          ):
             this.momento = "Hace 3 días";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*4)), 'dd/MM/yyyy'):
-            this.momento = "Hace 4 días"
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 4),
+            "dd/MM/yyyy"
+          ):
+            this.momento = "Hace 4 días";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*5)), 'dd/MM/yyyy'):
-            this.momento = "Hace 5 días"
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 5),
+            "dd/MM/yyyy"
+          ):
+            this.momento = "Hace 5 días";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*6)), 'dd/MM/yyyy'):
-            this.momento = "Hace 6 días"
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 6),
+            "dd/MM/yyyy"
+          ):
+            this.momento = "Hace 6 días";
             this.guardaMomento = this.momento;
             break;
-          case this.date.transform(new Date(Date.now() - (864e5*7)), 'dd/MM/yyyy'):
-            this.momento = "Hace 1 semana"
+          case this.date.transform(
+            new Date(Date.now() - 864e5 * 7),
+            "dd/MM/yyyy"
+          ):
+            this.momento = "Hace 1 semana";
             this.guardaMomento = this.momento;
             break;
           default:
@@ -123,99 +148,97 @@ export class SolicitudContratoComponent implements OnInit {
 
         // Evidentemente estos switch no van, algún día me voy a poner a entender los timestamps y arreglarlo, pero de momento esto sirve <3
 
-        if(contrato.fecha.charAt(0) === '0'){
-          this.dia = contrato.fecha.charAt(1)
+        if (contrato.fecha.charAt(0) === "0") {
+          this.dia = contrato.fecha.charAt(1);
+        } else {
+          this.dia = contrato.fecha.charAt(0) + contrato.fecha.charAt(1);
         }
-        else{
-          this.dia = contrato.fecha.charAt(0)+contrato.fecha.charAt(1);
-        }
-        this.mes = contrato.fecha.charAt(3)+contrato.fecha.charAt(4);
+        this.mes = contrato.fecha.charAt(3) + contrato.fecha.charAt(4);
         switch (this.mes) {
-          case '01':
+          case "01":
             this.mes = "Enero";
             break;
-          case '02':
+          case "02":
             this.mes = "Febrero";
             break;
-          case '03':
+          case "03":
             this.mes = "Marzo";
             break;
-          case '04':
+          case "04":
             this.mes = "Abril";
             break;
-          case '05':
+          case "05":
             this.mes = "Mayo";
             break;
-          case '06':
+          case "06":
             this.mes = "Junio";
             break;
-          case '07':
+          case "07":
             this.mes = "Julio";
             break;
-          case '08':
+          case "08":
             this.mes = "Agosto";
             break;
-          case '09':
+          case "09":
             this.mes = "Septiembre";
             break;
-          case '10':
+          case "10":
             this.mes = "Octubre";
             break;
-          case '11':
+          case "11":
             this.mes = "Noviembre";
             break;
-          case '12':
+          case "12":
             this.mes = "Diciembre";
             break;
           default:
             this.mes = "ERROR";
         }
-        this.fecha = this.dia + ' de ' + this.mes;
+        this.fecha = this.dia + " de " + this.mes;
       });
       this.afs
-    .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
-    .valueChanges({ idField: "docId" })
-    .subscribe((data) => {
-      
-      this.contrato = data;
-      this.cliente = this.obDataServ.getUser(data.idTransitante);
-      this.cliente.subscribe((data) => {
-        this.userName = data.nombre + " " + data.apellido;
-        this.imgCliente = data.foto;
-        this.barrio = data.barrio;
-      });
-    });
-    }
-    else{
-    this.afs
-    .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
-    .valueChanges({ idField: "docId" })
-    .subscribe((data) => {
-      
-      this.contrato = data;
-      this.cliente = this.obDataServ.getUser(data.idCliente);
-      this.cliente.subscribe((data) => {
-        this.userName = data.nombre + " " + data.apellido;
-        this.imgCliente = data.foto;
-        this.barrio = data.barrio;
-        let mascotasUser = this.obDataServ.getMascotas(data.uid);
-        mascotasUser.subscribe((mascotas) => {
-          this.mascotas = new Array<mascota[]>();
-          mascotas.forEach(mascota => {
-            if(this.contrato.idMascota.includes(mascota.docId)){
-              this.mascotas.push(mascota);
-            }
+        .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
+        .valueChanges({ idField: "docId" })
+        .subscribe((data) => {
+          this.contrato = data;
+          this.cliente = this.obDataServ.getUser(data.idTransitante);
+          this.cliente.subscribe((data) => {
+            this.userName = data.nombre + " " + data.apellido;
+            this.imgCliente = data.foto;
+            this.barrio = data.barrio;
           });
-          console.log(this.mascotas)
-        })
-      });
-      if (this.tipo == "Paseador") {  
-        this.contrato.dias.forEach((element) => {
-          document.getElementById(this.idContrato + element).style.background = "#7bd7b5";
         });
-      }
-    });
-  }
+    } else {
+      this.afs
+        .doc<any>(`contrato${this.tipo}/${this.idContrato}`)
+        .valueChanges({ idField: "docId" })
+        .subscribe((data) => {
+          this.contrato = data;
+          this.cliente = this.obDataServ.getUser(data.idCliente);
+          this.cliente.subscribe((data) => {
+            this.userName = data.nombre + " " + data.apellido;
+            this.imgCliente = data.foto;
+            this.barrio = data.barrio;
+            let mascotasUser = this.obDataServ.getMascotas(data.uid);
+            mascotasUser.subscribe((mascotas) => {
+              this.mascotas = new Array<mascota[]>();
+              mascotas.forEach((mascota) => {
+                if (this.contrato.idMascota.includes(mascota.docId)) {
+                  this.mascotas.push(mascota);
+                }
+              });
+              console.log(this.mascotas);
+            });
+          });
+          if (this.tipo == "Paseador") {
+            this.contrato.dias.forEach((element) => {
+              document.getElementById(
+                this.idContrato + element
+              ).style.background = "#7bd7b5";
+            });
+          }
+        });
+    }
   }
 
   async aceptarContrato(idContrato: string) {
@@ -242,17 +265,18 @@ export class SolicitudContratoComponent implements OnInit {
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
       this.afs
-        .doc<Publicacion>(`organización/${this.idOrga}/publicaciones/${this.idPubli}`)
+        .doc<Publicacion>(
+          `organización/${this.idOrga}/publicaciones/${this.idPubli}`
+        )
         .update({
-          transito: true
+          transito: true,
         });
       this.afs
         .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
         .update({
-          cambioDeEstado: new Date()
+          cambioDeEstado: new Date(),
         });
-      }
-    else if (this.tipo == "Paseador") {
+    } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
         .doc(this.authServ.uid)
@@ -381,23 +405,21 @@ export class SolicitudContratoComponent implements OnInit {
       .doc(idContrato)
       .update({ estado: "rechazado" });
 
-    
-      if (this.tipo == "Organizacion") {
-        this.afs
-          .collection("organización")
-          .doc(this.idOrga)
-          .update({
-            solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
-              this.idContrato
-            ),
-          });
-        this.afs
-          .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
-          .update({
-            cambioDeEstado: new Date()
-          });
-        }
-      else if (this.tipo == "Paseador") {
+    if (this.tipo == "Organizacion") {
+      this.afs
+        .collection("organización")
+        .doc(this.idOrga)
+        .update({
+          solicitud_transito: firebase.firestore.FieldValue.arrayRemove(
+            this.idContrato
+          ),
+        });
+      this.afs
+        .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
+        .update({
+          cambioDeEstado: new Date(),
+        });
+    } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
         .doc(this.authServ.uid)
@@ -406,8 +428,7 @@ export class SolicitudContratoComponent implements OnInit {
             this.idContrato
           ),
         });
-      } 
-      else {
+    } else {
       this.afs
         .collection("cuidador")
         .doc(this.authServ.uid)
@@ -447,15 +468,15 @@ export class SolicitudContratoComponent implements OnInit {
       document.getElementById(this.idContrato).style.height = "auto";
       this.momento = this.fecha;
       this.botonInfo = "ver menos";
-      if(this.tipo == 'Organizacion'){
-        document.getElementById("mostrarTipo").style.display = 'block';
+      if (this.tipo == "Organizacion") {
+        document.getElementById("mostrarTipo").style.display = "block";
       }
     } else {
       document.getElementById(this.idContrato).style.height = "65px";
       this.botonInfo = "ver mas";
       this.momento = this.guardaMomento;
-      if(this.tipo == 'Organizacion'){
-        document.getElementById("mostrarTipo").style.display = 'none';
+      if (this.tipo == "Organizacion") {
+        document.getElementById("mostrarTipo").style.display = "none";
       }
     }
   }
