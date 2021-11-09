@@ -1,4 +1,4 @@
-export interface Message{
+export interface Mensaje{
     emisor:string;
     contenido:string;
 }

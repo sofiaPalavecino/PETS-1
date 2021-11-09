@@ -7,22 +7,21 @@ import { UserService } from './user.service';
 import { Observable } from 'rxjs';
 import { Chat } from '../shared/chat.interface';
 import { AuthService } from './auth.service';
+import { Mensaje } from '../shared/message.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatServiceService  implements OnInit {
 
-  public chatsUsuarioCliente:Observable<Chat[]>;
-  public chatsUsuarioTrabajador:Observable<Chat[]>; 
+  public chatsUsuarioCliente:Observable<Chat>;
+  public chatsUsuarioTrabajador:Observable<Chat>; 
 
   constructor(private afs: AngularFirestore,private authSvc: AuthService,) {
     this.authSvc.afAuth.authState.subscribe((user)=>{
       if(user){
-        this.getChatsCliente(user.uid)
         this.chatsUsuarioCliente=this.getChatsCliente(user.uid)
         this.chatsUsuarioTrabajador=this.getChatsTrabajador(user.uid)
-        
       }
     })
   }
@@ -31,11 +30,20 @@ export class ChatServiceService  implements OnInit {
     
   }
 
-  getChatsCliente(idUsuario:string){
+  
+
+  getChatsCliente(idUsuario:string):Observable<any>{
     return (this.afs.collection<Chat>(`chat`, ref => ref.where("idCliente","==",idUsuario)).valueChanges({idField:"idChat"}))
   }
 
-  getChatsTrabajador(idUsuario:string){
+  getChatsTrabajador(idUsuario:string):Observable<any>{
     return (this.afs.collection<Chat>(`chat`, ref => ref.where("idTrabajador","==",idUsuario)).valueChanges({idField:"idChat"}))
   }
+  getMensajes(idChat:string):Observable<any>{
+    return (this.afs.collection<Mensaje>(`chat/${idChat}/mensajes`).valueChanges({idField:"idMensaje"}))
+  }
+  getDestinatario(idDestinatario):Observable<any>{
+    return(this.afs.doc<userProfile>(`users/${idDestinatario}`).valueChanges({idField:"idDestinatario"}))
+  }
+  
 }

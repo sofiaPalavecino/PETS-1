@@ -123,6 +123,10 @@ const routes: Routes = [
   {
     path: 'organizacion/:id',
     loadChildren: () => import('./organizacion/organizacion.module').then( m => m.OrganizacionPageModule)
+  },
+  {
+    path: 'conversacion/:idChat',
+    loadChildren: () => import('./conversacion/conversacion.module').then( m => m.ConversacionPageModule)
   }
 
 
