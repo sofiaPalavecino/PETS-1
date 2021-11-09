@@ -1,0 +1,17 @@
+<ion-card>
+  <ion-row>
+    <ion-col style="display: contents">
+      <ion-avatar>
+        <img *ngIf="imgCliente" src="{{imgDestinatario}}">
+      </ion-avatar>
+    </ion-col>
+    <ion-col>
+      <ion-card-title style="font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
+      <ion-card-subtitle *ngIf="contrato">{{this.barrio}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="contrato">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+    </ion-col>
+    <ion-col style="margin: auto;text-align: end;">
+      <ion-button class="button-ver-mas" (click)="expandirSolicitud()">{{botonInfo}}</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card>
