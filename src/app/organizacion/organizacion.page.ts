@@ -21,10 +21,15 @@ export class OrganizacionPage implements OnInit {
   public id:string="";
   public organizacion:Observable<Organizacion>=null
   public publicaciones:Observable<Publicacion>
+  public orgFavoritas:string[]
 
 
   constructor(private route: ActivatedRoute,private afs:AngularFirestore,
-    private orgServ:OrganizacionesService, private publiServ:PubliService, private aServ:AuthService) { }
+    private orgServ:OrganizacionesService, private publiServ:PubliService, private aServ:AuthService) { 
+      this.aServ.user$.subscribe((usuario)=>{
+        this.orgFavoritas=usuario.orgFavoritas;
+      })
+    }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get('id')

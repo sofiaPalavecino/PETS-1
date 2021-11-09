@@ -24,11 +24,13 @@ export class PublicacionPage implements OnInit {
   public id:string=""
   public idOrga:string=""
   public nombre:string=""
-  uid:string;
+  public uid:string;
   
 
   constructor(private publiServ:PubliService, private org:OrganizacionService,private orgServ:OrganizacionesService, private route:ActivatedRoute, private authServ:AuthService) {
-      this.uid=this.authServ.user$.uid;
+    this.authServ.user$.subscribe((usuario)=>{
+      this.uid=usuario.uid;
+    })  
    }
 
   async ngOnInit() {
