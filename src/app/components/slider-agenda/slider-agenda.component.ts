@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContratoCuidador, ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
+import { userProfile } from 'src/app/shared/user.interface';
 
 @Component({
   selector: 'app-slider-agenda',
@@ -10,34 +11,21 @@ import { ContratoCuidador, ContratoPaseador } from 'src/app/shared/contrato-pase
   styleUrls: ['./slider-agenda.component.scss'],
 })
 export class SliderAgendaComponent implements OnInit {
-
-  public contratosPendientes:boolean;
-  public paseos:ContratoPaseador;
-  public cuidados:ContratoCuidador;
   
-  constructor(private aServ:AuthService, private afs:AngularFirestore) { }
+  public usuario:userProfile;
+
+  constructor(private aServ:AuthService, private afs:AngularFirestore) { 
+    this.aServ.user$.subscribe((usuario)=>{
+      this.usuario=usuario;
+      if(usuario.contratosActivos) //Lograr que compruebe si esta vacio
+      {
+        console.log("hola");
+      }
+
+    })
+  }
 
   ngOnInit() {
-    this.revisarContratos()
   }
-
-  ionViewDidEnter(){
-    this.revisarContratos()
-  }
-
-  revisarContratos(){
-    this.contratosPendientes=false;
-    of(this.aServ.user$).subscribe((usuario)=>{
-      if(usuario){
-        console.log("uwu");
-      }
-    })
-    /*if(this.aServ.user$.contratosActivos.size>0){
-      
-        for (let [key, value] of this.aServ.user$.contratosActivos) {
-            console.log(key, value);            //"Lokesh" 37 "Raj" 35 "John" 40
-        }
-    }*/
-  }
-
+  
 }
