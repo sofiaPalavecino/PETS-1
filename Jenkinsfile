@@ -18,6 +18,22 @@ pipeline {
      }
    }
       
+     stage('Android Build') {
+     steps {
+        sh 'ionic cordova platform add android@9 --verbose'
+     }
+   }
+      
+     stage('Android Build') {
+     steps {
+        sh 'ionic cordova plugin rm cordova-plugin-whitelist'
+     }
+   }
+      
+      
+      
+      
+      
 }
 }
 
