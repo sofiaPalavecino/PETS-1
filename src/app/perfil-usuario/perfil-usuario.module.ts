@@ -12,9 +12,10 @@ import { DirectivesModule } from '../directives/directives.module';
 import { PopoverPerfilComponent } from '../components/popover-perfil/popover-perfil.component';
 import { PaseosComponent } from '../components/paseos/paseos.component';
 import { CuidadosComponent } from '../components/cuidados/cuidados.component';
+import { MascotaCardComponent } from '../components/mascota-card/mascota-card.component';
 
 @NgModule({
-  declarations: [PerfilUsuarioPage,PopoverPerfilComponent,PaseosComponent,CuidadosComponent],
+  declarations: [PerfilUsuarioPage,PopoverPerfilComponent,PaseosComponent,CuidadosComponent,MascotaCardComponent],
   providers: [PopoverPerfilComponent],
   imports: [
     CommonModule,
