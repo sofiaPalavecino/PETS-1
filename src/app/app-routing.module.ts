@@ -1,11 +1,11 @@
-
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { canActivate , redirectLoggedInTo , redirectUnauthorizedTo } from "@angular/fire/auth-guard";
+import { canActivate , emailVerified, redirectLoggedInTo , redirectUnauthorizedTo } from "@angular/fire/auth-guard";
 
 const redirectUnauthorizedToLogin  = () =>  redirectUnauthorizedTo(["/login"])
 
-const redirectLoggedInToHome = () => redirectLoggedInTo(["/load"])
+const redirectLoggedInToHome = () => redirectLoggedInTo(["/home"])
+
 
 
 const routes: Routes = [
@@ -123,11 +123,7 @@ const routes: Routes = [
   {
     path: 'organizacion/:id',
     loadChildren: () => import('./organizacion/organizacion.module').then( m => m.OrganizacionPageModule)
-  },
-  {
-    path: 'load',
-    loadChildren: () => import('./load/load.module').then( m => m.LoadModule)
-  },
+  }
 
 
 ];
