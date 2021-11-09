@@ -6,42 +6,12 @@ pipeline {
  
    stages {
       
-      stage('Install node') {
-      steps {
-         sh 'npm install'
-      }
-   }
-
-      stage('rInstall Cordova') {
-      steps {
-         sh 'npm install -g cordova'
-      }
-   }
-
       stage('Install app dependencies') {
       steps {
          sh 'npm install'
       }
    }
-   
-   
-      stage('Add Android platform') {
-      steps {
-         sh 'ionic cordova platform add android@9 --verbose'
-      }
-   }
-   
 
-      stage('x') {
-      steps {
-         sh 'ionic cordova plugin rm cordova-plugin-whitelist'
-      }
-   }
-   
-  
-      
-   
- 
      stage('Android Build') {
      steps {
         sh 'ionic cordova build android'
