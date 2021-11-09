@@ -10,16 +10,16 @@
   <!---->
   <ion-row class="columna-foto-datos" #toolbar>
     <ion-col>
-      <div class="div-contiene-foto-nombre" *ngIf="aServ.user$">
+      <div class="div-contiene-foto-nombre" *ngIf="usuario">
         <ion-avatar>
-          <img  src="{{aServ.user$.foto}}" >
+          <img  src="{{usuario.foto}}" >
         </ion-avatar>
         <div class="div-contiene-nombre-provincia">
           <div class="div-nombre-usuario">
-            <h2 class="h2-nombre-usuario">{{ aServ.user$.nombre }} {{aServ.user$.apellido}}</h2>
+            <h2 class="h2-nombre-usuario">{{ usuario.nombre }} {{usuario.apellido}}</h2>
           </div>
           <div class="div-provincia-usuario">
-            <h3 class="h2-provincia-usuario">{{ aServ.user$.barrio }}</h3>
+            <h3 class="h2-provincia-usuario">{{ usuario.barrio }}</h3>
           </div>
         </div>
       </div>
@@ -139,27 +139,7 @@
           </ion-row>
           <div class='div-mascotas'>
             <ion-slides *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas' pager="true">
-              <ion-slide>
-                <ion-card class="card-mascota">
-                  <div *ngFor="let foto of mascota.fotos">
-                    <img src="{{foto}}" class="image">
-                  </div>
-                  <ion-row>
-                    <ion-col>
-                      <ion-card-header class="header-titulo-mascota">
-                        <ion-card-title class="titulo-paseo">{{mascota.nombre}}</ion-card-title>
-                      </ion-card-header>
-                      <ion-card-content>
-                        <span class="informacion-paseo">calificación</span>
-                      </ion-card-content>
-                    </ion-col>
-                    <ion-card-content>
-                      <span class="informacion-mascota">Ver Más</span>
-                    </ion-card-content>
-                  </ion-row>
-                </ion-card>
-              </ion-slide>
-              
+              <app-mascota-card id={{mascota.docId}} idUser={{usuario.uid}}></app-mascota-card>
             </ion-slides>
           </div>
         </ion-row>

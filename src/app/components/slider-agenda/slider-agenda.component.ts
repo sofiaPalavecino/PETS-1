@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ContratoCuidador, ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
 
@@ -21,14 +21,23 @@ export class SliderAgendaComponent implements OnInit {
     this.revisarContratos()
   }
 
+  ionViewDidEnter(){
+    this.revisarContratos()
+  }
+
   revisarContratos(){
     this.contratosPendientes=false;
-
-    if(this.aServ.user$.contratosActivos.size>0){
+    of(this.aServ.user$).subscribe((usuario)=>{
+      if(usuario){
+        console.log("uwu");
+      }
+    })
+    /*if(this.aServ.user$.contratosActivos.size>0){
+      
         for (let [key, value] of this.aServ.user$.contratosActivos) {
             console.log(key, value);            //"Lokesh" 37 "Raj" 35 "John" 40
         }
-    }
+    }*/
   }
 
 }

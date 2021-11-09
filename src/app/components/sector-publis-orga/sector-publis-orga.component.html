@@ -1,8 +1,8 @@
-<div *ngIf="this.aServ.user$">
+<div >
   <ion-row class="subtitle">
     <ion-label style="font-weight: bold;">Últimas publicaciones de tus organizaciones favoritas</ion-label>
   </ion-row>
-  <ion-row *ngIf="this.aServ.user$.orgFavoritas.length>0; else elseBlock">
+  <ion-row *ngIf="this.tieneFavs==true; else elseBlock">
 
     <ion-row *ngIf="this.publisRecientes==true; else noPublis">
 

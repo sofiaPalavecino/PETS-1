@@ -1,5 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { OrganizacionesService } from 'src/app/services/organizaciones.service';
 import { Organizacion } from 'src/app/shared/organizacion.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,38 +15,50 @@ import { Publicacion } from 'src/app/shared/publicacion';
 export class SectorPublisOrgaComponent implements OnInit {
 
   public ahora=new Date();
+  public usuario:userProfile;
+  public orgFavoritas:string[]
   public publicaciones:Array<Publicacion>=[];
   public publisRecientes:boolean;
+  public tieneFavs:boolean;
 
-  constructor(private orgServ:OrganizacionesService, private aServ:AuthService, private afs:AngularFirestore) { }
+  constructor(private orgServ:OrganizacionesService, private aServ:AuthService, private afs:AngularFirestore) { 
+    this.ahora.setDate(this.ahora.getDate()-2)
+    this.aServ.user$.subscribe((usuario)=>{
+      if(usuario){
+        this.orgFavoritas=usuario.orgFavoritas
+        console.log(this.orgFavoritas.length);
+        
+        this.revisarPublis()
+      }
+      
+    })
+  }
 
   ngOnInit() {
-    
-    this.ahora.setDate(this.ahora.getDate()-2)
-    this.revisarPublis()
-    
   }
 
   revisarPublis(){
     this.publisRecientes=false
     this.publicaciones=[]
-    
-    this.aServ.user$.orgFavoritas.forEach((org)=>{
-      this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges().subscribe((publi)=>{
-        
-        if(publi.length>0){
+    //console.log(this.usuario.orgFavoritas.length);
+    if(this.orgFavoritas.length>0){
+      this.tieneFavs=true;
+      this.orgFavoritas.forEach((org)=>{
+        this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges().subscribe((publi)=>{
           
-          this.publisRecientes=true;
-          publi.forEach((pub)=>{
-
-            this.publicaciones.push(pub)
-          })
-        }else if(this.publisRecientes!=true){this.publisRecientes=false}
+          if(publi.length>0){
+            
+            this.publisRecientes=true;
+            publi.forEach((pub)=>{
+  
+              this.publicaciones.push(pub)
+            })
+          }else if(this.publisRecientes!=true){this.publisRecientes=false}
+        })
       })
-    })
+    }
+    
     
   }
-
-  
 
 }

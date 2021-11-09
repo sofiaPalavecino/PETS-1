@@ -14,22 +14,18 @@ import { Dia } from '../dia';
 })
 
 export class AuthService implements OnInit{
-  public user$:userProfile;
+  public user$:Observable<userProfile>;
   public uid:string;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore,) {
-    console.log(this.user$);
-    
-    
+   
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        console.log(user);
+        console.log("user");
         
-         this.uid=user.uid;
-         this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges().subscribe((userprofile) => {
-           this.user$ = userprofile;
-           console.log(this.user$);
-         });  
+        this.uid=user.uid;
+        this.user$=this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges({idField:"uid"})
+        
       }
       
       
