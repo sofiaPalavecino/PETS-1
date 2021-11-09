@@ -17,14 +17,6 @@ pipeline {
          sh 'npm install -g cordova'
       }
    }
-   
- 
-      stage('Install Ionicdx') {
-      steps {
-         sh 'npm install -g @ionic/cli'
-      }
-   }
-   
 
       stage('Install app dependencies') {
       steps {
