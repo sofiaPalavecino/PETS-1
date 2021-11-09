@@ -39,11 +39,7 @@ pipeline {
    }
    
   
-      stage('Setup Android SDK') {
-      steps {
-         sh 'android-actions/setup-android@v2'
-      }
-   }
+      
    
  
      stage('Android Build') {
