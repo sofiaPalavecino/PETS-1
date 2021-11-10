@@ -13,11 +13,7 @@ pipeline {
    }
       
      
-     stage('remove whitelist') {
-     steps {
-        sh 'ionic cordova plugin rm cordova-plugin-whitelist'
-     }
-   }
+  
       
      stage('Android Build') {
      steps {
