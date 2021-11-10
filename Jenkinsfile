@@ -12,12 +12,7 @@ pipeline {
       }
    }
       
-     stage('Android add') {
-     steps {
-        sh 'ionic cordova platform add android@9 --verbose'
-     }
-   }
-      
+     
      stage('remove whitelist') {
      steps {
         sh 'ionic cordova plugin rm cordova-plugin-whitelist'
@@ -26,7 +21,7 @@ pipeline {
       
      stage('Android Build') {
      steps {
-        sh 'ionic cordova build android'
+        sh 'ionic cordova build android --verbose'
      }
    }
       
