@@ -26,10 +26,14 @@ export class AuthService implements OnInit{
         this.user$=this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges({idField:"uid"})
         
       }
+      
+      
     });
   }
 
   ngOnInit() {
+    console.log(this.user$,1);
+    
     
     
   }

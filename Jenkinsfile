@@ -11,26 +11,24 @@ pipeline {
          sh 'npm install'
       }
    }
-
-     stage('Android Build') {
-     steps {
-        sh 'ionic cordova build android'
-     }
-   }
       
-     stage('Android Build') {
+     stage('Android add') {
      steps {
         sh 'ionic cordova platform add android@9 --verbose'
      }
    }
       
-     stage('Android Build') {
+     stage('remove whitelist') {
      steps {
         sh 'ionic cordova plugin rm cordova-plugin-whitelist'
      }
    }
       
-      
+     stage('Android Build') {
+     steps {
+        sh 'ionic cordova build android'
+     }
+   }
       
       
       
