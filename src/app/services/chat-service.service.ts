@@ -40,10 +40,18 @@ export class ChatServiceService  implements OnInit {
     return (this.afs.collection<Chat>(`chat`, ref => ref.where("idTrabajador","==",idUsuario)).valueChanges({idField:"idChat"}))
   }
   getMensajes(idChat:string):Observable<any>{
-    return (this.afs.collection<Mensaje>(`chat/${idChat}/mensajes`).valueChanges({idField:"idMensaje"}))
+    return (this.afs.collection<Mensaje>(`chat/${idChat}/mensajes`, ref => ref.orderBy("hora")).valueChanges({idField:"idMensaje"}))
   }
   getDestinatario(idDestinatario):Observable<any>{
     return(this.afs.doc<userProfile>(`users/${idDestinatario}`).valueChanges({idField:"idDestinatario"}))
   }
-  
+  enviarMensaje(contenido:string,emisor:string,idChat:string){
+    
+    const nuevoMensaje=this.afs.collection('chat').doc(idChat).collection('mensajes').add({
+      emisor:emisor,
+      contenido: contenido,
+      hora: new Date()
+    })
+  }
+
 }
