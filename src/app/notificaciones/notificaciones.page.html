@@ -18,32 +18,32 @@
       </app-solicitud-contrato>
     </div>
   </div> -->
-<!--<div *ngIf="this.tab == 'Organizaciones'">-->
-  <div *ngFor="let orgAux of this.administrando | async">
-    <div *ngIf="orgAux.solicitud_transito.length > 0">
-      <ion-row
-        style="
-          opacity: 0.8;
-          background: #7bd7b5;
-          box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
-        "
-      >
-        <label style="margin: auto; font-size: x-large; color: white"
-          >{{orgAux.nombre}}</label
+  <div *ngIf="this.tab == 'Organizaciones'">
+    <div *ngFor="let orgAux of this.administrando | async">
+      <div *ngIf="orgAux.solicitud_transito.length > 0">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
         >
-      </ion-row>
-      <app-solicitud-contrato
-        *ngFor="let contrato of orgAux.solicitud_transito"
-        idContrato="{{contrato}}"
-        tipo="Organizacion"
-        idOrga="{{orgAux.oid}}"
-      >
-      </app-solicitud-contrato>
+          <label style="margin: auto; font-size: x-large; color: white"
+            >{{orgAux.nombre}}</label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of orgAux.solicitud_transito"
+          idContrato="{{contrato}}"
+          tipo="Organizacion"
+          idOrga="{{orgAux.oid}}"
+        >
+        </app-solicitud-contrato>
+      </div>
     </div>
   </div>
-<!--</div>-->
 
-  <!--<div *ngIf="this.tab == 'Servicios'">-->
+  <div *ngIf="this.tab == 'Servicios'">
     <div *ngIf="userServ.paseador | async;let paseador">
       <div *ngIf="paseador.solicitud_paseo.length > 0">
         <ion-row
@@ -65,9 +65,7 @@
         </app-solicitud-contrato>
       </div>
     </div>
-  
 
-  
     <div *ngIf="userServ.cuidador | async;let cuidador">
       <div *ngIf="cuidador.solicitud_cuidado.length > 0">
         <ion-row
@@ -89,7 +87,7 @@
         </app-solicitud-contrato>
       </div>
     </div>
-  <!--</div>-->
+  </div>
 
   <ion-tabs>
     <ion-tab-bar slot="bottom">
