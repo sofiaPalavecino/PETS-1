@@ -18,12 +18,7 @@ export class SliderAgendaComponent implements OnInit {
   constructor(private aServ:AuthService, private afs:AngularFirestore) { 
     this.aServ.user$.subscribe((usuario2)=>{
       this.usuario=usuario2;
-      //let mapa: Map<string,string> = (Map) usuario2.contratosActivos 
-      //console.log("Contratos:", )
-      //if(usuario2 as userProfile && contratosActivos.size==undefined) //Lograr que compruebe si esta vacio
-      //{
-       // console.log("hola");
-      //}
+     
     })
   }
 
