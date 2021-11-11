@@ -15,7 +15,7 @@ export interface userProfile{
   email: string;
   emailVerified: boolean;
   nacimiento: string;
-  administrando:string;
+  administrando:Array<string>;
   DNI:number;
   foto:string;
   barrio:string;
