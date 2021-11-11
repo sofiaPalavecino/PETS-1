@@ -14,8 +14,12 @@ export class OrganizacionesService {
 
   public organizaciones:Observable<Organizacion>
   public administrando:Observable<Organizacion>
+  public usuario:userProfile
 
   constructor(private afs: AngularFirestore, private authSvc: AuthService) {
+    this.authSvc.user$.subscribe((usuario)=>{
+      this.usuario=usuario
+    })
     let i = 0;
     this.organizaciones=this.getOrganizaciones()
     /*while(this.authSvc.user$.uid === undefined && i === 0){
@@ -35,7 +39,7 @@ export class OrganizacionesService {
   }
 
   getAdministrando(id:string):Observable<any>{
-    return (this.afs.collection<Organizacion>(`organización`, ref=>(ref.where("administradores", "array-contains", this.authSvc.user$.uid))).valueChanges({idField: 'docId'}))
+    return (this.afs.collection<Organizacion>(`organización`, ref=>(ref.where("administradores", "array-contains", this.usuario.uid))).valueChanges({idField: 'docId'}))
   }
 
 }
