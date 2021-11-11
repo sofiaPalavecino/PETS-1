@@ -63,10 +63,6 @@ export class SolicitudContratoComponent implements OnInit {
     private date: DatePipe
   ) {}
 
-  ionViewDidEnter() {
-    document.getElementById("mostrarTipo").style.display = "none";
-  }
-
   async ngOnInit() {
     if (this.tipo == "Adopción") {
       this.emojiTipo =

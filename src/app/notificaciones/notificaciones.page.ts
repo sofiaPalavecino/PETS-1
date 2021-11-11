@@ -21,13 +21,12 @@ export class NotificacionesPage implements OnInit {
   public cuidador:Observable<Cuidador>=null
   public administrando:Observable<Organizacion>=null
 
-  @Input() hayPaseo: boolean;
-  @Input() hayCuidado: boolean;
-  @Input() hayTransito: boolean;
+  tab: string;
 
   constructor(private authSvc: AuthService, private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, private date:DatePipe, private orgas: OrganizacionesService) { }
 
   ngOnInit() {
+    this.tab = 'Servicios';
     this.administrando = this.orgas.getAdministrando(this.authSvc.user$.uid);
     /*this.paseador = this.trabajo.getPaseador(this.authSvc.user$.uid);
     this.cuidador = this.trabajo.getCuidador(this.authSvc.user$.uid);
@@ -50,6 +49,13 @@ export class NotificacionesPage implements OnInit {
 
     })*/
 
+  
+  }
+
+  cambiarPestania(tab:string){
+    this.tab = tab;
+    document.getElementById(tab+'I').style.color = "#7bd7b5";
+    document.getElementById(tab+'L').style.color = "#7bd7b5";
   }
 
 }

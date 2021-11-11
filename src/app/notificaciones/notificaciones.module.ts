@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IonTabs } from '@ionic/angular';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,11 +16,11 @@ import { SolicitudContratoComponent } from "../components/solicitud-contrato/sol
     CommonModule,
     FormsModule,
     IonicModule,
-    NotificacionesPageRoutingModule
+    NotificacionesPageRoutingModule,
   ],
   providers: [
     DatePipe
   ],
-  declarations: [NotificacionesPage,SolicitudContratoComponent]
+  declarations: [NotificacionesPage,SolicitudContratoComponent, IonTabs]
 })
 export class NotificacionesPageModule {}

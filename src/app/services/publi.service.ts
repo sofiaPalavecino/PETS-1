@@ -47,7 +47,7 @@ export class PubliService {
 
   getPublicaciones(idOrga: string): Observable<any> {
     return this.afs
-      .collection<Publicacion>(`organización/${idOrga}/publicaciones`)
+      .collection<Publicacion>(`organización/${idOrga}/publicaciones`, ref =>(ref.orderBy("fecha")))
       .valueChanges({ idField: "docId" });
   }
 
