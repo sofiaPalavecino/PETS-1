@@ -21,5 +21,5 @@ export interface userProfile{
   barrio:string;
   orgFavoritas:Array<string>
   solicitud_admin:Array<string>
-  contratosActivos:Map<string,string>
+  contratosActivos:any
 }
