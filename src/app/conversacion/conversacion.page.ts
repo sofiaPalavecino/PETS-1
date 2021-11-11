@@ -33,7 +33,7 @@ export class ConversacionPage implements OnInit {
 
   enviarMensaje(){
     this.chatServ.enviarMensaje(this.mensaje,this.usuario.uid,this.idChat)
-    
+    this.mensaje=""
   }
 
 }

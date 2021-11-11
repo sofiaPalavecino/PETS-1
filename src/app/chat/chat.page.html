@@ -11,4 +11,10 @@
   </div>
   
 </div>
+<div *ngFor="let chat of chatServ.chatsUsuarioTrabajador | async ">
+  <div *ngIf="this.setValoresID(chat.idCliente,chat.idChat)">
+    <app-chat-card idDestinatario={{idDestinatario}} idChat={{idChat}}></app-chat-card>
+  </div>
+  
+</div>
 </div>
