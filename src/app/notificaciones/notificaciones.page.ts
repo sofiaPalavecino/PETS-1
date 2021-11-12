@@ -15,4 +15,6 @@ export class NotificacionesPage implements OnInit {
   ngOnInit() {
   }
 
+ 
+
 }
