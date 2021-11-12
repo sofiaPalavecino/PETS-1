@@ -1,5 +1,5 @@
 export interface contratoOrganizacion {
-    
+    tipo: string;
     cambioDeEstado: Date;
     emision: Date;
     estado: string;

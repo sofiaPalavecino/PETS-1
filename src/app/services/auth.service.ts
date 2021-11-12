@@ -139,6 +139,7 @@ export class AuthService {
       administrando:null, //arregla
       foto: dataAux[7],
       barrio:dataAux[8],
+      cambioDeEstado:null,
       orgFavoritas:dataAux[9],
       solicitud_admin:dataAux[10]
     };
@@ -147,7 +148,7 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:Array<string>,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:Array<string>,foto:string, barrio:string, cambioDeEstado:Array<string>, orgFavoritas:Array<string>,solicitud_admin:Array<string>){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
@@ -168,6 +169,8 @@ export class AuthService {
       administrando:  administrando,
       foto:foto,
       barrio: barrio,
+      
+      cambioDeEstado: cambioDeEstado,
       orgFavoritas:orgFavoritas,
       solicitud_admin:solicitud_admin
     };

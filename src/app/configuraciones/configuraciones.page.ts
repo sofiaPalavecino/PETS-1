@@ -26,6 +26,7 @@ export class ConfiguracionesPage implements OnInit {
   administrando:Array<string>;
   foto:string;
   barrio:string;
+  cambioDeEstado:Array<string>;
   orgFavoritas:Array<string>;
   solicitud_admin:Array<string>;
   
@@ -41,15 +42,16 @@ export class ConfiguracionesPage implements OnInit {
       this.administrando=this.aServ.user$.administrando;
       this.foto=this.aServ.user$.foto;
       this.barrio=this.aServ.user$.barrio;
-      this.orgFavoritas=this.aServ.user$.orgFavoritas
-      this.solicitud_admin=this.aServ.user$.solicitud_admin
+      this.cambioDeEstado=this.cambioDeEstado;
+      this.orgFavoritas=this.aServ.user$.orgFavoritas;
+      this.solicitud_admin=this.aServ.user$.solicitud_admin;
    
   }
 
   ngOnInit() {}
 
   async cambiarDatos(){
-    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.orgFavoritas,this.solicitud_admin);
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.cambioDeEstado,this.orgFavoritas,this.solicitud_admin);
   }
 
 

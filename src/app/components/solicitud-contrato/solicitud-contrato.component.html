@@ -8,7 +8,7 @@
     <ion-col style="width: 180px;">
       <div *ngIf="tipo == 'Organizacion'" style="width: 180px;">
         <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5; width: 180px;">{{this.userName}}&nbsp;&nbsp;{{this.emojiTipo}}</ion-card-title>
-        <ion-card-subtitle id="mostrarTipo" style="font-size: medium; width: 100px; display: none;"><font color="#AAAAAA">{{this.tipo}}</font></ion-card-subtitle>
+        <ion-card-subtitle id="mostrarTipo" style="font-size: medium; width: 100px;"><font color="#AAAAAA">{{this.muestraTipo}}</font></ion-card-subtitle>
         <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: auto;">{{this.momento}}</ion-card-subtitle>
       </div>
       <div *ngIf="tipo != 'Organizacion'">
@@ -91,6 +91,35 @@
       </ion-col>
     </ion-row>
   </ion-row>
+
+
+
+  <ion-row id="Avisos" *ngIf="tipo == 'Avisos'">
+  
+    <ion-row *ngIf="this.publicacion | async ; let publi">
+      <ion-col class='col-transito' style="position: relative; left: 40px;">
+        <ion-slides>
+          <ion-slide class='div-transito' pager="true">
+            <ion-card class="card-mascota">
+              <img style="height: auto;object-fit: cover;width: 60vw;" src="{{publi.foto}}" class="image">
+                <ion-card-header class="header-titulo-mascota">
+                  <ion-card-title class="titulo-paseo">{{publi.nombre}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-subtitle>
+                  <span class="informacion-paseo"><font color="#ffbf00">★</font>{{publi.calificacion}}</span>
+                </ion-card-subtitle>
+                <ion-card-content>
+                  <span class="informacion-mascota" style="color: #7bd7b5;">Ver Más</span>
+                </ion-card-content>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-row>
+
+
+
   <!--  -->
   <ion-row>
     <ion-col style="margin: auto;text-align: center;">

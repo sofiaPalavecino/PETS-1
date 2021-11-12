@@ -18,7 +18,7 @@
       </app-solicitud-contrato>
     </div>
   </div> -->
-  <div *ngIf="this.tab == 'Organizaciones'">
+  <div *ngIf="this.tab == 'Organizaciones'" class="notis">
     <div *ngFor="let orgAux of this.administrando | async">
       <div *ngIf="orgAux.solicitud_transito.length > 0">
         <ion-row
@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div *ngIf="this.tab == 'Servicios'">
+  <div *ngIf="this.tab == 'Servicios'" class="notis">
     <div *ngIf="userServ.paseador | async;let paseador">
       <div *ngIf="paseador.solicitud_paseo.length > 0">
         <ion-row
@@ -89,11 +89,36 @@
     </div>
   </div>
 
+  <div *ngIf="this.tab == 'Avisos'" class="notis">
+    <div *ngIf="this.user | async;let user">
+      <div *ngIf="user.length > 0">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
+        >
+          <label style="margin: auto; font-size: x-large; color: white"
+            > Avisos </label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of user.cambioDeEstado"
+          idContrato="{{contrato}}"
+          tipo="Avisos"
+        >
+        </app-solicitud-contrato>
+      </div>
+    </div>
+  </div>
+
+
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button (click)="cambiarPestania('Servicios')">
-        <ion-icon id="ServiciosI" name="receipt-outline"> </ion-icon>
-        <ion-label id="ServiciosL"> Servicios </ion-label>
+        <ion-icon style="color:#7bd7b5" id="ServiciosI" name="receipt-outline"> </ion-icon>
+        <ion-label style="color:#7bd7b5" id="ServiciosL"> Servicios </ion-label>
       </ion-tab-button>
       <ion-tab-button (click)="cambiarPestania('Organizaciones')">
         <ion-icon id="OrganizacionesI" name="paw-outline"> </ion-icon>

@@ -30,7 +30,7 @@ import { TouchSequence } from "selenium-webdriver";
 export class SolicitudContratoComponent implements OnInit {
   public publicacion: Observable<Publicacion> = null;
   public organizacion: Observable<Organizacion> = null;
-  public transito: Observable<contratoOrganizacion> = null;
+  public contratoOrganizacion: Observable<contratoOrganizacion> = null;
   public momento: string;
 
   @Input() idContrato: string;
@@ -44,12 +44,15 @@ export class SolicitudContratoComponent implements OnInit {
   barrio: string;
   mascotas: Array<mascota[]>;
   cliente: Observable<userProfile> = new Observable<userProfile>();
+  idCliente: string;
   fecha: string;
   guardaMomento: string;
   idPubli: string;
   dia: string;
   mes: string;
   emojiTipo: string;
+  contratoOrganizacionTipo: string;
+  muestraTipo: string;
 
   constructor(
     private authServ: AuthService,
@@ -64,16 +67,19 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    if (this.tipo == "Adopción") {
-      this.emojiTipo =
-        String.fromCodePoint(128054) + String.fromCodePoint(9774);
-    } else if (this.tipo == "Organizacion") {
-      this.emojiTipo =
-        String.fromCodePoint(128054) + String.fromCodePoint(9203);
-      this.transito = this.publis.getTransito(this.idContrato);
+    this.muestraTipo == '';
+    if (this.tipo == "Organizacion" || this.tipo == "Avisos") {
+      this.contratoOrganizacion = this.publis.getTransito(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
-      this.transito.subscribe((contrato) => {
+      this.contratoOrganizacion.subscribe((contrato) => {
         console.log(contrato);
+        if (contrato.tipo == 'Transito'){
+          this.emojiTipo = String.fromCodePoint(128054) + String.fromCodePoint(9203);
+        }
+        else{
+          this.emojiTipo = String.fromCodePoint(128054) + String.fromCodePoint(9774);
+        }
+        this.contratoOrganizacionTipo = contrato.tipo;
         this.fecha = contrato.fecha;
         this.idPubli = contrato.idAnimal;
         /*this.fecha=contrato.fecha
@@ -198,6 +204,7 @@ export class SolicitudContratoComponent implements OnInit {
         .subscribe((data) => {
           this.contrato = data;
           this.cliente = this.obDataServ.getUser(data.idTransitante);
+          this.idCliente = data.idTransitante;
           this.cliente.subscribe((data) => {
             this.userName = data.nombre + " " + data.apellido;
             this.imgCliente = data.foto;
@@ -211,6 +218,7 @@ export class SolicitudContratoComponent implements OnInit {
         .subscribe((data) => {
           this.contrato = data;
           this.cliente = this.obDataServ.getUser(data.idCliente);
+          this.idCliente = data.idCliente;
           this.cliente.subscribe((data) => {
             this.userName = data.nombre + " " + data.apellido;
             this.imgCliente = data.foto;
@@ -272,6 +280,12 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           cambioDeEstado: new Date(),
         });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
     } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
@@ -287,6 +301,12 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
     } else {
       this.afs
         .collection("cuidador")
@@ -301,6 +321,12 @@ export class SolicitudContratoComponent implements OnInit {
         .doc(this.authServ.uid)
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
     }
 
@@ -415,6 +441,12 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           cambioDeEstado: new Date(),
         });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
     } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
@@ -424,6 +456,12 @@ export class SolicitudContratoComponent implements OnInit {
             this.idContrato
           ),
         });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+        });
     } else {
       this.afs
         .collection("cuidador")
@@ -432,6 +470,12 @@ export class SolicitudContratoComponent implements OnInit {
           solicitud_cuidado: firebase.firestore.FieldValue.arrayRemove(
             this.idContrato
           ),
+        });
+      this.afs
+        .collection("users")
+        .doc(this.idCliente)
+        .update({
+          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
     }
   }
@@ -465,14 +509,14 @@ export class SolicitudContratoComponent implements OnInit {
       this.momento = this.fecha;
       this.botonInfo = "ver menos";
       if (this.tipo == "Organizacion") {
-        document.getElementById("mostrarTipo").style.display = "block";
+        this.muestraTipo = this.contratoOrganizacionTipo;
       }
     } else {
       document.getElementById(this.idContrato).style.height = "65px";
       this.botonInfo = "ver mas";
       this.momento = this.guardaMomento;
       if (this.tipo == "Organizacion") {
-        document.getElementById("mostrarTipo").style.display = "none";
+        this.muestraTipo = '';
       }
     }
   }

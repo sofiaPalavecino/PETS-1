@@ -19,6 +19,7 @@ export interface userProfile{
   DNI:number;
   foto:string;
   barrio:string;
-  orgFavoritas:Array<string>
-  solicitud_admin:Array<string>
+  cambioDeEstado: Array<string>;
+  orgFavoritas:Array<string>;
+  solicitud_admin:Array<string>;
 }

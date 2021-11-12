@@ -62,7 +62,7 @@ export class PublicacionPage implements OnInit {
     else document.getElementById(id).style.display = "none";
   }
 
-  nuevoTransito(id: string) {
+  nuevoTransito() {
     let fecha = this.date.transform(new Date(), "dd/MM/yyyy");
     this.publiServ.salvarPerrito(
       this.id,
@@ -71,13 +71,25 @@ export class PublicacionPage implements OnInit {
       fecha,
       "Transito"
     );
-    let vista = document.getElementById(id).style.display;
-    if (vista == "none") vista = "inline";
-    document.getElementById(id).style.display = vista;
+    document.getElementById('transito').style.display = "inline";
     window.alert(
       "Su solicitud está siendo procesada, espere la confirmación de la organización"
     );
-    //##############################################ACTUALIZAR ESTO##############################################
+  }
+
+  nuevaAdopcion(){
+    let fecha = this.date.transform(new Date(), "dd/MM/yyyy");
+    this.publiServ.salvarPerrito(
+      this.id,
+      this.uid,
+      this.idOrga,
+      fecha,
+      "Adopcion"
+    );
+    document.getElementById('adopcion').style.display = "inline";
+    window.alert(
+      "Su solicitud está siendo procesada, espere la confirmación de la organización"
+    );
   }
 
   noPodiSalvar() {
