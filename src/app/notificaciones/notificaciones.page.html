@@ -45,7 +45,7 @@
 
   <div *ngIf="this.tab == 'Servicios'" class="notis">
     <div *ngIf="userServ.paseador | async;let paseador">
-      <div *ngIf="paseador.solicitud_paseo.length > 0">
+      <div *ngIf="(paseador.solicitud_paseo)?.length">
         <ion-row
           style="
             opacity: 0.8;
@@ -67,7 +67,7 @@
     </div>
 
     <div *ngIf="userServ.cuidador | async;let cuidador">
-      <div *ngIf="cuidador.solicitud_cuidado.length > 0">
+      <div *ngIf="(userServ.cuidador.solicitud_cuidado | async)?.length">
         <ion-row
           style="
             opacity: 0.8;
@@ -90,8 +90,10 @@
   </div>
 
   <div *ngIf="this.tab == 'Avisos'" class="notis">
+    <!-- <img src="https://www.gstatic.com/translate/2x_error_dog.png" style="width: 75%; position: relative; top: 100px; left: 10%;">
+    <h1 style="color: #aaaaaa; font-size: medium; position: relative; top: 100px; left: 150px;">Coming Soon...</h1> -->
     <div *ngIf="this.user | async;let user">
-      <div *ngIf="user.length > 0">
+      <div *ngIf="user.cambioDeEstado.length > 0">
         <ion-row
           style="
             opacity: 0.8;

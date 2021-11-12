@@ -80,9 +80,8 @@ export class PubliService {
       });
   }
 
-  getContrato() {}
 
-  getTransito(id: string): Observable<any> {
+  getContrato(id: string): Observable<any> {
     return this.afs
       .doc<contratoOrganizacion>(`contratoOrganizacion/${id}`)
       .valueChanges({ idField: "docId" });

@@ -68,8 +68,11 @@ export class SolicitudContratoComponent implements OnInit {
 
   async ngOnInit() {
     this.muestraTipo == '';
-    if (this.tipo == "Organizacion" || this.tipo == "Avisos") {
-      this.contratoOrganizacion = this.publis.getTransito(this.idContrato);
+    if (this.tipo == "Avisos"){
+      
+    }
+    else if (this.tipo == "Organizacion") {
+      this.contratoOrganizacion = this.publis.getContrato(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
       this.contratoOrganizacion.subscribe((contrato) => {
         console.log(contrato);
