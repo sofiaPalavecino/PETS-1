@@ -1,4 +1,4 @@
-<ion-card class="card-mascota">
+<ion-card class="card-mascota" [routerLink]="['/mascota',idUser,id]">
   <div *ngFor="let fotuli of mascota1.fotos">
     <img src={{fotuli}}>
   </div>

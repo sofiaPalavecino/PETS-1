@@ -127,7 +127,12 @@ const routes: Routes = [
   {
     path: 'conversacion/:idChat',
     loadChildren: () => import('./conversacion/conversacion.module').then( m => m.ConversacionPageModule)
+  },
+  {
+    path: 'mascota/:idUsuario/:idMascota',
+    loadChildren: () => import('./mascota/mascota.module').then( m => m.MascotaPageModule)
   }
+
 
 
 ];

@@ -21,7 +21,6 @@ export class AuthService implements OnInit{
    
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        console.log("user");
         
         this.uid=user.uid;
         this.user$=this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges({idField:"uid"})
