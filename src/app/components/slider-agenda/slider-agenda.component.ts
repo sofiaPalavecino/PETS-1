@@ -14,11 +14,27 @@ import { User, userProfile } from 'src/app/shared/user.interface';
 export class SliderAgendaComponent implements OnInit {
   
   public usuario:userProfile;
+  public listContratosPaseador:Array<any> = new Array<any>();
+  public listContratosCuidador:Array<any> = new Array<any>();
 
   constructor(private aServ:AuthService, private afs:AngularFirestore) { 
-    this.aServ.user$.subscribe((usuario2)=>{
-      this.usuario=usuario2;
+    this.aServ.user$.subscribe((data)=>{
+      this.usuario=data;
+      let contratosActivosMap: Map<string, string> = new Map(Object.entries(this.usuario.contratosActivos));
      
+      let listContratosId = Object.keys(this.usuario.contratosActivos);
+
+      listContratosId.forEach(contratoId => {
+        let tipoContrato = contratosActivosMap.get(contratoId);
+        this.afs.doc<ContratoPaseador>("contrato" + tipoContrato + "/" + contratoId)
+        .valueChanges()
+        .subscribe((contrato) => {
+          if(tipoContrato == "Paseador") this.listContratosPaseador.push(contrato)
+          else this.listContratosCuidador.push(contrato)
+          console.log(this.listContratosPaseador);
+          
+        })
+      });
     })
   }
 
