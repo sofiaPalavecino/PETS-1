@@ -46,12 +46,12 @@ export class PublicacionPage implements OnInit {
 
   mostrarTexto(id:string){
     let vista=document.getElementById(id).style.display;
-	if (vista=='none')
-		vista='block';
-	else
-		vista='none';
+    if (vista=='none')
+      vista='block';
+    else
+      vista='none';
 
-	document.getElementById(id).style.display = vista;
+    document.getElementById(id).style.display = vista;
   }
 
   nuevoTransito(id: string){
