@@ -32,5 +32,13 @@ export class PaseosService {
   getCuidadores(userId:string):Observable<any>{
     return (this.afs.collection<Cuidador>(`cuidador`).valueChanges({idField: 'docId'}))
   }
+
+  getPaseador(id: string):Observable<any>{
+    return (this.afs.doc<Paseador>(`${id}`).valueChanges({idField: 'docId'})) // Yo: Hice esta función para intentar arreglar "Notificaciones"
+  }
+
+  getCuidador(id: string):Observable<any>{
+    return (this.afs.doc<Cuidador>(`${id}`).valueChanges({idField: 'docId'})) //Yo: Esta también
+  }
   
 }

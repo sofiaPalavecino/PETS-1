@@ -35,4 +35,19 @@ export class OrganizacionService {
     this.organizacion=this.afs.doc<Organizacion>(`organización/${oid}`).valueChanges()
     this.afs.collection("users").doc(this.authSvc.uid).update({ administrando: oid });
   }
+
+
+  /*public getCurrentUserAssignments(): Observable<any> {
+    return new Observable((observer) => {
+        const query = this.afs.firestore.collection("organización")
+          .where("administradores", "array-contains", this.authSvc.user$.uid);
+
+        let _currentUserAssignments = query.get().then(querySnapshot => {
+            this.ngZone.run(() => {
+                observer.next(querySnapshot.docSnapshots);
+            });
+        });
+    });
+}*/
+
 }

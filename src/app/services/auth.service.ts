@@ -148,6 +148,7 @@ export class AuthService implements OnInit{
       administrando:null, //arregla
       foto: dataAux[7],
       barrio:dataAux[8],
+      cambioDeEstado:null,
       orgFavoritas:dataAux[9],
       solicitud_admin:dataAux[10],
       contratosActivos:dataAux[11]
@@ -157,7 +158,7 @@ export class AuthService implements OnInit{
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>,contratosActivos:Map<string,string>){
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>,contratosActivos:Map<string,string>,cambioDeEstado:Array<string>){
     
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
     
@@ -178,6 +179,7 @@ export class AuthService implements OnInit{
       administrando:  administrando,
       foto:foto,
       barrio: barrio,
+      cambioDeEstado: cambioDeEstado,
       orgFavoritas:orgFavoritas,
       solicitud_admin:solicitud_admin,
       contratosActivos:contratosActivos,
