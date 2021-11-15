@@ -1,11 +1,11 @@
+<!-- <div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock"> -->
 <ion-slides>
 
-    <div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock">
       
       <!-------------------PASEO--------------------------->
 
       <ion-slide *ngFor="let contrato of this.listContratosPaseador">
-        1
+        
         <div *ngIf="contrato.idMascota.length==1; else elseBlock3"> <!--Para 1 mascota sola-->
             <ion-card class="card">
               
@@ -265,7 +265,7 @@
 
       <!----------------------------------------->
 
-    </div>
+   
 
     <ng-template #elseBlock> <!--+1 mascota-->
       <ion-slide>

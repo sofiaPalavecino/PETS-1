@@ -245,7 +245,8 @@ export class UserService {
       cuidado : cuidadoA,
       descripcion : descripcionA,
       especie : especieMascotaA,
-      calificacion : 0
+      calificacion : 0,
+      fotos: []
     });
   }
 }

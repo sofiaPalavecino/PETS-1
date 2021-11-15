@@ -22,7 +22,11 @@ export class SliderAgendaComponent implements OnInit {
   constructor(private aServ:AuthService, private afs:AngularFirestore, private uServ: UserService) { 
     this.aServ.user$.subscribe((data)=>{
       this.usuario=data;
+
+      
+
       let contratosActivosMap: Map<string, string> = new Map(Object.entries(this.usuario.contratosActivos));
+     
      
       let listContratosId = Object.keys(this.usuario.contratosActivos);
 
