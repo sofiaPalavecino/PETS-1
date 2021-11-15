@@ -21,7 +21,7 @@ export class AuthService implements OnInit{
    
     this.afAuth.authState.subscribe((user) => {
       if (user) {
-        
+        console.log("user");
         this.uid=user.uid;
         this.user$=this.afs.doc<userProfile>(`users/${user.uid}`).valueChanges({idField:"uid"})
         
@@ -102,7 +102,7 @@ export class AuthService implements OnInit{
     }
   }
 
-  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string, barrio:string, orgFavoritas:Array<string>, solicitud_admin:Array<string>, contratosActivos:Array<string>) {
+  private async updateUserData(user: User, nombre: string, apellido: string, nacimiento:string, dni:number, foto:string, barrio:string, orgFavoritas:Array<string>, solicitud_admin:Array<string>, contratosActivos:Map<string,string>) {
     const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${user.uid}`);
     
     let dataAux:any=[];
