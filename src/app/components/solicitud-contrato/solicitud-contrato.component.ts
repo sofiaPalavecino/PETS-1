@@ -438,7 +438,7 @@ export class SolicitudContratoComponent implements OnInit {
         });
     }
 
-    let attr: string = "contratos_activos." + this.idContrato;
+    let attr: string = "contratosActivos." + this.idContrato;
     this.afs.collection("users").doc(this.idCliente).update({
       [attr]: this.tipo
     })
