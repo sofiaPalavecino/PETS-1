@@ -4,9 +4,9 @@
       
       <!-------------------PASEO--------------------------->
 
-      <div *ngFor="let contrato of this.listContratosPaseador">
+      <ion-slide *ngFor="let contrato of this.listContratosPaseador">
+        1
         <div *ngIf="contrato.idMascota.length==1; else elseBlock3"> <!--Para 1 mascota sola-->
-          <ion-slide>
             <ion-card class="card">
               
               <ion-row>
@@ -63,12 +63,10 @@
               </ion-row>
 
             </ion-card>
-          </ion-slide>
 
         </div>
         <ng-template #elseBlock3> <!--+1 mascota-->
           
-          <ion-slide>
             <ion-card class="card">
               
               <ion-row>
@@ -137,18 +135,16 @@
               </ion-row>
 
             </ion-card>
-          </ion-slide>
 
         </ng-template>
       
-      </div>
+      </ion-slide>
 
       <!-------------------CUIDADOS---------------------------->
 
-      <div *ngFor="let contrato of this.listContratosCuidador">
+      <ion-slide *ngFor="let contrato of this.listContratosCuidador">
         <div *ngIf="contrato.idMascota.length==1; else elseBlock3"> <!--Para 1 mascota sola-->
           
-          <ion-slide>
             <ion-card class="card">
               
               <ion-row>
@@ -198,12 +194,10 @@
               </ion-row>
 
             </ion-card>
-          </ion-slide>
 
         </div>
         <ng-template #elseBlock3> <!--+1 mascota-->
           
-          <ion-slide>
             <ion-card class="card">
               
               <ion-row>
@@ -265,10 +259,9 @@
               </ion-row>
 
             </ion-card>
-          </ion-slide>
         </ng-template>
       
-      </div>
+      </ion-slide>
 
       <!----------------------------------------->
 
