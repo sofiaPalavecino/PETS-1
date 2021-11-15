@@ -57,28 +57,14 @@ export class PublicacionPage implements OnInit {
     this.org.actualizarOrganizacion(this.org.oid);
   }
 
-  mostrarTexto(id: string) {
-    let vista = document.getElementById(id).style.display;
-    if (vista == "none") document.getElementById(id).style.display = "block";
-    else document.getElementById(id).style.display = "none";
-  }
+  mostrarTexto(id:string){
+    let vista=document.getElementById(id).style.display;
+    if (vista=='none')
+      vista='block';
+    else
+      vista='none';
 
-  nuevoTransito(id: string) {
-    let fecha = this.date.transform(new Date(), "dd/MM/yyyy");
-    this.publiServ.salvarPerrito(
-      this.id,
-      this.uid,
-      this.idOrga,
-      fecha,
-      "Transito"
-    );
-    let vista = document.getElementById(id).style.display;
-    if (vista == "none") vista = "inline";
     document.getElementById(id).style.display = vista;
-    window.alert(
-      "Su solicitud está siendo procesada, espere la confirmación de la organización"
-    );
-    //##############################################ACTUALIZAR ESTO##############################################
   }
 
   noPodiSalvar() {

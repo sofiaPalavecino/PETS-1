@@ -27,11 +27,7 @@ export class SliderAgendaComponent implements OnInit {
 
   revisarContratos(){
     this.contratosPendientes=false;
-    of(this.aServ.user$).subscribe((usuario)=>{
-      if(usuario){
-        console.log("uwu");
-      }
-    })
+    
     /*if(this.aServ.user$.contratosActivos.size>0){
       
         for (let [key, value] of this.aServ.user$.contratosActivos) {

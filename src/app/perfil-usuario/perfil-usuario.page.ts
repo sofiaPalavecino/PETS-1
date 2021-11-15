@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Cuidador } from '../shared/cuidador.interface';
+import { userProfile } from '../shared/user.interface';
 
 
 
@@ -20,17 +21,12 @@ import { Cuidador } from '../shared/cuidador.interface';
 
 
 export class PerfilUsuarioPage {
+
+  public usuario:userProfile
   
   constructor(private afs: AngularFirestore, private aServ:AuthService, private userServ: UserService, private popController: PopoverPerfilComponent) {
-    userServ.paseador.subscribe(dasda=>{
-      console.log(dasda.calificacion_promedio);
-      console.log(dasda.contratos);
-      console.log(dasda.solicitud_paseo);
-    })
-    userServ.mascotas.subscribe(asds=>{
-      asds.forEach(element => {
-        console.log(element);
-      });
+    this.aServ.user$.subscribe((usuario)=>{
+      this.usuario=usuario
     })
   }
 
