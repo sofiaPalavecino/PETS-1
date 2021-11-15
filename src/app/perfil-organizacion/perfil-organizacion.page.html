@@ -11,20 +11,18 @@
     <div class="div-contiene-foto-nombre" *ngIf="this.org.organizacion | async ; let orga">
       <ion-avatar id="org-avatar">
         <img
-          *ngIf="this.org.organizacion"
-          src="{{this.org.organizacion.foto}}"
+        src="{{orga.foto}}"
         />
       </ion-avatar>
       <div
         class="div-contiene-nombre-provincia"
-        *ngIf="org.organizacion; let orgAux"
       >
         <div class="div-nombre-organizacion">
-          <h1 style="font-weight: bold">{{ orgAux.nombre }}</h1>
+          <h1 style="font-weight: bold">{{ orga.nombre }}</h1>
         </div>
         <div class="div-localizacion-org">
           <h6 *ngIf="org.organizacion; let orgAux" style="margin-top: -10px">
-            Se encuentra en: {{ orgAux.localidad }}
+            Se encuentra en: {{ orga.localidad }}
           </h6>
         </div>
         <div class="div-localizacion-org">
@@ -55,7 +53,7 @@
         (ionChange)="cambiarOrganizacion()"
       >
         <ion-select-option
-          *ngFor="let orgAux of this.org.organizaciones"
+          *ngFor="let orgAux of this.org.organizaciones | async"
           value="{{orgAux.oid}}"
           >{{orgAux.nombre}}
         </ion-select-option>
