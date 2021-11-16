@@ -5,41 +5,33 @@
 </ion-header>
 
 <ion-content>
-
   <div>
-
     <ion-col>
-
       <ion-row>
-        
         <ion-col>
-          
           <a>Costo del combo (AR$):</a>
-          <ion-item lines="full" style="margin-left: 5px;">
+          <ion-item lines="full" style="margin-left: 5px">
             <ion-input type="number" [(ngModel)]="costo" required></ion-input>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
 
       <ion-row>
-        
         <ion-col>
-          
           <a>Cantidad de dias:</a>
-          <ion-item lines="full" style="margin-left: 5px;">
-            <ion-input type="number" [(ngModel)]="cantidad_dias" required></ion-input>
+          <ion-item lines="full" style="margin-left: 5px">
+            <ion-input
+              type="number"
+              [(ngModel)]="cantidad_dias"
+              required
+            ></ion-input>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
 
-      <ion-button type="submit" (click)="crearComboCuidado()" routerLink='/home' >Aceptar</ion-button>
-
+      <ion-button type="submit" (click)="crearComboCuidado()"
+        >Aceptar</ion-button
+      >
     </ion-col>
-
   </div>
-
 </ion-content>

@@ -5,37 +5,33 @@
 </ion-header>
 
 <ion-content>
-
   <div>
-
     <ion-col>
-
       <ion-row>
-
         <ion-col>
           <a>Costo(AR$) por dia:</a>
-          <ion-item lines="full" style="margin-left: 5px;">
+          <ion-item lines="full" style="margin-left: 5px">
             <ion-input type="number" [(ngModel)]="costo" required></ion-input>
           </ion-item>
         </ion-col>
-
       </ion-row>
 
       <ion-row>
-
         <ion-col>
           <a>Cupo maximo de mascotas:</a>
-          <ion-item lines="full" style="margin-left: 5px;">
-            <ion-input type="number" [(ngModel)]="maximoMascotas" required></ion-input>
+          <ion-item lines="full" style="margin-left: 5px">
+            <ion-input
+              type="number"
+              [(ngModel)]="maximoMascotas"
+              required
+            ></ion-input>
           </ion-item>
         </ion-col>
-
       </ion-row>
-
     </ion-col>
 
-    <ion-button type="submit" (click)="crearCuidado()" routerLink='/home' >Aceptar</ion-button>
-
+    <ion-button type="submit" (click)="crearCuidado()"
+      >Aceptar</ion-button
+    >
   </div>
-
 </ion-content>

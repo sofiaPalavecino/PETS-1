@@ -251,6 +251,11 @@ export class SolicitudContratoComponent implements OnInit {
   }
 
   async aceptarContrato(idContrato: string) {
+
+    this.afs.collection("chat").add({
+      idCliente: this.idCliente,
+      idTrabajador: this.authServ.uid
+    })
    
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
