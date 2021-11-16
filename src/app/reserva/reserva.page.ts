@@ -240,18 +240,34 @@ export class ReservaPage implements OnInit {
       }else{
         if(this.fecha!=""){
           let fechaInicio=this.date.transform(this.fecha, 'MM/dd/yyyy')
-          const nuevoContrato = this.afs.collection('contratoCuidador').add({
-            cantMascotas:cantMascotas,
-            estado:"solicitud",
-            idCliente:this.aServ.uid,
-            idMascota:mascotasId,
-            idCuidador:this.uid,
-            planContratado:this.pid,
-            fechaInicio:fechaInicio,
-            fechaContratacion:fecha,
-            montoTotal:this.montoTotal,
-            diasTotales:this.cantidadDias
-          })
+          let nuevoContrato;
+          if(this.tipo == "contrato"){
+            nuevoContrato = this.afs.collection('contratoCuidador').add({
+              cantMascotas:cantMascotas,
+              estado:"solicitud",
+              idCliente:this.aServ.uid,
+              idMascota:mascotasId,
+              idCuidador:this.uid,
+              planContratado:this.pid,
+              fechaInicio:fechaInicio,
+              fechaContratacion:fecha,
+              montoTotal:this.montoTotal,
+              diasTotales:this.cantidadDias
+            })
+          } else {
+            nuevoContrato = this.afs.collection('contratoCuidador').add({
+              cantMascotas:cantMascotas,
+              estado:"solicitud",
+              idCliente:this.aServ.uid,
+              idMascota:mascotasId,
+              idCuidador:this.uid,
+              planContratado:this.pid,
+              fechaInicio:fechaInicio,
+              fechaContratacion:fecha,
+              montoTotal:this.precioDia * this.cantidadDiasReserva,
+              diasTotales:this.cantidadDiasReserva
+            })
+          }
           nuevoContrato.then((data)=> {
             console.log(`cuidador/${this.uid}`)
             this.afs.doc(`cuidador/${this.uid}`).update({

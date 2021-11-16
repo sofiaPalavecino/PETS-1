@@ -44,7 +44,49 @@
     <ion-col *ngIf="tipo == 'cuidado_dia'; else a" >
       <div style="margin: auto">
         <h5>» costo por dia: {{precioDia}}</h5>
-        <h5 style="display: inline-block;">» cantidad de dias:</h5> <input [(ngModel)]="cantidadDiasReserva" type="number" min="1">
+       
+        <ion-row>
+
+          <ion-col>
+            <a>cantidad de dias:</a>
+            <ion-item lines="full" style="margin-left: 5px;">
+              <ion-select [(ngModel)]="cantidadDiasReserva" placeholder="Select One">
+                <ion-select-option value="1">1</ion-select-option>
+                <ion-select-option value="2">2</ion-select-option>
+                <ion-select-option value="3">3</ion-select-option>
+                <ion-select-option value="4">4</ion-select-option>
+                <ion-select-option value="5">5</ion-select-option>
+                <ion-select-option value="6">6</ion-select-option>
+                <ion-select-option value="7">7</ion-select-option>
+                <ion-select-option value="8">8</ion-select-option>
+                <ion-select-option value="9">9</ion-select-option>
+                <ion-select-option value="10">10</ion-select-option>
+                <ion-select-option value="11">11</ion-select-option>
+                <ion-select-option value="12">12</ion-select-option>
+                <ion-select-option value="13">13</ion-select-option>
+                <ion-select-option value="14">14</ion-select-option>
+                <ion-select-option value="15">15</ion-select-option>
+                <ion-select-option value="16">16</ion-select-option>
+                <ion-select-option value="17">17</ion-select-option>
+                <ion-select-option value="18">18</ion-select-option>
+                <ion-select-option value="19">19</ion-select-option>
+                <ion-select-option value="20">20</ion-select-option>
+                <ion-select-option value="21">21</ion-select-option>
+                <ion-select-option value="22">22</ion-select-option>
+                <ion-select-option value="23">23</ion-select-option>
+                <ion-select-option value="24">24</ion-select-option>
+                <ion-select-option value="25">25</ion-select-option>
+                <ion-select-option value="26">26</ion-select-option>
+                <ion-select-option value="27">27</ion-select-option>
+                <ion-select-option value="28">28</ion-select-option>
+                <ion-select-option value="29">29</ion-select-option>
+                <ion-select-option value="30">30</ion-select-option>
+                
+              </ion-select>
+            </ion-item>
+          </ion-col>
+  
+        </ion-row>
         <h5>» costo final: {{precioDia * cantidadDiasReserva}}</h5>
       </div>
     </ion-col>
