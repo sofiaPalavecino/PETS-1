@@ -12,10 +12,11 @@ import { disponibilidades } from "../shared/disponibilidades.interface";
 import { mascota } from "../shared/mascota.interface";
 import { PlanPaseo } from "../shared/plan-paseo.interface";
 import { Dia } from "../dia";
-import { DatePipe } from "@angular/common";
-import firebase from "firebase/app";
-import "firebase/firestore";
-import { AlertController } from "@ionic/angular";
+import { DatePipe } from '@angular/common';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import { AlertController } from '@ionic/angular';
+import { moveMessagePortToContext } from "worker_threads";
 
 @Component({
   selector: "app-reserva",
@@ -33,10 +34,12 @@ export class ReservaPage implements OnInit {
   usuario: Observable<userProfile> = null;
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;
-  cantidadDias: number;
-  semana: Array<boolean> = new Array<boolean>();
-  montoTotal: number;
-  fecha: any = "";
+  cantidadDias:number;
+  semana:Array<boolean> = new Array<boolean>();
+  montoTotal:number;
+  fecha:any="";
+  minDate: string = new Date().toISOString();
+  maxDate: string;
 
   constructor(
     private aServ: AuthService,
@@ -45,8 +48,12 @@ export class ReservaPage implements OnInit {
     private userServ: UserService,
     private date: DatePipe,
     public alertController: AlertController,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) {
+    let añoActual = new Date();
+    añoActual.setDate(añoActual.getDate()+183)
+    this.maxDate = añoActual.toISOString();
+  }
 
   async ngOnInit() {
     this.uid = await this.route.snapshot.paramMap.get("uid");
