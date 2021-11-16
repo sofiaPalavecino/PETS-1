@@ -72,7 +72,7 @@
       </label>
     </ion-col>
     <ng-template #elseBlock>
-      <ion-datetime style="margin:auto;" placeholder="Seleccionar el dia de comienzo del cuidado" displayFormat="DD-MMM-YYYY" [(ngModel)]="fecha"></ion-datetime>
+      <ion-datetime style="margin:auto;" placeholder="Seleccionar el dia de comienzo del cuidado" displayFormat="DD-MMM-YYYY" [(ngModel)]="fecha" [min]="minDate" [max]="maxDate"></ion-datetime>
     </ng-template>
   </ion-row>
   <ion-row>
