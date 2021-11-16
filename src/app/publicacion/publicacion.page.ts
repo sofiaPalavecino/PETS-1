@@ -34,8 +34,8 @@ export class PublicacionPage implements OnInit {
     this.authServ.user$.subscribe((usuario)=>{
       this.usuario=usuario
       this.uid=usuario.uid;
-    })  
-   }
+    }) 
+  }
 
   async ngOnInit() {
     this.id = await this.route.snapshot.paramMap.get("id");

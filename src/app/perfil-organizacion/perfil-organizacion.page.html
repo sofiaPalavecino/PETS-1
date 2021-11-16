@@ -26,14 +26,9 @@
           </h6>
         </div>
         <div class="div-localizacion-org">
-          <ion-button
-            class="button-add-administrador"
-            (click)="popController.presentPopover()"
-          >
+          <ion-button class="button-add-administrador" (click)="popController.presentPopover()">
             <ion-icon name="add"></ion-icon>
-            <label style="font-size: 11px; margin-top: 2px"
-              >administrador</label
-            >
+            <label style="font-size: 11px;margin-top: 2px;">administrador</label>
           </ion-button>
         </div>
       </div>
@@ -63,28 +58,21 @@
   <ion-grid>
     <ion-row *ngIf="publiServ.publicaciones | async">
       <div *ngIf="this.org.organizacion; let orgAux">
-        <publi-card
-          *ngFor="let publi of publiServ.publicaciones | async"
-          calificacion="{{publi.calificacion}}"
-          foto="{{publi.foto}}"
-          nombre="{{publi.nombre}}"
-          id="{{publi.docId}}"
-          idOrga="{{orgAux.oid}}"
-        ></publi-card>
+        <publi-card *ngFor="let publi of publiServ.publicaciones | async" calificacion={{publi.calificacion}}
+          foto={{publi.foto}} nombre={{publi.nombre}} id={{publi.docId}} idOrga={{orgAux.oid}}></publi-card>
       </div>
     </ion-row>
   </ion-grid>
   <!--</scrollable-component> !-->
 
-  <ion-fab-button class="boton-publicaciones" routerLink="/config-publicacion">
-    <ion-icon
-      _ngcontent-nyo-c149=""
-      name="add"
-      ng-reflect-name="add"
-      role="img"
-      class="md hydrated"
-      aria-label="add"
-    >
-    </ion-icon>
-  </ion-fab-button>
-</ion-content>
+
+  <ion-fab class="boton-publicaciones" vertical="bottom" horizontal="end" slot="fixed" style = "--background: rgb(123, 215, 181)" > 
+    <ion-fab-button routerLink="/config-publicacion" >
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  
+
+
+ 

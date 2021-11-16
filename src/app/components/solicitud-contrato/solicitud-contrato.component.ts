@@ -43,11 +43,11 @@ export class SolicitudContratoComponent implements OnInit {
   userName: string;
   imgCliente: string;
   barrio: string;
+  fecha: string;
   mascotas: Array<mascota[]>;
   contratosActivos = new Map();
   idCliente: string;
   cliente: Observable<userProfile> = new Observable<userProfile>();
-  fecha: string;
   guardaMomento: string;
   idPubli: string;
   dia: string;

@@ -25,7 +25,7 @@ export class OrganizacionService {
     this.authSvc.user$.subscribe((usuario)=>{
       this.organizaciones=this.afs.collection<Organizacion>(`organización`,ref=> ref.where("administradores","array-contains",usuario.uid)).valueChanges()
       this.organizacion=this.afs.doc<Organizacion>(`organización/${usuario.administrando}`).valueChanges()
-      this.oid=usuario.administrando;
+      this.oid=usuario.administrando
     })
     
   }
