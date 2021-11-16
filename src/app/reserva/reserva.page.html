@@ -9,48 +9,66 @@
     <ion-col>
       <div class="div-contiene-foto-nombre">
         <ion-avatar>
-          <img *ngIf="this.usuario | async; let user1" src="{{user1.foto}}">
+          <img *ngIf="this.usuario | async; let user1" src="{{user1.foto}}" />
         </ion-avatar>
         <div class="div-contiene-nombre-provincia">
           <div class="div-nombre-usuario">
-            <h2 class="h2-nombre-usuario" *ngIf="this.usuario | async; let user1">{{ user1.nombre }} {{user1.apellido}}
+            <h2
+              class="h2-nombre-usuario"
+              *ngIf="this.usuario | async; let user1"
+            >
+              {{ user1.nombre }} {{user1.apellido}}
             </h2>
           </div>
           <div class="div-provincia-usuario">
-            <h3 class="h2-provincia-usuario" *ngIf="this.usuario | async; let user1">{{ user1.barrio }}</h3>
+            <h3
+              class="h2-provincia-usuario"
+              *ngIf="this.usuario | async; let user1"
+            >
+              {{ user1.barrio }}
+            </h3>
           </div>
         </div>
       </div>
     </ion-col>
   </ion-row>
-  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;color: white;">Informacion</label>
+  <ion-row
+    style="
+      opacity: 0.8;
+      background: #7bd7b5;
+      box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+    "
+  >
+    <label style="margin: auto; font-size: x-large; color: white"
+      >Informacion</label
+    >
   </ion-row>
   <ion-row>
-    
-    <ion-col *ngIf="this.tipo == 'paseador'; else a" >
+    <ion-col *ngIf="this.tipo == 'paseador'; else a">
       <div *ngIf="this.planPaseo | async; let plan" style="margin: auto">
         <h5>» costo diario: {{plan.costo}}</h5>
         <h5>» plazo: {{plan.plazo}}</h5>
         <h5>» cantidad de dias: {{cantidadDias}}</h5>
       </div>
     </ion-col>
-    <ion-col *ngIf="tipo == 'cuidador'; else a" >
+    <ion-col *ngIf="tipo == 'cuidador'; else a">
       <div style="margin: auto">
         <h5>» costo final: {{montoTotal}}</h5>
         <h5>» cantidad de dias: {{cantidadDias}}</h5>
       </div>
     </ion-col>
-    <ion-col *ngIf="tipo == 'cuidado_dia'; else a" >
+    <ion-col *ngIf="tipo == 'cuidado_dia'; else a">
       <div style="margin: auto">
         <h5>» costo por dia: {{precioDia}}</h5>
-       
-        <ion-row>
 
+        <ion-row>
           <ion-col>
             <a>cantidad de dias:</a>
-            <ion-item lines="full" style="margin-left: 5px;">
-              <ion-select [(ngModel)]="cantidadDiasReserva" placeholder="Select One">
+            <ion-item lines="full" style="margin-left: 5px">
+              <ion-select
+                [(ngModel)]="cantidadDiasReserva"
+                placeholder="Select One"
+              >
                 <ion-select-option value="1">1</ion-select-option>
                 <ion-select-option value="2">2</ion-select-option>
                 <ion-select-option value="3">3</ion-select-option>
@@ -81,47 +99,79 @@
                 <ion-select-option value="28">28</ion-select-option>
                 <ion-select-option value="29">29</ion-select-option>
                 <ion-select-option value="30">30</ion-select-option>
-                
               </ion-select>
             </ion-item>
           </ion-col>
-  
         </ion-row>
         <h5>» costo final: {{precioDia * cantidadDiasReserva}}</h5>
       </div>
     </ion-col>
   </ion-row>
-  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;color: white;">Mascotas</label>
+  <ion-row
+    style="
+      opacity: 0.8;
+      background: #7bd7b5;
+      box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+    "
+  >
+    <label style="margin: auto; font-size: x-large; color: white"
+      >Mascotas</label
+    >
   </ion-row>
   <ion-row>
     <ion-col>
       <label *ngFor="let mascota of mascotasCheck">
         <ion-row>
-          <ion-toggle type="checkbox" [(ngModel)]="mascota.estado" (ngModelChange)="checkDisponibilidad()"></ion-toggle>
-          <label style="padding: 10px;">{{mascota.nombre}}</label>
+          <ion-toggle
+            type="checkbox"
+            [(ngModel)]="mascota.estado"
+            (ngModelChange)="checkDisponibilidad()"
+          ></ion-toggle>
+          <label style="padding: 10px">{{mascota.nombre}}</label>
         </ion-row>
       </label>
     </ion-col>
   </ion-row>
-  <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-    <label style="margin: auto;font-size: x-large;color: white;">Dias</label>
+  <ion-row
+    style="
+      opacity: 0.8;
+      background: #7bd7b5;
+      box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+    "
+  >
+    <label style="margin: auto; font-size: x-large; color: white">Dias</label>
   </ion-row>
   <ion-row>
     <ion-col *ngIf="tipo == 'paseador'; else elseBlock">
       <label *ngFor="let Dia of diasDisponibles">
         <ion-row>
-          <ion-toggle *ngIf="Dia.modificador != 'disable'; else elseBlock" type="checkbox" [(ngModel)]="Dia.estado" (ngModelChange)="checkDisponibilidad()">
+          <ion-toggle
+            *ngIf="Dia.modificador != 'disable'; else elseBlock"
+            type="checkbox"
+            [(ngModel)]="Dia.estado"
+            (ngModelChange)="checkDisponibilidad()"
+          >
           </ion-toggle>
           <ng-template #elseBlock>
-            <ion-toggle disabled type="checkbox" [(ngModel)]="Dia.estado"></ion-toggle>
+            <ion-toggle
+              disabled
+              type="checkbox"
+              [(ngModel)]="Dia.estado"
+            ></ion-toggle>
           </ng-template>
-          <label style="padding: 10px;">{{Dia.nombre}}</label>
+          <label style="padding: 10px">{{Dia.nombre}}</label>
         </ion-row>
       </label>
     </ion-col>
     <ng-template #elseBlock>
-      <ion-datetime style="margin:auto;" placeholder="Seleccionar el dia de comienzo del cuidado" displayFormat="DD-MMM-YYYY" [(ngModel)]="fecha" [min]="minDate" [max]="maxDate"></ion-datetime>
+      <ion-datetime
+        style="margin: auto"
+        placeholder="Seleccionar el dia de comienzo del cuidado"
+        displayFormat="DD-MMM-YYYY"
+        [(ngModel)]="fecha"
+        [min]="minDate"
+        [max]="maxDate"
+      ></ion-datetime>
     </ng-template>
   </ion-row>
   <ion-row>
