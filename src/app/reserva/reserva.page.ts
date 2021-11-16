@@ -35,6 +35,8 @@ export class ReservaPage implements OnInit {
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;
   cantidadDias:number;
+  cantidadDiasReserva:number = 1;
+  precioDia:number;
   semana:Array<boolean> = new Array<boolean>();
   montoTotal:number;
   fecha:any="";
@@ -73,10 +75,17 @@ export class ReservaPage implements OnInit {
           `paseador/${this.uid}/planpaseador/${this.pid}/disponibilidades`
         )
         .valueChanges();
-    } else {
-      this.planCuidado = this.afs
+    }else{
+      if(this.tipo=="cuidador"){
+        this.planCuidado =  this.afs
         .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}`)
         .valueChanges();
+      } else {
+        this.afs.firestore.doc(`cuidador/${this.uid}`).get().then(data => 
+          this.precioDia = data.data()["precio_dia"]
+        )
+      }
+      
     }
 
     this.diasDisponibles = new Array<Dia>();
@@ -114,7 +123,7 @@ export class ReservaPage implements OnInit {
         );
       });
       this.checkDisponibilidad();
-    } else {
+    }else if(this.tipo=="cuidador"){
       this.planCuidado.subscribe((data) => {
         this.cantidadDias = data.cantidad_dias;
         this.montoTotal = data.costo;
@@ -259,23 +268,39 @@ export class ReservaPage implements OnInit {
             "Debes seleccionar al menos un día"
           );
         }
-      } else {
-        if (this.fecha != "") {
-          let fechaInicio = this.date.transform(this.fecha, "MM/dd/yyyy");
-          const nuevoContrato = this.afs.collection("contratoCuidador").add({
-            cantMascotas: cantMascotas,
-            estado: "solicitud",
-            idCliente: this.aServ.uid,
-            idMascota: mascotasId,
-            idCuidador: this.uid,
-            planContratado: this.pid,
-            fechaInicio: fechaInicio,
-            fechaContratacion: fecha,
-            montoTotal: this.montoTotal,
-            diasTotales: this.cantidadDias,
-          });
-          nuevoContrato.then((data) => {
-            console.log(`cuidador/${this.uid}`);
+      }else{
+        if(this.fecha!=""){
+          let fechaInicio=this.date.transform(this.fecha, 'MM/dd/yyyy')
+          let nuevoContrato;
+          if(this.tipo == "contrato"){
+            nuevoContrato = this.afs.collection('contratoCuidador').add({
+              cantMascotas:cantMascotas,
+              estado:"solicitud",
+              idCliente:this.aServ.uid,
+              idMascota:mascotasId,
+              idCuidador:this.uid,
+              planContratado:this.pid,
+              fechaInicio:fechaInicio,
+              fechaContratacion:fecha,
+              montoTotal:this.montoTotal,
+              diasTotales:this.cantidadDias
+            })
+          } else {
+            nuevoContrato = this.afs.collection('contratoCuidador').add({
+              cantMascotas:cantMascotas,
+              estado:"solicitud",
+              idCliente:this.aServ.uid,
+              idMascota:mascotasId,
+              idCuidador:this.uid,
+              planContratado:this.pid,
+              fechaInicio:fechaInicio,
+              fechaContratacion:fecha,
+              montoTotal:this.precioDia * this.cantidadDiasReserva,
+              diasTotales:this.cantidadDiasReserva
+            })
+          }
+          nuevoContrato.then((data)=> {
+            console.log(`cuidador/${this.uid}`)
             this.afs.doc(`cuidador/${this.uid}`).update({
               solicitud_cuidado: firebase.firestore.FieldValue.arrayUnion(
                 data.id
