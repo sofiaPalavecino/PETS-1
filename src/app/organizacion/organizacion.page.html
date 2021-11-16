@@ -20,10 +20,10 @@
           <h6 style="margin-top: -10px;">Se encuentra en: {{ organizacion.localidad }}</h6>
         </div>
         <div *ngIf="this.orgFavoritas.includes(organizacion.docId); else elseBlock">
-          <button class="button-green" (click)="quitarDeFav(organizacion.docId)">Quitar de Mis Organizaciones</button>
+          <button class="button-green" (click)="quitarDeFav(organizacion.docId)">Quitar de mis favoritas</button>
         </div>
         <ng-template #elseBlock>
-          <button class="button-green" (click)="agregarAFav(organizacion.docId)">Agregar a Mis Organizaciones</button>
+          <button class="button-green" (click)="agregarAFav(organizacion.docId)">Agregar a mis favoritas</button>
         </ng-template>
       </div> 
     </div>
