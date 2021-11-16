@@ -78,11 +78,13 @@
     <ion-row id="Cuidados" *ngIf="this.planesCuidador | async">
       <ion-col>
         <ion-row *ngIf="this.cuidador | async; let cuidador">
+          
           <ion-row>
             <h2 class="titulo-apartado-paseo" >Cuidados</h2>
           </ion-row>
           <h3 class="subitulo-cuidados">Precio por día de cuidado</h3>
           <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
+          <ion-button [routerLink]="['/reserva',cuidador.idUsuario,'','cuidado_dia']"> reservar </ion-button>
         </ion-row>
         <ion-row >
           <div class="div-paseos" *ngFor="let oferta of this.planesCuidador | async" [routerLink]="['/reserva',id,oferta.docId,'cuidador']">

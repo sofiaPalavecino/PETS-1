@@ -34,6 +34,8 @@ export class ReservaPage implements OnInit {
   diasDisponibles: Array<Dia>;
   mascotasCheck: Array<Dia>;
   cantidadDias:number;
+  cantidadDiasReserva:number = 1;
+  precioDia:number;
   semana:Array<boolean> = new Array<boolean>();
   montoTotal:number;
   fecha:any="";
@@ -71,9 +73,16 @@ export class ReservaPage implements OnInit {
         )
         .valueChanges();
     }else{
-      this.planCuidado =  this.afs
-      .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}`)
-      .valueChanges();
+      if(this.tipo=="cuidador"){
+        this.planCuidado =  this.afs
+        .doc<PlanCuidador>(`cuidador/${this.uid}/plancuidador/${this.pid}`)
+        .valueChanges();
+      } else {
+        this.afs.firestore.doc(`cuidador/${this.uid}`).get().then(data => 
+          this.precioDia = data.data()["precio_dia"]
+        )
+      }
+      
     }
     
 
@@ -112,7 +121,7 @@ export class ReservaPage implements OnInit {
       );
       })
       this.checkDisponibilidad();
-    }else{
+    }else if(this.tipo=="cuidador"){
       this.planCuidado.subscribe((data) => {
         this.cantidadDias = data.cantidad_dias
         this.montoTotal=data.costo

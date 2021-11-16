@@ -41,6 +41,13 @@
         <h5>» cantidad de dias: {{cantidadDias}}</h5>
       </div>
     </ion-col>
+    <ion-col *ngIf="tipo == 'cuidado_dia'; else a" >
+      <div style="margin: auto">
+        <h5>» costo por dia: {{precioDia}}</h5>
+        <h5 style="display: inline-block;">» cantidad de dias:</h5> <input [(ngModel)]="cantidadDiasReserva" type="number" min="1">
+        <h5>» costo final: {{precioDia * cantidadDiasReserva}}</h5>
+      </div>
+    </ion-col>
   </ion-row>
   <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
     <label style="margin: auto;font-size: x-large;color: white;">Mascotas</label>
