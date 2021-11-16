@@ -63,7 +63,7 @@
           </ion-row>  
         </ng-template>
         <ng-template #elseBlock2>
-          <ion-button routerLink="/crear-paseo">Hacerme paseador ya</ion-button>
+          <ion-button class="button-green" style="--background: rgb(123, 215, 181)" routerLink="/crear-paseo">Hacerme paseador ya</ion-button>
         </ng-template>
       </ion-col>
     </ion-row>
@@ -111,7 +111,7 @@
               </div>
             </ng-template>
             <ng-template #elseBlock>
-                <ion-button routerLink="/plan-cuidado">Hacerme cuidador ya</ion-button>
+                <ion-button class="button-green" style="--background: rgb(123, 215, 181)" routerLink="/plan-cuidado">Hacerme cuidador ya</ion-button>
             </ng-template>
           </ion-col>
         </ion-row>
@@ -136,8 +136,8 @@
     </ion-row>
   </div> 
 </ion-content>
-<ion-fab vertical="bottom" horizontal="end">
-  <ion-fab-button (click)="popController.presentPopover()">
+<ion-fab class="button-perfiladd" vertical="bottom" horizontal="end" style = "--background: rgb(123, 215, 181)" > 
+  <ion-fab-button (click)="popController.presentPopover()" >
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>

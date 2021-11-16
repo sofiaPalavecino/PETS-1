@@ -15,6 +15,7 @@ export class OrganizacionesService {
   public uid:string
   public organizaciones:Observable<Organizacion>
   public administrando:Observable<Organizacion>
+  public usuario:userProfile
 
   constructor(private afs: AngularFirestore, private authSvc: AuthService) {
     this.authSvc.afAuth.authState.subscribe((usuario)=>{
