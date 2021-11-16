@@ -19,8 +19,8 @@ import { ObtenerDataService } from '../services/obtener-data.service';
   styleUrls: ['./notificaciones.page.scss'],
 })
 export class NotificacionesPage implements OnInit {
-  public paseador:Observable<Paseador>=null
-  public cuidador:Observable<Cuidador>=null
+  
+
   public administrando:Observable<Organizacion>=null
   public user: Observable<userProfile>=null
   uid:string
@@ -38,26 +38,7 @@ export class NotificacionesPage implements OnInit {
     this.tabPrevia = this.tab;
     this.administrando = this.orgas.getAdministrando(this.uid);
     this.user = this.ods.getUser(this.uid);
-    /*this.paseador = this.trabajo.getPaseador(this.authSvc.user$.uid);
-    this.cuidador = this.trabajo.getCuidador(this.authSvc.user$.uid);
-    this.paseador.subscribe((data)=>{
-      console.log(data.calificacion_promedio);
-      
-      if(data.solicitud_paseo.length > 0)
-        this.hayPaseo = true;
-      
-      else
-      this.hayPaseo = false;
-
-    })
-    this.cuidador.subscribe((data)=>{
-      if(data.solicitud_cuidado.length > 0)
-        this.hayCuidado = true;
-      
-      else
-      this.hayCuidado = false;
-
-    })*/
+   
 
   
   }

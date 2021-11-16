@@ -68,7 +68,7 @@
     </div>
 
     <div *ngIf="userServ.cuidador | async;let cuidador">
-      <div *ngIf="(userServ.cuidador.solicitud_cuidado | async)?.length">
+      <div *ngIf="(cuidador.solicitud_cuidado)?.length">
         <ion-row
           style="
             opacity: 0.8;
@@ -85,6 +85,7 @@
           idContrato="{{contrato}}"
           tipo="Cuidador"
         >
+        <a>{{contrato}}</a>
         </app-solicitud-contrato>
       </div>
     </div>
