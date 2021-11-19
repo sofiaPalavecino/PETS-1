@@ -239,14 +239,14 @@ export class UserService {
     })*/
   }
 
-  async crearMascota(nombreA:string,especieMascotaA:string,descripcionA:string,cuidadoA:string){
+  async crearMascota(nombreA:string,especieMascotaA:string,descripcionA:string,cuidadoA:string,fotosA:Array<any>){
     const creoMascota =  this.afs.collection("users").doc(this.authSvc.uid).collection("mascota").add({
       nombre : nombreA,
       cuidado : cuidadoA,
       descripcion : descripcionA,
       especie : especieMascotaA,
       calificacion : 0,
-      fotos: []
+      fotos: fotosA
     });
   }
 }
