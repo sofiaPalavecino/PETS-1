@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Dia } from '../dia'
+import { AlertController } from "@ionic/angular";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-crear-paseo',
@@ -16,8 +18,9 @@ export class CrearPaseoPage implements OnInit {
   disponibilidad:boolean;
   estado:string;
   diasDisponibles:Array<Dia>;
+  cantidadDias:number;
   
-  constructor(private userServ: UserService,){ 
+  constructor(private userServ: UserService,public alertController: AlertController,private router: Router){ 
     this.diasDisponibles = new Array<Dia>();
     this.diasDisponibles.push(new Dia("Lunes",false), new Dia("Martes",false), new Dia("Miercoles",false), new Dia("Jueves",false), new Dia("Viernes",false), new Dia("Sabado",false), new Dia("Domingo",false));
     this.estado="Abierto";
@@ -25,10 +28,37 @@ export class CrearPaseoPage implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.costo=0
+    this.cupo=0
+    this.cantDiasPaseo=0
+  }
 
   crearPaseo(){
-    this.userServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles[0],this.diasDisponibles[1],this.diasDisponibles[2],this.diasDisponibles[3],this.diasDisponibles[4],this.diasDisponibles[5],this.diasDisponibles[6]);
+    this.diasDisponibles.forEach((dia)=>{
+      if(dia.estado==true){
+        this.cantidadDias=this.cantidadDias+1
+      }
+    })
+    if(this.cantidadDias==0 || this.costo==0 || this.cupo==0 || this.cantidadDias<this.cantDiasPaseo){
+      this.presentAlert("Datos incompletos","Por favor, ingresar todos los datos")
+    }
+    else{
+      this.userServ.crearNuevoPaseo(this.costo,this.cupo,this.plazo,this.cantDiasPaseo,this.disponibilidad,this.estado,this.diasDisponibles[0],this.diasDisponibles[1],this.diasDisponibles[2],this.diasDisponibles[3],this.diasDisponibles[4],this.diasDisponibles[5],this.diasDisponibles[6]);
+      this.router.navigate(["/perfil-usuario"]);
+    }
+    
+  }
+
+  async presentAlert(subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: "Alerta",
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ["OK"],
+    });
+
+    await alert.present();
   }
 
 }

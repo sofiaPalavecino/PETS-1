@@ -5,35 +5,10 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="userServ.paseador | async;let paseador">
-    <div *ngIf="paseador.solicitud_paseo.length > 0">
-      <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-        <label style="margin: auto;font-size: x-large;color: white">Solicitud Paseo</label>
-      </ion-row>
-      <app-solicitud-contrato *ngFor="let contrato of paseador.solicitud_paseo" idContrato={{contrato}} tipo="Paseador">
-      </app-solicitud-contrato>
-    </div>
-  </div>
-  <div *ngIf="userServ.cuidador | async;let cuidador">
-    <div *ngIf="cuidador.solicitud_cuidado.length > 0">
-      <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-        <label style="margin: auto;font-size: x-large;color: white">Solicitud Cuidado</label>
-      </ion-row>
-      <app-solicitud-contrato *ngFor="let contrato of cuidador.solicitud_cuidado" idContrato={{contrato}} tipo="Cuidador">
-      </app-solicitud-contrato>
-    </div>
-  </div>
-  <div *ngIf="org.organizaciones.length > 0">
-    <div *ngFor="let orgAux of org.organizaciones">
-      <div *ngIf="orgAux.solicitud_transito.length > 0">
-        <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
-          <label style="margin: auto;font-size: x-large;color: white">Solicitud Transito</label>
-        </ion-row>
-        <app-solicitud-contrato *ngFor="let contrato of orgAux.solicitud_transito" idContrato={{contrato}} tipo="Transito" idOrga={{orgAux.oid}}>
-        </app-solicitud-contrato>
-      </div>
-    </div>
-  </div>
+  <!--<div *ngIf="org.organizaciones.length > 0">-->
+
+  <!--</div>-->
+
   <!-- <div *ngIf="authSvc.user$ | async;let user">
     <div *ngIf="user.solicitud_admin.length > 0">
       <ion-row style="opacity: 0.8;background: #7bd7b5;box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);">
@@ -43,5 +18,121 @@
       </app-solicitud-contrato>
     </div>
   </div> -->
+  <div *ngIf="this.tab == 'Organizaciones'" class="notis">
+    <div *ngFor="let orgAux of this.administrando | async">
+      <div *ngIf="orgAux.solicitud_transito.length > 0">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
+        >
+          <label style="margin: auto; font-size: x-large; color: white"
+            >{{orgAux.nombre}}</label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of orgAux.solicitud_transito"
+          idContrato="{{contrato}}"
+          tipo="Organizacion"
+          idOrga="{{orgAux.oid}}"
+        >
+        </app-solicitud-contrato>
+      </div>
+    </div>
+    
+  </div>
 
+  <div *ngIf="this.tab == 'Servicios'" class="notis">
+    <div *ngIf="userServ.paseador | async;let paseador">
+      <div *ngIf="(paseador.solicitud_paseo)?.length">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
+        >
+          <label style="margin: auto; font-size: x-large; color: white"
+            >Solicitudes Paseos</label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of paseador.solicitud_paseo"
+          idContrato="{{contrato}}"
+          tipo="Paseador"
+        >
+        </app-solicitud-contrato>
+      </div>
+    </div>
+
+    <div *ngIf="userServ.cuidador | async;let cuidador">
+      <div *ngIf="(cuidador.solicitud_cuidado)?.length">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
+        >
+          <label style="margin: auto; font-size: x-large; color: white"
+            >Solicitudes Cuidados</label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of cuidador.solicitud_cuidado"
+          idContrato="{{contrato}}"
+          tipo="Cuidador"
+        >
+        <a>{{contrato}}</a>
+        </app-solicitud-contrato>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="this.tab == 'Avisos'" class="notis">
+    <!-- <img src="https://www.gstatic.com/translate/2x_error_dog.png" style="width: 75%; position: relative; top: 100px; left: 10%;">
+    <h1 style="color: #aaaaaa; font-size: medium; position: relative; top: 100px; left: 150px;">Coming Soon...</h1> -->
+    <div *ngIf="this.user | async;let user">
+      <div *ngIf="user.cambioDeEstado.length > 0">
+        <ion-row
+          style="
+            opacity: 0.8;
+            background: #7bd7b5;
+            box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
+          "
+        >
+          <label style="margin: auto; font-size: x-large; color: white"
+            > Avisos </label
+          >
+        </ion-row>
+        <app-solicitud-contrato
+          *ngFor="let contrato of user.cambioDeEstado"
+          idContrato="{{contrato}}"
+          tipo="Avisos"
+        >
+        </app-solicitud-contrato>
+      </div>
+    </div>
+  </div>
+
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="cambiarPestania('Servicios')">
+        <ion-icon style="color:#7bd7b5" id="ServiciosI" name="receipt-outline"> </ion-icon>
+        <ion-label style="color:#7bd7b5" id="ServiciosL"> Servicios </ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="cambiarPestania('Organizaciones')">
+        <ion-icon id="OrganizacionesI" name="paw-outline"> </ion-icon>
+        <ion-label id="OrganizacionesL"> Organizaciones </ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="cambiarPestania('Avisos')">
+        <ion-icon id="AvisosI" name="notifications-outline"> </ion-icon>
+        <ion-label id="AvisosL"> Avisos </ion-label>
+      </ion-tab-button>
+      -
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

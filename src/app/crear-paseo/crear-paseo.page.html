@@ -5,28 +5,19 @@
 </ion-header>
 
 <ion-content>
-
   <div>
-
     <ion-col>
-    
       <ion-row>
-        
         <ion-col>
-          
           <a>Costo (AR$)</a>
-          <ion-item lines="full" style="margin-left: 5px;">
+          <ion-item lines="full" style="margin-left: 5px">
             <ion-input type="number" [(ngModel)]="costo" required></ion-input>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
-  
+
       <ion-row>
-        
         <ion-col>
-          
           <a>Cupo</a>
           <ion-item>
             <ion-label>Cantidad de mascotas</ion-label>
@@ -41,15 +32,11 @@
               <ion-select-option value="8">8</ion-select-option>
             </ion-select>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
-  
+
       <ion-row>
-        
         <ion-col>
-          
           <a>Duracion del plan:</a>
           <ion-item>
             <ion-label>Plazo</ion-label>
@@ -59,15 +46,11 @@
               <ion-select-option value="Mensual">Mensual</ion-select-option>
             </ion-select>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
-  
+
       <ion-row>
-        
         <ion-col>
-          
           <a>Cantidad dias de paseo:</a>
           <ion-item>
             <ion-label>Numero de dias</ion-label>
@@ -81,43 +64,32 @@
               <ion-select-option value="7">7</ion-select-option>
             </ion-select>
           </ion-item>
-  
         </ion-col>
-  
       </ion-row>
-  
+
       <ion-row>
-        
-        <ion-col>
-
+        <ion-col *ngIf="this.cantDiasPaseo != 0">
           <a>Selecciona los disponibles:</a>
-          
+
           <ion-row>
-            
-            <ion-col>
-
+            <ion-col >
               <label *ngFor="let Dia of diasDisponibles">
-
                 <ion-row>
-  
-                  <ion-checkbox type="checkbox" [(ngModel)]="Dia.estado"></ion-checkbox> {{Dia.nombre}}
-                
+                  <ion-checkbox
+                    type="checkbox"
+                    [(ngModel)]="Dia.estado"
+                  ></ion-checkbox>
+                  {{Dia.nombre}}
                 </ion-row>
-                
               </label>
-
             </ion-col>
-
           </ion-row>
-    
         </ion-col>
-      
       </ion-row>
-  
-      <ion-button type="submit" (click)="crearPaseo()" routerLink='/home' >Aceptar</ion-button>
-  
+
+      <ion-button type="submit" (click)="crearPaseo()" 
+        >Aceptar</ion-button
+      >
     </ion-col>
-
   </div>
-
 </ion-content>

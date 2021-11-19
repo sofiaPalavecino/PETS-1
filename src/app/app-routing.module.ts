@@ -131,6 +131,10 @@ const routes: Routes = [
   {
     path: 'mascota/:idUsuario/:idMascota',
     loadChildren: () => import('./mascota/mascota.module').then( m => m.MascotaPageModule)
+  },
+  {
+    path: 'mis-contratos',
+    loadChildren: () => import('./mis-contratos/mis-contratos.module').then( m => m.MisContratosPageModule)
   }
 
 
