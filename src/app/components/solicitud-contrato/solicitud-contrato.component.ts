@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PubliService } from "src/app/services/publi.service";
 import { Publicacion } from "src/app/shared/publicacion";
 import { Organizacion } from "src/app/shared/organizacion.interface"
+import { ChatServiceService } from "src/app/services/chat-service.service";
 
 
 import firebase from "firebase/app";
@@ -54,7 +55,8 @@ export class SolicitudContratoComponent implements OnInit {
     private org: OrganizacionService,
     private orgas: OrganizacionesService,
     private route: ActivatedRoute,
-    private publis: PubliService
+    private publis: PubliService,
+    private chatServ:ChatServiceService
   ) { }
 
   ngOnInit() {
@@ -97,6 +99,8 @@ export class SolicitudContratoComponent implements OnInit {
   }
 
   async aceptarContrato(idContrato: string) {
+
+    this.chatServ.crearChat(this.idCliente,this.authServ.uid)
    
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
