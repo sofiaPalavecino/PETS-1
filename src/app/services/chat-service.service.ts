@@ -55,12 +55,19 @@ export class ChatServiceService  implements OnInit {
   }
   crearChat(idCliente:string, idTrabajador:string){
     this.afs.collection<Chat>(`chat`, ref => ref.where("idCliente","==",idCliente).where("idTrabajador","==",idTrabajador)).get().toPromise().then((chat)=>{
-      console.log(chat);
+      
+      if(chat.size==0){
+        this.afs.collection("chat").add({
+          idCliente: idCliente,
+          idTrabajador: idTrabajador
+        })
+      }else{
+        console.log("owo");
+        
+      }
       
     })
-    /*this.afs.collection("chat").add({
-      idCliente: this.idCliente,
-      idTrabajador: this.authServ.uid
+    /*
     })*/
     
   }
