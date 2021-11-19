@@ -53,22 +53,34 @@ export class ChatServiceService  implements OnInit {
       hora: new Date()
     })
   }
-  crearChat(idCliente:string, idTrabajador:string){
-    this.afs.collection<Chat>(`chat`, ref => ref.where("idCliente","==",idCliente).where("idTrabajador","==",idTrabajador)).get().toPromise().then((chat)=>{
+  async checkIfChatExists(idCliente:string, idTrabajador:string){
+    var respuesta:boolean=true
+    await this.afs.collection<Chat>(`chat`, ref => ref.where("idCliente","==",idCliente).where("idTrabajador","==",idTrabajador)).get().toPromise().then((chat)=>{
       
       if(chat.size==0){
-        this.afs.collection("chat").add({
-          idCliente: idCliente,
-          idTrabajador: idTrabajador
-        })
+        respuesta=true
       }else{
-        console.log("owo");
-        
+        respuesta=false
+      }
+    })
+    await this.afs.collection<Chat>(`chat`, ref => ref.where("idCliente","==",idTrabajador).where("idTrabajador","==",idCliente)).get().toPromise().then((chat)=>{
+      
+      if(chat.size==0 && respuesta==true){
+        respuesta=true
+      }else{
+        respuesta=false
       }
       
     })
-    /*
-    })*/
+    return respuesta
+  }
+  async crearChat(idCliente:string, idTrabajador:string){
+    if(await this.checkIfChatExists(idCliente, idTrabajador)==true){
+      this.afs.collection("chat").add({
+        idCliente: idCliente,
+        idTrabajador: idTrabajador
+      })
+    }
     
   }
 
