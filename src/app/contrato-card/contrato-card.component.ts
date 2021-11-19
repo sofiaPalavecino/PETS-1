@@ -16,7 +16,7 @@ export class ContratoCardComponent implements OnInit {
   
 
   idUsuario:string
-  listaMascotas:Array<mascota>
+  listaMascotas:Array<mascota>= []
 
   constructor(private masServ:MascotaService, private aServ:AuthService ) {
     this.aServ.afAuth.authState.subscribe((usuario)=>{
