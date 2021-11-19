@@ -95,7 +95,7 @@
     <!-- <img src="https://www.gstatic.com/translate/2x_error_dog.png" style="width: 75%; position: relative; top: 100px; left: 10%;">
     <h1 style="color: #aaaaaa; font-size: medium; position: relative; top: 100px; left: 150px;">Coming Soon...</h1> -->
     <div *ngIf="this.user | async;let user">
-      <div *ngIf="user.cambioDeEstado.length > 0">
+      <div *ngIf="user.cambioDeEstado.size > 0">
         <ion-row
           style="
             opacity: 0.8;
@@ -112,6 +112,7 @@
           idContrato="{{contrato}}"
           tipo="Avisos"
         >
+        <a>hjhjhjh</a>
         </app-solicitud-contrato>
       </div>
     </div>

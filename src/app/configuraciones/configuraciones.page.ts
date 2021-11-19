@@ -26,7 +26,7 @@ export class ConfiguracionesPage implements OnInit {
   administrando:string;
   foto:string;
   barrio:string;
-  cambioDeEstado:Array<string>;
+  cambioDeEstado:Map<string,string>;
   orgFavoritas:Array<string>;
   solicitud_admin:Array<string>;
   contratosActivos: Map<string,string>;

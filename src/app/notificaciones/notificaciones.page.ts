@@ -30,15 +30,18 @@ export class NotificacionesPage implements OnInit {
   constructor(private authSvc: AuthService, private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, private date:DatePipe, private orgas: OrganizacionesService, private ods: ObtenerDataService) {
     this.authSvc.afAuth.authState.subscribe((usuario)=>{
       this.uid=usuario.uid
+      this.administrando = this.orgas.getAdministrando(this.uid);
+      this.user = this.ods.getUser(this.uid);
+      this.user.subscribe((usuario)=>{
+        console.log(usuario.cambioDeEstado) //map de cambioDeEstado es un Object
+    })
     })
   }
 
   ngOnInit() {
     this.tab = 'Servicios';
     this.tabPrevia = this.tab;
-    this.administrando = this.orgas.getAdministrando(this.uid);
-    this.user = this.ods.getUser(this.uid);
-   
+    
 
   
   }

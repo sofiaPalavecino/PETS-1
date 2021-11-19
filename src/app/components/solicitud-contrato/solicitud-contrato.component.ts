@@ -21,7 +21,7 @@ import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
 import { MapOperator } from "rxjs/internal/operators/map";
 import { contratoOrganizacion } from "src/app/shared/contratoOrganizacion";
-import { TouchSequence } from "selenium-webdriver";
+//import { TouchSequence } from "selenium-webdriver";
 
 @Component({
   selector: "app-solicitud-contrato",
@@ -251,7 +251,7 @@ export class SolicitudContratoComponent implements OnInit {
   }
 
   async aceptarContrato(idContrato: string) {
-   
+    let attr2: string = "contratosDeEstado." + this.idContrato;
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
     await this.delay(200);
@@ -290,7 +290,7 @@ export class SolicitudContratoComponent implements OnInit {
         .collection("users")
         .doc(this.idCliente)
         .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+          cambioDeEstado: {[attr2]:this.tipo} //firebase.firestore.FieldValue.arrayUnion(this.idContrato)ñññññ
         });
     } else if (this.tipo == "Paseador") {
       this.afs
@@ -311,7 +311,7 @@ export class SolicitudContratoComponent implements OnInit {
         .collection("users")
         .doc(this.idCliente)
         .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+          cambioDeEstado: {[attr2]:this.tipo}
         });
     } else {
       this.afs
@@ -332,7 +332,7 @@ export class SolicitudContratoComponent implements OnInit {
         .collection("users")
         .doc(this.idCliente)
         .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+          cambioDeEstado: {[attr2]:this.tipo}
         });
     }
 

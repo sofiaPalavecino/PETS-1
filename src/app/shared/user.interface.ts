@@ -19,8 +19,8 @@ export interface userProfile{
   DNI:number;
   foto:string;
   barrio:string;
-  contratosActivos:Map<string,string>
-  cambioDeEstado: Array<string>;
+  contratosActivos:Map<string,string>;
+  cambioDeEstado: Map<string,string>;
   orgFavoritas:Array<string>;
   solicitud_admin:Array<string>;
 }
