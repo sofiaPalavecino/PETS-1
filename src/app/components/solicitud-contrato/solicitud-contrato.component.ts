@@ -16,7 +16,7 @@ import { Organizacion } from "src/app/shared/organizacion.interface"
 import { ChatServiceService } from "src/app/services/chat-service.service";
 import { DatePipe } from "@angular/common";
 import { Routes } from "@angular/router";
-
+import { Router } from "@angular/router";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
@@ -67,7 +67,8 @@ export class SolicitudContratoComponent implements OnInit {
     private route: ActivatedRoute,
     private publis: PubliService,
     private date: DatePipe,
-    private chatServ:ChatServiceService
+    private chatServ:ChatServiceService,
+    private router:Router
   ) { }
 
   async ngOnInit() {
@@ -444,6 +445,8 @@ export class SolicitudContratoComponent implements OnInit {
     if (this.tipo == "Paseador") {
 
     }
+
+    this.router.navigate(["/chat"]);
   }
 
   async rechazarContrato(idContrato: string) {
