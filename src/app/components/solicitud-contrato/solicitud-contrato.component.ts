@@ -12,7 +12,8 @@ import { OrganizacionesService } from "src/app/services/organizaciones.service";
 import { ActivatedRoute } from "@angular/router";
 import { PubliService } from "src/app/services/publi.service";
 import { Publicacion } from "src/app/shared/publicacion";
-import { Organizacion } from "src/app/shared/organizacion.interface";
+import { Organizacion } from "src/app/shared/organizacion.interface"
+import { ChatServiceService } from "src/app/services/chat-service.service";
 import { DatePipe } from "@angular/common";
 import { Routes } from "@angular/router";
 
@@ -65,8 +66,9 @@ export class SolicitudContratoComponent implements OnInit {
     private orgas: OrganizacionesService,
     private route: ActivatedRoute,
     private publis: PubliService,
-    private date: DatePipe
-  ) {}
+    private date: DatePipe,
+    private chatServ:ChatServiceService
+  ) { }
 
   async ngOnInit() {
     this.muestraTipo == '';
@@ -252,10 +254,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   async aceptarContrato(idContrato: string) {
 
-    this.afs.collection("chat").add({
-      idCliente: this.idCliente,
-      idTrabajador: this.authServ.uid
-    })
+    this.chatServ.crearChat(this.idCliente,this.authServ.uid)
    
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
