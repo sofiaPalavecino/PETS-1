@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConfigMascotaPageRoutingModule } from './config-mascota-routing.module';
 
 import { ConfigMascotaPage } from './config-mascota.page';
+import { SanitizerPipe } from '../sanitizer.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ConfigMascotaPage } from './config-mascota.page';
     IonicModule,
     ConfigMascotaPageRoutingModule
   ],
-  declarations: [ConfigMascotaPage]
+  declarations: [ConfigMascotaPage,SanitizerPipe]
 })
 export class ConfigMascotaPageModule {}

@@ -59,4 +59,5 @@ export class ConfigMascotaPage implements OnInit {
     });    
   }
 
+  
 }
