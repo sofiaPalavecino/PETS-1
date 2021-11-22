@@ -127,11 +127,18 @@
             <h2 class="titulo-apartado-paseo" >Mascotas</h2>
           </ion-row>
           <div class='div-mascotas'>
-            <ion-slides>
-              <ion-slide *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas' pager="true">
-                <app-mascota-card id={{mascota.docId}} idUser={{usuario.uid}} style="width:90%"></app-mascota-card>
-              </ion-slide>
-            </ion-slides>
+            
+                
+                <app-mascota-card *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas'
+                id={{mascota.docId}} idUser={{usuario.uid}} style="width:90%" pager="true"></app-mascota-card>
+              
+                <!-- <div class="row row-cols-2">
+                  <div *ngFor="let mascota of userServ.mascotas | async" class="col text-center">
+                    <app-mascota-card class='div-mascotas'
+                    id={{mascota.docId}} idUser={{usuario.uid}} style="width:90%" pager="true"></app-mascota-card>
+                  </div>
+                </div> -->
+            
           </div>
         </ion-row>
       </ion-col>
