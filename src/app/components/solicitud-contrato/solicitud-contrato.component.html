@@ -2,12 +2,18 @@
   <ion-row>
     <ion-col style="display: contents">
       <ion-avatar *ngIf="tipo == 'Avisos'" >
-        <img src="{{this.usrContratado.foto}}">
+        <div *ngIf="estilo=='organizacion'; else fotoUsuario">
+          <img src="{{this.orgaContratada.foto}}">
+        </div>
+        <ng-template #fotoUsuario>
+          <img src="{{this.usrContratado.foto}}">
+        </ng-template>
       </ion-avatar>
       <ion-avatar  *ngIf="tipo != 'Avisos'">
         <img *ngIf="imgCliente" src="{{imgCliente}}">
       </ion-avatar>
     </ion-col>
+
     <ion-col style="width: 180px;">
       <div *ngIf="tipo == 'Organizacion'" style="width: 180px;">
         <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5; width: 180px;">{{this.userName}}&nbsp;&nbsp;{{this.emojiTipo}}</ion-card-title>
@@ -19,7 +25,14 @@
         <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: 100px;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
       </div>
       <div *ngIf="tipo == 'Avisos'">
-        <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.usrContratado.nombre}} {{this.usrContratado.apellido}}</ion-card-title>
+
+        <div *ngIf="estilo=='organizacion'; else nombreUsuario">
+          <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.orgaContratada.nombre}}</ion-card-title>
+        </div>
+        <ng-template #nombreUsuario>
+          <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.usrContratado.nombre}} {{this.usrContratado.apellido}}</ion-card-title>
+        </ng-template>
+
       </div>
       <ion-card-subtitle *ngIf="contrato" style="width: 100px;">{{this.barrio}}</ion-card-subtitle>
     </ion-col>
@@ -29,9 +42,7 @@
   </ion-row>
 
   <ion-col *ngIf="tipo == 'Paseador'">
-    <!-- <ion-row style="width: 100%;">
-      <h2>Dias:</h2>
-    </ion-row> -->
+    
     <ion-row>
       <div style="margin: auto;">
         <div class="dia-semana" id="{{idContrato}}Lunes"      >   Lu   </div>
@@ -122,29 +133,8 @@
     <ion-row *ngIf="tipoContrato=='Transito'">
 
     </ion-row>
-    <!--<ion-row *ngIf="this.publicacion | async ; let publi">
-      <ion-col class='col-transito' style="position: relative; left: 40px;">
-        <ion-slides>
-          <ion-slide class='div-transito' pager="true">
-            <ion-card class="card-mascota">
-              <img style="height: auto;object-fit: cover;width: 60vw;" src="{{publi.foto}}" class="image">
-                <ion-card-header class="header-titulo-mascota">
-                  <ion-card-title class="titulo-paseo">{{publi.nombre}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-subtitle>
-                  <span class="informacion-paseo"><font color="#ffbf00">★</font>{{publi.calificacion}}</span>
-                </ion-card-subtitle>
-                <ion-card-content>
-                  <span class="informacion-mascota" style="color: #7bd7b5;">Ver Más</span>
-                </ion-card-content>
-            </ion-card>
-          </ion-slide>
-        </ion-slides>
-      </ion-col>
-    </ion-row>--> 
+    
   </ion-row>
-
-
 
   <!-- cuando no es de tipo aviso, los botones hacen lo de aceptar contrato y etc -->
   <ion-row *ngIf="tipo != 'Avisos'">
@@ -166,10 +156,4 @@
     </ion-col>
   </ion-row>
 
-
-
-
-
-
-    
 </ion-card>

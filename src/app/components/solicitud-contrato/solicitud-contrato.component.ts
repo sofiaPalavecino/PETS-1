@@ -56,9 +56,11 @@ export class SolicitudContratoComponent implements OnInit {
   emojiTipo: string;
   contratoOrganizacionTipo: string;
   muestraTipo: string;
+  estilo:string="";
 
   //variables de Marco porque no quiero tocarle nada a Nachito:
   usrContratado: userProfile; 
+  orgaContratada:Organizacion;
   fechaContratacion: string;
   estadoRecibido:string;
 
@@ -108,17 +110,16 @@ export class SolicitudContratoComponent implements OnInit {
           })
         break;   
         case "Organizacion":
-
+          this.estilo="organizacion"
           this.afs.doc<contratoOrganizacion>("contratoOrganizacion/" + this.idContrato).valueChanges({idField:"docId"}).subscribe((elem)=>{
             console.log(elem.docId);
             console.log(elem);
             
             this.fechaContratacion = elem.fecha;
             this.estadoRecibido = elem.estado;
-            let idUsrContratado = elem.idTransitante;
-            this.afs.doc<userProfile>("users/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
-              this.usrContratado= elem2;
-              console.log(this.usrContratado);
+            let idUsrContratado = elem.idOrganizacion;
+            this.afs.doc<Organizacion>("organización/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+              this.orgaContratada= elem2;
             })
             console.log(this.fechaContratacion);
             console.log(this.estadoRecibido);
@@ -140,9 +141,6 @@ export class SolicitudContratoComponent implements OnInit {
         this.contratoOrganizacionTipo = contrato.tipo;
         this.fecha = contrato.fecha;
         this.idPubli = contrato.idAnimal;
-        /*this.fecha=contrato.fecha
-        this.fecha.date.transform(this.fecha, 'dd/MM/yyyy')
-        console.log(this.fecha);*/
 
         this.publicacion = this.publis.getPublicacion(
           this.idPubli,
