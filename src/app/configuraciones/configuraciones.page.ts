@@ -55,7 +55,7 @@ export class ConfiguracionesPage implements OnInit {
 
   async cambiarDatos(){
     
-    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.orgFavoritas,this.solicitud_admin,this.contratosActivos,this.cambioDeEstado);
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI);
   }
 
 

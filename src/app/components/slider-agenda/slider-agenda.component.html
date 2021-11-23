@@ -1,7 +1,5 @@
-<!-- <div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock"> -->
-<ion-slides>
-
-      
+<ion-slide>
+  <div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock">    
       <!-------------------PASEO--------------------------->
 
       <ion-slide *ngFor="let contrato of this.listContratosPaseador">
@@ -262,17 +260,16 @@
         </ng-template>
       
       </ion-slide>
-
       <!----------------------------------------->
+  </div>
 
-   
 
-    <ng-template #elseBlock> <!--+1 mascota-->
-      <ion-slide>
-        <ion-card class="card">
-          <ion-card-title>No hay eventos!</ion-card-title>
-        </ion-card>
-      </ion-slide>
-    </ng-template>
-
-</ion-slides>
+  <ng-template #elseBlock> <!--+1 mascota-->
+    <ion-slide>
+      <ion-card class="card">
+        <ion-card-title>No hay eventos!</ion-card-title>
+      </ion-card>
+    </ion-slide>  
+  </ng-template>
+  
+</ion-slide>

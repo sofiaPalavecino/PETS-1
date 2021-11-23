@@ -158,34 +158,20 @@ export class AuthService implements OnInit{
     return userRef.set(data, { merge: true });
   }
 
-  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number,uid:string,administrando:string,foto:string, barrio:string, orgFavoritas:Array<string>,solicitud_admin:Array<string>,contratosActivos:Map<string,string>,cambioDeEstado:Map<string,string>){
-    
-    const userRef: AngularFirestoreDocument<userProfile> = this.afs.doc(`users/${uid}`);
-    
-    let mailVerificar:any=true//( await (await this.user$.toPromise()).emailVerified);
+  async actualizarDatos(nombre:string,apellido:string,email:string,nacimiento:string,dni:number){ 
 
     if(apellido==""){
       apellido=null;
     }
 
-    var data: userProfile = {
-      uid: uid,
+    return this.afs.collection("users").doc(this.uid).update({
       email: email,
-      emailVerified: mailVerificar ,
       nombre: nombre,
       apellido: apellido,
       nacimiento: nacimiento,
       DNI: dni,
-      administrando:  administrando,
-      foto:foto,
-      barrio: barrio,
-      cambioDeEstado: cambioDeEstado,
-      orgFavoritas:orgFavoritas,
-      solicitud_admin:solicitud_admin,
-      contratosActivos:contratosActivos,
-    };
-    console.log(data);
-    return userRef.set(data, { merge: true });
+    })
+    
   }
 
 }

@@ -1,7 +1,10 @@
 <ion-card id="{{idContrato}}" class="card-notificacion">
   <ion-row>
     <ion-col style="display: contents">
-      <ion-avatar>
+      <ion-avatar *ngIf="tipo == 'Avisos'" >
+        <img src="{{this.usrContratado.foto}}">
+      </ion-avatar>
+      <ion-avatar  *ngIf="tipo != 'Avisos'">
         <img *ngIf="imgCliente" src="{{imgCliente}}">
       </ion-avatar>
     </ion-col>
@@ -14,6 +17,9 @@
       <div *ngIf="tipo != 'Organizacion'">
         <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.userName}}</ion-card-title>
         <ion-card-subtitle *ngIf="contrato" style="font-size: small; width: 100px;">{{this.contrato.fechaContratacion}}</ion-card-subtitle>
+      </div>
+      <div *ngIf="tipo == 'Avisos'">
+        <ion-card-title style="font-size: medium; font-weight: bold;color: #7bd7b5;">{{this.usrContratado.nombre}} {{this.usrContratado.apellido}}</ion-card-title>
       </div>
       <ion-card-subtitle *ngIf="contrato" style="width: 100px;">{{this.barrio}}</ion-card-subtitle>
     </ion-col>
@@ -69,7 +75,6 @@
   </ion-row>
 
   <ion-row id="Organizacion" *ngIf="tipo == 'Organizacion'">
-  
     <ion-row *ngIf="this.publicacion | async ; let publi">
       <ion-col class='col-transito' style="position: relative; left: 40px;">
         <ion-slides>
@@ -95,8 +100,29 @@
 
 
   <ion-row id="Avisos" *ngIf="tipo == 'Avisos'">
-  
-    <ion-row *ngIf="this.publicacion | async ; let publi">
+      <ion-col>
+        <ion-row>
+          <h3>Fecha contratacion: {{fechaContratacion}}</h3>
+        </ion-row>
+        <ion-row>
+          <div *ngIf="estadoRecibido=='aceptado'">
+            <ion-row>
+              <h3>Estado actual: </h3>
+              <h3 style="color:#7bd7b5;">{{estadoRecibido}}</h3>
+            </ion-row>
+          </div>
+          <div *ngIf="estadoRecibido=='rechazado'">
+            <ion-row>
+              <h3>Estado actual: </h3>
+              <h3 style="color:#e62538;">{{estadoRecibido}}</h3>
+            </ion-row>
+          </div>
+        </ion-row>
+      </ion-col>
+    <ion-row *ngIf="tipoContrato=='Transito'">
+
+    </ion-row>
+    <!--<ion-row *ngIf="this.publicacion | async ; let publi">
       <ion-col class='col-transito' style="position: relative; left: 40px;">
         <ion-slides>
           <ion-slide class='div-transito' pager="true">
@@ -115,19 +141,27 @@
           </ion-slide>
         </ion-slides>
       </ion-col>
-    </ion-row>
+    </ion-row>--> 
   </ion-row>
 
 
 
-  <!--  -->
-  <ion-row>
+  <!-- cuando no es de tipo aviso, los botones hacen lo de aceptar contrato y etc -->
+  <ion-row *ngIf="tipo != 'Avisos'">
     <ion-col style="margin: auto;text-align: center;">
       <ion-button  class="button-aceptar" (click)="aceptarContrato(idContrato)">
         <ion-icon style="font-size: 30px;" name="checkmark-circle-outline"></ion-icon>
       </ion-button>
       <ion-button  class="button-rechazar" (click)="rechazarContrato(idContrato)">
         <ion-icon style="font-size: 30px;" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!-- cuando es de tipo aviso, los botones van a sacar de el map de cambio de estado al contrato -->
+  <ion-row *ngIf="tipo == 'Avisos'">
+    <ion-col style="margin: auto;text-align: center;">
+      <ion-button  class="button-aceptar" (click)="vistoContrato(idContrato)">
+        <ion-icon style="font-size: 30px;" name="checkmark-circle-outline"></ion-icon>
       </ion-button>
     </ion-col>
   </ion-row>

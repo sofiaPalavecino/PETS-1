@@ -202,7 +202,7 @@ export class ReservaPage implements OnInit {
       this.mascotasCheck.forEach(element => {
         if(element.estado == true) mascotasId.push(element.dataExtra)
       });
-      let fecha = this.date.transform(new Date(), 'MM/dd/yyyy')
+      let fecha = this.date.transform(new Date(), 'dd/MM/yyyy')
       if(this.tipo=="paseador"){
         if(cantDias > 0){
           let dias:Array<string> = new Array<string>();
