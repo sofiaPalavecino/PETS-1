@@ -16,7 +16,6 @@ import { Organizacion } from "src/app/shared/organizacion.interface"
 import { ChatServiceService } from "src/app/services/chat-service.service";
 import { DatePipe } from "@angular/common";
 import { Routes } from "@angular/router";
-
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
@@ -78,6 +77,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   async ngOnInit() {
     console.log(this.idContrato)
+    
     if (this.tipo == "Avisos"){ 
       switch(this.tipoContrato){
         case "Paseador": 
@@ -95,11 +95,11 @@ export class SolicitudContratoComponent implements OnInit {
         })
         break;  
         case "Cuidador":
-          this.afs.doc<ContratoCuidador>("contratoCuidador" + "/" + this.idContrato).valueChanges().subscribe((elem)=>{
+          this.afs.doc<ContratoCuidador>("contratoCuidador/" + this.idContrato).valueChanges().subscribe((elem)=>{
             this.fechaContratacion = elem.fechaContratacion;
             this.estadoRecibido = elem.estado;
             let idUsrContratado = elem.idCuidador;
-            this.afs.doc<userProfile>("users" + "/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+            this.afs.doc<userProfile>("users/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
               this.usrContratado= elem2;
               console.log(this.usrContratado);
             })
@@ -107,8 +107,22 @@ export class SolicitudContratoComponent implements OnInit {
             console.log(this.estadoRecibido);
           })
         break;   
-        case "Transito":
+        case "Organizacion":
 
+          this.afs.doc<contratoOrganizacion>("contratoOrganizacion/" + this.idContrato).valueChanges({idField:"docId"}).subscribe((elem)=>{
+            console.log(elem.docId);
+            console.log(elem);
+            
+            this.fechaContratacion = elem.fecha;
+            this.estadoRecibido = elem.estado;
+            let idUsrContratado = elem.idTransitante;
+            this.afs.doc<userProfile>("users/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+              this.usrContratado= elem2;
+              console.log(this.usrContratado);
+            })
+            console.log(this.fechaContratacion);
+            console.log(this.estadoRecibido);
+          })
         break;
       }
     }
@@ -323,15 +337,11 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           transito: true,
         });
-      this.afs
-        .doc<contratoOrganizacion>(`contratoOrganizacion/${this.idContrato}`)
-        .update({
-          cambioDeEstado: new Date(),
-        });
       this.afs.collection("users").doc(this.idCliente).set({
         "cambioDeEstado": {
-          [this.idContrato]:'Transito'}
+          [this.idContrato]:'Organizacion'}
       }, {merge:true});
+
     } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")

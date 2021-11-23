@@ -48,7 +48,7 @@ export class NotificacionesPage implements OnInit {
           else if(value == "Cuidador"){
             this.estadosCuidador.push(key);
           }
-          else if(value == "Transito"){
+          else if(value == "Organizacion"){
             this.estadosTransito.push(key);
           }
           //console.log(key, value);
