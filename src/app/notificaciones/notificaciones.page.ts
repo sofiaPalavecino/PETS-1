@@ -37,6 +37,9 @@ export class NotificacionesPage implements OnInit {
       this.administrando = this.orgas.getAdministrando(this.uid);
       this.user = this.ods.getUser(this.uid);
       this.user.subscribe((usuario)=>{
+        this.estadoPaseador = [];
+        this.estadosCuidador = [];
+        this.estadosTransito = [];
         this.cambioEstadoMap=new Map(Object.entries(usuario.cambioDeEstado));
         this.cambioEstadoMap.forEach((value: string, key: string) => {
           if(value == "Paseador"){

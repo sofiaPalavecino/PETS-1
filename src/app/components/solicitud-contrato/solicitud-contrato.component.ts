@@ -75,14 +75,16 @@ export class SolicitudContratoComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    console.log(this.idContrato)
     if (this.tipo == "Avisos"){ 
       switch(this.tipoContrato){
         case "Paseador": 
-        this.afs.doc<ContratoPaseador>("contratoPaseador" + "/" + this.idContrato).valueChanges().subscribe((elem)=>{
+        this.afs.doc<ContratoPaseador>("contratoPaseador/" + this.idContrato).valueChanges().subscribe((elem)=>{
           this.fechaContratacion = elem.fechaContratacion;
           this.estadoRecibido = elem.estado;
           let idUsrContratado = elem.idPaseador;
-          this.afs.doc<userProfile>("users" + "/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+          console.log(idUsrContratado)
+          this.afs.doc<userProfile>("users/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
             this.usrContratado= elem2;
             console.log(this.usrContratado);
           })
@@ -583,9 +585,7 @@ export class SolicitudContratoComponent implements OnInit {
 
   vistoContrato(idContrato:string){
     this.afs.collection("users").doc(this.authServ.uid).update({
-        'cambioDeEstado': firebase.firestore.FieldValue.arrayRemove({
-          idContrato
-        })
+        ['cambioDeEstado.' + idContrato]: firebase.firestore.FieldValue.delete()
     })
     /*this.afs.collection("users").doc(this.idCliente).set({
       "cambioDeEstado": {
