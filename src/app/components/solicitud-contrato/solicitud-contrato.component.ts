@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { ObtenerDataService } from "src/app/services/obtener-data.service";
 import { UserService } from "src/app/services/user.service";
-import { ContratoPaseador } from "src/app/shared/contrato-paseador.interface";
+import { ContratoCuidador, ContratoPaseador } from "src/app/shared/contrato-paseador.interface";
 import { disponibilidades } from "src/app/shared/disponibilidades.interface";
 import { userProfile } from "src/app/shared/user.interface";
 import { OrganizacionService } from "src/app/services/organizacion.service";
@@ -22,7 +22,7 @@ import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
 import { MapOperator } from "rxjs/internal/operators/map";
 import { contratoOrganizacion } from "src/app/shared/contratoOrganizacion";
-import { TouchSequence } from "selenium-webdriver";
+//import { TouchSequence } from "selenium-webdriver";
 
 @Component({
   selector: "app-solicitud-contrato",
@@ -38,6 +38,7 @@ export class SolicitudContratoComponent implements OnInit {
   @Input() idContrato: string;
   @Input() tipo: string;
   @Input() idOrga: string;
+  @Input() tipoContrato: string;
 
   botonInfo: string = "ver mas";
   contrato: ContratoPaseador;
@@ -57,6 +58,11 @@ export class SolicitudContratoComponent implements OnInit {
   contratoOrganizacionTipo: string;
   muestraTipo: string;
 
+  //variables de Marco porque no quiero tocarle nada a Nachito:
+  usrContratado: userProfile; 
+  fechaContratacion: string;
+  estadoRecibido:string;
+
   constructor(
     private authServ: AuthService,
     private afs: AngularFirestore,
@@ -71,9 +77,40 @@ export class SolicitudContratoComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.muestraTipo == '';
-    if (this.tipo == "Avisos"){
-      
+    console.log(this.idContrato)
+    if (this.tipo == "Avisos"){ 
+      switch(this.tipoContrato){
+        case "Paseador": 
+        this.afs.doc<ContratoPaseador>("contratoPaseador/" + this.idContrato).valueChanges().subscribe((elem)=>{
+          this.fechaContratacion = elem.fechaContratacion;
+          this.estadoRecibido = elem.estado;
+          let idUsrContratado = elem.idPaseador;
+          console.log(idUsrContratado)
+          this.afs.doc<userProfile>("users/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+            this.usrContratado= elem2;
+            console.log(this.usrContratado);
+          })
+          console.log(this.fechaContratacion);
+          console.log(this.estadoRecibido);
+        })
+        break;  
+        case "Cuidador":
+          this.afs.doc<ContratoCuidador>("contratoCuidador" + "/" + this.idContrato).valueChanges().subscribe((elem)=>{
+            this.fechaContratacion = elem.fechaContratacion;
+            this.estadoRecibido = elem.estado;
+            let idUsrContratado = elem.idCuidador;
+            this.afs.doc<userProfile>("users" + "/" + idUsrContratado).valueChanges().subscribe((elem2)=>{
+              this.usrContratado= elem2;
+              console.log(this.usrContratado);
+            })
+            console.log(this.fechaContratacion);
+            console.log(this.estadoRecibido);
+          })
+        break;   
+        case "Transito":
+
+        break;
+      }
     }
     else if (this.tipo == "Organizacion") {
       this.contratoOrganizacion = this.publis.getContrato(this.idContrato);
@@ -256,6 +293,7 @@ export class SolicitudContratoComponent implements OnInit {
 
     this.chatServ.crearChat(this.idCliente,this.authServ.uid)
    
+    let attr2: string = this.idContrato;
     document.getElementById(this.idContrato).style.transform =
       "translateX(-120%)";
     await this.delay(200);
@@ -290,12 +328,10 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           cambioDeEstado: new Date(),
         });
-      this.afs
-        .collection("users")
-        .doc(this.idCliente)
-        .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
-        });
+      this.afs.collection("users").doc(this.idCliente).set({
+        "cambioDeEstado": {
+          [this.idContrato]:'Transito'}
+      }, {merge:true});
     } else if (this.tipo == "Paseador") {
       this.afs
         .collection("paseador")
@@ -311,12 +347,10 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
-      this.afs
-        .collection("users")
-        .doc(this.idCliente)
-        .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
-        });
+      this.afs.collection("users").doc(this.idCliente).set({
+        "cambioDeEstado": {
+          [this.idContrato]:'Paseador'}
+      }, {merge:true});
     } else {
       this.afs
         .collection("cuidador")
@@ -332,12 +366,10 @@ export class SolicitudContratoComponent implements OnInit {
         .update({
           contratos: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
         });
-      this.afs
-        .collection("users")
-        .doc(this.idCliente)
-        .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
-        });
+        this.afs.collection("users").doc(this.idCliente).set({
+            "cambioDeEstado": {
+              [this.idContrato]:'Cuidador'}
+        }, {merge:true});
     }
 
     if (this.tipo == "Paseador") {
@@ -453,6 +485,7 @@ export class SolicitudContratoComponent implements OnInit {
   }
 
   async rechazarContrato(idContrato: string) {
+    let attr2: string = this.idContrato; //logar que al aceptar por parte de quien da el servicio se ponga bien la notificacion en el cliente
     document.getElementById(this.idContrato).style.transform =
       "translateX(120%)";
     await this.delay(200);
@@ -479,7 +512,7 @@ export class SolicitudContratoComponent implements OnInit {
         .collection("users")
         .doc(this.idCliente)
         .update({
-          cambioDeEstado: firebase.firestore.FieldValue.arrayUnion(this.idContrato),
+          cambioDeEstado: {[attr2]:this.tipo},
         });
     } else if (this.tipo == "Paseador") {
       this.afs
@@ -553,5 +586,15 @@ export class SolicitudContratoComponent implements OnInit {
         this.muestraTipo = '';
       }
     }
+  }
+
+  vistoContrato(idContrato:string){
+    this.afs.collection("users").doc(this.authServ.uid).update({
+        ['cambioDeEstado.' + idContrato]: firebase.firestore.FieldValue.delete()
+    })
+    /*this.afs.collection("users").doc(this.idCliente).set({
+      "cambioDeEstado": {
+        [this.idContrato]:'Cuidador'}
+  }, {merge:true});*/
   }
 }

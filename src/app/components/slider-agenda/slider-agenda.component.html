@@ -1,33 +1,33 @@
-<!-- <div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock"> -->
-<ion-slides>
-
-      
+<div *ngIf="this.listContratosPaseador.length > 0 || this.listContratosCuidador.length > 0; else elseBlock">    
       <!-------------------PASEO--------------------------->
-
+    <ion-slides>
       <ion-slide *ngFor="let contrato of this.listContratosPaseador">
         
         <div *ngIf="contrato.idMascota.length==1; else elseBlock3"> <!--Para 1 mascota sola-->
-            <ion-card class="card">
+            
+          <ion-card class="card">
               
-              <ion-row>
-                  <div *ngFor="let mascotaContrato of contrato.idMascota">
-                    <div *ngFor="let mascotaUsuario of this.listaMascotas">
-                      <div *ngIf="mascotaUsuario.docId == mascotaContrato" class="divideEnDosLaCarta">
+            <ion-row>
+                  
+              <div *ngFor="let mascotaContrato of contrato.idMascota">
+                <div *ngFor="let mascotaUsuario of this.listaMascotas">
+                  <div *ngIf="mascotaUsuario.docId == mascotaContrato" class="divideEnDosLaCarta">
                         
-                        <ion-row>
+                    <ion-row>
 
-                          <ion-col> <!--Parte del texto-->
+                      <ion-col> <!--Parte del texto-->
                         
-                            <ion-row>
+                         <ion-row>
                               
-                              <ion-card-header>
-                                <ion-card-title class="titulo" >Paseo de {{mascotaUsuario.nombre}}</ion-card-title>
-                              </ion-card-header>
+                            <ion-card-header>
+                              <ion-card-title class="titulo" >Paseo de {{mascotaUsuario.nombre}}</ion-card-title>
+                            </ion-card-header>
       
-                            </ion-row>
-                            <ion-row>
+                          </ion-row>
+                          
+                          <ion-row>
                               
-                              <div *ngFor="let dia of contrato.dias; let ultimo = last">
+                            <div *ngFor="let dia of contrato.dias; let ultimo = last">
 
                                 <div *ngIf="ultimo;else elseBlock1">
                                   <ion-card-subtitle>{{dia}}</ion-card-subtitle>
@@ -262,17 +262,16 @@
         </ng-template>
       
       </ion-slide>
-
       <!----------------------------------------->
+    </ion-slides>
+  </div>
 
-   
 
-    <ng-template #elseBlock> <!--+1 mascota-->
-      <ion-slide>
-        <ion-card class="card">
-          <ion-card-title>No hay eventos!</ion-card-title>
-        </ion-card>
-      </ion-slide>
-    </ng-template>
-
-</ion-slides>
+  <ng-template #elseBlock> <!--+1 mascota-->
+    <ion-slide>
+      <ion-card class="card">
+        <ion-card-title>No hay eventos!</ion-card-title>
+      </ion-card>
+    </ion-slide>  
+  </ng-template>
+  

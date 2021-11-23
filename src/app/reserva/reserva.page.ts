@@ -233,12 +233,12 @@ export class ReservaPage implements OnInit {
       this.mascotasCheck.forEach((element) => {
         if (element.estado == true) mascotasId.push(element.dataExtra);
       });
-      let fecha = this.date.transform(new Date(), "MM/dd/yyyy");
-      if (this.tipo == "paseador") {
-        if (cantDias > 0) {
-          let dias: Array<string> = new Array<string>();
-          this.diasDisponibles.forEach((element) => {
-            if (element.estado == true) dias.push(element.nombre);
+      let fecha = this.date.transform(new Date(), 'dd/MM/yyyy')
+      if(this.tipo=="paseador"){
+        if(cantDias > 0){
+          let dias:Array<string> = new Array<string>();
+          this.diasDisponibles.forEach(element => {
+            if(element.estado == true) dias.push(element.nombre)
           });
 
           const nuevoContrato = this.afs.collection("contratoPaseador").add({
@@ -251,7 +251,7 @@ export class ReservaPage implements OnInit {
             fechaContratacion: fecha,
             dias: dias,
             montoTotal: this.montoTotal,
-          });
+          })
           nuevoContrato.then((data) => {
             console.log(`paseador/${this.uid}`);
             this.afs.doc(`paseador/${this.uid}`).update({
