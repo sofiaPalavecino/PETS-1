@@ -1,25 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { ContratoPaseador } from '../shared/contrato-paseador.interface';
+import { userProfile } from '../shared/user.interface';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, of } from 'rxjs';
-import { combineAll } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { ContratoCuidador, ContratoPaseador } from 'src/app/shared/contrato-paseador.interface';
-import { User, userProfile } from 'src/app/shared/user.interface';
 
 @Component({
-  selector: 'app-slider-agenda',
-  templateUrl: './slider-agenda.component.html',
-  styleUrls: ['./slider-agenda.component.scss'],
+  selector: 'app-mis-contratos',
+  templateUrl: './mis-contratos.page.html',
+  styleUrls: ['./mis-contratos.page.scss'],
 })
-export class SliderAgendaComponent implements OnInit {
-  
+export class MisContratosPage implements OnInit {
+
   public usuario:userProfile;
   public listContratosPaseador:Array<any> = new Array<any>();
   public listContratosCuidador:Array<any> = new Array<any>();
   public listaMascotas:Array<any> = new Array<any>();
 
-  constructor(private aServ:AuthService, private afs:AngularFirestore, private uServ: UserService) { 
+  constructor(private aServ:AuthService,private afs:AngularFirestore) {
     this.aServ.user$.subscribe((data)=>{
       this.usuario=data;
 
@@ -32,8 +29,7 @@ export class SliderAgendaComponent implements OnInit {
         let tipoContrato = contratosActivosMap.get(contratoId);
         console.log("idContr",contratoId)
         this.afs.doc<ContratoPaseador>("contrato" + tipoContrato + "/" + contratoId)
-        .valueChanges()
-        .subscribe((contrato) => {
+        .valueChanges({ idField: "idContrato" }).subscribe((contrato) => {
           if(tipoContrato == "Paseador") this.listContratosPaseador.push(contrato)
           else this.listContratosCuidador.push(contrato)
           console.log(this.listContratosPaseador);
@@ -41,13 +37,11 @@ export class SliderAgendaComponent implements OnInit {
         })
       });
     })
-    this.uServ.mascotas.subscribe((mascota)=>{
-      this.listaMascotas=mascota;
-      console.log("Mascota",this.listaMascotas);
-    })
+    console.log(this.listContratosCuidador);
+    
   }
 
   ngOnInit() {
   }
-  
+
 }

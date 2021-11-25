@@ -73,12 +73,12 @@ const routes: Routes = [
     loadChildren: () => import('./paseadores/paseadores.module').then( m => m.PaseadoresPageModule)
   },
   {
-    path: 'crear-paseo',
+    path: 'crear-paseo/:idPlan',
     loadChildren: () => import('./crear-paseo/crear-paseo.module').then( m => m.CrearPaseoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'plan-cuidado',
+    path: 'plan-cuidado/:idPlan',
     loadChildren: () => import('./plan-cuidado/plan-cuidado.module').then( m => m.PlanCuidadoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
@@ -131,6 +131,10 @@ const routes: Routes = [
   {
     path: 'mascota/:idUsuario/:idMascota',
     loadChildren: () => import('./mascota/mascota.module').then( m => m.MascotaPageModule)
+  },
+  {
+    path: 'mis-contratos',
+    loadChildren: () => import('./mis-contratos/mis-contratos.module').then( m => m.MisContratosPageModule)
   }
 
 

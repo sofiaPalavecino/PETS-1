@@ -9,12 +9,11 @@
       <ion-slides class="slide1" pager="true" >
         <ion-slide class="slide2" >
           <div *ngFor="let publi of this.publicaciones">
-            <publi-card  id={{publi.docId}} nombre={{publi.nombre}} foto={{publi.foto}} calificacion={{publi.calificacion}}></publi-card>
+            <publi-card  id={{publi.docId}} nombre={{publi.nombre}} foto={{publi.foto}} calificacion={{publi.calificacion}} idOrga={{mapita.get(publi.docId)}}></publi-card>
           </div>
           
         </ion-slide>
       </ion-slides>
-      <!--<app-slider-publis-orgas orgaID={{orgaID}} ></app-slider-publis-orgas>-->
     </ion-row>
     <ng-template #noPublis>
 

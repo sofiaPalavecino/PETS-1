@@ -5,37 +5,57 @@
 </ion-header>
 
 <ion-content>
+  <div *ngIf="idPlan=='planBasico'; else oferta">
+    <ion-row>
+      <ion-col>
+        <a>Costo(AR$) por dia:</a>
+        <ion-item lines="full" style="margin-left: 5px">
+          <ion-input type="number" [(ngModel)]="costo" required></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-  <div>
+    <ion-row>
+      <ion-col>
+        <a>Cupo maximo de mascotas:</a>
+        <ion-item lines="full" style="margin-left: 5px">
+          <ion-input
+            type="number"
+            [(ngModel)]="maximoMascotas"
+            required
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-    <ion-col>
-
+    <ion-button type="submit" (click)="crearCuidado('crear',maximoMascotas)">Aceptar</ion-button>
+  </div>
+  <ng-template #oferta>
+    <div >
       <ion-row>
-
         <ion-col>
           <a>Costo(AR$) por dia:</a>
-          <ion-item lines="full" style="margin-left: 5px;">
+          <ion-item lines="full" style="margin-left: 5px">
             <ion-input type="number" [(ngModel)]="costo" required></ion-input>
           </ion-item>
         </ion-col>
-
       </ion-row>
-
+  
       <ion-row>
-
         <ion-col>
-          <a>Cupo maximo de mascotas:</a>
-          <ion-item lines="full" style="margin-left: 5px;">
-            <ion-input type="number" [(ngModel)]="maximoMascotas" required></ion-input>
+          <a>Cantidad de dias:</a>
+          <ion-item lines="full" style="margin-left: 5px">
+            <ion-input
+              type="number"
+              [(ngModel)]="cantidadDias"
+              required
+            ></ion-input>
           </ion-item>
         </ion-col>
-
       </ion-row>
-
-    </ion-col>
-
-    <ion-button type="submit" (click)="crearCuidado()" routerLink='/home' >Aceptar</ion-button>
-
-  </div>
-
+  
+      <ion-button type="submit" (click)="checkValores('update',cantidadDias)">Aceptar</ion-button>
+    </div>
+    
+  </ng-template>
 </ion-content>

@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>mis-contratos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row *ngFor="let contPaseador of listContratosPaseador">
+    <app-contrato-card idContrato="{{contPaseador.idContrato}}" idMascota= "{{contPaseador.idMascota}}" tipo= "Paseo"></app-contrato-card>
+  </ion-row>
+
+  <ion-row *ngFor="let contCuidador of listContratosCuidador">
+    <app-contrato-card idContrato="{{contCuidador.idContrato}}" idMascota= "{{contCuidador.idMascota}}" tipo= "Cuidado"></app-contrato-card>
+  </ion-row>
+</ion-content>

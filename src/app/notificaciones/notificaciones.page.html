@@ -68,7 +68,7 @@
     </div>
 
     <div *ngIf="userServ.cuidador | async;let cuidador">
-      <div *ngIf="(userServ.cuidador.solicitud_cuidado | async)?.length">
+      <div *ngIf="(cuidador.solicitud_cuidado)?.length">
         <ion-row
           style="
             opacity: 0.8;
@@ -85,6 +85,7 @@
           idContrato="{{contrato}}"
           tipo="Cuidador"
         >
+        <a>{{contrato}}</a>
         </app-solicitud-contrato>
       </div>
     </div>
@@ -94,22 +95,35 @@
     <!-- <img src="https://www.gstatic.com/translate/2x_error_dog.png" style="width: 75%; position: relative; top: 100px; left: 10%;">
     <h1 style="color: #aaaaaa; font-size: medium; position: relative; top: 100px; left: 150px;">Coming Soon...</h1> -->
     <div *ngIf="this.user | async;let user">
-      <div *ngIf="user.cambioDeEstado.length > 0">
+      <div *ngIf="cambioEstadoMap.size > 0">
         <ion-row
           style="
             opacity: 0.8;
             background: #7bd7b5;
             box-shadow: 0px 5px 4px rgb(0 0 0 / 30%);
-          "
+            "
         >
-          <label style="margin: auto; font-size: x-large; color: white"
-            > Avisos </label
-          >
+          <label style="margin: auto; font-size: x-large; color: white"> Avisos </label>
         </ion-row>
         <app-solicitud-contrato
-          *ngFor="let contrato of user.cambioDeEstado"
+          *ngFor="let contrato of estadoPaseador"
           idContrato="{{contrato}}"
           tipo="Avisos"
+          tipoContrato="Paseador"
+        >
+        </app-solicitud-contrato>
+        <app-solicitud-contrato
+          *ngFor="let contrato of estadosCuidador"
+          idContrato="{{contrato}}"
+          tipo="Avisos"
+          tipoContrato="Cuidador"
+        >
+        </app-solicitud-contrato>
+        <app-solicitud-contrato
+          *ngFor="let contrato of estadosTransito"
+          idContrato="{{contrato}}"
+          tipo="Avisos"
+          tipoContrato="Organizacion"
         >
         </app-solicitud-contrato>
       </div>
