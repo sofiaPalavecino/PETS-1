@@ -36,6 +36,7 @@ export class UserService {
   public cuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public planesCuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public mascotas: Observable<mascota[]> = new Observable<mascota[]>();
+  public userId:string;
 
   constructor(
     private afs: AngularFirestore,
@@ -44,6 +45,7 @@ export class UserService {
   ) { 
     this.authSvc.afAuth.authState.subscribe((user) => {
       if (user) {
+        this.userId=user.uid
         this.paseador = this.obDataServ.getTrabajador(user.uid, "paseador");
         this.cuidador = this.obDataServ.getTrabajador(user.uid, "cuidador");
         this.planesPaseador = this.obDataServ.getPlanes(user.uid,"paseador");
@@ -248,5 +250,15 @@ export class UserService {
       calificacion : 0,
       fotos: []
     });
+  }
+
+  async actualizarCuidado(costo:number,cantidadDias:number,idPlan:string){
+    this.afs.collection("cuidador").doc(this.authSvc.uid).collection("plancuidador").doc(idPlan).set({
+      costo: costo,cantidad_dias:cantidadDias,
+    });
+  }
+
+  getPlanCuidado(idPlan:string):Observable<any>{
+    return(this.afs.doc<PlanCuidador>(`cuidador/${this.userId}/plancuidador/${idPlan}`).valueChanges({idField:"docId"}))
   }
 }

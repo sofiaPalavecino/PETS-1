@@ -78,7 +78,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'plan-cuidado',
+    path: 'plan-cuidado/:idPlan',
     loadChildren: () => import('./plan-cuidado/plan-cuidado.module').then( m => m.PlanCuidadoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },

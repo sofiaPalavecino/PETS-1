@@ -86,7 +86,7 @@
                   <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
                 </ion-row>
                 <ion-row>
-                  <mat-raised-button routerLink="/plan-cuidado">Editar</mat-raised-button>
+                  <button class="button-green" style="width: 100%;" routerLink="/plan-cuidado/planBasico">Editar plan básico</button>
                 </ion-row>
                 <ion-row>
                   <div class="div-paseos" *ngFor="let oferta of userServ.planesCuidador | async ">
@@ -102,7 +102,7 @@
                           </ion-card-content>
                         </ion-col>
                         <div>
-                          <button class="boton-editar-cuidados">Editar</button>
+                          <button class="boton-editar-cuidados" [routerLink]="['/plan-cuidado',oferta.docId]">Editar</button>
                         </div>
                       </ion-row>
                     </ion-card>

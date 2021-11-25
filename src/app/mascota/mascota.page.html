@@ -10,7 +10,34 @@
   
   
   <div>
-    <div class="centrado"><ion-label class="nombre-publi">{{mascota.nombre}}</ion-label></div>
+    <div *ngFor="let fotuli of mascota.fotos">
+      <img src={{fotuli}}>
+    </div>
+    <div>
+      <h1>{{mascota.nombre}}</h1>
+    </div>
+    <div>
+      <ion-col>
+        <ion-row>
+          
+          <ion-col>
+            <ion-button (click)="mostrarTexto('descripcion')" color="none" class="boton-desc"> Descripcion </ion-button>
+          <p id="descripcion" style="display: none;" class="label-desc"><font color="brown">🐾</font>&nbsp;{{mascota.descripcion}}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div class="izquierda"> <ion-button (click)="mostrarTexto('cuidados')" color="none" class="boton-cuidados"> Cuidados </ion-button></div>
+          <p id="cuidados" style="display: none;" class="label-cuidados"><font color="green">✚</font>&nbsp;{{mascota.cuidados}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </div>
+  </div>
+  <!--<div>
+    <div class="centrado">
+      <ion-label class="nombre-publi">{{mascota.nombre}}</ion-label>
+    </div>
     <div *ngFor="let fotuli of mascota.fotos">
       <img src={{fotuli}}>
     </div>
@@ -20,5 +47,5 @@
       <div class="izquierda"> <ion-button (click)="mostrarTexto('cuidados')" color="none" class="boton-cuidados"> Cuidados </ion-button></div>
       <p id="cuidados" style="display: none;" class="label-cuidados"><font color="green">✚</font>&nbsp;{{mascota.cuidados}}</p>
     </div>
-  </div>
+  </div>-->
 </ion-content>

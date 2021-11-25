@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "../services/user.service";
-
+import { PlanCuidador } from "../shared/plan-cuidador.interface";
 import { AlertController } from "@ionic/angular";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-plan-cuidado",
@@ -12,30 +13,41 @@ import { Router } from "@angular/router";
 export class PlanCuidadoPage implements OnInit {
   costo: number;
   maximoMascotas: number;
+  cantidadDias:number;
+  idPlan:string;
+  plan:Observable<PlanCuidador>;
 
   constructor(
     private userServ: UserService,
     public alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private route:ActivatedRoute
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.costo = 0;
     this.maximoMascotas = 0;
+    this.cantidadDias=0;
+    this.idPlan = await this.route.snapshot.paramMap.get("idPlan");
   }
 
-  async crearCuidado() {
-    console.log(this.costo, this.maximoMascotas);
+  
 
-    if (this.costo == 0 || this.maximoMascotas == 0) {
+
+  async checkValores(tipo,con2) {
+    
+    if(this.costo == 0 ||con2==0){
       this.presentAlert(
         "Datos incompletos",
         "Por favor, ingresar todos los datos"
       );
-    } else {
-      this.userServ.crearNuevoCuidado(this.costo, this.maximoMascotas);
+    }else{
+      if(tipo=="update"){
+        this.userServ.actualizarCuidado(this.costo,this.cantidadDias,this.idPlan)
+      }else{this.userServ.crearNuevoCuidado(this.costo, this.maximoMascotas);}
       this.router.navigate(["/perfil-usuario"]);
     }
+    
   }
 
   async presentAlert(subtitulo: string, mensaje: string) {
