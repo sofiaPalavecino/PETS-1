@@ -4,6 +4,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ActionSheetController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
+import { UploadImageService } from '../services/upload-image.service';
 
 @Component({
   selector: 'app-config-mascota',
@@ -16,8 +17,10 @@ export class ConfigMascotaPage implements OnInit {
   especieMascota:string;
   descripcion:string;
   cuidado:string;
+  listImages: Array<any> = new Array<any>();
 
-  constructor(private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, public uServ:UserService) { 
+
+  constructor(private uploadImageService:UploadImageService ,private especieServ:EspecieService,private camera: Camera,private file: File, public actionSheetController: ActionSheetController, public uServ:UserService) { 
 
       this.nombre;
       this.especieMascota;
@@ -29,49 +32,32 @@ export class ConfigMascotaPage implements OnInit {
   ngOnInit() {
   }
 
-  pickImage(sourceType) {
-    const options: CameraOptions = {
-    quality: 100,
-    sourceType: sourceType,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
-    }
-     this.camera.getPicture(options).then((imageData) => { //imageData lo que tengo que subir a firebase
-    // imageData is either a base64 encoded string or a file URI
-    // If it's base64 (DATA_URL):
-    // let base64Image = 'data:image/jpeg;base64,' + imageData;
-    }, (err) => {
-    // Handle error
-    });
-    }
+ 
+  deleteImage(index: any) {
+    this.listImages.splice(index, 1);
+    this.uploadImageService.files.splice(index, 1);
+  }
 
-  async selectImage() {
-    const actionSheet = await this.actionSheetController.create({
-      header: "Select Image source",
-      buttons: [{
-        text: 'Load from Library',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.PHOTOLIBRARY);
-        }
-      },
-      {
-        text: 'Use Camera',
-        handler: () => {
-          this.pickImage(this.camera.PictureSourceType.CAMERA);
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    });
-    await actionSheet.present();
+  clickInputFile() {
+    document.getElementById('inputImageProduct')!.click();
+  }
+
+  onFileSelected(event: any) {
+    this.listImages.push(URL.createObjectURL(event.target.files[0]));
+    this.uploadImageService.files.push(event.target.files[0]);
+    console.log(this.listImages,this.uploadImageService.files);
   }
 
   subidaAnimal(){
-    this.uServ.crearMascota(this.nombre,this.especieMascota,this.descripcion,this.cuidado);
+    this.uploadImageService
+    .uploadImages(this.nombre, 'productImages')
+    .then(async (imageURL) => {
+      this.listImages = imageURL;
+      console.log(this.listImages);
+      
+      this.uServ.crearMascota(this.nombre,this.especieMascota,this.descripcion,this.cuidado,this.listImages);
+    });    
   }
 
+  
 }

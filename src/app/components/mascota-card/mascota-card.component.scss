@@ -2,9 +2,6 @@
     box-shadow: 2px 5px 5px #999;    
 }
 
-.card-mascota > img{
-}
-
 .div-mascotas{
     height: 500px;
     width: 100%;
@@ -22,4 +19,10 @@
     font-size: 15px;
     font-family: Roboto;
     color: gray;
+}
+
+.img-mascota-card{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
 }
