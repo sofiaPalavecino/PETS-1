@@ -258,7 +258,25 @@ export class UserService {
     });
   }
 
-  getPlanCuidado(idPlan:string):Observable<any>{
-    return(this.afs.doc<PlanCuidador>(`cuidador/${this.userId}/plancuidador/${idPlan}`).valueChanges({idField:"docId"}))
+  async actualizarPaseo(idPlan:string,costoA: number,
+    cupoA: number,
+    plazoA: string,
+    cantDiasPaseoA: number,
+    disponibilidadA: boolean,
+    estadoA: string,
+    lunes: Dia,
+    martes: Dia,
+    miercoles: Dia,
+    jueves: Dia,
+    viernes: Dia,
+    sabado: Dia,
+    domingo: Dia){
+      
+    this.afs.collection("paseador").doc(this.authSvc.uid).collection("planpaseador").doc(idPlan).set({
+      costo:costoA,cupo:cupoA,cantidad_dias:cantDiasPaseoA,plazo:plazoA,
+      disponibilidad:disponibilidadA,estado:estadoA,lunes:lunes.estado,
+      martes:martes.estado,miercoles:miercoles.estado,jueves:jueves.estado,viernes:viernes.estado,
+      sabado:sabado.estado,domingo:domingo.estado,
+    })
   }
 }

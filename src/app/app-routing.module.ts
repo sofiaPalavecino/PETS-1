@@ -73,7 +73,7 @@ const routes: Routes = [
     loadChildren: () => import('./paseadores/paseadores.module').then( m => m.PaseadoresPageModule)
   },
   {
-    path: 'crear-paseo',
+    path: 'crear-paseo/:idPlan',
     loadChildren: () => import('./crear-paseo/crear-paseo.module').then( m => m.CrearPaseoPageModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
