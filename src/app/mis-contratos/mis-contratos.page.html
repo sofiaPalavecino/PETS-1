@@ -9,41 +9,20 @@
 
 
   <ion-row *ngFor="let contPaseador of listContratosPaseador">
-    <app-contrato-card idContrato="{{contPaseador.idContrato}}" idMascota= "{{contPaseador.idMascota}}" tipo= "Paseo"></app-contrato-card>
+    
+    <!--<div *ngIf="this.pasarId">
+
+    </div>-->
+    <app-contrato-card [idContrato]="contPaseador.idContrato" [idMascotas]= "contPaseador.idMascota" [tipo]= "Paseo"></app-contrato-card>
   </ion-row>
 
   <ion-row *ngFor="let contCuidador of listContratosCuidador">
-    <app-contrato-card idContrato="{{contCuidador.idContrato}}" idMascota= "{{contCuidador.idMascota}}" tipo= "Cuidado"></app-contrato-card>
+    <app-contrato-card [idContrato]="contCuidador.idContrato" [idMascotas]= "contCuidador.idMascota" [tipo]= "Cuidado"></app-contrato-card>
   </ion-row>
 </ion-content>
 
 
 <ion-card-title class="titulo">Paseo de</ion-card-title>
 
-<div *ngFor="let paseadorContrato of contrato.idContrato; let ultimo = last">
-  <div *ngFor="let paseadorUsuario of this.listContratosPaseador">
-    <div *ngIf="paseadorUsuario.docId == paseadorContrato">
-      <div *ngIf="ultimo;else elseBlock1">
-        <ion-card-title class="titulo">{{paseadorUsuario.nombre}}</ion-card-title>
-      </div>
-      <ng-template #elseBlock1>
-        <ion-card-title class="titulo">{{paseadorUsuario.nombre}}, </ion-card-title>
-      </ng-template>
-    </div>
-  </div>
-</div>
 
-
-<div *ngFor="let cuidadorContrato of contrato.idContrato; let ultimo = last">
-  <div *ngFor="let cuidadorUsuario of this.listContratosCuidador">
-    <div *ngIf="cuidadorUsuario.docId == cuidadorContrato">
-      <div *ngIf="ultimo;else elseBlock1">
-        <ion-card-title class="titulo">{{cuidadorUsuario.nombre}}</ion-card-title>
-      </div>
-      <ng-template #elseBlock1>
-        <ion-card-title class="titulo">{{cuidadorUsuario.nombre}}, </ion-card-title>
-      </ng-template>
-    </div>
-  </div>
-</div>
 

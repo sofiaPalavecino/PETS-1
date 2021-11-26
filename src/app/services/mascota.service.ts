@@ -9,9 +9,22 @@ import firebase from "firebase/app";
 })
 export class MascotaService {
 
+  public idMascotas:Array<string>
+
   constructor(private afs: AngularFirestore) { }
 
+  getMascotas(idMascota:Array<string>,idUsuario:string){
+    let mascotas : Array<mascota>
+    idMascota.forEach((id)=>{
+      this.afs.doc<mascota>(`users/${idUsuario}/mascota/${id}`).valueChanges({idField:"idMascota"}).subscribe((mascota)=>{
+        mascotas.push(mascota)
+      })
+    })
+    return(mascotas)
+  }
+
   getMascota(idMascota:string,idUsuario:string){
+    
     return(this.afs.doc<mascota>(`users/${idUsuario}/mascota/${idMascota}`).valueChanges({idField:"idMascota"}))
   }
 }

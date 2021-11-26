@@ -1,3 +1,27 @@
 <ion-card>
-  <ion-label></ion-label>
-</ion-card>
+  <div *ngFor="let idMas of idMascota; let ultimo = last">
+    <div *ngFor="let mascota of this.listaMascotas">
+      <div *ngIf="mascota.idMascota == idMas">
+        <div *ngIf="ultimo;else elseBlock1">
+          <ion-card-title class="titulo">{{mascota.nombre}}</ion-card-title>
+        </div>
+        <ng-template #elseBlock1>
+          <ion-card-title class="titulo">{{mascota.nombre}}, </ion-card-title>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--<div *ngFor="let cuidadorContrato of contrato.idMascotas; let ultimo = last">
+    <div *ngFor="let cuidadorUsuario of this.listaMascotas">
+      <div *ngIf="cuidadorUsuario.docId == cuidadorContrato">
+        <div *ngIf="ultimo;else elseBlock1">
+          <ion-card-title class="titulo">{{cuidadorUsuario.nombre}}</ion-card-title>
+        </div>
+        <ng-template #elseBlock1>
+          <ion-card-title class="titulo">{{cuidadorUsuario.nombre}}, </ion-card-title>
+        </ng-template>
+      </div>
+    </div>
+  </div>--></ion-card>
