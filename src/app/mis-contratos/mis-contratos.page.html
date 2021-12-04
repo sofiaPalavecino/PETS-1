@@ -1,15 +1,28 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class= "contratos">
     <ion-title>mis-contratos</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<h4>Paseo</h4>
 <ion-content>
+
+
   <ion-row *ngFor="let contPaseador of listContratosPaseador">
-    <app-contrato-card idContrato="{{contPaseador.idContrato}}" idMascota= "{{contPaseador.idMascota}}" tipo= "Paseo"></app-contrato-card>
+    
+    <!--<div *ngIf="this.pasarId">
+
+    </div>-->
+    <app-contrato-card [idContrato]="contPaseador.idContrato" [idMascotas]= "contPaseador.idMascota" [tipo]= "Paseo"></app-contrato-card>
   </ion-row>
 
   <ion-row *ngFor="let contCuidador of listContratosCuidador">
-    <app-contrato-card idContrato="{{contCuidador.idContrato}}" idMascota= "{{contCuidador.idMascota}}" tipo= "Cuidado"></app-contrato-card>
+    <app-contrato-card [idContrato]="contCuidador.idContrato" [idMascotas]= "contCuidador.idMascota" [tipo]= "Cuidado"></app-contrato-card>
   </ion-row>
 </ion-content>
+
+
+<ion-card-title class="titulo">Paseo de</ion-card-title>
+
+
+
