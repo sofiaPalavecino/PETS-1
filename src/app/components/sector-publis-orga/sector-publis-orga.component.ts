@@ -20,6 +20,7 @@ export class SectorPublisOrgaComponent implements OnInit {
   public publicaciones:Array<Publicacion>=[];
   public publisRecientes:boolean;
   public tieneFavs:boolean;
+  public mapita:Map<string,string> = new Map();
 
   constructor(private orgServ:OrganizacionesService, private aServ:AuthService, private afs:AngularFirestore) { 
     this.ahora.setDate(this.ahora.getDate()-2)
@@ -40,11 +41,11 @@ export class SectorPublisOrgaComponent implements OnInit {
   revisarPublis(){
     this.publisRecientes=false
     this.publicaciones=[]
-    //console.log(this.usuario.orgFavoritas.length);
+    
     if(this.orgFavoritas.length>0){
       this.tieneFavs=true;
       this.orgFavoritas.forEach((org)=>{
-        this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges().subscribe((publi)=>{
+        this.afs.collection<Publicacion>(`organización/${org}/publicaciones`,ref=>(ref.where("fecha",">=",this.ahora))).valueChanges({idField:"docId"}).subscribe((publi)=>{
           
           if(publi.length>0){
             
@@ -52,6 +53,8 @@ export class SectorPublisOrgaComponent implements OnInit {
             publi.forEach((pub)=>{
   
               this.publicaciones.push(pub)
+
+              this.mapita.set(pub.docId,org)
             })
           }else if(this.publisRecientes!=true){this.publisRecientes=false}
         })

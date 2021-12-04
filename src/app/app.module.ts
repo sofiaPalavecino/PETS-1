@@ -18,9 +18,11 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { SanitizerPipe } from './sanitizer.pipe';
+
 
 @NgModule({
-  declarations: [AppComponent,CarouselComponent,MenuComponent],
+  declarations: [AppComponent,CarouselComponent,MenuComponent, SanitizerPipe],
   entryComponents: [],
   schemas: [NO_ERRORS_SCHEMA],
   imports: [

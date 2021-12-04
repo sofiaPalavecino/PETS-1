@@ -27,7 +27,9 @@ export class PubliCardComponent implements OnInit {
   constructor(private org:OrganizacionService, private publiServ:PubliService, private router:Router) { }
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   
 

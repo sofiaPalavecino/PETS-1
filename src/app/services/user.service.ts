@@ -36,6 +36,7 @@ export class UserService {
   public cuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public planesCuidador: Observable<Cuidador> = new Observable<Cuidador>();
   public mascotas: Observable<mascota[]> = new Observable<mascota[]>();
+  public userId:string;
 
   constructor(
     private afs: AngularFirestore,
@@ -44,6 +45,7 @@ export class UserService {
   ) { 
     this.authSvc.afAuth.authState.subscribe((user) => {
       if (user) {
+        this.userId=user.uid
         this.paseador = this.obDataServ.getTrabajador(user.uid, "paseador");
         this.cuidador = this.obDataServ.getTrabajador(user.uid, "cuidador");
         this.planesPaseador = this.obDataServ.getPlanes(user.uid,"paseador");
@@ -239,14 +241,42 @@ export class UserService {
     })*/
   }
 
-  async crearMascota(nombreA:string,especieMascotaA:string,descripcionA:string,cuidadoA:string){
+  async crearMascota(nombreA:string,especieMascotaA:string,descripcionA:string,cuidadoA:string,fotosA:Array<any>){
     const creoMascota =  this.afs.collection("users").doc(this.authSvc.uid).collection("mascota").add({
       nombre : nombreA,
       cuidado : cuidadoA,
       descripcion : descripcionA,
       especie : especieMascotaA,
       calificacion : 0,
-      fotos: []
+      fotos: fotosA
     });
+  }
+
+  async actualizarCuidado(costo:number,cantidadDias:number,idPlan:string){
+    this.afs.collection("cuidador").doc(this.authSvc.uid).collection("plancuidador").doc(idPlan).set({
+      costo: costo,cantidad_dias:cantidadDias,
+    });
+  }
+
+  async actualizarPaseo(idPlan:string,costoA: number,
+    cupoA: number,
+    plazoA: string,
+    cantDiasPaseoA: number,
+    disponibilidadA: boolean,
+    estadoA: string,
+    lunes: Dia,
+    martes: Dia,
+    miercoles: Dia,
+    jueves: Dia,
+    viernes: Dia,
+    sabado: Dia,
+    domingo: Dia){
+      
+    this.afs.collection("paseador").doc(this.authSvc.uid).collection("planpaseador").doc(idPlan).set({
+      costo:costoA,cupo:cupoA,cantidad_dias:cantDiasPaseoA,plazo:plazoA,
+      disponibilidad:disponibilidadA,estado:estadoA,lunes:lunes.estado,
+      martes:martes.estado,miercoles:miercoles.estado,jueves:jueves.estado,viernes:viernes.estado,
+      sabado:sabado.estado,domingo:domingo.estado,
+    })
   }
 }

@@ -61,19 +61,18 @@ export class PubliService {
     nombre: string,
     especie: string,
     descripcion: string,
-    cuidados: string
+    cuidados: string,
+    fotos:any
   ) {
-    let estandar: String;
-    estandar = this.fotoEstandar(especie);
     const nuevaPubli = this.afs
       .collection("organización")
       .doc(this.org.oid)
       .collection("publicaciones")
       .add({
         nombre: nombre,
-        calificacion: null,
+        calificacion: "0",
         especie: especie,
-        foto: estandar,
+        foto: fotos,
         descripcion: descripcion,
         cuidados: cuidados,
         fecha: new Date(),

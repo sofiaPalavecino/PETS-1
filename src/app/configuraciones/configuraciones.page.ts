@@ -26,7 +26,7 @@ export class ConfiguracionesPage implements OnInit {
   administrando:string;
   foto:string;
   barrio:string;
-  cambioDeEstado:Array<string>;
+  cambioDeEstado:Map<string,string>;
   orgFavoritas:Array<string>;
   solicitud_admin:Array<string>;
   contratosActivos: Map<string,string>;
@@ -55,7 +55,7 @@ export class ConfiguracionesPage implements OnInit {
 
   async cambiarDatos(){
     
-    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI,this.uid,this.administrando,this.foto,this.barrio,this.orgFavoritas,this.solicitud_admin,this.contratosActivos,this.cambioDeEstado);
+    this.aServ.actualizarDatos(this.nombre,this.apellido,this.correo,this.fechaNacimiento,this.DNI);
   }
 
 

@@ -57,15 +57,44 @@
       <ion-row>
           
         <ion-col>
-          <a>Foto de la mascota:</a>
-          <button (click)="selectImage()">Subir foto</button>
+          <div *ngIf="listImages.length < 9" class="col">
+        
+            <i id="addImageIcon" class="bi bi-plus-square"></i>
+            <input
+              required
+              type="file"
+              autocomplete="off"
+              accept="image/*"
+              #inputFile
+              (change)="onFileSelected($event, 'product')"
+            />
+        </div>
         </ion-col>
 
       </ion-row>
 
     </ion-col>
 
-    <button type="submit" class="botonAceptar" (click)="subidaAnimal()">Aceptar</button>
+
+    <div class="imagesContainer">
+      <div class="container">
+        <div class="row row-cols-3">
+          <div *ngFor="let image of listImages; let i = index">
+            <div class="col text-center">
+              <img [src]="image | sanitizer" />
+              <button
+                type="button"
+                class="btn-close color-danger"
+                aria-label="Close"
+                (click)="deleteImage(i)"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="botonAceptar" (click)="subidaAnimal()" routerLink="/perfil-usuario">Aceptar</button>
   </div>
 
 </ion-content>

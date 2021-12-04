@@ -23,6 +23,10 @@ export class NotificacionesPage implements OnInit {
 
   public administrando:Observable<Organizacion>=null
   public user: Observable<userProfile>=null
+  public estadoPaseador:Array<any> = new Array<any>();
+  public estadosCuidador:Array<any> = new Array<any>();
+  public estadosTransito:Array<any> = new Array<any>();
+  public cambioEstadoMap:Map<string,string> = new Map;
   uid:string
   tab: string;
   tabPrevia: string;
@@ -30,15 +34,33 @@ export class NotificacionesPage implements OnInit {
   constructor(private authSvc: AuthService, private userServ: UserService, private org: OrganizacionService, private trabajo: PaseosService, private date:DatePipe, private orgas: OrganizacionesService, private ods: ObtenerDataService) {
     this.authSvc.afAuth.authState.subscribe((usuario)=>{
       this.uid=usuario.uid
+      this.administrando = this.orgas.getAdministrando(this.uid);
+      this.user = this.ods.getUser(this.uid);
+      this.user.subscribe((usuario)=>{
+        this.estadoPaseador = [];
+        this.estadosCuidador = [];
+        this.estadosTransito = [];
+        this.cambioEstadoMap=new Map(Object.entries(usuario.cambioDeEstado));
+        this.cambioEstadoMap.forEach((value: string, key: string) => {
+          if(value == "Paseador"){
+            this.estadoPaseador.push(key);
+          }
+          else if(value == "Cuidador"){
+            this.estadosCuidador.push(key);
+          }
+          else if(value == "Organizacion"){
+            this.estadosTransito.push(key);
+          }
+          //console.log(key, value);
+      });
+      })
     })
   }
 
   ngOnInit() {
     this.tab = 'Servicios';
     this.tabPrevia = this.tab;
-    this.administrando = this.orgas.getAdministrando(this.uid);
-    this.user = this.ods.getUser(this.uid);
-   
+    
 
   
   }

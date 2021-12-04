@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConfigPublicacionPageRoutingModule } from './config-publicacion-routing.module';
 
 import { ConfigPublicacionPage } from './config-publicacion.page';
+import { SanitizerPipe } from '../sanitizer.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ConfigPublicacionPage } from './config-publicacion.page';
     IonicModule,
     ConfigPublicacionPageRoutingModule
   ],
-  declarations: [ConfigPublicacionPage]
+  declarations: [ConfigPublicacionPage,SanitizerPipe]
 })
 export class ConfigPublicacionPageModule {}

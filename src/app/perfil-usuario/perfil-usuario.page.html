@@ -53,7 +53,7 @@
                           <span class="informacion-paseo">Cupos disponibles:</span>
                           <span class="informacion-paseo">{{plan.cupo}}</span>
                         </ion-row>
-                        <button class="button-green" style="width: 100%;" >Editar</button>
+                        <button class="button-green" style="width: 100%;" routerLink="/crear-paseo/{{plan.docId}}">Editar</button>
                       </ion-card-content>
                     </ion-col>
                    </ion-row>
@@ -63,7 +63,7 @@
           </ion-row>  
         </ng-template>
         <ng-template #elseBlock2>
-          <ion-button class="button-green" style="--background: rgb(123, 215, 181)" routerLink="/crear-paseo">Hacerme paseador ya</ion-button>
+          <ion-button class="button-green" style="--background: rgb(123, 215, 181)" routerLink="/crear-paseo/crearPaseo">Hacerme paseador ya</ion-button>
         </ng-template>
       </ion-col>
     </ion-row>
@@ -86,7 +86,7 @@
                   <h3 class="precio-dia-cuidado">: ${{cuidador.precio_dia}}</h3>
                 </ion-row>
                 <ion-row>
-                  <mat-raised-button routerLink="/plan-cuidado">Editar</mat-raised-button>
+                  <button class="button-green" style="width: 100%;" routerLink="/plan-cuidado/planBasico">Editar plan básico</button>
                 </ion-row>
                 <ion-row>
                   <div class="div-paseos" *ngFor="let oferta of userServ.planesCuidador | async ">
@@ -102,7 +102,7 @@
                           </ion-card-content>
                         </ion-col>
                         <div>
-                          <button class="boton-editar-cuidados">Editar</button>
+                          <button class="boton-editar-cuidados" [routerLink]="['/plan-cuidado',oferta.docId]">Editar</button>
                         </div>
                       </ion-row>
                     </ion-card>
@@ -127,9 +127,18 @@
             <h2 class="titulo-apartado-paseo" >Mascotas</h2>
           </ion-row>
           <div class='div-mascotas'>
-            <ion-slides *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas' pager="true">
-              <app-mascota-card id={{mascota.docId}} idUser={{usuario.uid}}></app-mascota-card>
-            </ion-slides>
+            
+                
+                <app-mascota-card *ngFor="let mascota of userServ.mascotas | async" class='div-mascotas'
+                id={{mascota.docId}} idUser={{usuario.uid}} style="width:90%" pager="true"></app-mascota-card>
+              
+                <!-- <div class="row row-cols-2">
+                  <div *ngFor="let mascota of userServ.mascotas | async" class="col text-center">
+                    <app-mascota-card class='div-mascotas'
+                    id={{mascota.docId}} idUser={{usuario.uid}} style="width:90%" pager="true"></app-mascota-card>
+                  </div>
+                </div> -->
+            
           </div>
         </ion-row>
       </ion-col>

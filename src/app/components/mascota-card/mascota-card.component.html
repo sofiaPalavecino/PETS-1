@@ -1,7 +1,11 @@
 <ion-card class="card-mascota" [routerLink]="['/mascota',idUser,id]">
-  <div *ngFor="let fotuli of mascota1.fotos">
-    <img src={{fotuli}}>
-  </div>
+  <div>
+  <ion-slides>
+    <ion-slide *ngFor="let fotuli of mascota1.fotos">
+      <img class="img-mascota-card" src={{fotuli}}>
+    </ion-slide>
+  </ion-slides>
+</div>
   <ion-row>
     <ion-col>
       <ion-card-header class="header-titulo-paseo">
@@ -14,3 +18,4 @@
     </ion-col>
   </ion-row>
 </ion-card>
+

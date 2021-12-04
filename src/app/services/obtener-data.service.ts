@@ -59,6 +59,7 @@ export class ObtenerDataService {
   }
 
   getUser(idUsuario:string):Observable<any>{
+    console.log(idUsuario);
     return this.afs.doc<userProfile>(`users/${idUsuario}`).valueChanges({idField:"docId"});
   }
 
