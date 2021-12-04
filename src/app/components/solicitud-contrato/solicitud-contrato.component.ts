@@ -16,6 +16,7 @@ import { Organizacion } from "src/app/shared/organizacion.interface"
 import { ChatServiceService } from "src/app/services/chat-service.service";
 import { DatePipe } from "@angular/common";
 import { Routes } from "@angular/router";
+import { Router } from "@angular/router";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { mascota } from "../../shared/mascota.interface";
@@ -74,7 +75,8 @@ export class SolicitudContratoComponent implements OnInit {
     private route: ActivatedRoute,
     private publis: PubliService,
     private date: DatePipe,
-    private chatServ:ChatServiceService
+    private chatServ:ChatServiceService,
+    private router:Router
   ) { }
 
   async ngOnInit() {
@@ -131,7 +133,6 @@ export class SolicitudContratoComponent implements OnInit {
       this.contratoOrganizacion = this.publis.getContrato(this.idContrato);
       this.organizacion = this.orgas.getOrganizacion(this.idOrga);
       this.contratoOrganizacion.subscribe((contrato) => {
-        console.log(contrato);
         if (contrato.tipo == 'Transito'){
           this.emojiTipo = String.fromCodePoint(128054) + String.fromCodePoint(9203);
         }
@@ -146,7 +147,6 @@ export class SolicitudContratoComponent implements OnInit {
           this.idPubli,
           this.idOrga
         );
-        console.log("aaaaaaaaaaaaaaa");
 
         switch (contrato.fecha) {
           case this.date.transform(new Date(), "dd/MM/yyyy"):
@@ -287,7 +287,6 @@ export class SolicitudContratoComponent implements OnInit {
                   this.mascotas.push(mascota);
                 }
               });
-              console.log(this.mascotas);
             });
           });
           if (this.tipo == "Paseador") {
@@ -410,7 +409,6 @@ export class SolicitudContratoComponent implements OnInit {
             break;
         }
       });
-      console.log(disponibilidades);
       this.afs
         .doc(
           "paseador/" +
@@ -446,8 +444,6 @@ export class SolicitudContratoComponent implements OnInit {
       else semana.push(true);
       if (disponibilidades.Domingo <= 0) semana.push(false);
       else semana.push(true);
-
-      console.log(semana);
 
       this.afs
         .doc(
@@ -490,6 +486,8 @@ export class SolicitudContratoComponent implements OnInit {
     if (this.tipo == "Paseador") {
 
     }
+
+    this.router.navigate(["/chat"]);
   }
 
   async rechazarContrato(idContrato: string) {
